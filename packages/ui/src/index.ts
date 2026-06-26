@@ -47,6 +47,7 @@ export {
   CarouselPrevious,
   useCarousel
 } from './components/ui/carousel'
+export { ChartBarSeries, ChartContainer, ChartLegend, ChartLineSeries, ChartTooltip } from './components/ui/chart'
 export { Checkbox } from './components/ui/checkbox'
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from './components/ui/collapsible'
 export {
@@ -93,6 +94,7 @@ export {
   ContextMenuSubTrigger,
   ContextMenuTrigger
 } from './components/ui/context-menu'
+export { DataTable } from './components/ui/data-table'
 export { DatePicker } from './components/ui/date-picker'
 export {
   Dialog,
@@ -317,6 +319,15 @@ export type {
   CarouselPreviousProps,
   CarouselProps
 } from './components/ui/carousel'
+export type {
+  ChartBarSeriesProps,
+  ChartConfig,
+  ChartContainerProps,
+  ChartDatum,
+  ChartLegendProps,
+  ChartLineSeriesProps,
+  ChartTooltipProps
+} from './components/ui/chart'
 export type { CheckboxProps } from './components/ui/checkbox'
 export type {
   CollapsibleContentProps,
@@ -366,6 +377,7 @@ export type {
   ContextMenuSubTriggerProps,
   ContextMenuTriggerProps
 } from './components/ui/context-menu'
+export type { DataTableColumn, DataTableProps, DataTableSort } from './components/ui/data-table'
 export type { DatePickerProps } from './components/ui/date-picker'
 export type {
   DialogCloseProps,
