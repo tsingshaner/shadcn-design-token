@@ -32,4 +32,9 @@
     color: var(--color-foreground);
     background: var(--color-background);
   }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
 }

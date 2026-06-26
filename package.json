@@ -23,9 +23,11 @@
     "*.{vue,svg,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome check --write"
   },
   "scripts": {
+    "check": "pnpm biome check . --fix",
     "format": "biome format . --write",
     "lint": "biome lint . --write",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "test": "pnpm --filter=ui test"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm nano-staged",
