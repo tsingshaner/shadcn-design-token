@@ -21,7 +21,7 @@ describe('Button', () => {
       </Button>
     )
 
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass('border', 'h-9')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass('border', 'h-7')
   })
 
   test('supports Base UI render composition', () => {
