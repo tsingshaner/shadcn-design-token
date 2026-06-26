@@ -1,25 +1,36 @@
 {
-	"author": "",
-	"description": "",
-	"devDependencies": {
-		"@biomejs/biome": "^2.5.1",
-		"@qingshaner/eslint-config": "^2.0.0",
-		"@types/node": "^25.9.4",
-		"typescript": "7.0.1-rc",
-		"vite": "^8.1.0",
-		"vitest": "^4.1.9"
-	},
-	"engines": {
-		"node": ">=24.0.0",
-		"pnpm": ">=11.0.4"
-	},
-	"keywords": [],
-	"license": "ISC",
-	"main": "index.js",
-	"name": "shadcn-design-token",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"type": "module",
-	"version": "1.0.0"
+  "author": "",
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.1",
+    "@qingshaner/eslint-config": "^2.0.0",
+    "@types/node": "^25.9.4",
+    "nano-staged": "^1.0.2",
+    "simple-git-hooks": "^2.13.1",
+    "typescript": "7.0.1-rc",
+    "vite": "^8.1.0",
+    "vitest": "^4.1.9"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.4"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "shadcn-design-token",
+  "nano-staged": {
+    "*.{vue,svg,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome check --write"
+  },
+  "scripts": {
+    "format": "biome format . --write",
+    "lint": "biome lint . --write",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm nano-staged",
+    "pre-push": "pnpm test"
+  },
+  "type": "module",
+  "version": "1.0.0"
 }

@@ -1,7 +1,6 @@
-import "./styles/globals.css";
+import './styles/globals.css'
 
-export { Button, buttonVariants } from "./components/ui/button";
-export type { ButtonProps } from "./components/ui/button";
+export { Button, buttonVariants } from './components/ui/button'
 export {
   Card,
   CardAction,
@@ -9,6 +8,8 @@ export {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "./components/ui/card";
-export { cn } from "./lib/utils";
+  CardTitle
+} from './components/ui/card'
+export { cn } from './lib/utils'
+
+export type { ButtonProps } from './components/ui/button'

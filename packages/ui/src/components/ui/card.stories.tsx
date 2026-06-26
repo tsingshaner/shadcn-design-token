@@ -1,27 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "./button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./card";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+
+import { Button } from './button'
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card'
 
 const meta = {
-  title: "UI/Card",
   component: Card,
-  tags: ["autodocs"],
   parameters: {
-    layout: "centered",
+    layout: 'centered'
   },
-} satisfies Meta<typeof Card>;
+  tags: ['autodocs'],
+  title: 'UI/Card'
+} satisfies Meta<typeof Card>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => (
@@ -37,13 +30,12 @@ export const Default: Story = {
       </CardHeader>
       <CardContent>
         <p className="text-muted-foreground text-sm">
-          Build primitives in a shadcn-like structure while keeping them easy to
-          theme and test.
+          Build primitives in a shadcn-like structure while keeping them easy to theme and test.
         </p>
       </CardContent>
       <CardFooter>
         <Button className="w-full">Open library</Button>
       </CardFooter>
     </Card>
-  ),
-};
+  )
+}

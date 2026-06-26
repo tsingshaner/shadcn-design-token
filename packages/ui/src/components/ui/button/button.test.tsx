@@ -1,41 +1,36 @@
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, test } from "vitest";
-import { Button } from "./button";
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, test } from 'vitest'
 
-describe("Button", () => {
+import { Button } from './button'
+
+describe('Button', () => {
   afterEach(() => {
-    cleanup();
-  });
+    cleanup()
+  })
 
-  test("renders as a button by default", () => {
-    render(<Button>Save</Button>);
+  test('renders as a button by default', () => {
+    render(<Button>Save</Button>)
 
-    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
-  });
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument()
+  })
 
-  test("applies variant and size classes", () => {
+  test('applies variant and size classes', () => {
     render(
       <Button size="sm" variant="outline">
         Save
-      </Button>,
-    );
+      </Button>
+    )
 
-    expect(screen.getByRole("button", { name: "Save" })).toHaveClass(
-      "border",
-      "h-9",
-    );
-  });
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass('border', 'h-9')
+  })
 
-  test("supports Base UI render composition", () => {
+  test('supports Base UI render composition', () => {
     render(
       <Button nativeButton={false} render={<div />}>
         Save
-      </Button>,
-    );
+      </Button>
+    )
 
-    expect(screen.getByRole("button", { name: "Save" })).toHaveAttribute(
-      "data-slot",
-      "button",
-    );
-  });
-});
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'button')
+  })
+})

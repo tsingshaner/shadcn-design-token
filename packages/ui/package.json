@@ -1,29 +1,4 @@
 {
-  "name": "@packages/ui",
-  "private": true,
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./styles.css": "./dist/styles.css"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
-    "dev": "storybook dev -p 6006",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "tailwind-variants": "^3.2.2"
@@ -31,10 +6,10 @@
   "devDependencies": {
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/react-vite": "^10.4.6",
+    "@tailwindcss/vite": "^4.3.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@tailwindcss/vite": "^4.3.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.0",
@@ -46,5 +21,30 @@
     "typescript": "7.0.1-rc",
     "vite": "^8.1.0",
     "vitest": "^4.1.9"
-  }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "name": "@packages/ui",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "private": true,
+  "scripts": {
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "build-storybook": "storybook build",
+    "dev": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "type": "module"
 }

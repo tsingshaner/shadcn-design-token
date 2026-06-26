@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "declaration": true,
@@ -18,5 +17,6 @@
     "target": "ES2022",
     "types": ["vite/client", "vitest/globals"]
   },
+  "extends": "../../tsconfig.json",
   "include": [".storybook", "src", "vite.config.ts", "vitest.setup.ts"]
 }
