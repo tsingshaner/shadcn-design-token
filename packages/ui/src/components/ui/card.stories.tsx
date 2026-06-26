@@ -36,7 +36,7 @@ export const Default: Story = {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Build primitives in a shadcn-like structure while keeping them easy to
           theme and test.
         </p>

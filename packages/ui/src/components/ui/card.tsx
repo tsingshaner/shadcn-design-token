@@ -49,7 +49,7 @@ export const CardDescription = ({
 }: React.ComponentProps<"div">) => {
   return (
     <div
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("text-muted-foreground text-sm", className)}
       data-slot="card-description"
       {...props}
     />

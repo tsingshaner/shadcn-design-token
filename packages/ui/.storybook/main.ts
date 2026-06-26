@@ -3,8 +3,8 @@ import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/react-vite";
 import { resolve, dirname } from "node:path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const currentFilename = fileURLToPath(import.meta.url);
+const currentDirname = dirname(currentFilename);
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx)"],
@@ -13,11 +13,11 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
-  viteFinal: async (config) => {
+  viteFinal: (config) => {
     config.resolve ??= {};
     config.resolve.alias = {
       ...(config.resolve.alias ?? {}),
-      "@": resolve(__dirname, "../src"),
+      "@": resolve(currentDirname, "../src"),
     };
 
     return config;
