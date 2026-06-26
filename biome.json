@@ -1,0 +1,17 @@
+{
+	"$schema": "node_modules/@biomejs/biome/configuration_schema.json",
+	"extends": ["@qingshaner/eslint-config/biome"],
+	"files": {
+		"ignoreUnknown": true
+	},
+	"javascript": {
+		"jsxRuntime": "transparent"
+	},
+	"linter": {
+    "rules": {
+      "style": {
+        "useComponentExportOnlyModules": "off"
+      }
+    }
+  }
+}
