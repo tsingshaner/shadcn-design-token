@@ -41,6 +41,33 @@ export {
 export { Checkbox } from './components/ui/checkbox'
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from './components/ui/collapsible'
 export {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxGroupLabel,
+  ComboboxInput,
+  ComboboxInputGroup,
+  ComboboxItem,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxValue
+} from './components/ui/combobox'
+export {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandGroupHeading,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut
+} from './components/ui/command'
+export {
   ContextMenu,
   ContextMenuCheckboxItem,
   ContextMenuContent,
@@ -179,6 +206,25 @@ export {
   SheetTitle,
   SheetTrigger
 } from './components/ui/sheet'
+export {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar
+} from './components/ui/sidebar'
 export { Skeleton } from './components/ui/skeleton'
 export { Slider } from './components/ui/slider'
 export { Sonner, sonnerToast } from './components/ui/sonner'
@@ -258,6 +304,32 @@ export type {
   CollapsibleProps,
   CollapsibleTriggerProps
 } from './components/ui/collapsible'
+export type {
+  ComboboxContentProps,
+  ComboboxEmptyProps,
+  ComboboxGroupLabelProps,
+  ComboboxGroupProps,
+  ComboboxInputGroupProps,
+  ComboboxInputProps,
+  ComboboxItemProps,
+  ComboboxLabelProps,
+  ComboboxListProps,
+  ComboboxProps,
+  ComboboxSeparatorProps,
+  ComboboxTriggerProps,
+  ComboboxValueProps
+} from './components/ui/combobox'
+export type {
+  CommandDialogProps,
+  CommandEmptyProps,
+  CommandGroupProps,
+  CommandInputProps,
+  CommandItemProps,
+  CommandListProps,
+  CommandProps,
+  CommandSeparatorProps,
+  CommandShortcutProps
+} from './components/ui/command'
 export type {
   ContextMenuCheckboxItemProps,
   ContextMenuContentProps,
@@ -408,6 +480,24 @@ export type {
   SheetTitleProps,
   SheetTriggerProps
 } from './components/ui/sheet'
+export type {
+  SidebarContentProps,
+  SidebarFooterProps,
+  SidebarGroupContentProps,
+  SidebarGroupLabelProps,
+  SidebarGroupProps,
+  SidebarHeaderProps,
+  SidebarInsetProps,
+  SidebarMenuBadgeProps,
+  SidebarMenuButtonProps,
+  SidebarMenuItemProps,
+  SidebarMenuProps,
+  SidebarProps,
+  SidebarProviderProps,
+  SidebarRailProps,
+  SidebarSeparatorProps,
+  SidebarTriggerProps
+} from './components/ui/sidebar'
 export type { SkeletonProps } from './components/ui/skeleton'
 export type { SliderProps } from './components/ui/slider'
 export type { SonnerProps } from './components/ui/sonner'
