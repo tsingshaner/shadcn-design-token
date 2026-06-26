@@ -69,6 +69,19 @@ export {
   DialogTitle,
   DialogTrigger
 } from './components/ui/dialog'
+export { DirectionProvider, useDirection } from './components/ui/direction'
+export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger
+} from './components/ui/drawer'
 export {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -97,6 +110,7 @@ export {
   InputGroupInput,
   InputGroupText
 } from './components/ui/input-group'
+export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './components/ui/input-otp'
 export { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from './components/ui/item'
 export { Kbd } from './components/ui/kbd'
 export { Label } from './components/ui/label'
@@ -119,6 +133,16 @@ export {
   MenubarTrigger
 } from './components/ui/menubar'
 export { NativeSelect } from './components/ui/native-select'
+export {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle
+} from './components/ui/navigation-menu'
 export {
   Pagination,
   PaginationContent,
@@ -222,6 +246,17 @@ export type {
   DialogTitleProps,
   DialogTriggerProps
 } from './components/ui/dialog'
+export type { DirectionProviderProps } from './components/ui/direction'
+export type {
+  DrawerCloseProps,
+  DrawerContentProps,
+  DrawerDescriptionProps,
+  DrawerOverlayProps,
+  DrawerPortalProps,
+  DrawerProps,
+  DrawerTitleProps,
+  DrawerTriggerProps
+} from './components/ui/drawer'
 export type {
   DropdownMenuCheckboxItemProps,
   DropdownMenuContentProps,
@@ -265,6 +300,12 @@ export type {
   InputGroupTextProps
 } from './components/ui/input-group'
 export type {
+  InputOTPGroupProps,
+  InputOTPProps,
+  InputOTPSeparatorProps,
+  InputOTPSlotProps
+} from './components/ui/input-otp'
+export type {
   ItemActionsProps,
   ItemContentProps,
   ItemDescriptionProps,
@@ -293,6 +334,15 @@ export type {
   MenubarTriggerProps
 } from './components/ui/menubar'
 export type { NativeSelectProps } from './components/ui/native-select'
+export type {
+  NavigationMenuContentProps,
+  NavigationMenuItemProps,
+  NavigationMenuLinkProps,
+  NavigationMenuListProps,
+  NavigationMenuProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuViewportProps
+} from './components/ui/navigation-menu'
 export type { PaginationLinkProps, PaginationProps } from './components/ui/pagination'
 export type { PopoverCloseProps, PopoverContentProps, PopoverProps, PopoverTriggerProps } from './components/ui/popover'
 export type { ProgressProps } from './components/ui/progress'
