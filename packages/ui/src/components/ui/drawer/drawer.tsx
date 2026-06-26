@@ -8,6 +8,7 @@ type DrawerProps = DrawerPrimitive.Root.Props
 type DrawerTriggerProps = DrawerPrimitive.Trigger.Props
 type DrawerPortalProps = DrawerPrimitive.Portal.Props
 type DrawerOverlayProps = DrawerPrimitive.Backdrop.Props
+type DrawerViewportProps = DrawerPrimitive.Viewport.Props
 type DrawerContentProps = DrawerPrimitive.Popup.Props
 type DrawerTitleProps = DrawerPrimitive.Title.Props
 type DrawerDescriptionProps = DrawerPrimitive.Description.Props
@@ -36,22 +37,32 @@ const DrawerOverlay = ({ className, ...props }: DrawerOverlayProps) => (
   />
 )
 
+const DrawerViewport = ({ className, ...props }: DrawerViewportProps) => (
+  <DrawerPrimitive.Viewport
+    className={cn('pointer-events-none fixed inset-0 z-50', className)}
+    data-slot="drawer-viewport"
+    {...props}
+  />
+)
+
 const DrawerContent = ({ children, className, ...props }: DrawerContentProps) => (
   <DrawerPortal>
     <DrawerOverlay />
-    <DrawerPrimitive.Popup
-      className={cn(
-        'fixed inset-x-0 bottom-0 z-50 mt-24 flex max-h-[80vh] flex-col rounded-t-lg border bg-background shadow-lg',
-        className
-      )}
-      data-slot="drawer-content"
-      {...props}
-    >
-      <div className="mx-auto mt-4 h-2 w-24 rounded-full bg-muted" data-slot="drawer-handle" />
-      <DrawerPrimitive.Content className="flex flex-col gap-4 p-6" data-slot="drawer-body">
-        {children}
-      </DrawerPrimitive.Content>
-    </DrawerPrimitive.Popup>
+    <DrawerViewport>
+      <DrawerPrimitive.Popup
+        className={cn(
+          'pointer-events-auto fixed inset-x-0 bottom-0 mt-24 flex max-h-[80vh] flex-col rounded-t-lg border bg-background shadow-lg',
+          className
+        )}
+        data-slot="drawer-content"
+        {...props}
+      >
+        <div className="mx-auto mt-4 h-2 w-24 rounded-full bg-muted" data-slot="drawer-handle" />
+        <DrawerPrimitive.Content className="flex flex-col gap-4 p-6" data-slot="drawer-body">
+          {children}
+        </DrawerPrimitive.Content>
+      </DrawerPrimitive.Popup>
+    </DrawerViewport>
   </DrawerPortal>
 )
 
@@ -99,7 +110,8 @@ export type {
   DrawerPortalProps,
   DrawerProps,
   DrawerTitleProps,
-  DrawerTriggerProps
+  DrawerTriggerProps,
+  DrawerViewportProps
 }
 export {
   Drawer,
@@ -111,5 +123,6 @@ export {
   DrawerOverlay,
   DrawerPortal,
   DrawerTitle,
-  DrawerTrigger
+  DrawerTrigger,
+  DrawerViewport
 }
