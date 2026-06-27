@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -70,6 +72,12 @@ export const Default: Story = {
     </Avatar>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('img', { name: '@shadcn' })).toHaveAttribute('data-slot', 'avatar-image')
+  await expect(canvasElement.querySelector('[data-slot="avatar"]')).toHaveAttribute('data-size', 'default')
+}
 
 export const WithBadge: Story = {
   parameters: {
@@ -87,6 +95,9 @@ export const WithBadge: Story = {
       <AvatarBadge className="bg-green-600" />
     </Avatar>
   )
+}
+WithBadge.play = async ({ canvasElement }) => {
+  await expect(canvasElement.querySelector('[data-slot="avatar-badge"]')).toHaveClass('bg-green-600')
 }
 
 export const BadgeWithIcon: Story = {
@@ -151,6 +162,12 @@ export const GroupCount: Story = {
     </AvatarGroup>
   )
 }
+GroupCount.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('+3')).toHaveAttribute('data-slot', 'avatar-group-count')
+  await expect(canvasElement.querySelectorAll('[data-slot="avatar"]')).toHaveLength(3)
+}
 
 export const GroupCountIcon: Story = {
   parameters: {
@@ -195,6 +212,13 @@ export const Sizes: Story = {
       ))}
     </div>
   )
+}
+Sizes.play = async ({ canvasElement }) => {
+  const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]')
+
+  await expect(avatars[0]).toHaveAttribute('data-size', 'sm')
+  await expect(avatars[1]).toHaveAttribute('data-size', 'default')
+  await expect(avatars[2]).toHaveAttribute('data-size', 'lg')
 }
 
 export const Dropdown: Story = {

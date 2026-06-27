@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from './native-select'
@@ -45,6 +47,14 @@ export const Default: Story = {
     </NativeSelect>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const select = canvas.getByRole('combobox', { name: 'Component' })
+
+  await userEvent.selectOptions(select, 'backend')
+
+  await expect(select).toHaveValue('backend')
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -64,6 +74,11 @@ export const Disabled: Story = {
     </NativeSelect>
   )
 }
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('combobox', { name: 'Disabled fruit' })).toBeDisabled()
+}
 
 export const Invalid: Story = {
   parameters: {
@@ -82,4 +97,9 @@ export const Invalid: Story = {
       <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
     </NativeSelect>
   )
+}
+Invalid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('combobox', { name: 'Invalid fruit' })).toHaveAttribute('aria-invalid', 'true')
 }

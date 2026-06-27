@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Input } from '../input'
@@ -28,4 +30,12 @@ export const Default: Story = {
       <Input id="email" placeholder="name@example.com" />
     </div>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByLabelText('Email')
+
+  await userEvent.type(input, 'name@example.com')
+
+  await expect(input).toHaveValue('name@example.com')
 }

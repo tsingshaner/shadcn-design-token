@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -59,6 +61,11 @@ export const Size: Story = {
     </div>
   )
 }
+Size.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('status', { name: 'Loading' })).toHaveLength(4)
+}
 
 export const ButtonExample: Story = {
   name: 'Button',
@@ -86,6 +93,16 @@ export const ButtonExample: Story = {
       </Button>
     </div>
   )
+}
+ButtonExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const buttons = canvas.getAllByRole('button')
+
+  await expect(buttons).toHaveLength(3)
+  await expect(buttons[0]).toBeDisabled()
+  await expect(buttons[1]).toBeDisabled()
+  await expect(buttons[2]).toBeDisabled()
+  await expect(canvas.getAllByRole('status', { name: 'Loading' })).toHaveLength(3)
 }
 
 export const BadgeExample: Story = {
@@ -174,4 +191,11 @@ export const EmptyExample: Story = {
       </EmptyContent>
     </Empty>
   )
+}
+EmptyExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('status', { name: 'Loading' })).toBeInTheDocument()
+  await expect(canvas.getByText('Processing your request')).toBeVisible()
+  await expect(canvas.getByRole('button', { name: 'Cancel' })).toBeEnabled()
 }

@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -26,6 +28,14 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const textarea = canvas.getByPlaceholderText('Type your message here.')
+
+  await userEvent.type(textarea, 'Ship the token update')
+
+  await expect(textarea).toHaveValue('Ship the token update')
+}
 
 export const FieldExample: Story = {
   parameters: {
@@ -61,6 +71,11 @@ export const Disabled: Story = {
     </Field>
   )
 }
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Message')).toBeDisabled()
+}
 
 export const Invalid: Story = {
   parameters: {
@@ -79,6 +94,12 @@ export const Invalid: Story = {
     </Field>
   )
 }
+Invalid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Message')).toHaveAttribute('aria-invalid', 'true')
+  await expect(canvas.getByText('Please enter a valid message.')).toBeVisible()
+}
 
 export const WithButton: Story = {
   parameters: {
@@ -95,4 +116,10 @@ export const WithButton: Story = {
       <Button>Send message</Button>
     </div>
   )
+}
+WithButton.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('textbox')).toBeEnabled()
+  await expect(canvas.getByRole('button', { name: 'Send message' })).toBeEnabled()
 }

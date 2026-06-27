@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Separator } from './separator'
@@ -46,6 +48,14 @@ export const Vertical: Story = {
     </div>
   )
 }
+Vertical.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const separators = canvasElement.querySelectorAll('[data-slot="separator"]')
+
+  await expect(canvas.getByText('Design tokens')).toBeVisible()
+  await expect(separators).toHaveLength(3)
+  await expect(separators[1]).toHaveAttribute('data-orientation', 'vertical')
+}
 
 export const Menu: Story = {
   parameters: {
@@ -70,6 +80,12 @@ export const Menu: Story = {
       </button>
     </div>
   )
+}
+Menu.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Profile' })).toBeEnabled()
+  await expect(canvasElement.querySelector('[data-slot="separator"]')).toHaveAttribute('data-orientation', 'horizontal')
 }
 
 export const List: Story = {

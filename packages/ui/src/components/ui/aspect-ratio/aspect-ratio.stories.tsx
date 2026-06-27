@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { AspectRatio } from './aspect-ratio'
@@ -35,6 +37,13 @@ export const Default: Story = {
     </AspectRatio>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const aspectRatio = canvasElement.querySelector('[data-slot="aspect-ratio"]')
+
+  await expect(canvas.getByText('16:9')).toBeVisible()
+  await expect(aspectRatio).toHaveStyle({ aspectRatio: '1.7777777777777777' })
+}
 
 export const Square: Story = {
   args: {
@@ -54,6 +63,9 @@ export const Square: Story = {
     </AspectRatio>
   )
 }
+Square.play = async ({ canvasElement }) => {
+  await expect(canvasElement.querySelector('[data-slot="aspect-ratio"]')).toHaveStyle({ aspectRatio: '1' })
+}
 
 export const Portrait: Story = {
   args: {
@@ -72,4 +84,7 @@ export const Portrait: Story = {
       <div className="flex size-full items-center justify-center text-muted-foreground text-sm">3:4</div>
     </AspectRatio>
   )
+}
+Portrait.play = async ({ canvasElement }) => {
+  await expect(canvasElement.querySelector('[data-slot="aspect-ratio"]')).toHaveStyle({ aspectRatio: '0.75' })
 }

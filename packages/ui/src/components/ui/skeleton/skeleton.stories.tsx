@@ -1,3 +1,5 @@
+import { expect } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Skeleton } from './skeleton'
@@ -39,6 +41,12 @@ export const Avatar: Story = {
     </div>
   )
 }
+Avatar.play = async ({ canvasElement }) => {
+  const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]')
+
+  await expect(skeletons).toHaveLength(3)
+  await expect(skeletons[0]).toHaveClass('rounded-full')
+}
 
 export const Card: Story = {
   parameters: {
@@ -56,6 +64,12 @@ export const Card: Story = {
       <Skeleton className="h-4 w-1/2" />
     </div>
   )
+}
+Card.play = async ({ canvasElement }) => {
+  const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]')
+
+  await expect(skeletons).toHaveLength(3)
+  await expect(skeletons[0]).toHaveClass('aspect-video')
 }
 
 export const Text: Story = {
@@ -124,4 +138,7 @@ export const Table: Story = {
       ))}
     </div>
   )
+}
+Table.play = async ({ canvasElement }) => {
+  await expect(canvasElement.querySelectorAll('[data-slot="skeleton"]')).toHaveLength(12)
 }

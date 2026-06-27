@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -50,6 +52,9 @@ export const Default: Story = {
     </div>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  await expect(canvasElement.querySelectorAll('[data-slot="kbd"]')).toHaveLength(2)
+}
 
 export const Group: Story = {
   parameters: {
@@ -73,6 +78,12 @@ export const Group: Story = {
     </div>
   )
 }
+Group.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Ctrl + B')).toHaveAttribute('data-slot', 'kbd')
+  await expect(canvasElement.querySelector('[data-slot="kbd-group"]')).toBeInTheDocument()
+}
 
 export const ButtonExample: Story = {
   name: 'Button',
@@ -92,6 +103,12 @@ export const ButtonExample: Story = {
       </Kbd>
     </Button>
   )
+}
+ButtonExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: /Accept/ })).toBeEnabled()
+  await expect(canvas.getByText('⏎')).toHaveAttribute('data-slot', 'kbd')
 }
 
 export const TooltipExample: Story = {
@@ -152,4 +169,13 @@ export const InputGroupExample: Story = {
       </InputGroup>
     </div>
   )
+}
+InputGroupExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByPlaceholderText('Search...')
+
+  await userEvent.type(input, 'tokens')
+
+  await expect(input).toHaveValue('tokens')
+  await expect(canvasElement.querySelectorAll('[data-slot="kbd"]')).toHaveLength(2)
 }

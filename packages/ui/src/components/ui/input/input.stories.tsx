@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -83,6 +85,14 @@ export const Basic: Story = {
     }
   }
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByPlaceholderText('Enter text')
+
+  await userEvent.type(input, 'Token name')
+
+  await expect(input).toHaveValue('Token name')
+}
 
 export const FieldExample: Story = {
   parameters: {
@@ -149,6 +159,12 @@ export const Disabled: Story = {
     </Field>
   )
 }
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Email')).toBeDisabled()
+  await expect(canvas.getByText('This field is currently disabled.')).toBeVisible()
+}
 
 export const Invalid: Story = {
   parameters: {
@@ -166,6 +182,12 @@ export const Invalid: Story = {
       <FieldDescription>This field contains validation errors.</FieldDescription>
     </Field>
   )
+}
+Invalid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Invalid Input')).toHaveAttribute('aria-invalid', 'true')
+  await expect(canvas.getByText('This field contains validation errors.')).toBeVisible()
 }
 
 export const File: Story = {
@@ -244,6 +266,11 @@ export const Required: Story = {
       <FieldDescription>This field must be filled out.</FieldDescription>
     </Field>
   )
+}
+Required.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText(/Required Field/)).toBeRequired()
 }
 
 export const WithBadge: Story = {
@@ -370,4 +397,11 @@ export const Form: Story = {
       </FieldGroup>
     </form>
   )
+}
+Form.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Name')).toBeRequired()
+  await expect(canvas.getByLabelText('Email')).toHaveAttribute('type', 'email')
+  await expect(canvas.getByRole('button', { name: 'Submit' })).toBeEnabled()
 }
