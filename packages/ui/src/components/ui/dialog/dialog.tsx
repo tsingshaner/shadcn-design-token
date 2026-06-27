@@ -8,7 +8,9 @@ type DialogProps = DialogPrimitive.Root.Props
 type DialogTriggerProps = DialogPrimitive.Trigger.Props
 type DialogPortalProps = DialogPrimitive.Portal.Props
 type DialogOverlayProps = DialogPrimitive.Backdrop.Props
-type DialogContentProps = DialogPrimitive.Popup.Props
+type DialogContentProps = DialogPrimitive.Popup.Props & {
+  showCloseButton?: boolean
+}
 type DialogTitleProps = DialogPrimitive.Title.Props
 type DialogDescriptionProps = DialogPrimitive.Description.Props
 type DialogCloseProps = DialogPrimitive.Close.Props
@@ -36,7 +38,7 @@ const DialogOverlay = ({ className, ...props }: DialogOverlayProps) => (
   />
 )
 
-const DialogContent = ({ className, ...props }: DialogContentProps) => (
+const DialogContent = ({ children, className, showCloseButton = true, ...props }: DialogContentProps) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Popup
@@ -46,7 +48,30 @@ const DialogContent = ({ className, ...props }: DialogContentProps) => (
       )}
       data-slot="dialog-content"
       {...props}
-    />
+    >
+      {showCloseButton ? (
+        <DialogPrimitive.Close
+          aria-label="Close"
+          className="absolute top-4 right-4 rounded-sm opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none"
+          data-slot="dialog-close-button"
+        >
+          <svg
+            aria-hidden="true"
+            className="size-4"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </DialogPrimitive.Close>
+      ) : null}
+      {children}
+    </DialogPrimitive.Popup>
   </DialogPortal>
 )
 

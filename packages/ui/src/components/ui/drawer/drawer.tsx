@@ -1,10 +1,14 @@
 import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer'
+import { createContext, useContext } from 'react'
 
 import type { ComponentProps } from 'react'
 
 import { cn } from '../../../lib/utils'
 
-type DrawerProps = DrawerPrimitive.Root.Props
+type DrawerDirection = 'top' | 'right' | 'bottom' | 'left'
+type DrawerProps = DrawerPrimitive.Root.Props & {
+  direction?: DrawerDirection
+}
 type DrawerTriggerProps = DrawerPrimitive.Trigger.Props
 type DrawerPortalProps = DrawerPrimitive.Portal.Props
 type DrawerOverlayProps = DrawerPrimitive.Backdrop.Props
@@ -14,7 +18,22 @@ type DrawerTitleProps = DrawerPrimitive.Title.Props
 type DrawerDescriptionProps = DrawerPrimitive.Description.Props
 type DrawerCloseProps = DrawerPrimitive.Close.Props
 
-const Drawer = (props: DrawerProps) => <DrawerPrimitive.Root {...props} />
+const DrawerDirectionContext = createContext<DrawerDirection>('bottom')
+
+const drawerSwipeDirections = {
+  bottom: 'down',
+  left: 'left',
+  right: 'right',
+  top: 'up'
+} as const
+
+const Drawer = ({ children, direction = 'bottom', swipeDirection, ...props }: DrawerProps) => (
+  <DrawerDirectionContext.Provider value={direction}>
+    <DrawerPrimitive.Root swipeDirection={swipeDirection ?? drawerSwipeDirections[direction]} {...props}>
+      {children}
+    </DrawerPrimitive.Root>
+  </DrawerDirectionContext.Provider>
+)
 
 const DrawerTrigger = ({ className, ...props }: DrawerTriggerProps) => (
   <DrawerPrimitive.Trigger
@@ -45,26 +64,41 @@ const DrawerViewport = ({ className, ...props }: DrawerViewportProps) => (
   />
 )
 
-const DrawerContent = ({ children, className, ...props }: DrawerContentProps) => (
-  <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerViewport>
-      <DrawerPrimitive.Popup
-        className={cn(
-          'pointer-events-auto fixed inset-x-0 bottom-0 mt-24 flex max-h-[80vh] flex-col rounded-t-lg border bg-background shadow-lg',
-          className
-        )}
-        data-slot="drawer-content"
-        {...props}
-      >
-        <div className="mx-auto mt-4 h-2 w-24 rounded-full bg-muted" data-slot="drawer-handle" />
-        <DrawerPrimitive.Content className="flex flex-col gap-4 p-6" data-slot="drawer-body">
-          {children}
-        </DrawerPrimitive.Content>
-      </DrawerPrimitive.Popup>
-    </DrawerViewport>
-  </DrawerPortal>
-)
+const drawerDirectionClasses = {
+  bottom: 'inset-x-0 bottom-0 mt-24 max-h-[80vh] rounded-t-lg border-t',
+  left: 'inset-y-0 left-0 h-full w-3/4 max-w-sm border-r',
+  right: 'inset-y-0 right-0 h-full w-3/4 max-w-sm border-l',
+  top: 'inset-x-0 top-0 mb-24 max-h-[80vh] rounded-b-lg border-b'
+}
+
+const DrawerContent = ({ children, className, ...props }: DrawerContentProps) => {
+  const direction = useContext(DrawerDirectionContext)
+
+  return (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerViewport>
+        <DrawerPrimitive.Popup
+          className={cn(
+            'pointer-events-auto fixed flex flex-col bg-background shadow-lg',
+            drawerDirectionClasses[direction],
+            className
+          )}
+          data-direction={direction}
+          data-slot="drawer-content"
+          {...props}
+        >
+          {direction === 'bottom' || direction === 'top' ? (
+            <div className="mx-auto mt-4 h-2 w-24 rounded-full bg-muted" data-slot="drawer-handle" />
+          ) : null}
+          <DrawerPrimitive.Content className="flex min-h-0 flex-1 flex-col gap-4 p-6" data-slot="drawer-body">
+            {children}
+          </DrawerPrimitive.Content>
+        </DrawerPrimitive.Popup>
+      </DrawerViewport>
+    </DrawerPortal>
+  )
+}
 
 const DrawerHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div className={cn('grid gap-2 text-center sm:text-left', className)} data-slot="drawer-header" {...props} />

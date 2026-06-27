@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Field, FieldDescription, FieldLabel } from '../field'
+import { Field, FieldContent, FieldDescription, FieldLabel, FieldLegend, FieldSet, FieldTitle } from '../field'
 import { Label } from '../label'
 import { RadioGroup, RadioGroupItem } from './radio-group'
 
@@ -98,5 +98,97 @@ export const Disabled: Story = {
         <Label htmlFor="radio-enterprise">Enterprise</Label>
       </div>
     </RadioGroup>
+  )
+}
+
+export const ChoiceCard: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use FieldLabel to wrap the entire Field for card-style radio choices. Reference: [shadcn/ui Radio Group Choice Card example](https://ui.shadcn.com/docs/components/base/radio-group.md#choice-card)'
+      }
+    }
+  },
+  render: () => (
+    <RadioGroup className="max-w-sm" defaultValue="plus">
+      {[
+        ['plus', 'Plus', 'For individuals and small teams.'],
+        ['pro', 'Pro', 'For growing businesses.'],
+        ['enterprise', 'Enterprise', 'For large teams and enterprises.']
+      ].map(([value, title, description]) => (
+        <FieldLabel htmlFor={`${value}-plan`} key={value}>
+          <Field className="grid-cols-[1fr_auto] rounded-md border p-4">
+            <FieldContent>
+              <FieldTitle>{title}</FieldTitle>
+              <FieldDescription>{description}</FieldDescription>
+            </FieldContent>
+            <RadioGroupItem id={`${value}-plan`} value={value} />
+          </Field>
+        </FieldLabel>
+      ))}
+    </RadioGroup>
+  )
+}
+
+export const Fieldset: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use FieldSet and FieldLegend to group radio items with a label and description. Reference: [shadcn/ui Radio Group Fieldset example](https://ui.shadcn.com/docs/components/base/radio-group.md#fieldset)'
+      }
+    }
+  },
+  render: () => (
+    <FieldSet className="w-full max-w-xs">
+      <FieldLegend variant="label">Subscription Plan</FieldLegend>
+      <FieldDescription>Yearly and lifetime plans offer significant savings.</FieldDescription>
+      <RadioGroup defaultValue="monthly">
+        {[
+          ['monthly', 'Monthly ($9.99/month)'],
+          ['yearly', 'Yearly ($99.99/year)'],
+          ['lifetime', 'Lifetime ($299.99)']
+        ].map(([value, label]) => (
+          <Field className="grid-cols-[auto_1fr]" key={value}>
+            <RadioGroupItem id={`plan-${value}`} value={value} />
+            <FieldLabel className="font-normal" htmlFor={`plan-${value}`}>
+              {label}
+            </FieldLabel>
+          </Field>
+        ))}
+      </RadioGroup>
+    </FieldSet>
+  )
+}
+
+export const Invalid: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use aria-invalid on RadioGroupItem and data-invalid on Field for validation errors. Reference: [shadcn/ui Radio Group Invalid example](https://ui.shadcn.com/docs/components/base/radio-group.md#invalid)'
+      }
+    }
+  },
+  render: () => (
+    <FieldSet className="w-full max-w-xs">
+      <FieldLegend variant="label">Notification Preferences</FieldLegend>
+      <FieldDescription>Choose how you want to receive notifications.</FieldDescription>
+      <RadioGroup defaultValue="email">
+        {[
+          ['email', 'Email only'],
+          ['sms', 'SMS only'],
+          ['both', 'Both Email & SMS']
+        ].map(([value, label]) => (
+          <Field className="grid-cols-[auto_1fr]" data-invalid key={value}>
+            <RadioGroupItem aria-invalid id={`invalid-${value}`} value={value} />
+            <FieldLabel className="font-normal" htmlFor={`invalid-${value}`}>
+              {label}
+            </FieldLabel>
+          </Field>
+        ))}
+      </RadioGroup>
+    </FieldSet>
   )
 }
