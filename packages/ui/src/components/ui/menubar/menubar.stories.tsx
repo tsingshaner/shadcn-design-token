@@ -1,14 +1,56 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { SVGProps } from 'react'
 
 import {
   Menubar,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
+  MenubarRadioGroup,
+  MenubarRadioItem,
   MenubarSeparator,
   MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
   MenubarTrigger
 } from './menubar'
+
+type IconProps = SVGProps<SVGSVGElement>
+
+const FileIcon = (props: IconProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6" />
+  </svg>
+)
+
+const DownloadIcon = (props: IconProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M12 3v12" />
+    <path d="m7 10 5 5 5-5" />
+    <path d="M5 21h14" />
+  </svg>
+)
 
 const meta = {
   component: Menubar,
@@ -28,7 +70,63 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const Checkbox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use checkbox items for independent menubar toggles. Reference: [shadcn/ui Menubar Checkbox example](https://ui.shadcn.com/docs/components/base/menubar.md#checkbox)'
+      }
+    }
+  },
+  render: () => (
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>View</MenubarTrigger>
+        <MenubarContent>
+          <MenubarCheckboxItem defaultChecked>Show aliases</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Show deprecated tokens</MenubarCheckboxItem>
+          <MenubarCheckboxItem defaultChecked>Show resolved values</MenubarCheckboxItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  )
+}
+
+export const Radio: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use radio items for mutually exclusive menubar choices. Reference: [shadcn/ui Menubar Radio example](https://ui.shadcn.com/docs/components/base/menubar.md#radio)'
+      }
+    }
+  },
+  render: () => (
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>Density</MenubarTrigger>
+        <MenubarContent>
+          <MenubarRadioGroup defaultValue="comfortable">
+            <MenubarRadioItem value="compact">Compact</MenubarRadioItem>
+            <MenubarRadioItem value="comfortable">Comfortable</MenubarRadioItem>
+            <MenubarRadioItem value="spacious">Spacious</MenubarRadioItem>
+          </MenubarRadioGroup>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  )
+}
+
+export const Submenu: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use nested submenus for secondary menubar actions. Reference: [shadcn/ui Menubar Submenu example](https://ui.shadcn.com/docs/components/base/menubar.md#submenu)'
+      }
+    }
+  },
   render: () => (
     <Menubar>
       <MenubarMenu>
@@ -38,16 +136,45 @@ export const Default: Story = {
             New token
             <MenubarShortcut>⌘N</MenubarShortcut>
           </MenubarItem>
-          <MenubarItem>Import</MenubarItem>
+          <MenubarSub>
+            <MenubarSubTrigger>Export</MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>CSS variables</MenubarItem>
+              <MenubarItem>JSON tokens</MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
           <MenubarSeparator />
-          <MenubarItem>Export</MenubarItem>
+          <MenubarItem>Close</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
+    </Menubar>
+  )
+}
+
+export const WithIcons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Add icons to menubar items for faster scanning. Reference: [shadcn/ui Menubar With Icons example](https://ui.shadcn.com/docs/components/base/menubar.md#with-icons)'
+      }
+    }
+  },
+  render: () => (
+    <Menubar>
       <MenubarMenu>
-        <MenubarTrigger>View</MenubarTrigger>
+        <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>Show aliases</MenubarItem>
-          <MenubarItem>Show resolved values</MenubarItem>
+          <MenubarItem>
+            <FileIcon />
+            New file
+            <MenubarShortcut>⌘N</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            <DownloadIcon />
+            Export
+            <MenubarShortcut>⇧⌘E</MenubarShortcut>
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
