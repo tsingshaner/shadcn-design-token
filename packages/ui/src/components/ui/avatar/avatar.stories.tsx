@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
+import { Button } from '../button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '../dropdown-menu'
 import { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from './avatar'
 
 type IconProps = SVGProps<SVGSVGElement>
@@ -185,5 +194,37 @@ export const Sizes: Story = {
         </Avatar>
       ))}
     </div>
+  )
+}
+
+export const Dropdown: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use Avatar as a DropdownMenu trigger for account menus. Reference: [shadcn/ui Avatar Dropdown example](https://ui.shadcn.com/docs/components/base/avatar.md#dropdown)'
+      }
+    }
+  },
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger render={<Button className="rounded-full" size="icon" variant="ghost" />}>
+        <Avatar>
+          <AvatarImage alt="shadcn" src="https://github.com/shadcn.png" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-32">
+        <DropdownMenuGroup>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem className="text-destructive focus:text-destructive">Log out</DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
