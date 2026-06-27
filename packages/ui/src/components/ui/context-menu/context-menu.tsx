@@ -13,7 +13,7 @@ type ContextMenuItemProps = ContextMenuPrimitive.Item.Props
 type ContextMenuCheckboxItemProps = ContextMenuPrimitive.CheckboxItem.Props
 type ContextMenuRadioGroupProps = ContextMenuPrimitive.RadioGroup.Props
 type ContextMenuRadioItemProps = ContextMenuPrimitive.RadioItem.Props
-type ContextMenuLabelProps = ContextMenuPrimitive.GroupLabel.Props
+type ContextMenuLabelProps = ComponentProps<'div'>
 type ContextMenuSeparatorProps = ContextMenuPrimitive.Separator.Props
 type ContextMenuGroupProps = ContextMenuPrimitive.Group.Props
 type ContextMenuSubProps = ContextMenuPrimitive.SubmenuRoot.Props
@@ -109,9 +109,10 @@ const ContextMenuRadioItem = ({ children, className, ...props }: ContextMenuRadi
 )
 
 const ContextMenuLabel = ({ className, ...props }: ContextMenuLabelProps) => (
-  <ContextMenuPrimitive.GroupLabel
+  <div
     className={cn('px-2 py-1.5 font-medium text-sm', className)}
     data-slot="context-menu-label"
+    role="presentation"
     {...props}
   />
 )

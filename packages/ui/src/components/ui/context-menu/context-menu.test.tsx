@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, test } from 'vitest'
 
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from './context-menu'
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from './context-menu'
 
 afterEach(cleanup)
 
@@ -18,6 +18,23 @@ describe('ContextMenu', () => {
 
     fireEvent.contextMenu(screen.getByText('Open context menu'))
 
+    expect(screen.getByRole('menuitem', { name: 'Rename token' })).toBeInTheDocument()
+  })
+
+  test('opens menu content with a standalone label', () => {
+    render(
+      <ContextMenu>
+        <ContextMenuTrigger>Open labeled context menu</ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuLabel>Token</ContextMenuLabel>
+          <ContextMenuItem>Rename token</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+    )
+
+    fireEvent.contextMenu(screen.getByText('Open labeled context menu'))
+
+    expect(screen.getByText('Token')).toBeInTheDocument()
     expect(screen.getByRole('menuitem', { name: 'Rename token' })).toBeInTheDocument()
   })
 })
