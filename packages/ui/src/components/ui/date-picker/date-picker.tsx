@@ -34,6 +34,12 @@ const DatePicker = ({
     onValueChange?.(date)
   }
 
+  const handleSelect = (date: Date | unknown) => {
+    if (date instanceof Date) {
+      setSelected(date)
+    }
+  }
+
   return (
     <Popover>
       <PopoverTrigger
@@ -63,7 +69,7 @@ const DatePicker = ({
         {selected ? formatDate(selected) : placeholder}
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar defaultMonth={selected} disabled={disabledDate} onSelect={setSelected} selected={selected} />
+        <Calendar defaultMonth={selected} disabled={disabledDate} onSelect={handleSelect} selected={selected} />
       </PopoverContent>
     </Popover>
   )

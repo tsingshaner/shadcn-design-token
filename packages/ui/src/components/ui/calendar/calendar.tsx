@@ -3,13 +3,21 @@ import { type ComponentProps, useMemo, useState } from 'react'
 import { cn } from '../../../lib/utils'
 import { Button } from '../button'
 
+type DateRange = {
+  from?: Date
+  to?: Date
+}
 type CalendarProps = Omit<ComponentProps<'div'>, 'onSelect'> & {
+  captionLayout?: 'dropdown' | 'label'
   defaultMonth?: Date
-  disabled?: (date: Date) => boolean
+  disabled?: Date[] | ((date: Date) => boolean)
+  fixedWeeks?: boolean
+  mode?: 'range' | 'single'
   month?: Date
+  numberOfMonths?: number
   onMonthChange?: (month: Date) => void
-  onSelect?: (date: Date) => void
-  selected?: Date
+  onSelect?: (date: Date | DateRange | undefined) => void
+  selected?: Date | DateRange
 }
 
 const weekdayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
@@ -25,6 +33,26 @@ const isSameDay = (date: Date, otherDate: Date) =>
   date.getMonth() === otherDate.getMonth() &&
   date.getDate() === otherDate.getDate()
 
+const isDateRange = (value: Date | DateRange | undefined): value is DateRange =>
+  Boolean(value && !(value instanceof Date) && ('from' in value || 'to' in value))
+
+const isInRange = (date: Date, range: DateRange | undefined) => {
+  if (!(range?.from && range.to)) {
+    return false
+  }
+
+  const time = date.getTime()
+  return time >= range.from.getTime() && time <= range.to.getTime()
+}
+
+const isDisabled = (date: Date, disabled: CalendarProps['disabled']) => {
+  if (Array.isArray(disabled)) {
+    return disabled.some((disabledDate) => isSameDay(date, disabledDate))
+  }
+
+  return disabled?.(date) ?? false
+}
+
 const getCalendarDays = (month: Date) => {
   const firstDay = startOfMonth(month)
   const gridStart = new Date(firstDay)
@@ -37,19 +65,48 @@ const getCalendarDays = (month: Date) => {
   })
 }
 
+const getDayState = (
+  date: Date,
+  visibleMonth: Date,
+  selected: CalendarProps['selected'],
+  disabled: CalendarProps['disabled']
+) => {
+  const selectedRange = isDateRange(selected) ? selected : undefined
+  const selectedDay = selected instanceof Date ? isSameDay(date, selected) : false
+  const rangeEndpoint =
+    (selectedRange?.from ? isSameDay(date, selectedRange.from) : false) ||
+    (selectedRange?.to ? isSameDay(date, selectedRange.to) : false)
+
+  return {
+    disabled: isDisabled(date, disabled),
+    outside: date.getMonth() !== visibleMonth.getMonth(),
+    rangeEndpoint,
+    rangeMiddle: isInRange(date, selectedRange),
+    selected: selectedDay || rangeEndpoint,
+    selectedRange
+  }
+}
+
 const Calendar = ({
+  captionLayout = 'label',
   className,
   defaultMonth,
   disabled,
+  mode = 'single',
   month,
+  numberOfMonths = 1,
   onMonthChange,
   onSelect,
   selected,
   ...props
 }: CalendarProps) => {
-  const [internalMonth, setInternalMonth] = useState(startOfMonth(defaultMonth ?? selected ?? new Date()))
+  const selectedStart = selected instanceof Date ? selected : isDateRange(selected) ? selected.from : undefined
+  const [internalMonth, setInternalMonth] = useState(startOfMonth(defaultMonth ?? selectedStart ?? new Date()))
   const visibleMonth = startOfMonth(month ?? internalMonth)
-  const days = useMemo(() => getCalendarDays(visibleMonth), [visibleMonth])
+  const months = useMemo(
+    () => Array.from({ length: numberOfMonths }, (_, index) => addMonths(visibleMonth, index)),
+    [numberOfMonths, visibleMonth]
+  )
 
   const setVisibleMonth = (nextMonth: Date) => {
     setInternalMonth(nextMonth)
@@ -82,9 +139,25 @@ const Calendar = ({
             <path d="m15 18-6-6 6-6" />
           </svg>
         </Button>
-        <div className="font-medium text-sm" data-slot="calendar-caption">
-          {monthFormatter.format(visibleMonth)}
-        </div>
+        {captionLayout === 'dropdown' ? (
+          <select
+            aria-label="Month and year"
+            className="rounded-md border bg-background px-2 py-1 font-medium text-sm"
+            data-slot="calendar-caption"
+            onChange={(event) => setVisibleMonth(new Date(event.currentTarget.value))}
+            value={visibleMonth.toISOString()}
+          >
+            {Array.from({ length: 12 }, (_, index) => new Date(visibleMonth.getFullYear(), index, 1)).map((date) => (
+              <option key={date.toISOString()} value={date.toISOString()}>
+                {monthFormatter.format(date)}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <div className="font-medium text-sm" data-slot="calendar-caption">
+            {monthFormatter.format(visibleMonth)}
+          </div>
+        )}
         <Button
           aria-label="Next month"
           onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
@@ -105,35 +178,50 @@ const Calendar = ({
           </svg>
         </Button>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-center" data-slot="calendar-grid">
-        {weekdayLabels.map((weekday) => (
-          <div className="h-8 content-center text-muted-foreground text-xs" data-slot="calendar-weekday" key={weekday}>
-            {weekday}
-          </div>
-        ))}
-        {days.map((date) => {
-          const outside = date.getMonth() !== visibleMonth.getMonth()
-          const selectedDay = selected ? isSameDay(date, selected) : false
-          const disabledDay = disabled?.(date) ?? false
+      <div className="flex gap-4">
+        {months.map((visibleMonthItem) => {
+          const days = getCalendarDays(visibleMonthItem)
 
           return (
-            <Button
-              aria-label={dayFormatter.format(date)}
-              className={cn(
-                'size-8 p-0 font-normal tabular-nums',
-                outside && 'text-muted-foreground opacity-50',
-                selectedDay && 'bg-primary text-primary-foreground hover:bg-primary/90'
-              )}
-              data-outside={outside}
-              data-selected={selectedDay}
-              disabled={disabledDay}
-              key={date.toISOString()}
-              onClick={() => onSelect?.(date)}
-              size="icon-sm"
-              variant={selectedDay ? 'default' : 'ghost'}
+            <div
+              className="grid grid-cols-7 gap-1 text-center"
+              data-slot="calendar-grid"
+              key={visibleMonthItem.toISOString()}
             >
-              {date.getDate()}
-            </Button>
+              {weekdayLabels.map((weekday) => (
+                <div
+                  className="h-8 content-center text-muted-foreground text-xs"
+                  data-slot="calendar-weekday"
+                  key={weekday}
+                >
+                  {weekday}
+                </div>
+              ))}
+              {days.map((date) => {
+                const day = getDayState(date, visibleMonthItem, selected, disabled)
+
+                return (
+                  <Button
+                    aria-label={dayFormatter.format(date)}
+                    className={cn(
+                      'size-8 p-0 font-normal tabular-nums',
+                      day.outside && 'text-muted-foreground opacity-50',
+                      day.rangeMiddle && 'bg-accent text-accent-foreground',
+                      day.selected && 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    )}
+                    data-outside={day.outside}
+                    data-selected={day.selected}
+                    disabled={day.disabled}
+                    key={date.toISOString()}
+                    onClick={() => onSelect?.(mode === 'range' ? { from: date, to: day.selectedRange?.to } : date)}
+                    size="icon-sm"
+                    variant={day.selected ? 'default' : 'ghost'}
+                  >
+                    {date.getDate()}
+                  </Button>
+                )
+              })}
+            </div>
           )
         })}
       </div>
@@ -141,5 +229,5 @@ const Calendar = ({
   )
 }
 
-export type { CalendarProps }
+export type { CalendarProps, DateRange }
 export { Calendar }
