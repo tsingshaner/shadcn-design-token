@@ -3,6 +3,8 @@ import type { ComponentProps } from 'react'
 import { cn } from '../../../lib/utils'
 
 type NativeSelectProps = ComponentProps<'select'>
+type NativeSelectOptGroupProps = ComponentProps<'optgroup'>
+type NativeSelectOptionProps = ComponentProps<'option'>
 
 const NativeSelect = ({ className, ...props }: NativeSelectProps) => (
   <select
@@ -16,5 +18,11 @@ const NativeSelect = ({ className, ...props }: NativeSelectProps) => (
   />
 )
 
-export type { NativeSelectProps }
-export { NativeSelect }
+const NativeSelectOptGroup = (props: NativeSelectOptGroupProps) => (
+  <optgroup data-slot="native-select-optgroup" {...props} />
+)
+
+const NativeSelectOption = (props: NativeSelectOptionProps) => <option data-slot="native-select-option" {...props} />
+
+export type { NativeSelectOptGroupProps, NativeSelectOptionProps, NativeSelectProps }
+export { NativeSelect, NativeSelectOptGroup, NativeSelectOption }

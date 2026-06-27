@@ -4,6 +4,7 @@ import { cn } from '../../../lib/utils'
 
 type ResizablePanelGroupProps = ComponentProps<'div'> & {
   direction?: 'horizontal' | 'vertical'
+  orientation?: 'horizontal' | 'vertical'
 }
 type ResizablePanelProps = ComponentProps<'div'> & {
   defaultSize?: number
@@ -12,14 +13,19 @@ type ResizableHandleProps = ComponentProps<'button'> & {
   withHandle?: boolean
 }
 
-const ResizablePanelGroup = ({ className, direction = 'horizontal', ...props }: ResizablePanelGroupProps) => (
+const ResizablePanelGroup = ({
+  className,
+  direction,
+  orientation = direction ?? 'horizontal',
+  ...props
+}: ResizablePanelGroupProps) => (
   <div
     className={cn(
       'flex h-full w-full overflow-hidden rounded-md border',
-      direction === 'vertical' ? 'flex-col' : 'flex-row',
+      orientation === 'vertical' ? 'flex-col' : 'flex-row',
       className
     )}
-    data-direction={direction}
+    data-direction={orientation}
     data-slot="resizable-panel-group"
     {...props}
   />
@@ -38,7 +44,7 @@ const ResizableHandle = ({ className, withHandle = false, ...props }: ResizableH
   <button
     aria-label="Resize panels"
     className={cn(
-      'relative flex w-px items-center justify-center bg-border outline-none transition-colors hover:bg-ring focus-visible:ring-3 focus-visible:ring-ring/50 data-[direction=vertical]:h-px data-[direction=vertical]:w-full',
+      'relative flex in-data-[direction=vertical]:h-px in-data-[direction=vertical]:w-full w-px items-center justify-center bg-border outline-none transition-colors hover:bg-ring focus-visible:ring-3 focus-visible:ring-ring/50',
       className
     )}
     data-slot="resizable-handle"
