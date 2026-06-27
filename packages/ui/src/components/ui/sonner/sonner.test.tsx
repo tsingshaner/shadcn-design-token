@@ -16,4 +16,17 @@ describe('Sonner', () => {
 
     expect(await screen.findByText('Token published')).toBeInTheDocument()
   })
+
+  test('renders description and positioned viewport data', async () => {
+    render(<Sonner timeout={0} />)
+
+    sonnerToast.toast('Event has been created', {
+      description: 'Monday, January 3rd at 6:00pm',
+      position: 'bottom-left'
+    })
+
+    expect(await screen.findByText('Event has been created')).toBeInTheDocument()
+    expect(screen.getByText('Monday, January 3rd at 6:00pm')).toBeInTheDocument()
+    expect(screen.getByTestId('toast-viewport-bottom-left')).toHaveAttribute('data-position', 'bottom-left')
+  })
 })

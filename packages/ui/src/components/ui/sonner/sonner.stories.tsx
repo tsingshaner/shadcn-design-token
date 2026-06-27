@@ -29,3 +29,134 @@ export const Default: Story = {
     </>
   )
 }
+
+export const Types: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Covers toast types from [shadcn/ui Sonner Types](https://ui.shadcn.com/docs/components/base/sonner.md#types).'
+      }
+    }
+  },
+  render: () => (
+    <>
+      <div className="flex flex-wrap gap-2">
+        <Button onClick={() => sonnerToast.toast('Event has been created')} variant="outline">
+          Default
+        </Button>
+        <Button onClick={() => sonnerToast.success('Event has been created')} variant="outline">
+          Success
+        </Button>
+        <Button onClick={() => sonnerToast.info('Be at the area 10 minutes before the event time')} variant="outline">
+          Info
+        </Button>
+        <Button
+          onClick={() =>
+            sonnerToast.custom({ description: 'Event start time cannot be earlier than 8am', type: 'warning' })
+          }
+          variant="outline"
+        >
+          Warning
+        </Button>
+        <Button onClick={() => sonnerToast.error('Event has not been created')} variant="outline">
+          Error
+        </Button>
+        <Button
+          onClick={() =>
+            sonnerToast.promise(
+              new Promise<{ name: string }>((resolve) => setTimeout(() => resolve({ name: 'Event' }), 2000)),
+              {
+                error: 'Error',
+                loading: 'Loading...',
+                success: (data) => `${data.name} has been created`
+              }
+            )
+          }
+          variant="outline"
+        >
+          Promise
+        </Button>
+      </div>
+      <Sonner timeout={3000} />
+    </>
+  )
+}
+
+export const Description: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Covers secondary toast copy from [shadcn/ui Sonner Description](https://ui.shadcn.com/docs/components/base/sonner.md#description).'
+      }
+    }
+  },
+  render: () => (
+    <>
+      <Button
+        className="w-fit"
+        onClick={() =>
+          sonnerToast.toast('Event has been created', {
+            description: 'Monday, January 3rd at 6:00pm'
+          })
+        }
+        variant="outline"
+      >
+        Show Toast
+      </Button>
+      <Sonner timeout={3000} />
+    </>
+  )
+}
+
+export const Position: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Covers per-toast placement from [shadcn/ui Sonner Position](https://ui.shadcn.com/docs/components/base/sonner.md#position).'
+      }
+    }
+  },
+  render: () => (
+    <>
+      <div className="flex flex-wrap justify-center gap-2">
+        <Button onClick={() => sonnerToast.toast('Event has been created', { position: 'top-left' })} variant="outline">
+          Top Left
+        </Button>
+        <Button
+          onClick={() => sonnerToast.toast('Event has been created', { position: 'top-center' })}
+          variant="outline"
+        >
+          Top Center
+        </Button>
+        <Button
+          onClick={() => sonnerToast.toast('Event has been created', { position: 'top-right' })}
+          variant="outline"
+        >
+          Top Right
+        </Button>
+        <Button
+          onClick={() => sonnerToast.toast('Event has been created', { position: 'bottom-left' })}
+          variant="outline"
+        >
+          Bottom Left
+        </Button>
+        <Button
+          onClick={() => sonnerToast.toast('Event has been created', { position: 'bottom-center' })}
+          variant="outline"
+        >
+          Bottom Center
+        </Button>
+        <Button
+          onClick={() => sonnerToast.toast('Event has been created', { position: 'bottom-right' })}
+          variant="outline"
+        >
+          Bottom Right
+        </Button>
+      </div>
+      <Sonner timeout={3000} />
+    </>
+  )
+}

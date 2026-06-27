@@ -1,23 +1,35 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs'
+import { tv, type VariantProps } from 'tailwind-variants/lite'
 
 import { cn } from '../../../lib/utils'
 
 type TabsProps = TabsPrimitive.Root.Props
-type TabsListProps = TabsPrimitive.List.Props
+type TabsListProps = TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>
 type TabsTriggerProps = TabsPrimitive.Tab.Props
 type TabsContentProps = TabsPrimitive.Panel.Props
+
+const tabsListVariants = tv({
+  base: 'inline-flex h-9 w-fit items-center justify-center text-muted-foreground',
+  defaultVariants: {
+    variant: 'default'
+  },
+  variants: {
+    variant: {
+      default: 'rounded-lg bg-muted p-1',
+      line: 'gap-1 rounded-none border-b bg-transparent p-0'
+    }
+  }
+})
 
 const Tabs = ({ className, ...props }: TabsProps) => (
   <TabsPrimitive.Root className={cn('flex flex-col gap-2', className)} data-slot="tabs" {...props} />
 )
 
-const TabsList = ({ className, ...props }: TabsListProps) => (
+const TabsList = ({ className, variant, ...props }: TabsListProps) => (
   <TabsPrimitive.List
-    className={cn(
-      'inline-flex h-9 w-fit items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground',
-      className
-    )}
+    className={cn(tabsListVariants({ variant }), className)}
     data-slot="tabs-list"
+    data-variant={variant}
     {...props}
   />
 )
@@ -42,4 +54,4 @@ const TabsContent = ({ className, ...props }: TabsContentProps) => (
 )
 
 export type { TabsContentProps, TabsListProps, TabsProps, TabsTriggerProps }
-export { Tabs, TabsContent, TabsList, TabsTrigger }
+export { Tabs, TabsContent, TabsList, TabsTrigger, tabsListVariants }

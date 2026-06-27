@@ -3,7 +3,12 @@ import { Toast as ToastPrimitive } from '@base-ui/react/toast'
 import { cn } from '../../../lib/utils'
 
 type ToastProviderProps = ToastPrimitive.Provider.Props
-type ToastViewportProps = ToastPrimitive.Viewport.Props
+type ToastPosition = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right'
+type ToastViewportProps = ToastPrimitive.Viewport.Props & {
+  getPosition?: (toast: ToastPrimitive.Root.ToastObject) => ToastPosition | undefined
+  position?: ToastPosition
+  renderPositionedViewports?: boolean
+}
 type ToastProps = ToastPrimitive.Root.Props
 type ToastTitleProps = ToastPrimitive.Title.Props
 type ToastDescriptionProps = ToastPrimitive.Description.Props
@@ -73,16 +78,37 @@ const ToastClose = ({ className, ...props }: ToastCloseProps) => (
   />
 )
 
-const ToastViewport = ({ className, ...props }: ToastViewportProps) => {
+const toastViewportPositionClassName: Record<ToastPosition, string> = {
+  'bottom-center': 'bottom-0 left-1/2 -translate-x-1/2',
+  'bottom-left': 'bottom-0 left-0',
+  'bottom-right': 'right-0 bottom-0',
+  'top-center': 'top-0 left-1/2 -translate-x-1/2',
+  'top-left': 'top-0 left-0',
+  'top-right': 'top-0 right-0'
+}
+
+const ToastViewport = ({
+  className,
+  getPosition,
+  position = 'top-right',
+  renderPositionedViewports = false,
+  ...props
+}: ToastViewportProps) => {
   const { toasts } = ToastPrimitive.useToastManager()
 
-  return (
+  const renderViewport = (viewportPosition: ToastPosition, viewportToasts = toasts) => (
     <ToastPrimitive.Viewport
-      className={cn('fixed top-0 right-0 z-100 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm', className)}
+      className={cn(
+        'fixed z-100 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm',
+        toastViewportPositionClassName[viewportPosition],
+        className
+      )}
+      data-position={viewportPosition}
       data-slot="toast-viewport"
+      data-testid={`toast-viewport-${viewportPosition}`}
       {...props}
     >
-      {toasts.map((item) => (
+      {viewportToasts.map((item) => (
         <Toast key={item.id} toast={item}>
           <ToastTitle>{item.title}</ToastTitle>
           {item.description ? <ToastDescription>{item.description}</ToastDescription> : null}
@@ -91,6 +117,22 @@ const ToastViewport = ({ className, ...props }: ToastViewportProps) => {
         </Toast>
       ))}
     </ToastPrimitive.Viewport>
+  )
+
+  if (!renderPositionedViewports) {
+    return renderViewport(position)
+  }
+
+  return (
+    <>
+      {(['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'] as const).map(
+        (viewportPosition) =>
+          renderViewport(
+            viewportPosition,
+            toasts.filter((item) => (getPosition?.(item) ?? position) === viewportPosition)
+          )
+      )}
+    </>
   )
 }
 
@@ -109,6 +151,7 @@ export type {
   ToastActionProps,
   ToastCloseProps,
   ToastDescriptionProps,
+  ToastPosition,
   ToastProps,
   ToastProviderProps,
   ToastTitleProps,
