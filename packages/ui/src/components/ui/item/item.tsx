@@ -2,28 +2,68 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '../../../lib/utils'
 
-type ItemProps = ComponentProps<'div'>
-type ItemMediaProps = ComponentProps<'div'>
+type ItemProps = ComponentProps<'div'> & {
+  size?: 'default' | 'sm' | 'xs'
+  variant?: 'default' | 'outline' | 'muted'
+}
+type ItemMediaProps = ComponentProps<'div'> & {
+  variant?: 'default' | 'icon' | 'image'
+}
 type ItemContentProps = ComponentProps<'div'>
 type ItemTitleProps = ComponentProps<'div'>
 type ItemDescriptionProps = ComponentProps<'div'>
 type ItemActionsProps = ComponentProps<'div'>
+type ItemGroupProps = ComponentProps<'div'>
+type ItemSeparatorProps = ComponentProps<'div'>
+type ItemHeaderProps = ComponentProps<'div'>
+type ItemFooterProps = ComponentProps<'div'>
 
-const Item = ({ className, ...props }: ItemProps) => (
+const Item = ({ className, size = 'default', variant = 'default', ...props }: ItemProps) => (
   <div
-    className={cn('flex w-full items-start gap-4 rounded-lg p-3 transition-colors hover:bg-muted/50', className)}
+    className={cn(
+      'flex w-full items-start gap-4 rounded-lg transition-colors',
+      variant === 'default' && 'hover:bg-muted/50',
+      variant === 'outline' && 'border bg-background shadow-xs hover:bg-muted/50',
+      variant === 'muted' && 'bg-muted/50 hover:bg-muted',
+      size === 'default' && 'p-3',
+      size === 'sm' && 'gap-3 p-2.5',
+      size === 'xs' && 'gap-2 rounded-md p-2',
+      className
+    )}
+    data-size={size}
     data-slot="item"
+    data-variant={variant}
     {...props}
   />
 )
 
-const ItemMedia = ({ className, ...props }: ItemMediaProps) => (
+const ItemGroup = ({ className, ...props }: ItemGroupProps) => (
+  <div className={cn('grid gap-2', className)} data-slot="item-group" {...props} />
+)
+
+const ItemSeparator = ({ className, ...props }: ItemSeparatorProps) => (
+  <div aria-hidden="true" className={cn('h-px w-full bg-border', className)} data-slot="item-separator" {...props} />
+)
+
+const ItemHeader = ({ className, ...props }: ItemHeaderProps) => (
+  <div className={cn('mb-2 w-full', className)} data-slot="item-header" {...props} />
+)
+
+const ItemFooter = ({ className, ...props }: ItemFooterProps) => (
+  <div className={cn('mt-2 flex w-full items-center gap-2', className)} data-slot="item-footer" {...props} />
+)
+
+const ItemMedia = ({ className, variant = 'default', ...props }: ItemMediaProps) => (
   <div
     className={cn(
-      'flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground',
+      'flex shrink-0 items-center justify-center overflow-hidden text-muted-foreground',
+      variant === 'default' && 'size-10 rounded-md bg-muted',
+      variant === 'icon' && 'size-10 rounded-md border bg-background [&>svg]:size-5',
+      variant === 'image' && 'size-10 rounded-md bg-muted [&>img]:size-full [&>img]:object-cover',
       className
     )}
     data-slot="item-media"
+    data-variant={variant}
     {...props}
   />
 )
@@ -48,5 +88,27 @@ const ItemActions = ({ className, ...props }: ItemActionsProps) => (
   <div className={cn('flex shrink-0 items-center gap-2', className)} data-slot="item-actions" {...props} />
 )
 
-export type { ItemActionsProps, ItemContentProps, ItemDescriptionProps, ItemMediaProps, ItemProps, ItemTitleProps }
-export { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle }
+export type {
+  ItemActionsProps,
+  ItemContentProps,
+  ItemDescriptionProps,
+  ItemFooterProps,
+  ItemGroupProps,
+  ItemHeaderProps,
+  ItemMediaProps,
+  ItemProps,
+  ItemSeparatorProps,
+  ItemTitleProps
+}
+export {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle
+}

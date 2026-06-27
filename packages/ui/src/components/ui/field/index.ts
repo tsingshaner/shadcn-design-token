@@ -1,4 +1,15 @@
-export { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from './field'
+export {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle
+} from './field'
 
 export type {
   FieldContentProps,
@@ -6,5 +17,9 @@ export type {
   FieldErrorProps,
   FieldGroupProps,
   FieldLabelProps,
-  FieldProps
+  FieldLegendProps,
+  FieldProps,
+  FieldSeparatorProps,
+  FieldSetProps,
+  FieldTitleProps
 } from './field'

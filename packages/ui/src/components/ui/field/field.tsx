@@ -8,6 +8,12 @@ type FieldDescriptionProps = ComponentProps<'p'>
 type FieldErrorProps = ComponentProps<'p'>
 type FieldGroupProps = ComponentProps<'div'>
 type FieldContentProps = ComponentProps<'div'>
+type FieldSetProps = ComponentProps<'fieldset'>
+type FieldLegendProps = ComponentProps<'legend'> & {
+  variant?: 'default' | 'label'
+}
+type FieldTitleProps = ComponentProps<'div'>
+type FieldSeparatorProps = ComponentProps<'div'>
 
 const Field = ({ className, ...props }: FieldProps) => (
   <div className={cn('grid gap-2', className)} data-slot="field" {...props} />
@@ -15,6 +21,24 @@ const Field = ({ className, ...props }: FieldProps) => (
 
 const FieldGroup = ({ className, ...props }: FieldGroupProps) => (
   <div className={cn('grid gap-4', className)} data-slot="field-group" {...props} />
+)
+
+const FieldSet = ({ className, ...props }: FieldSetProps) => (
+  <fieldset className={cn('grid gap-4', className)} data-slot="field-set" {...props} />
+)
+
+const FieldLegend = ({ className, variant = 'default', ...props }: FieldLegendProps) => (
+  <legend
+    className={cn(
+      'font-medium text-foreground',
+      variant === 'default' && 'mb-2 text-base',
+      variant === 'label' && 'text-sm leading-none',
+      className
+    )}
+    data-slot="field-legend"
+    data-variant={variant}
+    {...props}
+  />
 )
 
 const FieldContent = ({ className, ...props }: FieldContentProps) => (
@@ -37,6 +61,14 @@ const FieldDescription = ({ className, ...props }: FieldDescriptionProps) => (
   <p className={cn('text-muted-foreground text-sm', className)} data-slot="field-description" {...props} />
 )
 
+const FieldTitle = ({ className, ...props }: FieldTitleProps) => (
+  <div className={cn('font-medium text-sm leading-none', className)} data-slot="field-title" {...props} />
+)
+
+const FieldSeparator = ({ className, ...props }: FieldSeparatorProps) => (
+  <div aria-hidden="true" className={cn('h-px w-full bg-border', className)} data-slot="field-separator" {...props} />
+)
+
 const FieldError = ({ className, ...props }: FieldErrorProps) => (
   <p
     className={cn('font-medium text-destructive text-sm', className)}
@@ -46,5 +78,27 @@ const FieldError = ({ className, ...props }: FieldErrorProps) => (
   />
 )
 
-export type { FieldContentProps, FieldDescriptionProps, FieldErrorProps, FieldGroupProps, FieldLabelProps, FieldProps }
-export { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel }
+export type {
+  FieldContentProps,
+  FieldDescriptionProps,
+  FieldErrorProps,
+  FieldGroupProps,
+  FieldLabelProps,
+  FieldLegendProps,
+  FieldProps,
+  FieldSeparatorProps,
+  FieldSetProps,
+  FieldTitleProps
+}
+export {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle
+}
