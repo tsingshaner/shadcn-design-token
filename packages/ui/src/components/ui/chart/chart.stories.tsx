@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { ChartBarSeries, type ChartConfig, ChartContainer, ChartLegend } from './chart'
@@ -38,4 +40,16 @@ export const BarChart: Story = {
       <ChartLegend config={chartConfig} />
     </ChartContainer>
   )
+}
+BarChart.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="chart"]')?.getAttribute('style')).toContain(
+    '--color-desktop: var(--primary)'
+  )
+  await expect(canvas.getByRole('img', { name: 'Bar chart' })).toHaveAttribute('data-slot', 'chart-bar-series')
+  await expect(canvas.getByLabelText('Feb: 305')).toHaveAttribute('data-slot', 'chart-bar')
+  await expect(canvasElement.querySelectorAll('[data-slot="chart-bar"]')).toHaveLength(3)
+  await expect(canvas.getByText('Desktop')).toBeVisible()
+  await expect(canvas.getByText('Mobile')).toBeVisible()
 }

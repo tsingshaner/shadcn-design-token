@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './carousel'
@@ -45,6 +47,20 @@ export const Default: Story = {
     </Carousel>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Previous slide' })).toBeDisabled()
+  await expect(canvas.getByRole('button', { name: 'Next slide' })).toBeEnabled()
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }))
+
+  await expect(canvas.getByRole('button', { name: 'Previous slide' })).toBeEnabled()
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }))
+
+  await expect(canvas.getByRole('button', { name: 'Next slide' })).toBeDisabled()
+}
 
 export const Sizes: Story = {
   parameters: {
@@ -75,6 +91,13 @@ export const Sizes: Story = {
     </div>
   )
 }
+Sizes.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelectorAll('[data-slot="carousel"]')).toHaveLength(2)
+  await expect(canvas.getAllByRole('button', { name: 'Previous slide' })[0]).toBeDisabled()
+  await expect(canvas.getAllByRole('button', { name: 'Next slide' })[1]).toBeEnabled()
+}
 
 export const Spacing: Story = {
   parameters: {
@@ -101,6 +124,10 @@ export const Spacing: Story = {
     </Carousel>
   )
 }
+Spacing.play = async ({ canvasElement }) => {
+  await expect(canvasElement.querySelector('[data-slot="carousel-content"]')).toHaveClass('-ml-4')
+  await expect(canvasElement.querySelectorAll('[data-slot="carousel-item"]')).toHaveLength(3)
+}
 
 export const Orientation: Story = {
   parameters: {
@@ -126,4 +153,12 @@ export const Orientation: Story = {
       <CarouselNext className="top-auto -bottom-4 left-1/2 -translate-x-1/2 translate-y-0 rotate-90" />
     </Carousel>
   )
+}
+Orientation.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="carousel"]')).toHaveAttribute('data-orientation', 'vertical')
+  await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }))
+
+  await expect(canvas.getByRole('button', { name: 'Previous slide' })).toBeEnabled()
 }

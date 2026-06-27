@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import {
@@ -72,4 +74,20 @@ export const Default: Story = {
       </SidebarInset>
     </SidebarProvider>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const wrapper = canvasElement.querySelector('[data-slot="sidebar-wrapper"]')
+  const sidebar = canvasElement.querySelector('[data-slot="sidebar"]')
+
+  await expect(wrapper).toHaveAttribute('data-sidebar-state', 'expanded')
+  await expect(sidebar).toHaveAttribute('data-state', 'expanded')
+  await expect(canvas.getByRole('button', { name: 'Acme Studio' })).toHaveAttribute('data-active', 'true')
+  await expect(canvas.getByText('Workspace')).toHaveAttribute('data-slot', 'sidebar-group-label')
+  await expect(canvas.getByText('12')).toHaveAttribute('data-slot', 'sidebar-menu-badge')
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Toggle sidebar' }))
+
+  await expect(wrapper).toHaveAttribute('data-sidebar-state', 'collapsed')
+  await expect(sidebar).toHaveAttribute('data-state', 'collapsed')
 }
