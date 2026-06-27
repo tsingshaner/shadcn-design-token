@@ -6,6 +6,7 @@ import { Button, type ButtonProps } from '../button'
 type CarouselContextValue = {
   index: number
   itemCount: number
+  orientation: 'horizontal' | 'vertical'
   scrollNext: () => void
   scrollPrevious: () => void
 }
@@ -16,6 +17,7 @@ type CarouselProps = ComponentProps<'div'> & {
   defaultIndex?: number
   itemCount?: number
   onIndexChange?: (index: number) => void
+  orientation?: 'horizontal' | 'vertical'
 }
 type CarouselContentProps = ComponentProps<'div'>
 type CarouselItemProps = ComponentProps<'div'>
@@ -32,7 +34,14 @@ const useCarousel = () => {
   return context
 }
 
-const Carousel = ({ className, defaultIndex = 0, itemCount = 1, onIndexChange, ...props }: CarouselProps) => {
+const Carousel = ({
+  className,
+  defaultIndex = 0,
+  itemCount = 1,
+  onIndexChange,
+  orientation = 'horizontal',
+  ...props
+}: CarouselProps) => {
   const [index, setIndex] = useState(defaultIndex)
   const setBoundedIndex = useCallback(
     (nextIndex: number) => {
@@ -46,28 +55,34 @@ const Carousel = ({ className, defaultIndex = 0, itemCount = 1, onIndexChange, .
     () => ({
       index,
       itemCount,
+      orientation,
       scrollNext: () => setBoundedIndex(index + 1),
       scrollPrevious: () => setBoundedIndex(index - 1)
     }),
-    [index, itemCount, setBoundedIndex]
+    [index, itemCount, orientation, setBoundedIndex]
   )
 
   return (
     <CarouselContext.Provider value={value}>
-      <div className={cn('relative', className)} data-slot="carousel" {...props} />
+      <div className={cn('relative', className)} data-orientation={orientation} data-slot="carousel" {...props} />
     </CarouselContext.Provider>
   )
 }
 
 const CarouselContent = ({ className, style, ...props }: CarouselContentProps) => {
-  const { index } = useCarousel()
+  const { index, orientation } = useCarousel()
+  const transform = orientation === 'vertical' ? `translateY(-${index * 100}%)` : `translateX(-${index * 100}%)`
 
   return (
     <div className="overflow-hidden" data-slot="carousel-viewport">
       <div
-        className={cn('flex transition-transform duration-300 ease-out', className)}
+        className={cn(
+          'flex transition-transform duration-300 ease-out data-[orientation=vertical]:flex-col',
+          className
+        )}
+        data-orientation={orientation}
         data-slot="carousel-content"
-        style={{ transform: `translateX(-${index * 100}%)`, ...style }}
+        style={{ transform, ...style }}
         {...props}
       />
     </div>
