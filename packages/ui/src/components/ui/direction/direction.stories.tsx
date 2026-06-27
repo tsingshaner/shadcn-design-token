@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { DirectionProvider } from './direction'
@@ -23,7 +25,15 @@ type Story = StoryObj<typeof meta>
 export const RTL: Story = {
   render: () => (
     <DirectionProvider direction="rtl">
-      <div className="rounded-md border p-4 text-right">RTL direction context</div>
+      <div className="rounded-md border p-4 text-right" dir="rtl">
+        RTL direction context
+      </div>
     </DirectionProvider>
   )
+}
+RTL.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('RTL direction context')).toBeVisible()
+  await expect(canvasElement.querySelector('[dir="rtl"]')).toBeInTheDocument()
 }

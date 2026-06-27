@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -70,6 +72,13 @@ export const Default: Story = {
       </FieldGroup>
     </FieldSet>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Name')).toHaveAttribute('data-slot', 'input')
+  await expect(canvas.getByLabelText('Slug')).toHaveAttribute('aria-invalid', 'true')
+  await expect(canvas.getByText('Slug is already in use.')).toHaveAttribute('data-slot', 'field-error')
 }
 
 export const TextareaExample: Story = {
@@ -147,6 +156,12 @@ export const SliderExample: Story = {
     )
   }
 }
+SliderExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('slider')).toHaveLength(2)
+  await expect(canvas.getByText('Price Range')).toHaveAttribute('data-slot', 'field-title')
+}
 
 export const CheckboxExample: Story = {
   parameters: {
@@ -177,6 +192,14 @@ export const CheckboxExample: Story = {
     </FieldSet>
   )
 }
+CheckboxExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const checkbox = canvas.getByRole('checkbox', { name: 'Hard disks' })
+
+  await userEvent.click(checkbox)
+
+  await expect(checkbox).toBeChecked()
+}
 
 export const SwitchExample: Story = {
   parameters: {
@@ -196,6 +219,14 @@ export const SwitchExample: Story = {
       <Switch id="field-switch-marketing" />
     </Field>
   )
+}
+SwitchExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const control = canvas.getByRole('switch', { name: 'Marketing emails' })
+
+  await userEvent.click(control)
+
+  await expect(control).toBeChecked()
 }
 
 export const FieldsetExample: Story = {
@@ -259,6 +290,12 @@ export const FieldSeparatorExample: Story = {
       </Field>
     </FieldGroup>
   )
+}
+FieldSeparatorExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="field-separator"]')).toBeInTheDocument()
+  await expect(canvas.getByRole('button', { name: 'Save' })).toBeEnabled()
 }
 
 export const FieldTitleExample: Story = {

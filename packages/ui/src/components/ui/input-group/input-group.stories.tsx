@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -92,6 +94,16 @@ export const Default: Story = {
     </InputGroup>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByRole('textbox', { name: 'URL' })
+
+  await userEvent.type(input, 'docs')
+
+  await expect(input).toHaveValue('docs')
+  await expect(canvas.getByText('https://')).toHaveAttribute('data-slot', 'input-group-text')
+  await expect(canvas.getByRole('button', { name: 'Copy' })).toHaveAttribute('data-slot', 'input-group-button')
+}
 
 export const WithIcons: Story = {
   parameters: {
@@ -141,6 +153,12 @@ export const WithButton: Story = {
     </InputGroup>
   )
 }
+WithButton.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByPlaceholderText('Type to search...')).toBeEnabled()
+  await expect(canvas.getByRole('button', { name: 'Search' })).toBeEnabled()
+}
 
 export const WithKbd: Story = {
   parameters: {
@@ -162,4 +180,10 @@ export const WithKbd: Story = {
       </InputGroupAddon>
     </InputGroup>
   )
+}
+WithKbd.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('⌘K')).toHaveAttribute('data-slot', 'kbd')
+  await expect(canvas.getByPlaceholderText('Search...')).toBeEnabled()
 }

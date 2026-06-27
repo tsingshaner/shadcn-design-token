@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -90,6 +92,16 @@ export const Default: Story = {
     </ButtonGroup>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="button-group"]')).toHaveAttribute(
+    'data-orientation',
+    'horizontal'
+  )
+  await expect(canvas.getByRole('button', { name: 'Copy' })).toBeEnabled()
+  await expect(canvasElement.querySelector('[data-slot="button-group-separator"]')).toBeInTheDocument()
+}
 
 export const Orientation: Story = {
   parameters: {
@@ -110,6 +122,12 @@ export const Orientation: Story = {
       </Button>
     </ButtonGroup>
   )
+}
+Orientation.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Media controls')).toHaveAttribute('data-orientation', 'vertical')
+  await expect(canvas.getByRole('button', { name: 'Increase' })).toBeEnabled()
 }
 
 export const Size: Story = {
@@ -182,4 +200,13 @@ export const WithInput: Story = {
       </Button>
     </ButtonGroup>
   )
+}
+WithInput.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByPlaceholderText('Search...')
+
+  await userEvent.type(input, 'accordion')
+
+  await expect(input).toHaveValue('accordion')
+  await expect(canvas.getByRole('button', { name: 'Search' })).toBeEnabled()
 }

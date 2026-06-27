@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -99,6 +101,14 @@ export const Default: Story = {
     </Table>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('table')).toHaveAttribute('data-slot', 'table')
+  await expect(canvas.getByText('A list of your recent invoices.')).toHaveAttribute('data-slot', 'table-caption')
+  await expect(canvas.getByRole('row', { name: /INV001/ })).toHaveTextContent('Paid')
+  await expect(canvas.getByRole('row', { name: /Total/ })).toHaveTextContent('$750.00')
+}
 
 export const Actions: Story = {
   parameters: {
@@ -142,4 +152,12 @@ export const Actions: Story = {
       </TableBody>
     </Table>
   )
+}
+Actions.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const trigger = canvas.getAllByRole('button', { name: 'Open menu' })[0]
+
+  await expect(trigger).toHaveAttribute('aria-haspopup', 'menu')
+  await expect(trigger).toBeEnabled()
+  await expect(canvas.getByRole('row', { name: /Wireless Mouse/ })).toHaveTextContent('$29.99')
 }

@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -52,6 +54,16 @@ export const Default: Story = {
     </Empty>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('No tokens found')).toHaveAttribute('data-slot', 'empty-title')
+  await expect(canvas.getByText('Create a token set to start generating component themes.')).toHaveAttribute(
+    'data-slot',
+    'empty-description'
+  )
+  await expect(canvas.getByRole('button', { name: 'Create token set' })).toBeEnabled()
+}
 
 export const Outline: Story = {
   parameters: {
@@ -78,4 +90,10 @@ export const Outline: Story = {
       </EmptyContent>
     </Empty>
   )
+}
+Outline.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="empty-media"]')).toHaveAttribute('data-variant', 'icon')
+  await expect(canvas.getByRole('button', { name: 'Upload Files' })).toBeEnabled()
 }

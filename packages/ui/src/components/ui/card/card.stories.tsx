@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -41,6 +43,13 @@ export const Default: Story = {
       </CardFooter>
     </Card>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Project activity')).toHaveAttribute('data-slot', 'card-title')
+  await expect(canvas.getByText('Latest design-token sync summary.')).toHaveAttribute('data-slot', 'card-description')
+  await expect(canvas.getByRole('button', { name: 'Open report' })).toBeEnabled()
 }
 
 export const Size: Story = {
@@ -123,4 +132,10 @@ export const Image: Story = {
       </CardContent>
     </Card>
   )
+}
+Image.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('img', { name: 'Abstract token preview' })).toBeVisible()
+  await expect(canvas.getByText('Token preview')).toHaveAttribute('data-slot', 'card-title')
 }

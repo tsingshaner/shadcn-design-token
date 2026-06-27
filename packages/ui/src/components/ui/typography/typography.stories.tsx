@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import {
@@ -44,4 +46,14 @@ export const Default: Story = {
       </TypographyList>
     </article>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('heading', { level: 1, name: 'Design tokens' })).toHaveAttribute(
+    'data-slot',
+    'typography-h1'
+  )
+  await expect(canvas.getByRole('heading', { level: 2, name: 'Usage' })).toHaveAttribute('data-slot', 'typography-h2')
+  await expect(canvas.getByText('data-slot')).toHaveAttribute('data-slot', 'typography-inline-code')
 }

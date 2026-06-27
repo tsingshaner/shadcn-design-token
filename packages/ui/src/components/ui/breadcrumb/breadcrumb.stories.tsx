@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -89,6 +91,13 @@ export const Basic: Story = {
   },
   render: () => <BasicTrail />
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('navigation', { name: 'breadcrumb' })).toHaveAttribute('data-slot', 'breadcrumb')
+  await expect(canvas.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '#')
+  await expect(canvas.getByText('Breadcrumb')).toHaveAttribute('aria-current', 'page')
+}
 
 export const CustomSeparator: Story = {
   parameters: {
@@ -144,6 +153,14 @@ export const Dropdown: Story = {
       </BreadcrumbList>
     </Breadcrumb>
   )
+}
+Dropdown.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const trigger = canvas.getByRole('button', { name: /Components/ })
+
+  await expect(trigger).toHaveAttribute('aria-haspopup', 'menu')
+  await expect(trigger).toBeEnabled()
+  await expect(canvas.getByText('Breadcrumb')).toHaveAttribute('aria-current', 'page')
 }
 
 export const Collapsed: Story = {
@@ -204,4 +221,10 @@ export const LinkComponent: Story = {
       </BreadcrumbList>
     </Breadcrumb>
   )
+}
+LinkComponent.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '#link-component')
+  await expect(canvas.getByRole('link', { name: 'Components' })).toHaveAttribute('href', '#link-component')
 }
