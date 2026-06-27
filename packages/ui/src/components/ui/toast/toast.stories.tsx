@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -28,4 +30,13 @@ export const Default: Story = {
       <Toaster timeout={3000} />
     </>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Show toast' }))
+
+  await expect(await page.findByText('Token sync completed')).toHaveAttribute('data-slot', 'toast-description')
+  await expect(page.getByTestId('toast-viewport-top-right')).toHaveAttribute('data-slot', 'toast-viewport')
 }

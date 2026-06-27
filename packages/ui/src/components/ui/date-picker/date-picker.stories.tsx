@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -46,6 +48,16 @@ export const Basic: Story = {
     </Field>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByLabelText('Date')).toHaveTextContent('January 20, 2026')
+  await userEvent.click(canvas.getByLabelText('Date'))
+
+  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(page.getByRole('button', { name: 'January 20, 2026' })).toHaveAttribute('data-selected', 'true')
+}
 
 export const RangePicker: Story = {
   parameters: {
@@ -72,6 +84,16 @@ export const RangePicker: Story = {
     </Field>
   )
 }
+RangePicker.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByLabelText('Date Picker Range'))
+
+  await expect(await page.findByText('January 2026')).toBeVisible()
+  await expect(canvasElement.ownerDocument.body.querySelectorAll('[data-slot="calendar-grid"]')).toHaveLength(2)
+  await expect(page.getByRole('button', { name: 'February 9, 2026' })).toHaveAttribute('data-selected', 'true')
+}
 
 export const DateOfBirth: Story = {
   parameters: {
@@ -95,6 +117,14 @@ export const DateOfBirth: Story = {
       </Popover>
     </Field>
   )
+}
+DateOfBirth.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByLabelText('Date of birth'))
+
+  await expect(await page.findByLabelText('Month and year')).toHaveAttribute('data-slot', 'calendar-caption')
 }
 
 export const Input: Story = {
@@ -124,4 +154,13 @@ export const Input: Story = {
       </InputGroup>
     </Field>
   )
+}
+Input.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByLabelText('Subscription Date')).toHaveValue('January 20, 2026')
+  await userEvent.click(canvas.getByRole('button', { name: 'Select date' }))
+
+  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
 }

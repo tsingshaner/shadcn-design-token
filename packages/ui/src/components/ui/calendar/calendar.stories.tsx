@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -36,6 +38,16 @@ export const Basic: Story = {
   },
   render: () => <Calendar className="rounded-lg border" defaultMonth={baseDate} mode="single" selected={baseDate} />
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Next month' }))
+
+  await expect(canvas.getByText('February 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+}
 
 export const RangeCalendar: Story = {
   parameters: {
@@ -56,6 +68,14 @@ export const RangeCalendar: Story = {
     />
   )
 }
+RangeCalendar.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('January 2026')).toBeVisible()
+  await expect(canvasElement.querySelectorAll('[data-slot="calendar-grid"]')).toHaveLength(2)
+  await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
+  await expect(canvas.getByRole('button', { name: 'February 11, 2026' })).toHaveAttribute('data-selected', 'true')
+}
 
 export const MonthAndYearSelector: Story = {
   parameters: {
@@ -75,6 +95,12 @@ export const MonthAndYearSelector: Story = {
       selected={baseDate}
     />
   )
+}
+MonthAndYearSelector.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Month and year')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
 }
 
 export const Presets: Story = {
@@ -100,4 +126,11 @@ export const Presets: Story = {
       </CardFooter>
     </Card>
   )
+}
+Presets.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
+  await expect(canvas.getByRole('button', { name: 'Today' })).toBeVisible()
+  await expect(canvas.getByRole('button', { name: 'In 2 weeks' })).toBeVisible()
 }

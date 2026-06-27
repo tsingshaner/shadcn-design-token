@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -28,6 +30,14 @@ export const Default: Story = {
       <Sonner timeout={3000} />
     </>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Publish' }))
+
+  await expect(await page.findByText('Token published')).toHaveAttribute('data-slot', 'toast-title')
 }
 
 export const Types: Story = {
@@ -82,6 +92,14 @@ export const Types: Story = {
     </>
   )
 }
+Types.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Success' }))
+
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'toast-title')
+}
 
 export const Description: Story = {
   parameters: {
@@ -108,6 +126,15 @@ export const Description: Story = {
       <Sonner timeout={3000} />
     </>
   )
+}
+Description.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Show Toast' }))
+
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'toast-title')
+  await expect(page.getByText('Monday, January 3rd at 6:00pm')).toHaveAttribute('data-slot', 'toast-description')
 }
 
 export const Position: Story = {
@@ -159,4 +186,13 @@ export const Position: Story = {
       <Sonner timeout={3000} />
     </>
   )
+}
+Position.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Bottom Left' }))
+
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'toast-title')
+  await expect(page.getByTestId('toast-viewport-bottom-left')).toHaveAttribute('data-position', 'bottom-left')
 }

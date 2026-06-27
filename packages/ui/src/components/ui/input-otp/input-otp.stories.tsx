@@ -1,4 +1,5 @@
 import { type SVGProps, useState } from 'react'
+import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -70,6 +71,12 @@ export const Default: Story = {
     </InputOTP>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('textbox')).toHaveLength(6)
+  await expect(canvasElement.querySelectorAll('[data-slot="input-otp-group"]')).toHaveLength(2)
+}
 
 export const Separator: Story = {
   parameters: {
@@ -99,6 +106,12 @@ export const Separator: Story = {
     </InputOTP>
   )
 }
+Separator.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('textbox')).toHaveLength(6)
+  await expect(canvasElement.querySelectorAll('[data-slot="input-otp-separator"]')).toHaveLength(2)
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -114,6 +127,19 @@ export const Disabled: Story = {
       <SixDigitSlots />
     </InputOTP>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  for (const input of canvas.getAllByRole('textbox')) {
+    await expect(input).toBeDisabled()
+  }
+  await expect(
+    canvas
+      .getAllByRole('textbox')
+      .map((input) => (input as HTMLInputElement).value)
+      .join('')
+  ).toBe('123456')
 }
 
 export const Controlled: Story = {
@@ -147,6 +173,13 @@ export const Controlled: Story = {
     )
   }
 }
+Controlled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await userEvent.type(canvas.getAllByRole('textbox')[0], '123456')
+
+  await expect(canvas.getByText('You entered: 123456')).toBeVisible()
+}
 
 export const Invalid: Story = {
   parameters: {
@@ -162,6 +195,13 @@ export const Invalid: Story = {
       <SixDigitSlots invalid />
     </InputOTP>
   )
+}
+Invalid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  for (const input of canvas.getAllByRole('textbox')) {
+    await expect(input).toHaveAttribute('aria-invalid', 'true')
+  }
 }
 
 export const FourDigits: Story = {
@@ -184,6 +224,11 @@ export const FourDigits: Story = {
     </InputOTP>
   )
 }
+FourDigits.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('textbox')).toHaveLength(4)
+}
 
 export const Alphanumeric: Story = {
   parameters: {
@@ -195,10 +240,22 @@ export const Alphanumeric: Story = {
     }
   },
   render: () => (
-    <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+    <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS} validationType="alphanumeric">
       <SixDigitSlots />
     </InputOTP>
   )
+}
+Alphanumeric.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await userEvent.type(canvas.getAllByRole('textbox')[0], 'A1!')
+
+  await expect(
+    canvas
+      .getAllByRole('textbox')
+      .map((input) => (input as HTMLInputElement).value)
+      .join('')
+  ).toBe('A1')
 }
 
 export const Form: Story = {
@@ -260,4 +317,11 @@ export const Form: Story = {
       </CardFooter>
     </Card>
   )
+}
+Form.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Verify your login')).toBeVisible()
+  await expect(canvas.getAllByRole('textbox')[0]).toBeRequired()
+  await expect(canvas.getByRole('button', { name: /Resend Code/ })).toBeVisible()
 }

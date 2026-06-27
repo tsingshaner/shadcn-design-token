@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Field, FieldContent, FieldDescription, FieldLabel, FieldLegend, FieldSet, FieldTitle } from '../field'
@@ -48,6 +50,14 @@ export const Default: Story = {
     </RadioGroup>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('radio', { name: 'Comfortable' })).toBeChecked()
+  await userEvent.click(canvas.getByRole('radio', { name: 'Compact' }))
+
+  await expect(canvas.getByRole('radio', { name: 'Compact' })).toBeChecked()
+}
 
 export const WithDescription: Story = {
   parameters: {
@@ -77,6 +87,12 @@ export const WithDescription: Story = {
     </RadioGroup>
   )
 }
+WithDescription.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('radio', { name: 'Comfortable' })).toBeChecked()
+  await expect(canvas.getByText('More spacing for touch-heavy layouts.')).toBeVisible()
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -99,6 +115,12 @@ export const Disabled: Story = {
       </div>
     </RadioGroup>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('radio', { name: 'Basic' })).toBeChecked()
+  await expect(canvas.getByRole('radio', { name: 'Enterprise' })).toHaveAttribute('aria-disabled', 'true')
 }
 
 export const ChoiceCard: Story = {
@@ -129,6 +151,14 @@ export const ChoiceCard: Story = {
       ))}
     </RadioGroup>
   )
+}
+ChoiceCard.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('radio', { name: 'Plus For individuals and small teams.' })).toBeChecked()
+  await userEvent.click(canvas.getByRole('radio', { name: 'Pro For growing businesses.' }))
+
+  await expect(canvas.getByRole('radio', { name: 'Pro For growing businesses.' })).toBeChecked()
 }
 
 export const Fieldset: Story = {
@@ -161,6 +191,12 @@ export const Fieldset: Story = {
     </FieldSet>
   )
 }
+Fieldset.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Subscription Plan')).toBeVisible()
+  await expect(canvas.getByRole('radio', { name: 'Monthly ($9.99/month)' })).toBeChecked()
+}
 
 export const Invalid: Story = {
   parameters: {
@@ -191,4 +227,10 @@ export const Invalid: Story = {
       </RadioGroup>
     </FieldSet>
   )
+}
+Invalid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('radio', { name: 'Email only' })).toHaveAttribute('aria-invalid', 'true')
+  await expect(canvas.getByRole('radio', { name: 'Email only' })).toBeChecked()
 }

@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { DataTable, type DataTableColumn } from './data-table'
@@ -46,4 +48,17 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => <DataTable columns={columns} data={data} getRowId={(invoice) => invoice.customer} />
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('table')).toHaveAttribute('data-slot', 'data-table')
+  await expect(canvas.getByRole('columnheader', { name: /Customer/ })).toBeVisible()
+  await expect(canvas.getByRole('cell', { name: 'Avery Stone' })).toBeVisible()
+
+  await userEvent.click(canvas.getByRole('button', { name: /Amount/ }))
+
+  const firstDataRow = canvas.getAllByRole('row')[1]
+  await expect(within(firstDataRow).getByRole('cell', { name: 'Mia Chen' })).toBeVisible()
+  await expect(within(firstDataRow).getByRole('cell', { name: '$125.00' })).toBeVisible()
 }

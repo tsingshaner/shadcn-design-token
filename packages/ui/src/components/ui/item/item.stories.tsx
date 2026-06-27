@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -161,6 +163,16 @@ export const Default: Story = {
     </Item>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Security Alert')).toHaveAttribute('data-slot', 'item-title')
+  await expect(canvas.getByText('New login detected from unknown device.')).toHaveAttribute(
+    'data-slot',
+    'item-description'
+  )
+  await expect(canvas.getByRole('button', { name: 'Review' })).toBeVisible()
+}
 
 export const Variants: Story = {
   parameters: {
@@ -187,6 +199,15 @@ export const Variants: Story = {
     </div>
   )
 }
+Variants.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Default Variant').closest('[data-slot="item"]')).toHaveAttribute(
+    'data-variant',
+    'default'
+  )
+  await expect(canvas.getByText('Muted Variant').closest('[data-slot="item"]')).toHaveAttribute('data-variant', 'muted')
+}
 
 export const Sizes: Story = {
   parameters: {
@@ -212,6 +233,12 @@ export const Sizes: Story = {
       ))}
     </div>
   )
+}
+Sizes.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Default Size').closest('[data-slot="item"]')).toHaveAttribute('data-size', 'default')
+  await expect(canvas.getByText('XS Size').closest('[data-slot="item"]')).toHaveAttribute('data-size', 'xs')
 }
 
 export const AvatarExample: Story = {
@@ -243,6 +270,12 @@ export const AvatarExample: Story = {
     </Item>
   )
 }
+AvatarExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('shadcn')).toHaveAttribute('data-slot', 'item-title')
+  await expect(canvas.getByRole('button', { name: 'Invite' })).toBeVisible()
+}
 
 export const ImageExample: Story = {
   parameters: {
@@ -271,6 +304,12 @@ export const ImageExample: Story = {
       ))}
     </ItemGroup>
   )
+}
+ImageExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="item-group"]')).toBeVisible()
+  await expect(canvas.getByText('Digital Rain')).toHaveAttribute('data-slot', 'item-title')
 }
 
 export const Group: Story = {
@@ -306,6 +345,13 @@ export const Group: Story = {
     </ItemGroup>
   )
 }
+Group.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="item-group"]')).toBeVisible()
+  await expect(canvas.getByText('maxleiter')).toHaveAttribute('data-slot', 'item-title')
+  await expect(canvasElement.querySelectorAll('[data-slot="item-separator"]')).toHaveLength(2)
+}
 
 export const Header: Story = {
   parameters: {
@@ -332,6 +378,12 @@ export const Header: Story = {
     </ItemGroup>
   )
 }
+Header.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelectorAll('[data-slot="item-header"]')).toHaveLength(3)
+  await expect(canvas.getByText('v0-1.5-lg')).toHaveAttribute('data-slot', 'item-title')
+}
 
 export const Footer: Story = {
   parameters: {
@@ -356,6 +408,12 @@ export const Footer: Story = {
       </ItemFooter>
     </Item>
   )
+}
+Footer.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="item-footer"]')).toBeVisible()
+  await expect(canvas.getByRole('button', { name: 'Upgrade' })).toBeVisible()
 }
 
 export const Link: Story = {
@@ -389,6 +447,12 @@ export const Link: Story = {
       </Item>
     </div>
   )
+}
+Link.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('link', { name: /Visit our documentation/ })).toHaveAttribute('data-slot', 'item')
+  await expect(canvas.getByRole('link', { name: /External resource/ })).toHaveAttribute('target', '_blank')
 }
 
 export const Dropdown: Story = {
@@ -431,4 +495,13 @@ export const Dropdown: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+Dropdown.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: /Select/ }))
+
+  await expect(await page.findByText('maxleiter')).toHaveAttribute('data-slot', 'item-title')
+  await expect(page.getByText('maxleiter@vercel.com')).toHaveAttribute('data-slot', 'item-description')
 }
