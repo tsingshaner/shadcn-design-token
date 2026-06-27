@@ -1,6 +1,9 @@
+import { useState } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Progress } from './progress'
+import { Slider } from '../slider'
+import { Progress, ProgressLabel, ProgressValue } from './progress'
 
 const meta = {
   args: {
@@ -28,5 +31,51 @@ export const Default: Story = {}
 export const Indeterminate: Story = {
   args: {
     value: null
+  }
+}
+
+export const Label: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use ProgressLabel and ProgressValue to add a label and value display. Reference: [shadcn/ui Progress Label example](https://ui.shadcn.com/docs/components/base/progress.md#label)'
+      }
+    }
+  },
+  render: () => (
+    <Progress className="w-full max-w-sm" value={56}>
+      <div className="flex items-center justify-between gap-2">
+        <ProgressLabel>Upload progress</ProgressLabel>
+        <ProgressValue />
+      </div>
+    </Progress>
+  )
+}
+
+export const Controlled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Control Progress from another input such as Slider. Reference: [shadcn/ui Progress Controlled example](https://ui.shadcn.com/docs/components/base/progress.md#controlled)'
+      }
+    }
+  },
+  render: function ControlledProgress() {
+    const [value, setValue] = useState(50)
+
+    return (
+      <div className="flex w-full max-w-sm flex-col gap-4">
+        <Progress value={value} />
+        <Slider
+          max={100}
+          min={0}
+          onValueChange={(nextValue) => setValue(Array.isArray(nextValue) ? nextValue[0] : nextValue)}
+          step={1}
+          value={value}
+        />
+      </div>
+    )
   }
 }
