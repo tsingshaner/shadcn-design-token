@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../field'
@@ -40,6 +42,16 @@ export const Default: Story = {
       <Label htmlFor="airplane-mode">Airplane mode</Label>
     </div>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const control = canvas.getByRole('switch', { name: 'Airplane mode' })
+
+  await expect(control).not.toBeChecked()
+
+  await userEvent.click(control)
+
+  await expect(control).toBeChecked()
 }
 
 export const WithDescription: Story = {
@@ -111,6 +123,11 @@ export const Disabled: Story = {
     </Field>
   )
 }
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('switch', { name: 'Sync disabled' })).toHaveAttribute('aria-disabled', 'true')
+}
 
 export const Invalid: Story = {
   parameters: {
@@ -154,6 +171,12 @@ export const Size: Story = {
     </FieldGroup>
   )
 }
+Size.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('switch', { name: 'Small' })).toHaveAttribute('data-size', 'sm')
+  await expect(canvas.getByRole('switch', { name: 'Default' })).toHaveAttribute('data-size', 'default')
+}
 
 export const Checked: Story = {
   args: {
@@ -165,4 +188,9 @@ export const Checked: Story = {
       <Label htmlFor="notifications">Notifications</Label>
     </div>
   )
+}
+Checked.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('switch', { name: 'Notifications' })).toBeChecked()
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -44,6 +45,16 @@ export const Default: Story = {
     </div>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const checkbox = canvas.getByRole('checkbox', { name: 'Accept terms and conditions' })
+
+  await expect(checkbox).not.toBeChecked()
+
+  await userEvent.click(checkbox)
+
+  await expect(checkbox).toBeChecked()
+}
 
 export const Checked: Story = {
   args: {
@@ -55,6 +66,11 @@ export const Checked: Story = {
       <Label htmlFor="checked">Checked</Label>
     </div>
   )
+}
+Checked.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('checkbox', { name: 'Checked' })).toBeChecked()
 }
 
 export const WithDescription: Story = {
@@ -92,6 +108,11 @@ export const Disabled: Story = {
       <FieldLabel htmlFor="checkbox-disabled">Enable sync</FieldLabel>
     </Field>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('checkbox', { name: 'Enable sync' })).toHaveAttribute('aria-disabled', 'true')
 }
 
 export const Group: Story = {
@@ -182,4 +203,15 @@ export const TableExample: Story = {
       </Table>
     )
   }
+}
+TableExample.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const selectAll = canvas.getAllByRole('checkbox')[0]
+
+  await expect(canvas.getByRole('row', { name: /Sarah Chen/ })).toHaveAttribute('data-state', 'selected')
+
+  await userEvent.click(selectAll)
+
+  await expect(selectAll).toBeChecked()
+  await expect(canvas.getByRole('row', { name: /David Kim/ })).toHaveAttribute('data-state', 'selected')
 }

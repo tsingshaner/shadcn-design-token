@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { expect, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -31,6 +32,11 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: (args) => <Slider className="max-w-sm" {...args} />
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('slider')).toHaveAttribute('aria-valuenow', '50')
+}
 
 export const Range: Story = {
   args: {
@@ -49,6 +55,14 @@ export const Range: Story = {
   },
   render: (args) => <Slider aria-label="Volume" className="max-w-sm" {...args} />
 }
+Range.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const thumbs = canvas.getAllByRole('slider')
+
+  await expect(thumbs).toHaveLength(2)
+  await expect(thumbs[0]).toHaveAttribute('aria-valuenow', '25')
+  await expect(thumbs[1]).toHaveAttribute('aria-valuenow', '50')
+}
 
 export const MultipleThumbs: Story = {
   parameters: {
@@ -60,6 +74,11 @@ export const MultipleThumbs: Story = {
     }
   },
   render: () => <Slider className="max-w-sm" defaultValue={[10, 20, 70]} max={100} step={10} />
+}
+MultipleThumbs.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('slider')).toHaveLength(3)
 }
 
 export const Vertical: Story = {
@@ -126,4 +145,10 @@ export const Disabled: Story = {
     }
   },
   render: (args) => <Slider aria-label="Disabled volume" className="max-w-sm" {...args} />
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('group', { name: 'Disabled volume' })).toHaveAttribute('data-disabled')
+  await expect(canvas.getByRole('slider')).toBeDisabled()
 }

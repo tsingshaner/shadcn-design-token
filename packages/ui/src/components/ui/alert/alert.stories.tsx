@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -53,6 +55,17 @@ export const Basic: Story = {
     </Alert>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const alert = canvas.getByRole('alert')
+
+  await expect(alert).toBeInTheDocument()
+  await expect(canvas.getByText('Heads up')).toHaveAttribute('data-slot', 'alert-title')
+  await expect(canvas.getByText('You can add components to your app using the CLI.')).toHaveAttribute(
+    'data-slot',
+    'alert-description'
+  )
+}
 
 export const Action: Story = {
   parameters: {
@@ -76,6 +89,12 @@ export const Action: Story = {
     </Alert>
   )
 }
+Action.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('alert')).toHaveTextContent('A new token build is ready to publish.')
+  await expect(canvas.getByRole('button', { name: 'Review' })).toBeEnabled()
+}
 
 export const Destructive: Story = {
   parameters: {
@@ -92,6 +111,12 @@ export const Destructive: Story = {
       <AlertDescription>Check your token source and try again.</AlertDescription>
     </Alert>
   )
+}
+Destructive.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('alert')).toHaveClass('text-destructive')
+  await expect(canvas.getByText('Unable to sync')).toBeVisible()
 }
 
 export const CustomColors: Story = {

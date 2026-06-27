@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -66,6 +68,17 @@ export const Default: Story = {
     </Tabs>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('tab', { name: 'Account' })).toHaveAttribute('aria-selected', 'true')
+  await expect(canvas.getByText('Make changes to your account here.')).toBeVisible()
+
+  await userEvent.click(canvas.getByRole('tab', { name: 'Password' }))
+
+  await expect(canvas.getByRole('tab', { name: 'Password' })).toHaveAttribute('aria-selected', 'true')
+  await expect(canvas.getByText('Change your password here.')).toBeVisible()
+}
 
 export const Line: Story = {
   parameters: {
@@ -85,6 +98,12 @@ export const Line: Story = {
       </TabsList>
     </Tabs>
   )
+}
+Line.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('tablist')).toHaveAttribute('data-variant', 'line')
+  await expect(canvas.getByRole('tab', { name: 'Overview' })).toHaveAttribute('aria-selected', 'true')
 }
 
 export const Vertical: Story = {
@@ -106,6 +125,11 @@ export const Vertical: Story = {
     </Tabs>
   )
 }
+Vertical.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical')
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -126,6 +150,11 @@ export const Disabled: Story = {
       </TabsList>
     </Tabs>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('tab', { name: 'Disabled' })).toHaveAttribute('data-disabled')
 }
 
 export const Icons: Story = {

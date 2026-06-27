@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -58,6 +60,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const toggle = canvas.getByRole('button', { name: 'Bold' })
+
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false')
+
+  await userEvent.click(toggle)
+
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true')
+}
 
 export const Outline: Story = {
   parameters: {
@@ -122,6 +134,12 @@ export const Size: Story = {
     </div>
   )
 }
+Size.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Toggle small' })).toHaveClass('h-8')
+  await expect(canvas.getByRole('button', { name: 'Toggle large' })).toHaveClass('h-10')
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -142,4 +160,10 @@ export const Disabled: Story = {
       </Toggle>
     </div>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Toggle disabled' })).toBeDisabled()
+  await expect(canvas.getByRole('button', { name: 'Toggle disabled outline' })).toBeDisabled()
 }

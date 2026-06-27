@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion'
@@ -41,6 +43,17 @@ export const Basic: Story = {
       </AccordionItem>
     </Accordion>
   )
+}
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(
+    canvas.getByText('Color, radius, spacing, and typography variables shared by UI components.')
+  ).toBeVisible()
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Components' }))
+
+  await expect(canvas.getByText('Composable React primitives styled with the shared token system.')).toBeVisible()
 }
 
 export const Multiple: Story = {
@@ -91,6 +104,12 @@ export const Disabled: Story = {
       </AccordionItem>
     </Accordion>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Design tokens' })).toHaveAttribute('aria-expanded', 'true')
+  await expect(canvas.getByRole('button', { name: 'Themes' })).toHaveAttribute('aria-disabled', 'true')
 }
 
 export const Borders: Story = {

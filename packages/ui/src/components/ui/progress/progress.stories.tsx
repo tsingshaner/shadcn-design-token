@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { expect, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -27,11 +28,21 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '66')
+}
 
 export const Indeterminate: Story = {
   args: {
     value: null
   }
+}
+Indeterminate.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('progressbar')).not.toHaveAttribute('aria-valuenow')
 }
 
 export const Label: Story = {
@@ -51,6 +62,12 @@ export const Label: Story = {
       </div>
     </Progress>
   )
+}
+Label.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Upload progress')).toHaveAttribute('data-slot', 'progress-label')
+  await expect(canvas.getByText('56%')).toHaveAttribute('data-slot', 'progress-value')
 }
 
 export const Controlled: Story = {

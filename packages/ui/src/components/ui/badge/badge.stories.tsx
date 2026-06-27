@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -65,6 +67,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Badge')).toHaveAttribute('data-slot', 'badge')
+}
 
 export const Variants: Story = {
   parameters: {
@@ -84,6 +91,13 @@ export const Variants: Story = {
       <Badge variant="ghost">Ghost</Badge>
     </div>
   )
+}
+Variants.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Default')).toHaveClass('bg-primary')
+  await expect(canvas.getByText('Secondary')).toHaveClass('bg-secondary')
+  await expect(canvas.getByText('Destructive')).toHaveClass('bg-destructive')
 }
 
 export const WithIcon: Story = {
@@ -147,6 +161,12 @@ export const Link: Story = {
       <BookmarkIcon data-icon="inline-end" />
     </Badge>
   )
+}
+Link.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('link', { name: 'Open Link' })).toHaveAttribute('href', '#link')
+  await expect(canvas.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-slot', 'badge')
 }
 
 export const CustomColors: Story = {

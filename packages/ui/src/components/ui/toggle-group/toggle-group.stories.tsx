@@ -1,4 +1,5 @@
 import { type SVGProps, useState } from 'react'
+import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -78,6 +79,18 @@ export const Outline: Story = {
     </ToggleGroup>
   )
 }
+Outline.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const all = canvas.getByRole('button', { name: 'Toggle all' })
+  const missed = canvas.getByRole('button', { name: 'Toggle missed' })
+
+  await expect(all).toHaveAttribute('aria-pressed', 'true')
+  await expect(missed).toHaveAttribute('aria-pressed', 'false')
+
+  await userEvent.click(missed)
+
+  await expect(missed).toHaveAttribute('aria-pressed', 'true')
+}
 
 export const Size: Story = {
   parameters: {
@@ -151,6 +164,13 @@ export const Vertical: Story = {
     </ToggleGroup>
   )
 }
+Vertical.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('group')).toHaveAttribute('data-orientation', 'vertical')
+  await expect(canvas.getByRole('button', { name: 'Toggle bold' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(canvas.getByRole('button', { name: 'Toggle underline' })).toHaveAttribute('aria-pressed', 'false')
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -174,6 +194,12 @@ export const Disabled: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Toggle bold' })).toBeDisabled()
+  await expect(canvas.getByRole('button', { name: 'Toggle italic' })).toBeDisabled()
 }
 
 export const Custom: Story = {
@@ -214,4 +240,14 @@ export const Custom: Story = {
       </Field>
     )
   }
+}
+Custom.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const medium = canvas.getByRole('button', { name: 'medium' })
+
+  await expect(canvas.getByText('Selected weight: normal')).toBeVisible()
+
+  await userEvent.click(medium)
+
+  await expect(canvas.getByText('Selected weight: medium')).toBeVisible()
 }
