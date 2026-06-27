@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -185,6 +187,11 @@ export const Size: Story = {
 }
 
 export const Default: Story = {}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Button' })).toBeInTheDocument()
+}
 
 export const Outline: Story = {
   args: {

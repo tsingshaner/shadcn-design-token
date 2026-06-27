@@ -10,7 +10,7 @@ const currentDirname = dirname(currentFilename)
 const baseUiCreateSelectorMemoizedModule = '@base-ui/utils/store/createSelectorMemoized.mjs'
 
 const config: StorybookConfig = {
-  addons: ['@storybook/addon-docs'],
+  addons: ['@storybook/addon-docs', '@storybook/addon-vitest'],
   framework: {
     name: '@storybook/react-vite',
     options: {}
