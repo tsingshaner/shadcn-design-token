@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -78,6 +80,16 @@ export const Basic: Story = {
     </AlertDialog>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Show Dialog' }))
+
+  await expect(await page.findByRole('alertdialog', { name: 'Are you absolutely sure?' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Cancel' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: 'Continue' })).toBeEnabled()
+}
 
 export const Small: Story = {
   parameters: {
@@ -108,4 +120,17 @@ export const Small: Story = {
       </AlertDialogContent>
     </AlertDialog>
   )
+}
+Small.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Show Dialog' }))
+
+  await expect(await page.findByRole('alertdialog', { name: 'Allow accessory to connect?' })).toHaveAttribute(
+    'data-size',
+    'sm'
+  )
+  await expect(page.getByRole('button', { name: "Don't allow" })).toBeEnabled()
+  await expect(page.getByRole('button', { name: 'Allow' })).toBeEnabled()
 }

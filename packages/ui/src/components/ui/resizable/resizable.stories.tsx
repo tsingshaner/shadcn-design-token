@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './resizable'
@@ -39,6 +41,13 @@ export const Default: Story = {
     </ResizablePanelGroup>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Sidebar')).toBeVisible()
+  await expect(canvas.getByText('Content')).toBeVisible()
+  await expect(canvas.getByLabelText('Resize panels')).toHaveAttribute('data-slot', 'resizable-handle')
+}
 
 export const Vertical: Story = {
   parameters: {
@@ -65,6 +74,15 @@ export const Vertical: Story = {
     </ResizablePanelGroup>
   )
 }
+Vertical.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvasElement.querySelector('[data-slot="resizable-panel-group"]')).toHaveAttribute(
+    'data-direction',
+    'vertical'
+  )
+  await expect(canvas.getByText('Header')).toBeVisible()
+}
 
 export const Handle: Story = {
   parameters: {
@@ -90,4 +108,11 @@ export const Handle: Story = {
       </ResizablePanel>
     </ResizablePanelGroup>
   )
+}
+Handle.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(
+    canvas.getByLabelText('Resize panels').querySelector('[data-slot="resizable-handle-grip"]')
+  ).toBeVisible()
 }

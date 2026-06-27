@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -65,6 +67,15 @@ export const Default: Story = {
     </Dialog>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Share' }))
+
+  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-slot', 'dialog-content')
+  await expect(page.getByDisplayValue('https://ui.shadcn.com/docs/installation')).toBeInTheDocument()
+}
 
 export const NoCloseButton: Story = {
   parameters: {
@@ -86,6 +97,15 @@ export const NoCloseButton: Story = {
       </DialogContent>
     </Dialog>
   )
+}
+NoCloseButton.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'No Close Button' }))
+
+  await expect(await page.findByRole('dialog', { name: 'No Close Button' })).toBeVisible()
+  await expect(page.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
 }
 
 export const StickyFooter: Story = {

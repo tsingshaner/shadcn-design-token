@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Separator } from '../separator'
@@ -52,6 +54,13 @@ export const Default: Story = {
     </ScrollArea>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByText('Tokens')).toBeVisible()
+  await expect(canvas.getByText('Token 24')).toBeInTheDocument()
+  await expect(canvasElement.querySelector('[data-slot="scroll-area-viewport"]')).toBeInTheDocument()
+}
 
 export const Horizontal: Story = {
   parameters: {
@@ -83,4 +92,10 @@ export const Horizontal: Story = {
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   )
+}
+Horizontal.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('img', { name: 'Artwork by Ornella Binni' })).toBeVisible()
+  await expect(canvasElement.querySelector('[data-orientation="horizontal"]')).toBeInTheDocument()
 }

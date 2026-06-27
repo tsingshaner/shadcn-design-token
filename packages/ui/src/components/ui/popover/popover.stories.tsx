@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -43,6 +45,15 @@ export const Basic: Story = {
       </PopoverContent>
     </Popover>
   )
+}
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open popover' }))
+
+  await expect(await page.findByText('Token options')).toBeVisible()
+  await expect(page.getByText('Choose how generated tokens are grouped.')).toBeVisible()
 }
 
 export const Align: Story = {
@@ -97,4 +108,13 @@ export const WithForm: Story = {
       </PopoverContent>
     </Popover>
   )
+}
+WithForm.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Edit token' }))
+
+  await expect(await page.findByLabelText('Name')).toHaveValue('radius-md')
+  await expect(page.getByLabelText('Value')).toHaveValue('0.375rem')
 }

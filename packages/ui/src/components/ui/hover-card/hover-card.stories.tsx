@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Avatar, AvatarFallback } from '../avatar'
@@ -49,6 +51,13 @@ export const Basic: Story = {
     </HoverCard>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByRole('button', { name: '@design-tokens' })).toBeEnabled()
+  await expect(await page.findByText('Composable primitives for token-driven interfaces.')).toBeVisible()
+}
 
 export const Sides: Story = {
   parameters: {
@@ -74,4 +83,11 @@ export const Sides: Story = {
       ))}
     </div>
   )
+}
+Sides.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByRole('button', { name: 'top' })).toBeEnabled()
+  await expect(await page.findByText('Open top')).toBeVisible()
 }

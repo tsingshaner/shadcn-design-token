@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -67,6 +69,15 @@ export const Default: Story = {
       </DrawerContent>
     </Drawer>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Scrollable Content' }))
+
+  await expect(await page.findByRole('dialog', { name: 'Move Goal' })).toHaveAttribute('data-direction', 'right')
+  await expect(page.getByRole('button', { name: 'Submit' })).toBeEnabled()
 }
 
 export const Sides: Story = {
@@ -157,4 +168,10 @@ export const ResponsiveDialog: Story = {
       </Drawer>
     </div>
   )
+}
+ResponsiveDialog.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Desktop Dialog' })).toBeEnabled()
+  await expect(canvas.getByRole('button', { name: 'Mobile Drawer' })).toBeEnabled()
 }

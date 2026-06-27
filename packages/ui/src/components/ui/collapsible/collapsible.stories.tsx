@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
@@ -117,6 +118,14 @@ export const Default: Story = {
     </Card>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await userEvent.click(canvas.getByRole('button', { name: /Product details/ }))
+
+  await expect(canvas.getByText('This panel can be expanded or collapsed to reveal additional content.')).toBeVisible()
+  await expect(canvas.getByRole('button', { name: 'Learn More' })).toBeEnabled()
+}
 
 export const SettingsPanel: Story = {
   parameters: {
@@ -164,6 +173,14 @@ export const SettingsPanel: Story = {
       </Card>
     )
   }
+}
+SettingsPanel.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await userEvent.click(canvas.getByRole('button'))
+
+  await expect(canvas.getByLabelText('Radius top')).toBeVisible()
+  await expect(canvas.getByLabelText('Radius bottom')).toBeVisible()
 }
 
 type FileTreeItem = { items?: FileTreeItem[]; name: string }
@@ -225,4 +242,11 @@ export const FileTree: Story = {
       </CardContent>
     </Card>
   )
+}
+FileTree.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await userEvent.click(canvas.getByRole('button', { name: /components/ }))
+
+  await expect(canvas.getByRole('button', { name: /login-form.tsx/ })).toBeVisible()
 }

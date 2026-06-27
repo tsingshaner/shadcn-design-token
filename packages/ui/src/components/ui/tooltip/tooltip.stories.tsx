@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
@@ -44,6 +46,14 @@ export const Side: Story = {
     </TooltipProvider>
   )
 }
+Side.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.hover(canvas.getByRole('button', { name: 'top' }))
+
+  await expect(await page.findByText('Open top')).toHaveAttribute('data-slot', 'tooltip-content')
+}
 
 export const WithKeyboardShortcut: Story = {
   parameters: {
@@ -64,6 +74,15 @@ export const WithKeyboardShortcut: Story = {
       </Tooltip>
     </TooltipProvider>
   )
+}
+WithKeyboardShortcut.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.hover(canvas.getByRole('button', { name: 'Search' }))
+
+  await expect(await page.findByText(/Search tokens/)).toHaveAttribute('data-slot', 'tooltip-content')
+  await expect(page.getByText('⌘K')).toHaveAttribute('data-slot', 'kbd')
 }
 
 export const DisabledButton: Story = {
@@ -87,4 +106,9 @@ export const DisabledButton: Story = {
       </Tooltip>
     </TooltipProvider>
   )
+}
+DisabledButton.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('button', { name: 'Publish' })).toBeDisabled()
 }
