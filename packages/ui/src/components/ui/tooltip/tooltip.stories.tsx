@@ -5,6 +5,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tool
 
 const meta = {
   component: Tooltip,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A small anchored hint for supplemental information. Examples and guidance reference the [shadcn/ui Tooltip documentation](https://ui.shadcn.com/docs/components/base/tooltip.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Tooltip'
 } satisfies Meta<typeof Tooltip>

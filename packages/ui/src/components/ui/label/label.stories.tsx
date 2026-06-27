@@ -5,6 +5,14 @@ import { Label } from './label'
 
 const meta = {
   component: Label,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'An accessible text label for form controls. Examples and guidance reference the [shadcn/ui Label documentation](https://ui.shadcn.com/docs/components/base/label.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Label'
 } satisfies Meta<typeof Label>

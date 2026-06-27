@@ -4,6 +4,15 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 const meta = {
   component: Carousel,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A content region for browsing a set of slides or panels. Examples and guidance reference the [shadcn/ui Carousel documentation](https://ui.shadcn.com/docs/components/base/carousel.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Carousel'
 } satisfies Meta<typeof Carousel>
 

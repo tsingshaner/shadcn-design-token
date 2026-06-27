@@ -12,6 +12,14 @@ import {
 
 const meta = {
   component: TypographyH1,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Text primitives and examples for consistent document hierarchy. Examples and guidance reference the [shadcn/ui Typography documentation](https://ui.shadcn.com/docs/components/base/typography.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Typography'
 } satisfies Meta<typeof TypographyH1>

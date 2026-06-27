@@ -28,6 +28,15 @@ const data: Invoice[] = [
 
 const meta = {
   component: DataTable,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A tabular data view with structured columns and row rendering. Examples and guidance reference the [shadcn/ui Data Table documentation](https://ui.shadcn.com/docs/components/base/data-table.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Data Table'
 } satisfies Meta<typeof DataTable>
 

@@ -14,6 +14,14 @@ import {
 
 const meta = {
   component: DropdownMenu,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A menu of actions or navigation choices opened from a trigger. Examples and guidance reference the [shadcn/ui Dropdown Menu documentation](https://ui.shadcn.com/docs/components/base/dropdown-menu.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/DropdownMenu'
 } satisfies Meta<typeof DropdownMenu>

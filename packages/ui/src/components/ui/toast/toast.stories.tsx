@@ -5,6 +5,14 @@ import { Toaster, toast } from './toast'
 
 const meta = {
   component: Toaster,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A transient notification pattern for user feedback. Examples and guidance reference the [shadcn/ui Toast documentation](https://ui.shadcn.com/docs/components/base/toast.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Toast'
 } satisfies Meta<typeof Toaster>

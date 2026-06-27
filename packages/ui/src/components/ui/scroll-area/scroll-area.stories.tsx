@@ -5,6 +5,14 @@ import { ScrollArea } from './scroll-area'
 
 const meta = {
   component: ScrollArea,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A styled scroll container with custom scrollbars. Examples and guidance reference the [shadcn/ui Scroll Area documentation](https://ui.shadcn.com/docs/components/base/scroll-area.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/ScrollArea'
 } satisfies Meta<typeof ScrollArea>

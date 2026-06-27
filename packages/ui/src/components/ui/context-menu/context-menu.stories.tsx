@@ -12,6 +12,14 @@ import {
 
 const meta = {
   component: ContextMenu,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A contextual action menu opened from a right-click or equivalent gesture. Examples and guidance reference the [shadcn/ui Context Menu documentation](https://ui.shadcn.com/docs/components/base/context-menu.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/ContextMenu'
 } satisfies Meta<typeof ContextMenu>

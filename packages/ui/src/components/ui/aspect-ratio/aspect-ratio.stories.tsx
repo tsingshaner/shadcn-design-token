@@ -12,6 +12,14 @@ const meta = {
     }
   },
   component: AspectRatio,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A layout primitive that preserves a consistent width-to-height ratio for embedded content. Examples and guidance reference the [shadcn/ui Aspect Ratio documentation](https://ui.shadcn.com/docs/components/base/aspect-ratio.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/AspectRatio'
 } satisfies Meta<typeof AspectRatio>

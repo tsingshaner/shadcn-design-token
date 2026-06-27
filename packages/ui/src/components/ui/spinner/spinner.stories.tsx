@@ -4,6 +4,14 @@ import { Spinner } from './spinner'
 
 const meta = {
   component: Spinner,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A compact loading indicator for pending work. Examples and guidance reference the [shadcn/ui Spinner documentation](https://ui.shadcn.com/docs/components/base/spinner.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Spinner'
 } satisfies Meta<typeof Spinner>

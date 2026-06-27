@@ -14,6 +14,14 @@ import {
 
 const meta = {
   component: Sheet,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A side panel dialog for secondary workflows and forms. Examples and guidance reference the [shadcn/ui Sheet documentation](https://ui.shadcn.com/docs/components/base/sheet.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Sheet'
 } satisfies Meta<typeof Sheet>

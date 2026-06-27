@@ -4,6 +4,15 @@ import { ChartBarSeries, type ChartConfig, ChartContainer, ChartLegend } from '.
 
 const meta = {
   component: ChartContainer,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Composable chart primitives for visualizing token-driven data series. Examples and guidance reference the [shadcn/ui Chart documentation](https://ui.shadcn.com/docs/components/base/chart.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Chart'
 } satisfies Meta<typeof ChartContainer>
 

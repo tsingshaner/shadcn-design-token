@@ -5,6 +5,14 @@ import { ToggleGroup } from './toggle-group'
 
 const meta = {
   component: ToggleGroup,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A grouped set of toggle controls for single or multiple selection. Examples and guidance reference the [shadcn/ui Toggle Group documentation](https://ui.shadcn.com/docs/components/base/toggle-group.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/ToggleGroup'
 } satisfies Meta<typeof ToggleGroup>

@@ -4,6 +4,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './
 
 const meta = {
   component: Accordion,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A vertically stacked set of interactive headings that reveal related content sections. Examples and guidance reference the [shadcn/ui Accordion documentation](https://ui.shadcn.com/docs/components/base/accordion.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Accordion'
 } satisfies Meta<typeof Accordion>

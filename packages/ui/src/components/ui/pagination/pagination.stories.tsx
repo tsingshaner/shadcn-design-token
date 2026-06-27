@@ -11,6 +11,14 @@ import {
 
 const meta = {
   component: Pagination,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Navigation controls for moving between pages of content. Examples and guidance reference the [shadcn/ui Pagination documentation](https://ui.shadcn.com/docs/components/base/pagination.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Pagination'
 } satisfies Meta<typeof Pagination>

@@ -14,6 +14,14 @@ import {
 
 const meta = {
   component: Drawer,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A panel that slides from the viewport edge for secondary tasks or forms. Examples and guidance reference the [shadcn/ui Drawer documentation](https://ui.shadcn.com/docs/components/base/drawer.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Drawer'
 } satisfies Meta<typeof Drawer>

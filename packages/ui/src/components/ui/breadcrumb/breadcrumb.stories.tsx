@@ -11,6 +11,14 @@ import {
 
 const meta = {
   component: Breadcrumb,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A navigation trail that shows the current page location within a hierarchy. Examples and guidance reference the [shadcn/ui Breadcrumb documentation](https://ui.shadcn.com/docs/components/base/breadcrumb.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Breadcrumb'
 } satisfies Meta<typeof Breadcrumb>

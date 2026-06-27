@@ -12,6 +12,14 @@ import {
 
 const meta = {
   component: NavigationMenu,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A responsive navigation menu for top-level links and grouped destinations. Examples and guidance reference the [shadcn/ui Navigation Menu documentation](https://ui.shadcn.com/docs/components/base/navigation-menu.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/NavigationMenu'
 } satisfies Meta<typeof NavigationMenu>

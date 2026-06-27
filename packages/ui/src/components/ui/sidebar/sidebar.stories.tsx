@@ -18,6 +18,15 @@ import {
 
 const meta = {
   component: Sidebar,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A navigation shell for app layouts with persistent or collapsible side content. Examples and guidance reference the [shadcn/ui Sidebar documentation](https://ui.shadcn.com/docs/components/base/sidebar.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Sidebar'
 } satisfies Meta<typeof Sidebar>
 

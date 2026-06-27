@@ -4,6 +4,14 @@ import { DirectionProvider } from './direction'
 
 const meta = {
   component: DirectionProvider,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A helper for previewing left-to-right and right-to-left layout direction. Examples and guidance reference the [shadcn/ui Direction documentation](https://ui.shadcn.com/docs/components/base/direction.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Direction'
 } satisfies Meta<typeof DirectionProvider>

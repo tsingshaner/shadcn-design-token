@@ -5,6 +5,14 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 
 const meta = {
   component: Empty,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A placeholder state for views without content or results. Examples and guidance reference the [shadcn/ui Empty documentation](https://ui.shadcn.com/docs/components/base/empty.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Empty'
 } satisfies Meta<typeof Empty>

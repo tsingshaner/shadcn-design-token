@@ -5,6 +5,14 @@ import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle }
 
 const meta = {
   component: Item,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A structured row primitive for repeated lists, settings, and menu-like content. Examples and guidance reference the [shadcn/ui Item documentation](https://ui.shadcn.com/docs/components/base/item.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Item'
 } satisfies Meta<typeof Item>

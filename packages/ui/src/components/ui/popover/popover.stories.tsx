@@ -5,6 +5,14 @@ import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 const meta = {
   component: Popover,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A floating content surface anchored to a trigger. Examples and guidance reference the [shadcn/ui Popover documentation](https://ui.shadcn.com/docs/components/base/popover.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Popover'
 } satisfies Meta<typeof Popover>

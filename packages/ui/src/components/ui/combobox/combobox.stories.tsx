@@ -15,6 +15,15 @@ import {
 
 const meta = {
   component: Combobox,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'An autocomplete selection control that combines text input with a selectable list. Examples and guidance reference the [shadcn/ui Combobox documentation](https://ui.shadcn.com/docs/components/base/combobox.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Combobox'
 } satisfies Meta<typeof Combobox>
 

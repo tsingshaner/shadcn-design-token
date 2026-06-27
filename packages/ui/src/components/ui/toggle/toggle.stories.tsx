@@ -7,6 +7,14 @@ const meta = {
     children: 'Bold'
   },
   component: Toggle,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A two-state button control for enabling and disabling an option. Examples and guidance reference the [shadcn/ui Toggle documentation](https://ui.shadcn.com/docs/components/base/toggle.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Toggle'
 } satisfies Meta<typeof Toggle>

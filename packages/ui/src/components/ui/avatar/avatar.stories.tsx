@@ -4,6 +4,14 @@ import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 
 const meta = {
   component: Avatar,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A user or entity image with a fallback for missing media. Examples and guidance reference the [shadcn/ui Avatar documentation](https://ui.shadcn.com/docs/components/base/avatar.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Avatar'
 } satisfies Meta<typeof Avatar>

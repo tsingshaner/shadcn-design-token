@@ -12,6 +12,14 @@ import {
 
 const meta = {
   component: Menubar,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A horizontal application menu with nested menu items and keyboard navigation. Examples and guidance reference the [shadcn/ui Menubar documentation](https://ui.shadcn.com/docs/components/base/menubar.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Menubar'
 } satisfies Meta<typeof Menubar>

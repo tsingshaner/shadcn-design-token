@@ -5,6 +5,14 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsib
 
 const meta = {
   component: Collapsible,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A disclosure pattern for showing and hiding a single content region. Examples and guidance reference the [shadcn/ui Collapsible documentation](https://ui.shadcn.com/docs/components/base/collapsible.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Collapsible'
 } satisfies Meta<typeof Collapsible>

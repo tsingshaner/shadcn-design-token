@@ -13,6 +13,15 @@ import {
 
 const meta = {
   component: Command,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A command menu pattern for searchable actions and navigation. Examples and guidance reference the [shadcn/ui Command documentation](https://ui.shadcn.com/docs/components/base/command.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Command'
 } satisfies Meta<typeof Command>
 

@@ -15,6 +15,14 @@ import {
 
 const meta = {
   component: AlertDialog,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A modal confirmation dialog for critical actions that require explicit user attention. Examples and guidance reference the [shadcn/ui Alert Dialog documentation](https://ui.shadcn.com/docs/components/base/alert-dialog.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/AlertDialog'
 } satisfies Meta<typeof AlertDialog>

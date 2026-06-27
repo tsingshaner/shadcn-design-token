@@ -4,6 +4,15 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './resizabl
 
 const meta = {
   component: ResizablePanelGroup,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Resizable panel primitives for adjustable layouts. Examples and guidance reference the [shadcn/ui Resizable documentation](https://ui.shadcn.com/docs/components/base/resizable.md).'
+      }
+    }
+  },
+  tags: ['autodocs'],
   title: 'Components/Resizable'
 } satisfies Meta<typeof ResizablePanelGroup>
 

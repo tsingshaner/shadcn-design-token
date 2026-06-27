@@ -4,6 +4,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
 
 const meta = {
   component: Tabs,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A tabbed interface for switching between related panels. Examples and guidance reference the [shadcn/ui Tabs documentation](https://ui.shadcn.com/docs/components/base/tabs.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Tabs'
 } satisfies Meta<typeof Tabs>

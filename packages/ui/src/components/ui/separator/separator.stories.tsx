@@ -4,6 +4,14 @@ import { Separator } from './separator'
 
 const meta = {
   component: Separator,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A visual divider for separating content or menu groups. Examples and guidance reference the [shadcn/ui Separator documentation](https://ui.shadcn.com/docs/components/base/separator.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Separator'
 } satisfies Meta<typeof Separator>

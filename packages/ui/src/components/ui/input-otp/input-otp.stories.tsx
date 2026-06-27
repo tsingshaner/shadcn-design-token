@@ -4,6 +4,14 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './inpu
 
 const meta = {
   component: InputOTP,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A segmented input pattern for one-time passwords and verification codes. Examples and guidance reference the [shadcn/ui Input OTP documentation](https://ui.shadcn.com/docs/components/base/input-otp.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/InputOTP'
 } satisfies Meta<typeof InputOTP>

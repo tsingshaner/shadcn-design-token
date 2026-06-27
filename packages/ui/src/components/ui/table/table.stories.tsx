@@ -4,6 +4,14 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 
 const meta = {
   component: Table,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Semantic table primitives for structured row and column content. Examples and guidance reference the [shadcn/ui Table documentation](https://ui.shadcn.com/docs/components/base/table.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Table'
 } satisfies Meta<typeof Table>

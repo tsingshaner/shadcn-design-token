@@ -4,6 +4,14 @@ import { Skeleton } from './skeleton'
 
 const meta = {
   component: Skeleton,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A placeholder loading state that mirrors the shape of pending content. Examples and guidance reference the [shadcn/ui Skeleton documentation](https://ui.shadcn.com/docs/components/base/skeleton.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Skeleton'
 } satisfies Meta<typeof Skeleton>

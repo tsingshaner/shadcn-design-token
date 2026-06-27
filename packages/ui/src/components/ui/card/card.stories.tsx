@@ -5,6 +5,14 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 
 const meta = {
   component: Card,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A flexible container for grouped content and actions. Examples and guidance reference the [shadcn/ui Card documentation](https://ui.shadcn.com/docs/components/base/card.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Card'
 } satisfies Meta<typeof Card>

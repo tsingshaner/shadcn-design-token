@@ -5,6 +5,14 @@ import { Sonner, sonnerToast } from './sonner'
 
 const meta = {
   component: Sonner,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Toast notification primitives built around the Sonner pattern. Examples and guidance reference the [shadcn/ui Sonner documentation](https://ui.shadcn.com/docs/components/base/sonner.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Sonner'
 } satisfies Meta<typeof Sonner>

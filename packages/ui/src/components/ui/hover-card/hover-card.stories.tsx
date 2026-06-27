@@ -6,6 +6,14 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card'
 
 const meta = {
   component: HoverCard,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A lightweight preview surface shown when hovering over related content. Examples and guidance reference the [shadcn/ui Hover Card documentation](https://ui.shadcn.com/docs/components/base/hover-card.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/HoverCard'
 } satisfies Meta<typeof HoverCard>

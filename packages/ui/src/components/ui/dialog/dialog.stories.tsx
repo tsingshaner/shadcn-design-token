@@ -14,6 +14,14 @@ import {
 
 const meta = {
   component: Dialog,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A modal layer for focused tasks, forms, and supporting content. Examples and guidance reference the [shadcn/ui Dialog documentation](https://ui.shadcn.com/docs/components/base/dialog.md).'
+      }
+    }
+  },
   tags: ['autodocs'],
   title: 'UI/Dialog'
 } satisfies Meta<typeof Dialog>
