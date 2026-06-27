@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Field, FieldDescription, FieldLabel } from '../field'
@@ -109,6 +111,19 @@ export const Default: Story = {
     </Select>
   )
 }
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('combobox'))
+
+  await expect(await page.findByText('Theme')).toHaveAttribute('data-slot', 'select-label')
+  await expect(page.getByRole('option', { name: 'System' })).toHaveAttribute('data-slot', 'select-item')
+
+  await userEvent.click(page.getByRole('option', { name: 'Light' }))
+
+  await expect(canvas.getByRole('combobox')).toHaveTextContent('Light')
+}
 
 export const WithField: Story = {
   parameters: {
@@ -138,6 +153,16 @@ export const WithField: Story = {
     </Field>
   )
 }
+WithField.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByLabelText('Department')).toHaveTextContent('engineering')
+  await userEvent.click(canvas.getByLabelText('Department'))
+
+  await expect(await page.findByRole('option', { name: 'Design' })).toHaveAttribute('data-slot', 'select-item')
+  await expect(canvas.getByText('Select your department or area of work.')).toBeVisible()
+}
 
 export const Disabled: Story = {
   parameters: {
@@ -162,6 +187,12 @@ export const Disabled: Story = {
       </SelectContent>
     </Select>
   )
+}
+Disabled.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('combobox')).toBeDisabled()
+  await expect(canvas.getByRole('combobox')).toHaveTextContent('system')
 }
 
 export const Invalid: Story = {
@@ -192,6 +223,12 @@ export const Invalid: Story = {
     </Field>
   )
 }
+Invalid.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByLabelText('Theme')).toHaveAttribute('aria-invalid', 'true')
+  await expect(canvas.getByText('Please select a valid theme.')).toBeVisible()
+}
 
 export const Scrollable: Story = {
   parameters: {
@@ -221,4 +258,13 @@ export const Scrollable: Story = {
       </SelectContent>
     </Select>
   )
+}
+Scrollable.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('combobox'))
+
+  await expect(await page.findByText('Australia & Pacific')).toHaveAttribute('data-slot', 'select-label')
+  await expect(page.getByRole('option', { name: 'Japan Standard Time' })).toHaveAttribute('data-slot', 'select-item')
 }

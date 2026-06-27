@@ -1,3 +1,5 @@
+import { expect, fireEvent, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -99,6 +101,15 @@ export const Basic: Story = {
     </ContextMenu>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click here'))
+
+  await expect(await page.findByText('Token')).toHaveAttribute('data-slot', 'context-menu-label')
+  await expect(page.getByText('Rename')).toHaveAttribute('data-slot', 'context-menu-item')
+}
 
 export const Submenu: Story = {
   parameters: {
@@ -125,6 +136,15 @@ export const Submenu: Story = {
     </ContextMenu>
   )
 }
+Submenu.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click here'))
+  await userEvent.hover(await page.findByText('Export as'))
+
+  await expect(await page.findByText('JSON tokens')).toHaveAttribute('data-slot', 'context-menu-item')
+}
 
 export const Shortcuts: Story = {
   parameters: {
@@ -150,6 +170,15 @@ export const Shortcuts: Story = {
       </ContextMenuContent>
     </ContextMenu>
   )
+}
+Shortcuts.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click here'))
+
+  await expect(await page.findByText('⌘R')).toHaveAttribute('data-slot', 'context-menu-shortcut')
+  await expect(page.getByText('⌘D')).toHaveAttribute('data-slot', 'context-menu-shortcut')
 }
 
 export const Groups: Story = {
@@ -225,6 +254,21 @@ export const Checkboxes: Story = {
     </ContextMenu>
   )
 }
+Checkboxes.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click here'))
+
+  await expect(await page.findByRole('menuitemcheckbox', { name: 'Show aliases' })).toHaveAttribute(
+    'aria-checked',
+    'true'
+  )
+  await expect(page.getByRole('menuitemcheckbox', { name: 'Show deprecated tokens' })).toHaveAttribute(
+    'aria-checked',
+    'false'
+  )
+}
 
 export const Radio: Story = {
   parameters: {
@@ -248,6 +292,15 @@ export const Radio: Story = {
     </ContextMenu>
   )
 }
+Radio.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click here'))
+
+  await expect(await page.findByRole('menuitemradio', { name: 'Comfortable' })).toHaveAttribute('aria-checked', 'true')
+  await expect(page.getByRole('menuitemradio', { name: 'Compact' })).toHaveAttribute('aria-checked', 'false')
+}
 
 export const Destructive: Story = {
   parameters: {
@@ -269,6 +322,14 @@ export const Destructive: Story = {
     </ContextMenu>
   )
 }
+Destructive.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click here'))
+
+  await expect(await page.findByText('Delete token set')).toHaveClass('text-destructive')
+}
 
 export const Sides: Story = {
   parameters: {
@@ -288,4 +349,13 @@ export const Sides: Story = {
       </ContextMenuContent>
     </ContextMenu>
   )
+}
+Sides.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  fireEvent.contextMenu(canvas.getByText('Right click for side placement'))
+
+  await expect(await page.findByText('Right aligned')).toHaveAttribute('data-slot', 'context-menu-item')
+  await expect(page.getByText('Open details')).toHaveAttribute('data-slot', 'context-menu-item')
 }

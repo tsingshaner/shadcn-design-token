@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import {
@@ -72,6 +74,16 @@ export const Basic: Story = {
     </Combobox>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByPlaceholderText('Select a framework')).toHaveAttribute('data-slot', 'combobox-input')
+  await expect(await page.findByText('Next.js')).toHaveAttribute('data-slot', 'combobox-item')
+
+  await userEvent.type(canvas.getByPlaceholderText('Select a framework'), 'Ast')
+  await expect(page.getByText('Astro')).toHaveAttribute('data-slot', 'combobox-item')
+}
 
 export const Multiple: Story = {
   parameters: {
@@ -96,6 +108,14 @@ export const Multiple: Story = {
       </div>
     </Combobox>
   )
+}
+Multiple.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByText('Next.js')).toBeVisible()
+  await expect(canvasElement.querySelector('[data-slot="combobox-trigger"]')).toBeVisible()
+  await expect(await page.findByText('SvelteKit')).toHaveAttribute('data-slot', 'combobox-item')
 }
 
 export const ClearButton: Story = {
@@ -123,6 +143,14 @@ export const ClearButton: Story = {
       </div>
     </Combobox>
   )
+}
+ClearButton.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByText('Clear')).toBeVisible()
+  await expect(canvasElement.querySelector('[data-slot="combobox-trigger"]')).toBeVisible()
+  await expect(await page.findByText('Next.js')).toHaveAttribute('data-slot', 'combobox-item')
 }
 
 export const Groups: Story = {
@@ -157,4 +185,12 @@ export const Groups: Story = {
       </div>
     </Combobox>
   )
+}
+Groups.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByPlaceholderText('Select a timezone')).toHaveAttribute('data-slot', 'combobox-input')
+  await expect(await page.findByText('Europe')).toHaveAttribute('data-slot', 'combobox-group-label')
+  await expect(page.getByText('(GMT+9) Tokyo')).toHaveAttribute('data-slot', 'combobox-item')
 }

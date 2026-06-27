@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -92,6 +94,21 @@ export const Checkbox: Story = {
     </Menubar>
   )
 }
+Checkbox.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('menuitem', { name: 'View' }))
+
+  await expect(await page.findByRole('menuitemcheckbox', { name: 'Show aliases' })).toHaveAttribute(
+    'aria-checked',
+    'true'
+  )
+  await expect(page.getByRole('menuitemcheckbox', { name: 'Show deprecated tokens' })).toHaveAttribute(
+    'aria-checked',
+    'false'
+  )
+}
 
 export const Radio: Story = {
   parameters: {
@@ -116,6 +133,15 @@ export const Radio: Story = {
       </MenubarMenu>
     </Menubar>
   )
+}
+Radio.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('menuitem', { name: 'Density' }))
+
+  await expect(await page.findByRole('menuitemradio', { name: 'Comfortable' })).toHaveAttribute('aria-checked', 'true')
+  await expect(page.getByRole('menuitemradio', { name: 'Spacious' })).toHaveAttribute('aria-checked', 'false')
 }
 
 export const Submenu: Story = {
@@ -150,6 +176,16 @@ export const Submenu: Story = {
     </Menubar>
   )
 }
+Submenu.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('menuitem', { name: 'File' }))
+  await userEvent.hover(await page.findByText('Export'))
+
+  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-slot', 'menubar-item')
+  await expect(page.getByText('⌘N')).toHaveAttribute('data-slot', 'menubar-shortcut')
+}
 
 export const WithIcons: Story = {
   parameters: {
@@ -179,4 +215,13 @@ export const WithIcons: Story = {
       </MenubarMenu>
     </Menubar>
   )
+}
+WithIcons.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('menuitem', { name: 'File' }))
+
+  await expect(await page.findByText('New file')).toHaveAttribute('data-slot', 'menubar-item')
+  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-slot', 'menubar-shortcut')
 }

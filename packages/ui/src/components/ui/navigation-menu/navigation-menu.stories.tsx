@@ -1,3 +1,5 @@
+import { expect, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import {
@@ -48,4 +50,13 @@ export const Default: Story = {
       <NavigationMenuViewport />
     </NavigationMenu>
   )
+}
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await expect(canvas.getByRole('button', { name: /Tokens/ })).toHaveAttribute('data-slot', 'navigation-menu-trigger')
+  await expect(await page.findByText('Color tokens')).toHaveAttribute('data-slot', 'navigation-menu-link')
+  await expect(page.getByText('Typography tokens')).toHaveAttribute('data-slot', 'navigation-menu-link')
+  await expect(canvas.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-slot', 'navigation-menu-link')
 }

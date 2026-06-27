@@ -1,4 +1,5 @@
 import { type SVGProps, useState } from 'react'
+import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -143,6 +144,18 @@ export const Basic: Story = {
     </CommandDialogExample>
   )
 }
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open Menu' }))
+
+  await expect(await page.findByRole('dialog')).toBeVisible()
+  await userEvent.type(page.getByPlaceholderText('Type a command or search...'), 'calc')
+
+  await expect(page.getByRole('option', { name: 'Calculator' })).toBeVisible()
+  await expect(page.queryByRole('option', { name: 'Calendar' })).not.toBeInTheDocument()
+}
 
 export const Shortcuts: Story = {
   parameters: {
@@ -178,6 +191,15 @@ export const Shortcuts: Story = {
       </CommandList>
     </CommandDialogExample>
   )
+}
+Shortcuts.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open Menu' }))
+
+  await expect(await page.findByText('⌘P')).toHaveAttribute('data-slot', 'command-shortcut')
+  await expect(page.getByRole('option', { name: /Profile/ })).toBeVisible()
 }
 
 export const Groups: Story = {
@@ -230,6 +252,20 @@ export const Groups: Story = {
     </CommandDialogExample>
   )
 }
+Groups.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open Menu' }))
+
+  const settingsHeading = page
+    .getAllByText('Settings')
+    .find((element) => element.getAttribute('data-slot') === 'command-group-heading')
+
+  await expect(await page.findByText('Suggestions')).toHaveAttribute('data-slot', 'command-group-heading')
+  await expect(settingsHeading).toBeVisible()
+  await expect(page.getByRole('option', { name: /Billing/ })).toBeVisible()
+}
 
 export const Scrollable: Story = {
   parameters: {
@@ -273,4 +309,14 @@ export const Scrollable: Story = {
       </CommandList>
     </CommandDialogExample>
   )
+}
+Scrollable.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open Menu' }))
+  await userEvent.type(await page.findByPlaceholderText('Type a command or search...'), 'archive')
+
+  await expect(page.getByRole('option', { name: 'Archive' })).toBeVisible()
+  await expect(page.queryByRole('option', { name: 'Home ⌘H' })).not.toBeInTheDocument()
 }

@@ -1,3 +1,5 @@
+import { expect, userEvent, within } from 'storybook/test'
+
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
@@ -90,14 +92,25 @@ export const Basic: Story = {
     <DropdownMenu>
       <MenuTrigger />
       <DropdownMenuContent>
-        <DropdownMenuLabel>Theme tokens</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Sync</DropdownMenuItem>
-        <DropdownMenuItem>Export</DropdownMenuItem>
-        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Theme tokens</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>Sync</DropdownMenuItem>
+          <DropdownMenuItem>Export</DropdownMenuItem>
+          <DropdownMenuItem>Duplicate</DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+Basic.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
+
+  await expect(await page.findByText('Theme tokens')).toHaveAttribute('data-slot', 'dropdown-menu-label')
+  await expect(page.getByText('Sync')).toHaveAttribute('data-slot', 'dropdown-menu-item')
 }
 
 export const Submenu: Story = {
@@ -125,6 +138,15 @@ export const Submenu: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+Submenu.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
+  await userEvent.hover(await page.findByText('Export as'))
+
+  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-slot', 'dropdown-menu-item')
 }
 
 export const Shortcuts: Story = {
@@ -155,6 +177,15 @@ export const Shortcuts: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+Shortcuts.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
+
+  await expect(await page.findByText('⌘N')).toHaveAttribute('data-slot', 'dropdown-menu-shortcut')
+  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-slot', 'dropdown-menu-shortcut')
 }
 
 export const Icons: Story = {
@@ -203,6 +234,21 @@ export const Checkboxes: Story = {
     </DropdownMenu>
   )
 }
+Checkboxes.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
+
+  await expect(await page.findByRole('menuitemcheckbox', { name: 'Show aliases' })).toHaveAttribute(
+    'aria-checked',
+    'true'
+  )
+  await expect(page.getByRole('menuitemcheckbox', { name: 'Show deprecated tokens' })).toHaveAttribute(
+    'aria-checked',
+    'false'
+  )
+}
 
 export const CheckboxesIcons: Story = {
   parameters: {
@@ -246,6 +292,15 @@ export const RadioGroup: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+RadioGroup.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
+
+  await expect(await page.findByRole('menuitemradio', { name: 'System' })).toHaveAttribute('aria-checked', 'true')
+  await expect(page.getByRole('menuitemradio', { name: 'Dark' })).toHaveAttribute('aria-checked', 'false')
 }
 
 export const RadioIcons: Story = {
@@ -291,6 +346,14 @@ export const Destructive: Story = {
     </DropdownMenu>
   )
 }
+Destructive.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
+
+  await expect(await page.findByText('Delete token set')).toHaveClass('text-destructive')
+}
 
 export const Avatar: Story = {
   parameters: {
@@ -310,12 +373,23 @@ export const Avatar: Story = {
         Design Tokens
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Workspace</DropdownMenuLabel>
-        <DropdownMenuItem>Account settings</DropdownMenuItem>
-        <DropdownMenuItem>Invite team</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Workspace</DropdownMenuLabel>
+          <DropdownMenuItem>Account settings</DropdownMenuItem>
+          <DropdownMenuItem>Invite team</DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+Avatar.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: /Design Tokens/ }))
+
+  await expect(await page.findByText('Workspace')).toHaveAttribute('data-slot', 'dropdown-menu-label')
+  await expect(page.getByText('Invite team')).toHaveAttribute('data-slot', 'dropdown-menu-item')
 }
 
 export const Complex: Story = {
@@ -355,4 +429,14 @@ export const Complex: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+Complex.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const page = within(canvasElement.ownerDocument.body)
+
+  await userEvent.click(canvas.getByRole('button', { name: 'Token actions' }))
+  await userEvent.hover(await page.findByText('Export'))
+
+  await expect(await page.findByText('JSON')).toHaveAttribute('data-slot', 'dropdown-menu-item')
+  await expect(page.getByRole('menuitemcheckbox', { name: 'Show in sidebar' })).toHaveAttribute('aria-checked', 'true')
 }
