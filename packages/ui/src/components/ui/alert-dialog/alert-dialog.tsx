@@ -8,11 +8,14 @@ type AlertDialogProps = AlertDialogPrimitive.Root.Props
 type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props
 type AlertDialogPortalProps = AlertDialogPrimitive.Portal.Props
 type AlertDialogOverlayProps = AlertDialogPrimitive.Backdrop.Props
-type AlertDialogContentProps = AlertDialogPrimitive.Popup.Props
+type AlertDialogContentProps = AlertDialogPrimitive.Popup.Props & {
+  size?: 'default' | 'sm'
+}
 type AlertDialogTitleProps = AlertDialogPrimitive.Title.Props
 type AlertDialogDescriptionProps = AlertDialogPrimitive.Description.Props
 type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props
 type AlertDialogActionProps = AlertDialogPrimitive.Close.Props
+type AlertDialogMediaProps = ComponentProps<'div'>
 
 const AlertDialog = (props: AlertDialogProps) => <AlertDialogPrimitive.Root {...props} />
 
@@ -39,14 +42,16 @@ const AlertDialogOverlay = ({ className, ...props }: AlertDialogOverlayProps) =>
   />
 )
 
-const AlertDialogContent = ({ className, ...props }: AlertDialogContentProps) => (
+const AlertDialogContent = ({ className, size = 'default', ...props }: AlertDialogContentProps) => (
   <AlertDialogPortal>
     <AlertDialogOverlay />
     <AlertDialogPrimitive.Popup
       className={cn(
         'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg sm:max-w-lg',
+        size === 'sm' && 'sm:max-w-sm',
         className
       )}
+      data-size={size}
       data-slot="alert-dialog-content"
       {...props}
     />
@@ -85,6 +90,17 @@ const AlertDialogDescription = ({ className, ...props }: AlertDialogDescriptionP
   />
 )
 
+const AlertDialogMedia = ({ className, ...props }: AlertDialogMediaProps) => (
+  <div
+    className={cn(
+      'mx-auto flex size-10 items-center justify-center rounded-full bg-muted text-muted-foreground sm:mx-0 [&_svg:not([class*=size-])]:size-5',
+      className
+    )}
+    data-slot="alert-dialog-media"
+    {...props}
+  />
+)
+
 const AlertDialogAction = ({ className, ...props }: AlertDialogActionProps) => (
   <AlertDialogPrimitive.Close
     className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
@@ -106,6 +122,7 @@ export type {
   AlertDialogCancelProps,
   AlertDialogContentProps,
   AlertDialogDescriptionProps,
+  AlertDialogMediaProps,
   AlertDialogOverlayProps,
   AlertDialogPortalProps,
   AlertDialogProps,
@@ -120,6 +137,7 @@ export {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogMedia,
   AlertDialogOverlay,
   AlertDialogPortal,
   AlertDialogTitle,

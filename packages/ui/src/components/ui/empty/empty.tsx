@@ -7,7 +7,9 @@ type EmptyHeaderProps = ComponentProps<'div'>
 type EmptyTitleProps = ComponentProps<'div'>
 type EmptyDescriptionProps = ComponentProps<'div'>
 type EmptyContentProps = ComponentProps<'div'>
-type EmptyMediaProps = ComponentProps<'div'>
+type EmptyMediaProps = ComponentProps<'div'> & {
+  variant?: 'default' | 'icon'
+}
 
 const Empty = ({ className, ...props }: EmptyProps) => (
   <div
@@ -36,10 +38,16 @@ const EmptyContent = ({ className, ...props }: EmptyContentProps) => (
   <div className={cn('flex items-center gap-2', className)} data-slot="empty-content" {...props} />
 )
 
-const EmptyMedia = ({ className, ...props }: EmptyMediaProps) => (
+const EmptyMedia = ({ className, variant = 'default', ...props }: EmptyMediaProps) => (
   <div
-    className={cn('flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground', className)}
+    className={cn(
+      'flex size-12 items-center justify-center rounded-full',
+      variant === 'default' && 'bg-muted text-muted-foreground',
+      variant === 'icon' && 'bg-muted text-muted-foreground [&_svg:not([class*=size-])]:size-6',
+      className
+    )}
     data-slot="empty-media"
+    data-variant={variant}
     {...props}
   />
 )

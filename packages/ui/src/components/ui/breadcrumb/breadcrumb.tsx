@@ -1,8 +1,11 @@
-import type { ComponentProps } from 'react'
+import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
 
 import { cn } from '../../../lib/utils'
 
 type BreadcrumbProps = ComponentProps<'nav'>
+type BreadcrumbLinkProps = ComponentProps<'a'> & {
+  render?: ReactElement<ComponentProps<'a'>>
+}
 
 const Breadcrumb = ({ ...props }: BreadcrumbProps) => <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />
 
@@ -21,9 +24,19 @@ const BreadcrumbItem = ({ className, ...props }: ComponentProps<'li'>) => (
   <li className={cn('inline-flex items-center gap-1.5', className)} data-slot="breadcrumb-item" {...props} />
 )
 
-const BreadcrumbLink = ({ className, ...props }: ComponentProps<'a'>) => (
-  <a className={cn('transition-colors hover:text-foreground', className)} data-slot="breadcrumb-link" {...props} />
-)
+const BreadcrumbLink = ({ className, render, ...props }: BreadcrumbLinkProps) => {
+  const linkProps = {
+    className: cn('transition-colors hover:text-foreground', render?.props.className, className),
+    'data-slot': 'breadcrumb-link',
+    ...props
+  }
+
+  if (render && isValidElement(render)) {
+    return cloneElement(render, linkProps)
+  }
+
+  return <a {...linkProps} />
+}
 
 const BreadcrumbPage = ({ className, ...props }: ComponentProps<'span'>) => (
   <span
@@ -58,7 +71,7 @@ const BreadcrumbEllipsis = ({ className, ...props }: ComponentProps<'span'>) => 
   </span>
 )
 
-export type { BreadcrumbProps }
+export type { BreadcrumbLinkProps, BreadcrumbProps }
 export {
   Breadcrumb,
   BreadcrumbEllipsis,
