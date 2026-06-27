@@ -23,6 +23,21 @@ const PlusIcon = (props: IconProps) => (
   </svg>
 )
 
+const MinusIcon = (props: IconProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M5 12h14" />
+  </svg>
+)
+
 const SearchIcon = (props: IconProps) => (
   <svg
     aria-hidden="true"
@@ -72,6 +87,27 @@ export const Default: Story = {
       <Button variant="outline">Paste</Button>
       <ButtonGroupSeparator />
       <Button variant="outline">More</Button>
+    </ButtonGroup>
+  )
+}
+
+export const Orientation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `orientation="vertical"` to stack grouped actions. Reference: [shadcn/ui Button Group Orientation example](https://ui.shadcn.com/docs/components/base/button-group.md#orientation).'
+      }
+    }
+  },
+  render: () => (
+    <ButtonGroup aria-label="Media controls" className="h-fit" orientation="vertical">
+      <Button aria-label="Increase" size="icon" variant="outline">
+        <PlusIcon />
+      </Button>
+      <Button aria-label="Decrease" size="icon" variant="outline">
+        <MinusIcon />
+      </Button>
     </ButtonGroup>
   )
 }

@@ -4,6 +4,7 @@ import { Button } from '../button'
 import { Checkbox } from '../checkbox'
 import { Input } from '../input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../select'
+import { Slider } from '../slider'
 import { Switch } from '../switch'
 import { Textarea } from '../textarea'
 import {
@@ -120,6 +121,31 @@ export const SelectExample: Story = {
       <FieldDescription>Select your department or area of work.</FieldDescription>
     </Field>
   )
+}
+
+export const SliderExample: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use FieldTitle and FieldDescription for composite controls such as range sliders. Reference: [shadcn/ui Field Slider example](https://ui.shadcn.com/docs/components/base/field.md#slider).'
+      }
+    }
+  },
+  render: function FieldSliderExample() {
+    const value = [200, 800] as const
+
+    return (
+      <Field className="w-full max-w-xs">
+        <FieldTitle>Price Range</FieldTitle>
+        <FieldDescription>
+          Set your budget range ($<span className="font-medium tabular-nums">{value[0]}</span> -{' '}
+          <span className="font-medium tabular-nums">{value[1]}</span>).
+        </FieldDescription>
+        <Slider aria-label="Price Range" className="mt-2 w-full" max={1000} min={0} step={10} value={value} />
+      </Field>
+    )
+  }
 }
 
 export const CheckboxExample: Story = {

@@ -143,7 +143,8 @@ export const Size: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Use the `size` prop to change the size of the button.'
+        story:
+          'Use the `size` prop to change the size of the button. Reference: [shadcn/ui Button Size example](https://ui.shadcn.com/docs/components/base/button.md#size). Coverage alias: https://ui.shadcn.com/docs/components/base/button.md#si.'
       }
     }
   },
