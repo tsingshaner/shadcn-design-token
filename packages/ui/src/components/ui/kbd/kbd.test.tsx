@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, test } from 'vitest'
 
-import { Kbd } from './kbd'
+import { Kbd, KbdGroup } from './kbd'
 
 describe('Kbd', () => {
   afterEach(() => {
@@ -12,5 +12,16 @@ describe('Kbd', () => {
     render(<Kbd>Esc</Kbd>)
 
     expect(screen.getByText('Esc')).toHaveAttribute('data-slot', 'kbd')
+  })
+
+  test('groups keyboard keys', () => {
+    render(
+      <KbdGroup>
+        <Kbd>Ctrl</Kbd>
+        <Kbd>K</Kbd>
+      </KbdGroup>
+    )
+
+    expect(screen.getByText('Ctrl').parentElement).toHaveAttribute('data-slot', 'kbd-group')
   })
 })

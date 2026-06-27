@@ -19,7 +19,9 @@ type CommandDialogProps = Omit<DialogProps, 'children'> & {
 type CommandInputProps = ComponentProps<'input'>
 type CommandListProps = ComponentProps<'div'>
 type CommandEmptyProps = ComponentProps<'div'>
-type CommandGroupProps = ComponentProps<'div'>
+type CommandGroupProps = ComponentProps<'div'> & {
+  heading?: ReactNode
+}
 type CommandSeparatorProps = ComponentProps<'hr'>
 type CommandItemProps = ComponentProps<'button'> & {
   value?: string
@@ -113,7 +115,7 @@ const CommandEmpty = ({ className, ...props }: CommandEmptyProps) => (
   />
 )
 
-const CommandGroup = ({ className, ...props }: CommandGroupProps) => (
+const CommandGroup = ({ children, className, heading, ...props }: CommandGroupProps) => (
   <div
     className={cn(
       'overflow-hidden p-1 text-foreground [&_[data-slot=command-group-heading]]:px-2 [&_[data-slot=command-group-heading]]:py-1.5 [&_[data-slot=command-group-heading]]:font-medium [&_[data-slot=command-group-heading]]:text-muted-foreground [&_[data-slot=command-group-heading]]:text-xs',
@@ -121,7 +123,10 @@ const CommandGroup = ({ className, ...props }: CommandGroupProps) => (
     )}
     data-slot="command-group"
     {...props}
-  />
+  >
+    {heading ? <CommandGroupHeading>{heading}</CommandGroupHeading> : null}
+    {children}
+  </div>
 )
 
 const CommandGroupHeading = ({ className, ...props }: ComponentProps<'div'>) => (
