@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Field, FieldDescription, FieldLabel } from '../field'
+import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../field'
 import { Label } from '../label'
 import { Switch } from './switch'
 
@@ -62,6 +62,39 @@ export const WithDescription: Story = {
   )
 }
 
+export const ChoiceCard: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Wrap card-style Field controls in FieldLabel for clickable switch choices. Reference: [shadcn/ui Switch Choice Card example](https://ui.shadcn.com/docs/components/base/switch.md#choice-card)'
+      }
+    }
+  },
+  render: () => (
+    <FieldGroup className="w-full max-w-sm">
+      <FieldLabel htmlFor="switch-share">
+        <Field className="grid-cols-[1fr_auto] rounded-md border p-4">
+          <FieldContent>
+            <FieldTitle>Share across devices</FieldTitle>
+            <FieldDescription>Focus is shared across devices, and turns off when you leave the app.</FieldDescription>
+          </FieldContent>
+          <Switch id="switch-share" />
+        </Field>
+      </FieldLabel>
+      <FieldLabel htmlFor="switch-notifications">
+        <Field className="grid-cols-[1fr_auto] rounded-md border p-4">
+          <FieldContent>
+            <FieldTitle>Enable notifications</FieldTitle>
+            <FieldDescription>Receive notifications when focus mode is enabled or disabled.</FieldDescription>
+          </FieldContent>
+          <Switch defaultChecked id="switch-notifications" />
+        </Field>
+      </FieldLabel>
+    </FieldGroup>
+  )
+}
+
 export const Disabled: Story = {
   parameters: {
     docs: {
@@ -76,6 +109,49 @@ export const Disabled: Story = {
       <FieldLabel htmlFor="switch-disabled">Sync disabled</FieldLabel>
       <Switch disabled id="switch-disabled" />
     </Field>
+  )
+}
+
+export const Invalid: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use aria-invalid on Switch and data-invalid on Field for validation state. Reference: [shadcn/ui Switch Invalid example](https://ui.shadcn.com/docs/components/base/switch.md#invalid)'
+      }
+    }
+  },
+  render: () => (
+    <Field className="max-w-sm grid-cols-[1fr_auto] items-center gap-x-3" data-invalid>
+      <FieldContent>
+        <FieldLabel htmlFor="switch-terms">Accept terms and conditions</FieldLabel>
+        <FieldDescription>You must accept the terms and conditions to continue.</FieldDescription>
+      </FieldContent>
+      <Switch aria-invalid id="switch-terms" />
+    </Field>
+  )
+}
+
+export const Size: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use the size prop to change switch dimensions. Reference: [shadcn/ui Switch Size example](https://ui.shadcn.com/docs/components/base/switch.md#size)'
+      }
+    }
+  },
+  render: () => (
+    <FieldGroup className="w-full max-w-[10rem]">
+      <Field className="grid-cols-[auto_1fr] items-center">
+        <Switch id="switch-size-sm" size="sm" />
+        <FieldLabel htmlFor="switch-size-sm">Small</FieldLabel>
+      </Field>
+      <Field className="grid-cols-[auto_1fr] items-center">
+        <Switch id="switch-size-default" />
+        <FieldLabel htmlFor="switch-size-default">Default</FieldLabel>
+      </Field>
+    </FieldGroup>
   )
 }
 

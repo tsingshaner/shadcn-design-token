@@ -44,7 +44,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'secondary', 'destructive', 'outline']
+      options: ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link']
     }
   },
   component: Badge,
@@ -81,6 +81,7 @@ export const Variants: Story = {
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="destructive">Destructive</Badge>
       <Badge variant="outline">Outline</Badge>
+      <Badge variant="ghost">Ghost</Badge>
     </div>
   )
 }
@@ -128,6 +129,23 @@ export const WithSpinner: Story = {
         <Spinner className="size-3" data-icon="inline-end" />
       </Badge>
     </div>
+  )
+}
+
+export const Link: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use render to render a link as a badge. Reference: [shadcn/ui Badge Link example](https://ui.shadcn.com/docs/components/base/badge.md#link)'
+      }
+    }
+  },
+  render: () => (
+    <Badge render={<a href="#link" />} variant="link">
+      Open Link
+      <BookmarkIcon data-icon="inline-end" />
+    </Badge>
   )
 }
 

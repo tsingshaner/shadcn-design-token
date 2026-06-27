@@ -22,4 +22,10 @@ describe('Switch', () => {
 
     expect(onCheckedChange).toHaveBeenCalledWith(true, expect.any(Object))
   })
+
+  test('supports sizes', () => {
+    render(<Switch aria-label="Compact" size="sm" />)
+
+    expect(screen.getByRole('switch', { name: 'Compact' })).toHaveAttribute('data-size', 'sm')
+  })
 })

@@ -1,6 +1,5 @@
+import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants/lite'
-
-import type { ComponentProps } from 'react'
 
 import { cn } from '../../../lib/utils'
 
@@ -13,17 +12,32 @@ const badgeVariants = tv({
     variant: {
       default: 'border-transparent bg-primary text-primary-foreground',
       destructive: 'border-transparent bg-destructive text-white',
+      ghost: 'border-transparent bg-transparent text-foreground',
+      link: 'border-transparent bg-transparent text-primary underline-offset-4 hover:underline',
       outline: 'text-foreground',
       secondary: 'border-transparent bg-secondary text-secondary-foreground'
     }
   }
 })
 
-type BadgeProps = ComponentProps<'span'> & VariantProps<typeof badgeVariants>
+type BadgeProps = ComponentProps<'span'> &
+  VariantProps<typeof badgeVariants> & {
+    render?: ReactElement<{ className?: string; 'data-slot'?: string }>
+  }
 
-const Badge = ({ className, variant, ...props }: BadgeProps) => (
-  <span className={cn(badgeVariants({ variant }), className)} data-slot="badge" {...props} />
-)
+const Badge = ({ className, render, variant, ...props }: BadgeProps) => {
+  const badgeClassName = cn(badgeVariants({ variant }), render?.props.className, className)
+
+  if (isValidElement(render)) {
+    return cloneElement(render, {
+      ...props,
+      className: badgeClassName,
+      'data-slot': 'badge'
+    })
+  }
+
+  return <span className={badgeClassName} data-slot="badge" {...props} />
+}
 
 export type { BadgeProps }
 export { Badge, badgeVariants }

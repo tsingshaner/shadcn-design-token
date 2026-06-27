@@ -13,4 +13,10 @@ describe('Slider', () => {
 
     expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '25')
   })
+
+  test('renders multiple thumbs for range values', () => {
+    render(<Slider defaultValue={[25, 50]} />)
+
+    expect(screen.getAllByRole('slider')).toHaveLength(2)
+  })
 })
