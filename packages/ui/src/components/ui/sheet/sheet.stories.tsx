@@ -29,20 +29,66 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
+const sheetSides = ['top', 'right', 'bottom', 'left'] as const
+const sheetCopy = ['profile', 'preferences', 'notifications', 'security']
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use the side prop on SheetContent to set the edge where the sheet appears. Reference: [shadcn/ui Sheet Side example](https://ui.shadcn.com/docs/components/base/sheet.md#side)'
+      }
+    }
+  },
+  render: () => (
+    <div className="flex flex-wrap gap-2">
+      {sheetSides.map((side) => (
+        <Sheet key={side}>
+          <SheetTrigger render={<Button className="capitalize" variant="outline" />}>{side}</SheetTrigger>
+          <SheetContent className="data-[side=bottom]:max-h-[50vh] data-[side=top]:max-h-[50vh]" side={side}>
+            <SheetHeader>
+              <SheetTitle>Edit profile</SheetTitle>
+              <SheetDescription>Make changes to your profile here. Click save when you&apos;re done.</SheetDescription>
+            </SheetHeader>
+            <div className="overflow-y-auto px-4">
+              {sheetCopy.map((section) => (
+                <p className="mb-2 leading-relaxed" key={section}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua.
+                </p>
+              ))}
+            </div>
+            <SheetFooter>
+              <Button type="submit">Save changes</Button>
+              <SheetClose render={<Button variant="outline" />}>Cancel</SheetClose>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+      ))}
+    </div>
+  )
+}
+
+export const NoCloseButton: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use showCloseButton={false} to hide the close button. Reference: [shadcn/ui Sheet No Close Button example](https://ui.shadcn.com/docs/components/base/sheet.md#no-close-button)'
+      }
+    }
+  },
   render: () => (
     <Sheet>
       <SheetTrigger render={<Button variant="outline" />}>Open sheet</SheetTrigger>
-      <SheetContent>
+      <SheetContent showCloseButton={false}>
         <SheetHeader>
-          <SheetTitle>Token settings</SheetTitle>
-          <SheetDescription>Manage token sync preferences.</SheetDescription>
+          <SheetTitle>No Close Button</SheetTitle>
+          <SheetDescription>
+            This sheet doesn&apos;t have a close button in the top-right corner. Click outside to close.
+          </SheetDescription>
         </SheetHeader>
-        <SheetFooter>
-          <SheetClose render={<Button variant="outline" />}>Close</SheetClose>
-          <Button>Save</Button>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   )

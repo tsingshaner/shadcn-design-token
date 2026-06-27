@@ -9,6 +9,7 @@ type SheetTriggerProps = SheetPrimitive.Trigger.Props
 type SheetPortalProps = SheetPrimitive.Portal.Props
 type SheetOverlayProps = SheetPrimitive.Backdrop.Props
 type SheetContentProps = SheetPrimitive.Popup.Props & {
+  showCloseButton?: boolean
   side?: 'top' | 'right' | 'bottom' | 'left'
 }
 type SheetTitleProps = SheetPrimitive.Title.Props
@@ -45,14 +46,38 @@ const sheetSideClasses = {
   top: 'inset-x-0 top-0 border-b'
 }
 
-const SheetContent = ({ className, side = 'right', ...props }: SheetContentProps) => (
+const SheetContent = ({ children, className, showCloseButton = true, side = 'right', ...props }: SheetContentProps) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Popup
       className={cn('fixed z-50 gap-4 bg-background p-6 shadow-lg', sheetSideClasses[side], className)}
+      data-side={side}
       data-slot="sheet-content"
       {...props}
-    />
+    >
+      {showCloseButton ? (
+        <SheetPrimitive.Close
+          aria-label="Close"
+          className="absolute top-4 right-4 rounded-sm opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none"
+          data-slot="sheet-close-button"
+        >
+          <svg
+            aria-hidden="true"
+            className="size-4"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </SheetPrimitive.Close>
+      ) : null}
+      {children}
+    </SheetPrimitive.Popup>
   </SheetPortal>
 )
 

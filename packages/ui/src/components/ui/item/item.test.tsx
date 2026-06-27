@@ -54,4 +54,16 @@ describe('Item', () => {
     expect(document.querySelector('[data-slot="item-footer"]')).toBeInTheDocument()
     expect(document.querySelector('[data-slot="item-separator"]')).toBeInTheDocument()
   })
+
+  test('supports render composition', () => {
+    render(
+      <Item render={<a href="#docs" />} variant="outline">
+        <ItemContent>
+          <ItemTitle>Documentation</ItemTitle>
+        </ItemContent>
+      </Item>
+    )
+
+    expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('data-slot', 'item')
+  })
 })

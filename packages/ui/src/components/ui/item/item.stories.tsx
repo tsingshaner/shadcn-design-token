@@ -4,6 +4,13 @@ import type { SVGProps } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../avatar'
 import { Button } from '../button'
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '../dropdown-menu'
+import {
   Item,
   ItemActions,
   ItemContent,
@@ -30,6 +37,38 @@ const ChevronRightIcon = (props: IconProps) => (
     {...props}
   >
     <path d="m9 18 6-6-6-6" />
+  </svg>
+)
+
+const ChevronDownIcon = (props: IconProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+)
+
+const ExternalLinkIcon = (props: IconProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M15 3h6v6" />
+    <path d="M10 14 21 3" />
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
   </svg>
 )
 
@@ -316,5 +355,80 @@ export const Footer: Story = {
         <Button size="sm">Upgrade</Button>
       </ItemFooter>
     </Item>
+  )
+}
+
+export const Link: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use render to render the item as a link. Reference: [shadcn/ui Item Link example](https://ui.shadcn.com/docs/components/base/item.md#link)'
+      }
+    }
+  },
+  render: () => (
+    <div className="flex w-full max-w-md flex-col gap-4">
+      <Item render={<a href="#docs" />}>
+        <ItemContent>
+          <ItemTitle>Visit our documentation</ItemTitle>
+          <ItemDescription>Learn how to get started with our components.</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <ChevronRightIcon className="size-4" />
+        </ItemActions>
+      </Item>
+      <Item render={<a href="#external" rel="noreferrer" target="_blank" />} variant="outline">
+        <ItemContent>
+          <ItemTitle>External resource</ItemTitle>
+          <ItemDescription>Opens in a new tab with security attributes.</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <ExternalLinkIcon className="size-4" />
+        </ItemActions>
+      </Item>
+    </div>
+  )
+}
+
+export const Dropdown: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use Item inside DropdownMenuItem for rich menu rows. Reference: [shadcn/ui Item Dropdown example](https://ui.shadcn.com/docs/components/base/item.md#dropdown)'
+      }
+    }
+  },
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger render={<Button variant="outline" />}>
+        Select <ChevronDownIcon />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuGroup>
+          {people.map((person) => (
+            <DropdownMenuItem key={person.username}>
+              <Item className="w-full p-2" size="xs">
+                <ItemMedia>
+                  <Avatar className="size-6">
+                    <AvatarImage
+                      alt={person.username}
+                      className="grayscale"
+                      src={`https://github.com/${person.username}.png`}
+                    />
+                    <AvatarFallback>{person.username.charAt(0).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                </ItemMedia>
+                <ItemContent className="gap-0">
+                  <ItemTitle>{person.username}</ItemTitle>
+                  <ItemDescription className="leading-none">{person.email}</ItemDescription>
+                </ItemContent>
+              </Item>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

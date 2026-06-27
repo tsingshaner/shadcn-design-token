@@ -24,4 +24,19 @@ describe('Sheet', () => {
 
     expect(screen.getByRole('dialog', { name: 'Token settings' })).toBeInTheDocument()
   })
+
+  test('can hide the default close button', () => {
+    render(
+      <Sheet defaultOpen>
+        <SheetContent showCloseButton={false}>
+          <SheetHeader>
+            <SheetTitle>No close button</SheetTitle>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+    )
+
+    expect(screen.getByRole('dialog', { name: 'No close button' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+  })
 })

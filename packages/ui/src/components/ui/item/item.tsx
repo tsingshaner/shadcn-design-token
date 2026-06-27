@@ -1,8 +1,9 @@
-import type { ComponentProps } from 'react'
+import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
 
 import { cn } from '../../../lib/utils'
 
 type ItemProps = ComponentProps<'div'> & {
+  render?: ReactElement<{ className?: string; 'data-size'?: string; 'data-slot'?: string; 'data-variant'?: string }>
   size?: 'default' | 'sm' | 'xs'
   variant?: 'default' | 'outline' | 'muted'
 }
@@ -18,24 +19,31 @@ type ItemSeparatorProps = ComponentProps<'div'>
 type ItemHeaderProps = ComponentProps<'div'>
 type ItemFooterProps = ComponentProps<'div'>
 
-const Item = ({ className, size = 'default', variant = 'default', ...props }: ItemProps) => (
-  <div
-    className={cn(
-      'flex w-full items-start gap-4 rounded-lg transition-colors',
-      variant === 'default' && 'hover:bg-muted/50',
-      variant === 'outline' && 'border bg-background shadow-xs hover:bg-muted/50',
-      variant === 'muted' && 'bg-muted/50 hover:bg-muted',
-      size === 'default' && 'p-3',
-      size === 'sm' && 'gap-3 p-2.5',
-      size === 'xs' && 'gap-2 rounded-md p-2',
-      className
-    )}
-    data-size={size}
-    data-slot="item"
-    data-variant={variant}
-    {...props}
-  />
-)
+const Item = ({ className, render, size = 'default', variant = 'default', ...props }: ItemProps) => {
+  const itemClassName = cn(
+    'flex w-full items-start gap-4 rounded-lg transition-colors',
+    variant === 'default' && 'hover:bg-muted/50',
+    variant === 'outline' && 'border bg-background shadow-xs hover:bg-muted/50',
+    variant === 'muted' && 'bg-muted/50 hover:bg-muted',
+    size === 'default' && 'p-3',
+    size === 'sm' && 'gap-3 p-2.5',
+    size === 'xs' && 'gap-2 rounded-md p-2',
+    render?.props.className,
+    className
+  )
+
+  if (isValidElement(render)) {
+    return cloneElement(render, {
+      ...props,
+      className: itemClassName,
+      'data-size': size,
+      'data-slot': 'item',
+      'data-variant': variant
+    })
+  }
+
+  return <div className={itemClassName} data-size={size} data-slot="item" data-variant={variant} {...props} />
+}
 
 const ItemGroup = ({ className, ...props }: ItemGroupProps) => (
   <div className={cn('grid gap-2', className)} data-slot="item-group" {...props} />
