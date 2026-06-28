@@ -1,7 +1,7 @@
 import { Radio } from '@base-ui/react/radio'
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type RadioGroupProps = RadioGroupPrimitive.Props
 type RadioGroupItemProps = Radio.Root.Props

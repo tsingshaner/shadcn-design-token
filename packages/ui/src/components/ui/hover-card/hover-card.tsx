@@ -1,6 +1,6 @@
 import { PreviewCard as HoverCardPrimitive } from '@base-ui/react/preview-card'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type HoverCardProps = HoverCardPrimitive.Root.Props
 type HoverCardTriggerProps = HoverCardPrimitive.Trigger.Props

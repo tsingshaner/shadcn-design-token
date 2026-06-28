@@ -2,7 +2,7 @@ import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type AlertDialogProps = AlertDialogPrimitive.Root.Props
 type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props

@@ -1,7 +1,7 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs'
-import { tv, type VariantProps } from 'tailwind-variants/lite'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type TabsProps = TabsPrimitive.Root.Props
 type TabsListProps = TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>

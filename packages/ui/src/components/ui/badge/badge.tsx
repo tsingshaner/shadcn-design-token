@@ -1,7 +1,7 @@
 import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
-import { tv, type VariantProps } from 'tailwind-variants/lite'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 const badgeVariants = tv({
   base: 'inline-flex w-fit shrink-0 items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&>svg]:pointer-events-none [&>svg]:size-3',

@@ -2,7 +2,7 @@ import { Menu as DropdownMenuPrimitive } from '@base-ui/react/menu'
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type DropdownMenuProps = DropdownMenuPrimitive.Root.Props
 type DropdownMenuTriggerProps = DropdownMenuPrimitive.Trigger.Props

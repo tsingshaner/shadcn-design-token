@@ -38,9 +38,12 @@ importers:
       '@base-ui/react':
         specifier: ^1.6.0
         version: 1.6.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      tailwind-merge:
+        specifier: ^3.6.0
+        version: 3.6.0
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwindcss@4.3.1)
+        version: 3.2.2(tailwind-merge@3.6.0)(tailwindcss@4.3.1)
     devDependencies:
       '@storybook/addon-docs':
         specifier: ^10.4.6
@@ -3018,6 +3021,9 @@ packages:
   synckit@0.11.13:
     resolution: {integrity: sha512-eNRKgb3z66Yp3D2CixVujOUvXLFUTij/zVnV8KRyvFdQwpz7I5DS8UfRkTeLzb64u+dkzDSdelE24izu+zSSUg==}
     engines: {node: ^14.18.0 || >=16.0.0}
+
+  tailwind-merge@3.6.0:
+    resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
 
   tailwind-variants@3.2.2:
     resolution: {integrity: sha512-Mi4kHeMTLvKlM98XPnK+7HoBPmf4gygdFmqQPaDivc3DpYS6aIY6KiG/PgThrGvii5YZJqRsPz0aPyhoFzmZgg==}
@@ -6199,9 +6205,13 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.3.6
 
-  tailwind-variants@3.2.2(tailwindcss@4.3.1):
+  tailwind-merge@3.6.0: {}
+
+  tailwind-variants@3.2.2(tailwind-merge@3.6.0)(tailwindcss@4.3.1):
     dependencies:
       tailwindcss: 4.3.1
+    optionalDependencies:
+      tailwind-merge: 3.6.0
 
   tailwindcss@4.3.1: {}
 

@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type InputGroupProps = ComponentProps<'div'>
 type InputGroupInputProps = ComponentProps<'input'>

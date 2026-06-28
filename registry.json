@@ -15,7 +15,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["tailwind-variants"],
+      "dependencies": ["tailwind-merge", "tailwind-variants"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/alert/alert.tsx",
@@ -61,7 +61,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["tailwind-variants"],
+      "dependencies": ["tailwind-merge", "tailwind-variants"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/badge/badge.tsx",
@@ -84,7 +84,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "tailwind-merge", "tailwind-variants"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/button/button.tsx",
@@ -608,7 +608,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "tailwind-merge", "tailwind-variants"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/tabs/tabs.tsx",
@@ -643,7 +643,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "tailwind-merge", "tailwind-variants"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/toggle/toggle.tsx",

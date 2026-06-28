@@ -1,6 +1,7 @@
 import { type ComponentProps, createContext, useCallback, useContext, useMemo, useState } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
+
 import { Button, type ButtonProps } from '../button'
 import { Separator } from '../separator'
 

@@ -1,7 +1,7 @@
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle'
-import { tv, type VariantProps } from 'tailwind-variants/lite'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 const toggleVariants = tv({
   base: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap outline-none transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[pressed]:bg-accent data-[pressed]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',

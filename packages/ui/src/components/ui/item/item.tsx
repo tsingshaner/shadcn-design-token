@@ -1,6 +1,6 @@
 import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type ItemProps = ComponentProps<'div'> & {
   render?: ReactElement<{ className?: string; 'data-size'?: string; 'data-slot'?: string; 'data-variant'?: string }>

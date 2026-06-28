@@ -1,6 +1,6 @@
 import { Toast as ToastPrimitive } from '@base-ui/react/toast'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type ToastProviderProps = ToastPrimitive.Provider.Props
 type ToastPosition = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right'

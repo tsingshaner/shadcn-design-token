@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react'
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type DrawerDirection = 'top' | 'right' | 'bottom' | 'left'
 type DrawerProps = DrawerPrimitive.Root.Props & {

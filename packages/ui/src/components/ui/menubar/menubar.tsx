@@ -3,7 +3,7 @@ import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar'
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type MenubarProps = MenubarPrimitive.Props
 type MenubarMenuProps = MenubarMenuPrimitive.Root.Props

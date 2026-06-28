@@ -2,7 +2,7 @@ import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type DialogProps = DialogPrimitive.Root.Props
 type DialogTriggerProps = DialogPrimitive.Trigger.Props

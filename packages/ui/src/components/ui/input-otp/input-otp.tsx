@@ -2,7 +2,7 @@ import { OTPField as InputOTPPrimitive } from '@base-ui/react/otp-field'
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type InputOTPProps = Omit<InputOTPPrimitive.Root.Props, 'length' | 'onChange' | 'onValueChange'> & {
   length?: number

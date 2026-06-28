@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type TypographyH1Props = ComponentProps<'h1'>
 type TypographyH2Props = ComponentProps<'h2'>

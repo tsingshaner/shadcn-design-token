@@ -38,13 +38,13 @@ const getRegistryDependencies = (imports, componentNames) => {
 
 const getDependencies = (imports) => {
   const dependencies = imports
-    .map((specifier) => {
+    .flatMap((specifier) => {
       if (specifier === '@base-ui/react' || specifier.startsWith('@base-ui/react/')) {
         return '@base-ui/react'
       }
 
       if (specifier === 'tailwind-variants' || specifier.startsWith('tailwind-variants/')) {
-        return 'tailwind-variants'
+        return ['tailwind-variants', 'tailwind-merge']
       }
 
       return null

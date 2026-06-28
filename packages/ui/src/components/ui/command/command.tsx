@@ -1,6 +1,7 @@
 import { type ComponentProps, createContext, type ReactNode, useContext, useMemo, useState } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
+
 import { Dialog, DialogContent, type DialogProps } from '../dialog'
 
 type CommandContextValue = {

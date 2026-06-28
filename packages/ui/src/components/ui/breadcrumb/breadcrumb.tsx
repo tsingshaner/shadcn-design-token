@@ -1,6 +1,6 @@
 import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type BreadcrumbProps = ComponentProps<'nav'>
 type BreadcrumbLinkProps = ComponentProps<'a'> & {

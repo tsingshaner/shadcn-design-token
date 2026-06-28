@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type NativeSelectProps = ComponentProps<'select'>
 type NativeSelectOptGroupProps = ComponentProps<'optgroup'>
