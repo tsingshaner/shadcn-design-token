@@ -15,5 +15,10 @@ describe('Toggle', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Bold' }))
 
     expect(onPressedChange).toHaveBeenCalledWith(true, expect.any(Object))
+    expect(screen.getByRole('button', { name: 'Bold' })).toHaveClass(
+      'cn-toggle',
+      'cn-toggle-variant-default',
+      'cn-toggle-size-default'
+    )
   })
 })

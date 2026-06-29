@@ -34,6 +34,12 @@ describe('ToggleGroup', () => {
     )
 
     expect(screen.getByRole('group')).toHaveAttribute('data-variant', 'outline')
+    expect(screen.getByRole('group')).toHaveClass('cn-toggle-group')
     expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-slot', 'toggle-group-item')
+    expect(screen.getByRole('button', { name: 'All' })).toHaveClass(
+      'cn-toggle-group-item',
+      'cn-toggle-variant-outline',
+      'cn-toggle-size-default'
+    )
   })
 })

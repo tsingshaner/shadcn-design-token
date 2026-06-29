@@ -4,20 +4,21 @@ import { tv, type VariantProps } from 'tailwind-variants'
 import { cn } from '@/lib/utils'
 
 const toggleVariants = tv({
-  base: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap outline-none transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[pressed]:bg-accent data-[pressed]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
+  base: 'cn-toggle group/toggle inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap outline-none transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[pressed]:bg-accent data-[pressed]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
   defaultVariants: {
     size: 'default',
     variant: 'default'
   },
   variants: {
     size: {
-      default: 'h-9 min-w-9 px-2',
-      lg: 'h-10 min-w-10 px-2.5',
-      sm: 'h-8 min-w-8 px-1.5'
+      default: 'cn-toggle-size-default h-9 min-w-9 px-2',
+      lg: 'cn-toggle-size-lg h-10 min-w-10 px-2.5',
+      sm: 'cn-toggle-size-sm h-8 min-w-8 px-1.5'
     },
     variant: {
-      default: 'bg-transparent',
-      outline: 'border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground'
+      default: 'cn-toggle-variant-default bg-transparent',
+      outline:
+        'cn-toggle-variant-outline border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground'
     }
   }
 })
