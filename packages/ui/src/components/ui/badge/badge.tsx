@@ -1,10 +1,11 @@
-import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
+import { mergeProps } from '@base-ui/react/merge-props'
+import { useRender } from '@base-ui/react/use-render'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 import { cn } from '@/lib/utils'
 
 const badgeVariants = tv({
-  base: 'inline-flex w-fit shrink-0 items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&>svg]:pointer-events-none [&>svg]:size-3',
+  base: 'group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3',
   defaultVariants: {
     variant: 'default'
   },
@@ -20,23 +21,24 @@ const badgeVariants = tv({
   }
 })
 
-type BadgeProps = ComponentProps<'span'> &
-  VariantProps<typeof badgeVariants> & {
-    render?: ReactElement<{ className?: string; 'data-slot'?: string }>
-  }
+type BadgeProps = useRender.ComponentProps<'span'> & VariantProps<typeof badgeVariants>
 
-const Badge = ({ className, render, variant, ...props }: BadgeProps) => {
-  const badgeClassName = cn(badgeVariants({ variant }), render?.props.className, className)
-
-  if (isValidElement(render)) {
-    return cloneElement(render, {
-      ...props,
-      className: badgeClassName,
-      'data-slot': 'badge'
-    })
-  }
-
-  return <span className={badgeClassName} data-slot="badge" {...props} />
+const Badge = ({ className, render, variant = 'default', ...props }: BadgeProps) => {
+  return useRender({
+    defaultTagName: 'span',
+    props: mergeProps<'span'>(
+      {
+        className: cn(badgeVariants({ variant }), className),
+        'data-slot': 'badge'
+      },
+      props
+    ),
+    render,
+    state: {
+      slot: 'badge',
+      variant
+    }
+  })
 }
 
 export type { BadgeProps }

@@ -38,8 +38,8 @@ const buttonVariants = tv({
 
 const Button = ({
   className,
-  variant,
-  size,
+  variant = 'default',
+  size = 'default',
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) => {
   const resolvedClassName = buttonVariants({ size, variant })

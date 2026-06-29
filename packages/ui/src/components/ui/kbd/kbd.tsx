@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
 type KbdProps = ComponentProps<'kbd'>
-type KbdGroupProps = ComponentProps<'span'>
+type KbdGroupProps = ComponentProps<'kbd'>
 
 const Kbd = ({ className, ...props }: KbdProps) => (
   <kbd
@@ -17,8 +17,8 @@ const Kbd = ({ className, ...props }: KbdProps) => (
 )
 
 const KbdGroup = ({ className, ...props }: KbdGroupProps) => (
-  <span className={cn('inline-flex items-center gap-1', className)} data-slot="kbd-group" {...props} />
+  <kbd className={cn('inline-flex items-center gap-1', className)} data-slot="kbd-group" {...props} />
 )
 
-export type { KbdProps }
+export type { KbdGroupProps, KbdProps }
 export { Kbd, KbdGroup }

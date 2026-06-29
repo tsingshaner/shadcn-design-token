@@ -1,20 +1,17 @@
-import type { ComponentProps } from 'react'
+import { Separator as SeparatorPrimitive } from '@base-ui/react/separator'
 
 import { cn } from '@/lib/utils'
 
-type SeparatorProps = ComponentProps<'div'> & {
-  decorative?: boolean
-  orientation?: 'horizontal' | 'vertical'
-}
+type SeparatorProps = SeparatorPrimitive.Props
 
 const Separator = ({ className, decorative = true, orientation = 'horizontal', ...props }: SeparatorProps) => (
-  <div
+  <SeparatorPrimitive
     className={cn(
-      'shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=vertical]:h-full data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px',
+      'shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch',
       className
     )}
-    data-orientation={orientation}
     data-slot="separator"
+    orientation={orientation}
     {...(decorative ? { role: 'none' as const } : { 'aria-orientation': orientation, role: 'separator' as const })}
     {...props}
   />
