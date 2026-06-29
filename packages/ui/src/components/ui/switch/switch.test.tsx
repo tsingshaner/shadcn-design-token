@@ -12,6 +12,7 @@ describe('Switch', () => {
     render(<Switch aria-label="Notifications" />)
 
     expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveAttribute('data-slot', 'switch')
+    expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveClass('cn-switch')
   })
 
   test('calls onCheckedChange when toggled', () => {
@@ -27,5 +28,13 @@ describe('Switch', () => {
     render(<Switch aria-label="Compact" size="sm" />)
 
     expect(screen.getByRole('switch', { name: 'Compact' })).toHaveAttribute('data-size', 'sm')
+  })
+
+  test('applies shadcn v4 switch thumb slot class', () => {
+    render(<Switch aria-label="Notifications" />)
+
+    expect(
+      screen.getByRole('switch', { name: 'Notifications' }).querySelector('[data-slot="switch-thumb"]')
+    ).toHaveClass('cn-switch-thumb')
   })
 })
