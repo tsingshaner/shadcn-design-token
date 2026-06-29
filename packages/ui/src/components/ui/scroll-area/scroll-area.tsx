@@ -6,9 +6,9 @@ type ScrollAreaProps = ScrollAreaPrimitive.Root.Props
 type ScrollBarProps = ScrollAreaPrimitive.Scrollbar.Props
 
 const ScrollArea = ({ children, className, ...props }: ScrollAreaProps) => (
-  <ScrollAreaPrimitive.Root className={cn('relative', className)} data-slot="scroll-area" {...props}>
+  <ScrollAreaPrimitive.Root className={cn('cn-scroll-area relative', className)} data-slot="scroll-area" {...props}>
     <ScrollAreaPrimitive.Viewport
-      className="size-full rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:outline-1 focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      className="cn-scroll-area-viewport size-full rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:outline-1 focus-visible:ring-[3px] focus-visible:ring-ring/50"
       data-slot="scroll-area-viewport"
     >
       {children}
@@ -21,7 +21,7 @@ const ScrollArea = ({ children, className, ...props }: ScrollAreaProps) => (
 const ScrollBar = ({ className, orientation = 'vertical', ...props }: ScrollBarProps) => (
   <ScrollAreaPrimitive.Scrollbar
     className={cn(
-      'flex touch-none select-none p-px transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col',
+      'cn-scroll-area-scrollbar flex touch-none select-none p-px transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col',
       className
     )}
     data-orientation={orientation}
@@ -29,7 +29,10 @@ const ScrollBar = ({ className, orientation = 'vertical', ...props }: ScrollBarP
     orientation={orientation}
     {...props}
   >
-    <ScrollAreaPrimitive.Thumb className="relative flex-1 bg-border" data-slot="scroll-area-thumb" />
+    <ScrollAreaPrimitive.Thumb
+      className="cn-scroll-area-thumb relative flex-1 bg-border"
+      data-slot="scroll-area-thumb"
+    />
   </ScrollAreaPrimitive.Scrollbar>
 )
 
