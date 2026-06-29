@@ -11,12 +11,12 @@ describe('Slider', () => {
   test('renders a slider input with the default value', () => {
     render(<Slider aria-label="Volume" defaultValue={25} />)
 
-    expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '25')
+    expect(screen.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '25')
   })
 
   test('renders multiple thumbs for range values', () => {
     render(<Slider defaultValue={[25, 50]} />)
 
-    expect(screen.getAllByRole('slider')).toHaveLength(2)
+    expect(screen.getAllByRole('slider', { hidden: true })).toHaveLength(2)
   })
 })

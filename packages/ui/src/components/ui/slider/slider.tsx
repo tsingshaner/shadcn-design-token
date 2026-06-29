@@ -7,34 +7,42 @@ type SliderProps = SliderPrimitive.Root.Props<SliderValue> & {
   thumbCount?: number
 }
 
-const getThumbCount = (
+const getSliderValues = (
   value: SliderValue | undefined,
   defaultValue: SliderValue | undefined,
   min: number,
-  max: number,
-  thumbCount?: number
+  max: number
 ) => {
+  if (Array.isArray(value)) {
+    return value
+  }
+
+  if (Array.isArray(defaultValue)) {
+    return defaultValue
+  }
+
+  if (typeof value === 'number') {
+    return [value]
+  }
+
+  if (typeof defaultValue === 'number') {
+    return [defaultValue]
+  }
+
+  return [min, max]
+}
+
+const getThumbCount = (values: readonly number[], thumbCount?: number) => {
   if (thumbCount) {
     return thumbCount
   }
 
-  if (Array.isArray(value)) {
-    return value.length
-  }
-
-  if (Array.isArray(defaultValue)) {
-    return defaultValue.length
-  }
-
-  if (typeof value === 'number' || typeof defaultValue === 'number') {
-    return 1
-  }
-
-  return [min, max].length
+  return values.length
 }
 
 const Slider = ({ className, defaultValue, max = 100, min = 0, thumbCount, value, ...props }: SliderProps) => {
-  const thumbs = Array.from({ length: getThumbCount(value, defaultValue, min, max, thumbCount) }, (_, index) => ({
+  const values = getSliderValues(value, defaultValue, min, max)
+  const thumbs = Array.from({ length: getThumbCount(values, thumbCount) }, (_, index) => ({
     id: `slider-thumb-${index}`,
     index
   }))
@@ -46,6 +54,7 @@ const Slider = ({ className, defaultValue, max = 100, min = 0, thumbCount, value
       defaultValue={defaultValue}
       max={max}
       min={min}
+      thumbAlignment="edge"
       value={value}
       {...props}
     >

@@ -35,7 +35,7 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('slider')).toHaveAttribute('aria-valuenow', '50')
+  await expect(canvas.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '50')
 }
 
 export const Range: Story = {
@@ -57,7 +57,7 @@ export const Range: Story = {
 }
 Range.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
-  const thumbs = canvas.getAllByRole('slider')
+  const thumbs = canvas.getAllByRole('slider', { hidden: true })
 
   await expect(thumbs).toHaveLength(2)
   await expect(thumbs[0]).toHaveAttribute('aria-valuenow', '25')
@@ -78,7 +78,7 @@ export const MultipleThumbs: Story = {
 MultipleThumbs.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getAllByRole('slider')).toHaveLength(3)
+  await expect(canvas.getAllByRole('slider', { hidden: true })).toHaveLength(3)
 }
 
 export const Vertical: Story = {
@@ -150,5 +150,5 @@ Disabled.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('group', { name: 'Disabled volume' })).toHaveAttribute('data-disabled')
-  await expect(canvas.getByRole('slider')).toBeDisabled()
+  await expect(canvas.getByRole('slider', { hidden: true })).toBeDisabled()
 }
