@@ -29,7 +29,11 @@ const drawerSwipeDirections = {
 
 const Drawer = ({ children, direction = 'bottom', swipeDirection, ...props }: DrawerProps) => (
   <DrawerDirectionContext.Provider value={direction}>
-    <DrawerPrimitive.Root swipeDirection={swipeDirection ?? drawerSwipeDirections[direction]} {...props}>
+    <DrawerPrimitive.Root
+      data-slot="drawer"
+      swipeDirection={swipeDirection ?? drawerSwipeDirections[direction]}
+      {...props}
+    >
       {children}
     </DrawerPrimitive.Root>
   </DrawerDirectionContext.Provider>
@@ -48,7 +52,7 @@ const DrawerPortal = (props: DrawerPortalProps) => <DrawerPrimitive.Portal data-
 const DrawerOverlay = ({ className, ...props }: DrawerOverlayProps) => (
   <DrawerPrimitive.Backdrop
     className={cn(
-      'fixed inset-0 z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
+      'cn-drawer-overlay fixed inset-0 z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
       className
     )}
     data-slot="drawer-overlay"
@@ -80,7 +84,7 @@ const DrawerContent = ({ children, className, ...props }: DrawerContentProps) =>
       <DrawerViewport>
         <DrawerPrimitive.Popup
           className={cn(
-            'pointer-events-auto fixed flex flex-col bg-background shadow-lg',
+            'cn-drawer-content pointer-events-auto fixed flex flex-col bg-background shadow-lg',
             drawerDirectionClasses[direction],
             className
           )}
@@ -89,7 +93,7 @@ const DrawerContent = ({ children, className, ...props }: DrawerContentProps) =>
           {...props}
         >
           {direction === 'bottom' || direction === 'top' ? (
-            <div className="mx-auto mt-4 h-2 w-24 rounded-full bg-muted" data-slot="drawer-handle" />
+            <div className="cn-drawer-handle mx-auto mt-4 h-2 w-24 rounded-full bg-muted" data-slot="drawer-handle" />
           ) : null}
           <DrawerPrimitive.Content className="flex min-h-0 flex-1 flex-col gap-4 p-6" data-slot="drawer-body">
             {children}
@@ -101,12 +105,16 @@ const DrawerContent = ({ children, className, ...props }: DrawerContentProps) =>
 }
 
 const DrawerHeader = ({ className, ...props }: ComponentProps<'div'>) => (
-  <div className={cn('grid gap-2 text-center sm:text-left', className)} data-slot="drawer-header" {...props} />
+  <div
+    className={cn('cn-drawer-header grid gap-2 text-center sm:text-left', className)}
+    data-slot="drawer-header"
+    {...props}
+  />
 )
 
 const DrawerFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
+    className={cn('cn-drawer-footer mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
     data-slot="drawer-footer"
     {...props}
   />
@@ -114,7 +122,7 @@ const DrawerFooter = ({ className, ...props }: ComponentProps<'div'>) => (
 
 const DrawerTitle = ({ className, ...props }: DrawerTitleProps) => (
   <DrawerPrimitive.Title
-    className={cn('font-semibold text-lg leading-none', className)}
+    className={cn('cn-drawer-title font-semibold text-lg leading-none', className)}
     data-slot="drawer-title"
     {...props}
   />
@@ -122,7 +130,7 @@ const DrawerTitle = ({ className, ...props }: DrawerTitleProps) => (
 
 const DrawerDescription = ({ className, ...props }: DrawerDescriptionProps) => (
   <DrawerPrimitive.Description
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('cn-drawer-description text-muted-foreground text-sm', className)}
     data-slot="drawer-description"
     {...props}
   />

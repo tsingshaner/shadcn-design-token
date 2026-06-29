@@ -36,7 +36,14 @@ describe('AlertDialog', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Open' }))
 
-    expect(screen.getByRole('alertdialog', { name: 'Delete token?' })).toBeInTheDocument()
-    expect(screen.getByText('This cannot be undone.')).toBeInTheDocument()
+    expect(screen.getByRole('alertdialog', { name: 'Delete token?' })).toHaveClass('cn-alert-dialog-content')
+    expect(screen.getByText('Delete token?')).toHaveClass('cn-alert-dialog-title')
+    expect(screen.getByText('This cannot be undone.')).toHaveClass('cn-alert-dialog-description')
+    expect(document.querySelector('[data-slot="alert-dialog-overlay"]')).toHaveClass(
+      'cn-alert-dialog-overlay',
+      'isolate'
+    )
+    expect(screen.getByRole('button', { name: 'Cancel' })).toHaveClass('cn-alert-dialog-cancel')
+    expect(screen.getByRole('button', { name: 'Continue' })).toHaveClass('cn-alert-dialog-action')
   })
 })
