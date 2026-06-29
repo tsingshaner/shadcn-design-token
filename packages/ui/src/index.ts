@@ -16,7 +16,7 @@ export {
   AlertDialogTrigger
 } from './components/ui/alert-dialog'
 export { AspectRatio } from './components/ui/aspect-ratio'
-export { Avatar, AvatarFallback, AvatarImage } from './components/ui/avatar'
+export { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from './components/ui/avatar'
 export { Badge, badgeVariants } from './components/ui/badge'
 export {
   Breadcrumb,
@@ -151,7 +151,7 @@ export {
 } from './components/ui/input-group'
 export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './components/ui/input-otp'
 export { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from './components/ui/item'
-export { Kbd } from './components/ui/kbd'
+export { Kbd, KbdGroup } from './components/ui/kbd'
 export { Label } from './components/ui/label'
 export {
   Menubar,
@@ -191,8 +191,15 @@ export {
   PaginationNext,
   PaginationPrevious
 } from './components/ui/pagination'
-export { Popover, PopoverClose, PopoverContent, PopoverTrigger } from './components/ui/popover'
-export { Progress } from './components/ui/progress'
+export {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger
+} from './components/ui/popover'
+export { Progress, ProgressIndicator, ProgressLabel, ProgressTrack, ProgressValue } from './components/ui/progress'
 export { RadioGroup, RadioGroupItem } from './components/ui/radio-group'
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './components/ui/resizable'
 export { ScrollArea, ScrollBar } from './components/ui/scroll-area'
@@ -307,7 +314,14 @@ export type {
   AlertDialogTriggerProps
 } from './components/ui/alert-dialog'
 export type { AspectRatioProps } from './components/ui/aspect-ratio'
-export type { AvatarFallbackProps, AvatarImageProps, AvatarProps } from './components/ui/avatar'
+export type {
+  AvatarBadgeProps,
+  AvatarFallbackProps,
+  AvatarGroupCountProps,
+  AvatarGroupProps,
+  AvatarImageProps,
+  AvatarProps
+} from './components/ui/avatar'
 export type { BadgeProps } from './components/ui/badge'
 export type { BreadcrumbProps } from './components/ui/breadcrumb'
 export type { ButtonProps } from './components/ui/button'
@@ -458,7 +472,7 @@ export type {
   ItemProps,
   ItemTitleProps
 } from './components/ui/item'
-export type { KbdProps } from './components/ui/kbd'
+export type { KbdGroupProps, KbdProps } from './components/ui/kbd'
 export type { LabelProps } from './components/ui/label'
 export type {
   MenubarCheckboxItemProps,
@@ -489,8 +503,21 @@ export type {
   NavigationMenuViewportProps
 } from './components/ui/navigation-menu'
 export type { PaginationLinkProps, PaginationProps } from './components/ui/pagination'
-export type { PopoverCloseProps, PopoverContentProps, PopoverProps, PopoverTriggerProps } from './components/ui/popover'
-export type { ProgressProps } from './components/ui/progress'
+export type {
+  PopoverContentProps,
+  PopoverDescriptionProps,
+  PopoverHeaderProps,
+  PopoverProps,
+  PopoverTitleProps,
+  PopoverTriggerProps
+} from './components/ui/popover'
+export type {
+  ProgressIndicatorProps,
+  ProgressLabelProps,
+  ProgressProps,
+  ProgressTrackProps,
+  ProgressValueProps
+} from './components/ui/progress'
 export type { RadioGroupItemProps, RadioGroupProps } from './components/ui/radio-group'
 export type { ResizableHandleProps, ResizablePanelGroupProps, ResizablePanelProps } from './components/ui/resizable'
 export type { ScrollAreaProps, ScrollBarProps } from './components/ui/scroll-area'
