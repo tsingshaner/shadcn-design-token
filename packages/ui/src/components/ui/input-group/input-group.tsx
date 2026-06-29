@@ -75,12 +75,5 @@ const InputGroupTextarea = ({ className, ...props }: InputGroupTextareaProps) =>
   />
 )
 
-export type {
-  InputGroupAddonProps,
-  InputGroupButtonProps,
-  InputGroupInputProps,
-  InputGroupProps,
-  InputGroupTextareaProps,
-  InputGroupTextProps
-}
+export type { InputGroupAddonProps, InputGroupButtonProps, InputGroupInputProps, InputGroupProps, InputGroupTextProps }
 export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea }

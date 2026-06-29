@@ -20,5 +20,5 @@ const KbdGroup = ({ className, ...props }: KbdGroupProps) => (
   <span className={cn('inline-flex items-center gap-1', className)} data-slot="kbd-group" {...props} />
 )
 
-export type { KbdGroupProps, KbdProps }
+export type { KbdProps }
 export { Kbd, KbdGroup }

@@ -78,18 +78,7 @@ const FieldError = ({ className, ...props }: FieldErrorProps) => (
   />
 )
 
-export type {
-  FieldContentProps,
-  FieldDescriptionProps,
-  FieldErrorProps,
-  FieldGroupProps,
-  FieldLabelProps,
-  FieldLegendProps,
-  FieldProps,
-  FieldSeparatorProps,
-  FieldSetProps,
-  FieldTitleProps
-}
+export type { FieldContentProps, FieldDescriptionProps, FieldErrorProps, FieldGroupProps, FieldLabelProps, FieldProps }
 export {
   Field,
   FieldContent,

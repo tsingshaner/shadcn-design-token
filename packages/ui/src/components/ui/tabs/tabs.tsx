@@ -58,4 +58,4 @@ const TabsContent = ({ className, ...props }: TabsContentProps) => (
 )
 
 export type { TabsContentProps, TabsListProps, TabsProps, TabsTriggerProps }
-export { Tabs, TabsContent, TabsList, TabsTrigger, tabsListVariants }
+export { Tabs, TabsContent, TabsList, TabsTrigger }

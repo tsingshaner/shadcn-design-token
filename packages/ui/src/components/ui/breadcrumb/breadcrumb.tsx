@@ -71,7 +71,7 @@ const BreadcrumbEllipsis = ({ className, ...props }: ComponentProps<'span'>) => 
   </span>
 )
 
-export type { BreadcrumbLinkProps, BreadcrumbProps }
+export type { BreadcrumbProps }
 export {
   Breadcrumb,
   BreadcrumbEllipsis,

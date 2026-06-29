@@ -96,18 +96,7 @@ const ItemActions = ({ className, ...props }: ItemActionsProps) => (
   <div className={cn('flex shrink-0 items-center gap-2', className)} data-slot="item-actions" {...props} />
 )
 
-export type {
-  ItemActionsProps,
-  ItemContentProps,
-  ItemDescriptionProps,
-  ItemFooterProps,
-  ItemGroupProps,
-  ItemHeaderProps,
-  ItemMediaProps,
-  ItemProps,
-  ItemSeparatorProps,
-  ItemTitleProps
-}
+export type { ItemActionsProps, ItemContentProps, ItemDescriptionProps, ItemMediaProps, ItemProps, ItemTitleProps }
 export {
   Item,
   ItemActions,

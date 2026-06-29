@@ -144,8 +144,7 @@ export type {
   DrawerPortalProps,
   DrawerProps,
   DrawerTitleProps,
-  DrawerTriggerProps,
-  DrawerViewportProps
+  DrawerTriggerProps
 }
 export {
   Drawer,
@@ -157,6 +156,5 @@ export {
   DrawerOverlay,
   DrawerPortal,
   DrawerTitle,
-  DrawerTrigger,
-  DrawerViewport
+  DrawerTrigger
 }

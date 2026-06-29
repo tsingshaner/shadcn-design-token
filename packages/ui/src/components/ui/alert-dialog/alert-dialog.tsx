@@ -122,7 +122,6 @@ export type {
   AlertDialogCancelProps,
   AlertDialogContentProps,
   AlertDialogDescriptionProps,
-  AlertDialogMediaProps,
   AlertDialogOverlayProps,
   AlertDialogPortalProps,
   AlertDialogProps,

@@ -24,5 +24,5 @@ const NativeSelectOptGroup = (props: NativeSelectOptGroupProps) => (
 
 const NativeSelectOption = (props: NativeSelectOptionProps) => <option data-slot="native-select-option" {...props} />
 
-export type { NativeSelectOptGroupProps, NativeSelectOptionProps, NativeSelectProps }
+export type { NativeSelectProps }
 export { NativeSelect, NativeSelectOptGroup, NativeSelectOption }

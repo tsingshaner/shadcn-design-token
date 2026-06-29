@@ -31,5 +31,5 @@ const ButtonGroupSeparator = ({ className, ...props }: ButtonGroupSeparatorProps
   />
 )
 
-export type { ButtonGroupOrientation, ButtonGroupProps, ButtonGroupSeparatorProps }
+export type { ButtonGroupProps, ButtonGroupSeparatorProps }
 export { ButtonGroup, ButtonGroupSeparator }

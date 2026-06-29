@@ -44,5 +44,5 @@ const ProgressValue = ({ className, ...props }: ProgressValueProps) => (
   />
 )
 
-export type { ProgressLabelProps, ProgressProps, ProgressValueProps }
+export type { ProgressProps }
 export { Progress, ProgressLabel, ProgressValue }

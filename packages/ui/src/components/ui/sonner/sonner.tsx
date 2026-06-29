@@ -49,5 +49,5 @@ const Sonner = ({ children, className, ...props }: SonnerProps) => (
   </ToastProvider>
 )
 
-export type { SonnerPosition, SonnerProps, SonnerToastOptions }
+export type { SonnerProps }
 export { Sonner, sonnerToast }

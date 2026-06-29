@@ -151,7 +151,6 @@ export type {
   ToastActionProps,
   ToastCloseProps,
   ToastDescriptionProps,
-  ToastPosition,
   ToastProps,
   ToastProviderProps,
   ToastTitleProps,

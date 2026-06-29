@@ -1,10 +1,9 @@
 {
-  "author": "",
-  "description": "",
   "devDependencies": {
     "@biomejs/biome": "^2.5.1",
     "@qingshaner/eslint-config": "^2.0.0",
     "@types/node": "^25.9.4",
+    "knip": "^6.23.0",
     "nano-staged": "^1.0.2",
     "simple-git-hooks": "^2.13.1",
     "typescript": "7.0.1-rc",
@@ -17,11 +16,11 @@
   },
   "keywords": [],
   "license": "ISC",
-  "main": "index.js",
   "name": "shadcn-design-token",
   "nano-staged": {
     "*.{vue,svg,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome check --write"
   },
+  "private": true,
   "scripts": {
     "check": "pnpm biome check . --fix",
     "format": "biome format . --write",

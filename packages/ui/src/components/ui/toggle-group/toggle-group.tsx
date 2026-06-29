@@ -24,5 +24,5 @@ const ToggleGroup = ({ className, size, spacing, style, variant, ...props }: Tog
 
 const ToggleGroupItem = (props: ToggleGroupItemProps) => <Toggle data-slot="toggle-group-item" {...props} />
 
-export type { ToggleGroupItemProps, ToggleGroupProps }
+export type { ToggleGroupProps }
 export { ToggleGroup, ToggleGroupItem }

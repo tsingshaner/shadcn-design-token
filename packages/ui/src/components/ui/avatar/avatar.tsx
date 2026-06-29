@@ -76,12 +76,5 @@ const AvatarGroupCount = ({ className, ...props }: AvatarGroupCountProps) => (
   />
 )
 
-export type {
-  AvatarBadgeProps,
-  AvatarFallbackProps,
-  AvatarGroupCountProps,
-  AvatarGroupProps,
-  AvatarImageProps,
-  AvatarProps
-}
+export type { AvatarFallbackProps, AvatarImageProps, AvatarProps }
 export { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage }
