@@ -376,6 +376,7 @@ export type {
 export type {
   CommandDialogProps,
   CommandEmptyProps,
+  CommandGroupHeadingProps,
   CommandGroupProps,
   CommandInputProps,
   CommandItemProps,
