@@ -15,6 +15,7 @@ describe('ScrollArea', () => {
 
     expect(screen.getByText('Scrollable token list')).toBeInTheDocument()
     expect(document.querySelector('[data-slot="scroll-area-viewport"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-slot="scroll-area-content"]')).not.toBeInTheDocument()
   })
 
   test('supports horizontal scrollbars', () => {
