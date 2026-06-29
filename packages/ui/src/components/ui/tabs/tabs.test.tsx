@@ -43,4 +43,16 @@ describe('Tabs', () => {
     expect(screen.getByRole('tablist')).toHaveAttribute('data-variant', 'line')
     expect(screen.getByRole('tab', { name: 'Password' })).toHaveAttribute('data-disabled')
   })
+
+  test('uses the shadcn v4 line indicator offset', () => {
+    render(
+      <Tabs defaultValue="account">
+        <TabsList variant="line">
+          <TabsTrigger value="account">Account</TabsTrigger>
+        </TabsList>
+      </Tabs>
+    )
+
+    expect(screen.getByRole('tab', { name: 'Account' })).toHaveClass('group-data-horizontal/tabs:after:bottom-[-5px]')
+  })
 })
