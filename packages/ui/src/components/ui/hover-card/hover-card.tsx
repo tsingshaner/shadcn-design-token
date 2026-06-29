@@ -31,7 +31,7 @@ const HoverCardContent = ({
     >
       <HoverCardPrimitive.Popup
         className={cn(
-          'z-50 w-64 origin-(--transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden',
+          'cn-hover-card-content cn-hover-card-content-logical z-50 w-64 origin-(--transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden',
           className
         )}
         data-slot="hover-card-content"

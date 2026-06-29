@@ -16,5 +16,6 @@ describe('HoverCard', () => {
     )
 
     expect(screen.getByText('Token details')).toBeInTheDocument()
+    expect(screen.getByText('Token details')).toHaveClass('cn-hover-card-content', 'cn-hover-card-content-logical')
   })
 })

@@ -18,5 +18,7 @@ describe('Tooltip', () => {
     )
 
     expect(screen.getByText('Helpful hint')).toHaveAttribute('data-slot', 'tooltip-content')
+    expect(screen.getByText('Helpful hint')).toHaveClass('cn-tooltip-content', 'cn-tooltip-content-logical')
+    expect(document.querySelector('.cn-tooltip-arrow')).toHaveClass('cn-tooltip-arrow-logical')
   })
 })
