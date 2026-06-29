@@ -30,7 +30,7 @@ const DialogPortal = (props: DialogPortalProps) => <DialogPrimitive.Portal data-
 const DialogOverlay = ({ className, ...props }: DialogOverlayProps) => (
   <DialogPrimitive.Backdrop
     className={cn(
-      'fixed inset-0 z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
+      'cn-dialog-overlay fixed inset-0 isolate z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
       className
     )}
     data-slot="dialog-overlay"
@@ -43,7 +43,7 @@ const DialogContent = ({ children, className, showCloseButton = true, ...props }
     <DialogOverlay />
     <DialogPrimitive.Popup
       className={cn(
-        'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg',
+        'cn-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg',
         className
       )}
       data-slot="dialog-content"
@@ -54,7 +54,11 @@ const DialogContent = ({ children, className, showCloseButton = true, ...props }
         <DialogPrimitive.Close
           data-slot="dialog-close"
           render={
-            <Button className="absolute top-4 right-4 opacity-70 hover:opacity-100" size="icon-sm" variant="ghost" />
+            <Button
+              className="cn-dialog-close absolute top-4 right-4 opacity-70 hover:opacity-100"
+              size="icon-sm"
+              variant="ghost"
+            />
           }
         >
           <XIcon />
@@ -66,12 +70,16 @@ const DialogContent = ({ children, className, showCloseButton = true, ...props }
 )
 
 const DialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
-  <div className={cn('flex flex-col gap-2 text-center sm:text-left', className)} data-slot="dialog-header" {...props} />
+  <div
+    className={cn('cn-dialog-header flex flex-col gap-2 text-center sm:text-left', className)}
+    data-slot="dialog-header"
+    {...props}
+  />
 )
 
 const DialogFooter = ({ children, className, showCloseButton = false, ...props }: DialogFooterProps) => (
   <div
-    className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+    className={cn('cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
     data-slot="dialog-footer"
     {...props}
   >
@@ -82,7 +90,7 @@ const DialogFooter = ({ children, className, showCloseButton = false, ...props }
 
 const DialogTitle = ({ className, ...props }: DialogTitleProps) => (
   <DialogPrimitive.Title
-    className={cn('font-semibold text-lg leading-none', className)}
+    className={cn('cn-dialog-title font-semibold text-lg leading-none', className)}
     data-slot="dialog-title"
     {...props}
   />
@@ -90,7 +98,7 @@ const DialogTitle = ({ className, ...props }: DialogTitleProps) => (
 
 const DialogDescription = ({ className, ...props }: DialogDescriptionProps) => (
   <DialogPrimitive.Description
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('cn-dialog-description text-muted-foreground text-sm', className)}
     data-slot="dialog-description"
     {...props}
   />

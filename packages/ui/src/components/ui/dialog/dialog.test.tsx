@@ -19,7 +19,24 @@ describe('Dialog', () => {
     )
 
     expect(screen.getByRole('dialog', { name: 'Confirm publish' })).toHaveAttribute('data-slot', 'dialog-content')
+    expect(screen.getByRole('dialog', { name: 'Confirm publish' })).toHaveClass('cn-dialog-content')
     expect(screen.getByText('Publish these tokens?')).toHaveAttribute('data-slot', 'dialog-description')
+    expect(screen.getByText('Publish these tokens?')).toHaveClass('cn-dialog-description')
+  })
+
+  test('applies shadcn v4 dialog slot classes', () => {
+    render(
+      <Dialog defaultOpen>
+        <DialogContent>
+          <DialogTitle>Slot classes</DialogTitle>
+          <DialogDescription>Dialog slot class coverage.</DialogDescription>
+        </DialogContent>
+      </Dialog>
+    )
+
+    expect(document.querySelector('[data-slot="dialog-overlay"]')).toHaveClass('cn-dialog-overlay', 'isolate')
+    expect(screen.getByRole('dialog', { name: 'Slot classes' })).toHaveClass('cn-dialog-content', 'outline-none')
+    expect(screen.getByText('Slot classes')).toHaveClass('cn-dialog-title')
   })
 
   test('can hide the default close button', () => {
