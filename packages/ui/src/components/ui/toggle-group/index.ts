@@ -1,3 +1,3 @@
-export { ToggleGroup } from './toggle-group'
+export { ToggleGroup, ToggleGroupItem } from './toggle-group'
 
-export type { ToggleGroupProps } from './toggle-group'
+export type { ToggleGroupItemProps, ToggleGroupProps } from './toggle-group'

@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react'
+import type { ComponentProps, CSSProperties } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -8,9 +8,9 @@ type AspectRatioProps = ComponentProps<'div'> & {
 
 const AspectRatio = ({ className, ratio = 16 / 9, style, ...props }: AspectRatioProps) => (
   <div
-    className={cn('relative w-full overflow-hidden', className)}
+    className={cn('relative aspect-(--ratio) w-full overflow-hidden', className)}
     data-slot="aspect-ratio"
-    style={{ aspectRatio: String(ratio), ...style }}
+    style={{ '--ratio': ratio, ...style } as CSSProperties}
     {...props}
   />
 )

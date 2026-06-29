@@ -1,28 +1,76 @@
+import { Toggle as TogglePrimitive } from '@base-ui/react/toggle'
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group'
+import { type CSSProperties, createContext, useContext } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { Toggle, type ToggleProps } from '../toggle'
+import { type ToggleProps, toggleVariants } from '../toggle'
 
 type ToggleGroupProps = ToggleGroupPrimitive.Props & {
+  orientation?: 'horizontal' | 'vertical'
   size?: ToggleProps['size']
   spacing?: number
   variant?: ToggleProps['variant']
 }
 type ToggleGroupItemProps = ToggleProps
 
-const ToggleGroup = ({ className, size, spacing, style, variant, ...props }: ToggleGroupProps) => (
+const ToggleGroupContext = createContext<Pick<ToggleGroupProps, 'orientation' | 'size' | 'spacing' | 'variant'>>({
+  orientation: 'horizontal',
+  size: 'default',
+  spacing: 2,
+  variant: 'default'
+})
+
+const ToggleGroup = ({
+  children,
+  className,
+  orientation = 'horizontal',
+  size = 'default',
+  spacing = 2,
+  style,
+  variant = 'default',
+  ...props
+}: ToggleGroupProps) => (
   <ToggleGroupPrimitive
-    className={cn('flex w-fit items-center gap-1 rounded-md data-[orientation=vertical]:flex-col', className)}
+    className={cn(
+      'group/toggle-group flex w-fit flex-row items-center gap-[calc(var(--gap)*0.25rem)] rounded-md data-vertical:flex-col data-vertical:items-stretch',
+      className
+    )}
+    data-orientation={orientation}
     data-size={size}
     data-slot="toggle-group"
+    data-spacing={spacing}
     data-variant={variant}
-    style={{ ...(spacing !== undefined ? { gap: `${spacing * 0.25}rem` } : null), ...style }}
+    orientation={orientation}
+    style={{ '--gap': spacing, ...style } as CSSProperties}
     {...props}
-  />
+  >
+    <ToggleGroupContext.Provider value={{ orientation, size, spacing, variant }}>
+      {children}
+    </ToggleGroupContext.Provider>
+  </ToggleGroupPrimitive>
 )
 
-const ToggleGroupItem = (props: ToggleGroupItemProps) => <Toggle data-slot="toggle-group-item" {...props} />
+const ToggleGroupItem = ({ className, size = 'default', variant = 'default', ...props }: ToggleGroupItemProps) => {
+  const context = useContext(ToggleGroupContext)
+  const resolvedVariant = context.variant ?? variant
+  const resolvedSize = context.size ?? size
 
-export type { ToggleGroupProps }
+  return (
+    <TogglePrimitive
+      className={cn(
+        'shrink-0 focus:z-10 focus-visible:z-10 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l',
+        toggleVariants({ size: resolvedSize, variant: resolvedVariant }),
+        className
+      )}
+      data-size={resolvedSize}
+      data-slot="toggle-group-item"
+      data-spacing={context.spacing}
+      data-variant={resolvedVariant}
+      {...props}
+    />
+  )
+}
+
+export type { ToggleGroupItemProps, ToggleGroupProps }
 export { ToggleGroup, ToggleGroupItem }

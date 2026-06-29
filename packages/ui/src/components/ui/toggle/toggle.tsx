@@ -24,7 +24,7 @@ const toggleVariants = tv({
 
 type ToggleProps = TogglePrimitive.Props & VariantProps<typeof toggleVariants>
 
-const Toggle = ({ className, size, variant, ...props }: ToggleProps) => (
+const Toggle = ({ className, variant = 'default', size = 'default', ...props }: ToggleProps) => (
   <TogglePrimitive className={cn(toggleVariants({ size, variant }), className)} data-slot="toggle" {...props} />
 )
 

@@ -8,9 +8,9 @@ describe('AspectRatio', () => {
     cleanup()
   })
 
-  test('applies ratio as inline aspect-ratio style', () => {
+  test('applies ratio as a CSS variable', () => {
     render(<AspectRatio data-testid="ratio" ratio={4 / 3} />)
 
-    expect(screen.getByTestId('ratio')).toHaveStyle({ aspectRatio: String(4 / 3) })
+    expect(screen.getByTestId('ratio')).toHaveStyle({ '--ratio': String(4 / 3) })
   })
 })
