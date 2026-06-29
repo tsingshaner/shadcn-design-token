@@ -27,4 +27,18 @@ describe('Table', () => {
     expect(screen.getByRole('table')).toHaveAttribute('data-slot', 'table')
     expect(screen.getByRole('columnheader', { name: 'Name' })).toHaveAttribute('data-slot', 'table-head')
   })
+
+  test('supports expanded row state styling', () => {
+    render(
+      <Table>
+        <TableBody>
+          <TableRow aria-expanded="true">
+            <TableCell>Details</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    )
+
+    expect(screen.getByRole('row')).toHaveClass('has-aria-expanded:bg-muted/50')
+  })
 })
