@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 type AvatarProps = AvatarPrimitive.Root.Props & {
   size?: 'default' | 'sm' | 'lg'
 }
-type AvatarImageProps = ComponentProps<'img'>
+type AvatarImageProps = AvatarPrimitive.Image.Props
 type AvatarFallbackProps = AvatarPrimitive.Fallback.Props
 type AvatarBadgeProps = ComponentProps<'span'>
 type AvatarGroupProps = ComponentProps<'div'>
@@ -28,9 +28,8 @@ const Avatar = ({ className, size = 'default', ...props }: AvatarProps) => (
   />
 )
 
-const AvatarImage = ({ className, alt, ...props }: AvatarImageProps) => (
-  <img
-    alt={alt}
+const AvatarImage = ({ className, ...props }: AvatarImageProps) => (
+  <AvatarPrimitive.Image
     className={cn('aspect-square size-full object-cover', className)}
     data-slot="avatar-image"
     {...props}

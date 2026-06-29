@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react'
-import { afterEach, describe, expect, test } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from './avatar'
 
@@ -9,15 +9,17 @@ describe('Avatar', () => {
   })
 
   test('renders image and fallback slots', () => {
+    const onLoadingStatusChange = vi.fn()
+
     render(
       <Avatar>
-        <AvatarImage alt="User" src="/avatar.png" />
+        <AvatarImage alt="User" onLoadingStatusChange={onLoadingStatusChange} src="/avatar.png" />
         <AvatarFallback>JD</AvatarFallback>
       </Avatar>
     )
 
-    expect(screen.getByAltText('User')).toHaveAttribute('data-slot', 'avatar-image')
     expect(screen.getByText('JD')).toHaveAttribute('data-slot', 'avatar-fallback')
+    expect(onLoadingStatusChange).toHaveBeenCalled()
   })
 
   test('renders badge, group, count, and size slots', () => {

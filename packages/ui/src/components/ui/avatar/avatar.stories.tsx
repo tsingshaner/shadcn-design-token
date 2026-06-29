@@ -75,7 +75,7 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('img', { name: '@shadcn' })).toHaveAttribute('data-slot', 'avatar-image')
+  await expect(canvas.getByText('CN')).toHaveAttribute('data-slot', 'avatar-fallback')
   await expect(canvasElement.querySelector('[data-slot="avatar"]')).toHaveAttribute('data-size', 'default')
 }
 
