@@ -153,7 +153,18 @@ export {
   InputGroupText
 } from './components/ui/input-group'
 export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './components/ui/input-otp'
-export { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from './components/ui/item'
+export {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle
+} from './components/ui/item'
 export { Kbd, KbdGroup } from './components/ui/kbd'
 export { Label } from './components/ui/label'
 export {
@@ -478,8 +489,12 @@ export type {
   ItemActionsProps,
   ItemContentProps,
   ItemDescriptionProps,
+  ItemFooterProps,
+  ItemGroupProps,
+  ItemHeaderProps,
   ItemMediaProps,
   ItemProps,
+  ItemSeparatorProps,
   ItemTitleProps
 } from './components/ui/item'
 export type { KbdGroupProps, KbdProps } from './components/ui/kbd'
