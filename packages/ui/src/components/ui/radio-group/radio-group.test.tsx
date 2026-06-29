@@ -22,4 +22,19 @@ describe('RadioGroup', () => {
 
     expect(onValueChange).toHaveBeenCalledWith('compact', expect.any(Object))
   })
+
+  test('applies shadcn v4 radio group slot classes', () => {
+    render(
+      <RadioGroup data-testid="group" defaultValue="default">
+        <RadioGroupItem aria-label="Default" value="default" />
+      </RadioGroup>
+    )
+
+    const radio = screen.getByRole('radio', { name: 'Default' })
+
+    expect(screen.getByTestId('group')).toHaveClass('cn-radio-group')
+    expect(radio).toHaveClass('cn-radio-group-item')
+    expect(radio.querySelector('[data-slot="radio-group-indicator"]')).toHaveClass('cn-radio-group-indicator')
+    expect(radio.querySelector('.cn-radio-group-indicator-icon')).toBeInTheDocument()
+  })
 })
