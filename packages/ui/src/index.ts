@@ -175,9 +175,11 @@ export { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from './compon
 export {
   NavigationMenu,
   NavigationMenuContent,
+  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuPositioner,
   NavigationMenuTrigger,
   NavigationMenuViewport,
   navigationMenuTriggerStyle
@@ -501,9 +503,11 @@ export type {
 } from './components/ui/native-select'
 export type {
   NavigationMenuContentProps,
+  NavigationMenuIndicatorProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
   NavigationMenuListProps,
+  NavigationMenuPositionerProps,
   NavigationMenuProps,
   NavigationMenuTriggerProps,
   NavigationMenuViewportProps

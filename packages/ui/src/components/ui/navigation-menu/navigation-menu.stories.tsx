@@ -8,8 +8,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport
+  NavigationMenuTrigger
 } from './navigation-menu'
 
 const meta = {
@@ -47,7 +46,6 @@ export const Default: Story = {
           <NavigationMenuLink href="#">Docs</NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
-      <NavigationMenuViewport />
     </NavigationMenu>
   )
 }
@@ -59,4 +57,5 @@ Default.play = async ({ canvasElement }) => {
   await expect(await page.findByText('Color tokens')).toHaveAttribute('data-slot', 'navigation-menu-link')
   await expect(page.getByText('Typography tokens')).toHaveAttribute('data-slot', 'navigation-menu-link')
   await expect(canvas.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-slot', 'navigation-menu-link')
+  await expect(page.getByText('Color tokens').closest('[data-slot="navigation-menu-popup"]')).toBeInTheDocument()
 }

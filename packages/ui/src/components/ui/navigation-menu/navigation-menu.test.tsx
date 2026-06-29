@@ -7,8 +7,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport
+  NavigationMenuTrigger
 } from './navigation-menu'
 
 afterEach(cleanup)
@@ -25,11 +24,11 @@ describe('NavigationMenu', () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
-        <NavigationMenuViewport />
       </NavigationMenu>
     )
 
     expect(screen.getByRole('button', { name: /Tokens/ })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Color tokens' })).toBeInTheDocument()
+    expect(document.querySelector('[data-slot="navigation-menu-positioner"]')).toBeInTheDocument()
   })
 })
