@@ -58,8 +58,8 @@ Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('navigation', { name: 'pagination' })).toHaveAttribute('data-slot', 'pagination')
-  await expect(canvas.getByRole('link', { name: '2' })).toHaveAttribute('aria-current', 'page')
-  await expect(canvas.getAllByRole('link')).toHaveLength(5)
+  await expect(canvas.getByRole('button', { name: '2' })).toHaveAttribute('aria-current', 'page')
+  await expect(canvas.getAllByRole('button')).toHaveLength(5)
 }
 
 export const IconsOnly: Story = {
@@ -107,6 +107,9 @@ IconsOnly.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByText('Rows per page')).toBeVisible()
-  await expect(canvas.getByRole('link', { name: 'Go to previous page' })).toHaveTextContent('Previous')
-  await expect(canvas.getByRole('link', { name: 'Go to next page' })).toHaveTextContent('Next')
+  await expect(canvas.getByRole('button', { name: 'Go to previous page' })).toHaveAttribute(
+    'data-slot',
+    'pagination-link'
+  )
+  await expect(canvas.getByRole('button', { name: 'Go to next page' })).toHaveAttribute('data-slot', 'pagination-link')
 }

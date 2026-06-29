@@ -8,4 +8,4 @@ export {
   PaginationPrevious
 } from './pagination'
 
-export type { PaginationLinkProps, PaginationProps } from './pagination'
+export type { PaginationLinkProps, PaginationNextProps, PaginationPreviousProps, PaginationProps } from './pagination'
