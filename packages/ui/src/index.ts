@@ -52,6 +52,8 @@ export { Checkbox } from './components/ui/checkbox'
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from './components/ui/collapsible'
 export {
   Combobox,
+  ComboboxChipsInput,
+  ComboboxCollection,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxGroup,
@@ -63,7 +65,8 @@ export {
   ComboboxList,
   ComboboxSeparator,
   ComboboxTrigger,
-  ComboboxValue
+  ComboboxValue,
+  useComboboxAnchor
 } from './components/ui/combobox'
 export {
   Command,
@@ -354,6 +357,8 @@ export type {
   CollapsibleTriggerProps
 } from './components/ui/collapsible'
 export type {
+  ComboboxChipsInputProps,
+  ComboboxCollectionProps,
   ComboboxContentProps,
   ComboboxEmptyProps,
   ComboboxGroupLabelProps,

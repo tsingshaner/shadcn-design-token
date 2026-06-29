@@ -3,6 +3,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 
 import {
   Combobox,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxCollection,
   ComboboxContent,
   ComboboxInput,
   ComboboxInputGroup,
@@ -32,5 +35,29 @@ describe('Combobox', () => {
 
     expect(screen.getByPlaceholderText('Search framework')).toBeInTheDocument()
     expect(screen.getByText('Next.js')).toBeInTheDocument()
+  })
+
+  it('renders collection and chips input slots', () => {
+    render(
+      <Combobox defaultOpen items={['React']} multiple>
+        <ComboboxChips>
+          <ComboboxChipsInput aria-label="Framework chips" />
+        </ComboboxChips>
+        <ComboboxContent>
+          <ComboboxList>
+            <ComboboxCollection>
+              {(item) => (
+                <ComboboxItem key={item} value={item}>
+                  {item}
+                </ComboboxItem>
+              )}
+            </ComboboxCollection>
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    )
+
+    expect(screen.getByLabelText('Framework chips')).toHaveAttribute('data-slot', 'combobox-chip-input')
+    expect(screen.getByText('React')).toBeInTheDocument()
   })
 })

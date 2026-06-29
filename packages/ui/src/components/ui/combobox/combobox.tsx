@@ -1,5 +1,6 @@
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox'
 import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
+import { useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group'
@@ -24,12 +25,14 @@ type ComboboxListProps = ComboboxPrimitive.List.Props
 type ComboboxEmptyProps = ComboboxPrimitive.Empty.Props
 type ComboboxGroupProps = ComboboxPrimitive.Group.Props
 type ComboboxGroupLabelProps = ComboboxPrimitive.GroupLabel.Props
+type ComboboxCollectionProps = ComboboxPrimitive.Collection.Props
 type ComboboxItemProps = ComboboxPrimitive.Item.Props
 type ComboboxSeparatorProps = ComboboxPrimitive.Separator.Props
 type ComboboxChipsProps = ComboboxPrimitive.Chips.Props
 type ComboboxChipProps = ComboboxPrimitive.Chip.Props & {
   showRemove?: boolean
 }
+type ComboboxChipsInputProps = ComboboxPrimitive.Input.Props
 
 const Combobox = <Value = string, Multiple extends boolean | undefined = false>(
   props: ComboboxProps<Value, Multiple>
@@ -172,6 +175,10 @@ const ComboboxGroupLabel = ({ className, ...props }: ComboboxGroupLabelProps) =>
   />
 )
 
+const ComboboxCollection = (props: ComboboxCollectionProps) => (
+  <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />
+)
+
 const ComboboxItem = ({ children, className, ...props }: ComboboxItemProps) => (
   <ComboboxPrimitive.Item
     className={cn(
@@ -236,10 +243,22 @@ const ComboboxChip = ({ children, className, showRemove = true, ...props }: Comb
   </ComboboxPrimitive.Chip>
 )
 
+const ComboboxChipsInput = ({ className, ...props }: ComboboxChipsInputProps) => (
+  <ComboboxPrimitive.Input
+    className={cn('min-w-16 flex-1 outline-none', className)}
+    data-slot="combobox-chip-input"
+    {...props}
+  />
+)
+
+const useComboboxAnchor = () => useRef<HTMLDivElement | null>(null)
+
 export type {
   ComboboxChipProps,
+  ComboboxChipsInputProps,
   ComboboxChipsProps,
   ComboboxClearProps,
+  ComboboxCollectionProps,
   ComboboxContentProps,
   ComboboxEmptyProps,
   ComboboxGroupLabelProps,
@@ -258,7 +277,9 @@ export {
   Combobox,
   ComboboxChip,
   ComboboxChips,
+  ComboboxChipsInput,
   ComboboxClear,
+  ComboboxCollection,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxGroup,
@@ -270,5 +291,6 @@ export {
   ComboboxList,
   ComboboxSeparator,
   ComboboxTrigger,
-  ComboboxValue
+  ComboboxValue,
+  useComboboxAnchor
 }
