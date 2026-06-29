@@ -36,7 +36,7 @@ const ToastProvider = ({ toastManager: manager = toastManager, ...props }: Toast
 const Toast = ({ className, ...props }: ToastProps) => (
   <ToastPrimitive.Root
     className={cn(
-      'grid w-full max-w-sm gap-1 rounded-md border bg-background p-4 text-foreground shadow-lg data-[limited]:hidden',
+      'absolute right-4 left-4 grid gap-1 rounded-md border bg-background p-4 text-foreground shadow-lg transition-[transform,opacity] duration-300 ease-out [bottom:var(--toast-anchor-bottom)] [opacity:calc(1_-_min(var(--toast-index),2)_*_0.08)] [top:var(--toast-anchor-top)] [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)_+_var(--toast-stack-direction)_*_min(var(--toast-index),2)_*_0.75rem))_scale(calc(1_-_min(var(--toast-index),2)_*_0.05))] [z-index:calc(100_-_var(--toast-index))] data-[limited]:hidden data-[expanded]:opacity-100 data-[swiping]:transition-none data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)_+_var(--toast-stack-direction)_*_var(--toast-offset-y)))_scale(1)]',
       className
     )}
     data-slot="toast"
@@ -79,12 +79,12 @@ const ToastClose = ({ className, ...props }: ToastCloseProps) => (
 )
 
 const toastViewportPositionClassName: Record<ToastPosition, string> = {
-  'bottom-center': 'bottom-0 left-1/2 -translate-x-1/2',
-  'bottom-left': 'bottom-0 left-0',
-  'bottom-right': 'right-0 bottom-0',
-  'top-center': 'top-0 left-1/2 -translate-x-1/2',
-  'top-left': 'top-0 left-0',
-  'top-right': 'top-0 right-0'
+  'bottom-center': 'bottom-0 left-1/2 -translate-x-1/2 [--toast-anchor-bottom:1rem] [--toast-stack-direction:-1]',
+  'bottom-left': 'bottom-0 left-0 [--toast-anchor-bottom:1rem] [--toast-stack-direction:-1]',
+  'bottom-right': 'right-0 bottom-0 [--toast-anchor-bottom:1rem] [--toast-stack-direction:-1]',
+  'top-center': 'top-0 left-1/2 -translate-x-1/2 [--toast-anchor-top:1rem] [--toast-stack-direction:1]',
+  'top-left': 'top-0 left-0 [--toast-anchor-top:1rem] [--toast-stack-direction:1]',
+  'top-right': 'top-0 right-0 [--toast-anchor-top:1rem] [--toast-stack-direction:1]'
 }
 
 const ToastViewport = ({
@@ -99,7 +99,7 @@ const ToastViewport = ({
   const renderViewport = (viewportPosition: ToastPosition, viewportToasts = toasts) => (
     <ToastPrimitive.Viewport
       className={cn(
-        'fixed z-100 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm',
+        'pointer-events-none fixed z-100 h-[calc(var(--toast-frontmost-height)_+_2rem)] max-h-screen w-full overflow-visible sm:max-w-sm [&_[data-slot=toast]]:pointer-events-auto',
         toastViewportPositionClassName[viewportPosition],
         className
       )}
