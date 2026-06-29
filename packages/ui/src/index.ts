@@ -171,7 +171,7 @@ export {
   MenubarSubTrigger,
   MenubarTrigger
 } from './components/ui/menubar'
-export { NativeSelect } from './components/ui/native-select'
+export { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from './components/ui/native-select'
 export {
   NavigationMenu,
   NavigationMenuContent,
@@ -494,7 +494,11 @@ export type {
   MenubarSubTriggerProps,
   MenubarTriggerProps
 } from './components/ui/menubar'
-export type { NativeSelectProps } from './components/ui/native-select'
+export type {
+  NativeSelectOptGroupProps,
+  NativeSelectOptionProps,
+  NativeSelectProps
+} from './components/ui/native-select'
 export type {
   NavigationMenuContentProps,
   NavigationMenuItemProps,

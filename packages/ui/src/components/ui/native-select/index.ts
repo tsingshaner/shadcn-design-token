@@ -1,3 +1,3 @@
-export { NativeSelect } from './native-select'
+export { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from './native-select'
 
-export type { NativeSelectProps } from './native-select'
+export type { NativeSelectOptGroupProps, NativeSelectOptionProps, NativeSelectProps } from './native-select'
