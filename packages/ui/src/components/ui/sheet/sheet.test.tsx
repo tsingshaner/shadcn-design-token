@@ -39,4 +39,20 @@ describe('Sheet', () => {
     expect(screen.getByRole('dialog', { name: 'No close button' })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
   })
+
+  test('applies shadcn v4 side transition classes', () => {
+    render(
+      <Sheet defaultOpen>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Animated sheet</SheetTitle>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+    )
+
+    expect(screen.getByRole('dialog', { name: 'Animated sheet' })).toHaveClass(
+      'data-[side=right]:data-starting-style:translate-x-[2.5rem]'
+    )
+  })
 })

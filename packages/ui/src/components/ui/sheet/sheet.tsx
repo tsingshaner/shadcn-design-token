@@ -47,7 +47,11 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Popup
-      className={cn('fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg', sheetSideClasses[side], className)}
+      className={cn(
+        'fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem] data-ending-style:opacity-0 data-starting-style:opacity-0',
+        sheetSideClasses[side],
+        className
+      )}
       data-side={side}
       data-slot="sheet-content"
       {...props}

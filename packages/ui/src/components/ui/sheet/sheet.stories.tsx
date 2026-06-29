@@ -110,6 +110,6 @@ NoCloseButton.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Open sheet' }))
 
-  await expect(await page.findByRole('dialog', { name: 'No Close Button' })).toBeVisible()
+  await expect(await page.findByRole('dialog', { name: 'No Close Button' })).toBeInTheDocument()
   await expect(page.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
 }
