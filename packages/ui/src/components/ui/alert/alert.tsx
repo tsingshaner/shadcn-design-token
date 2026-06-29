@@ -18,23 +18,29 @@ const alertVariants = tv({
 })
 
 type AlertProps = ComponentProps<'div'> & VariantProps<typeof alertVariants>
+type AlertTitleProps = ComponentProps<'div'>
+type AlertDescriptionProps = ComponentProps<'div'>
+type AlertActionProps = ComponentProps<'div'>
 
 const Alert = ({ className, variant, ...props }: AlertProps) => (
   <div className={cn(alertVariants({ variant }), className)} data-slot="alert" role="alert" {...props} />
 )
 
-const AlertTitle = ({ className, ...props }: ComponentProps<'div'>) => (
+const AlertTitle = ({ className, ...props }: AlertTitleProps) => (
   <div
-    className={cn('col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight', className)}
+    className={cn(
+      'col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight [&_a:hover]:text-foreground [&_a]:underline [&_a]:underline-offset-3',
+      className
+    )}
     data-slot="alert-title"
     {...props}
   />
 )
 
-const AlertDescription = ({ className, ...props }: ComponentProps<'div'>) => (
+const AlertDescription = ({ className, ...props }: AlertDescriptionProps) => (
   <div
     className={cn(
-      'col-start-2 grid justify-items-start gap-1 text-muted-foreground text-sm [&_p]:leading-relaxed',
+      'col-start-2 grid justify-items-start gap-1 text-muted-foreground text-sm [&_a:hover]:text-foreground [&_a]:underline [&_a]:underline-offset-3 [&_p]:leading-relaxed',
       className
     )}
     data-slot="alert-description"
@@ -42,5 +48,9 @@ const AlertDescription = ({ className, ...props }: ComponentProps<'div'>) => (
   />
 )
 
-export type { AlertProps }
-export { Alert, AlertDescription, AlertTitle, alertVariants }
+const AlertAction = ({ className, ...props }: AlertActionProps) => (
+  <div className={cn('col-start-2 mt-2 flex items-center gap-2', className)} data-slot="alert-action" {...props} />
+)
+
+export type { AlertActionProps, AlertDescriptionProps, AlertProps, AlertTitleProps }
+export { Alert, AlertAction, AlertDescription, AlertTitle, alertVariants }

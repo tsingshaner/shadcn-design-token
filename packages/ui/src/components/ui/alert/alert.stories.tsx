@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from '../button'
-import { Alert, AlertDescription, AlertTitle } from './alert'
+import { Alert, AlertAction, AlertDescription, AlertTitle } from './alert'
 
 const TerminalIcon = () => (
   <svg
@@ -80,12 +80,14 @@ export const Action: Story = {
     <Alert className="max-w-xl">
       <TerminalIcon />
       <AlertTitle>Update available</AlertTitle>
-      <AlertDescription className="flex items-center justify-between gap-4">
-        A new token build is ready to publish.
+      <AlertDescription>
+        A new token build is ready to publish. <a href="/changes">Review release notes</a>.
+      </AlertDescription>
+      <AlertAction>
         <Button size="sm" variant="outline">
           Review
         </Button>
-      </AlertDescription>
+      </AlertAction>
     </Alert>
   )
 }
@@ -93,6 +95,7 @@ Action.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('alert')).toHaveTextContent('A new token build is ready to publish.')
+  await expect(canvas.getByRole('link', { name: 'Review release notes' })).toBeInTheDocument()
   await expect(canvas.getByRole('button', { name: 'Review' })).toBeEnabled()
 }
 
