@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -52,7 +52,9 @@ Side.play = async ({ canvasElement }) => {
 
   await userEvent.hover(canvas.getByRole('button', { name: 'top' }))
 
-  await expect(await page.findByText('Open top')).toHaveAttribute('data-slot', 'tooltip-content')
+  await waitFor(() =>
+    expect(page.getByText('Open top', { selector: '[data-slot="tooltip-content"]' })).toBeInTheDocument()
+  )
 }
 
 export const WithKeyboardShortcut: Story = {
@@ -77,12 +79,23 @@ export const WithKeyboardShortcut: Story = {
 }
 WithKeyboardShortcut.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
-  const page = within(canvasElement.ownerDocument.body)
 
   await userEvent.hover(canvas.getByRole('button', { name: 'Search' }))
 
-  await expect(await page.findByText(/Search tokens/)).toHaveAttribute('data-slot', 'tooltip-content')
-  await expect(page.getByText('⌘K')).toHaveAttribute('data-slot', 'kbd')
+  const tooltip = await waitFor(() => {
+    const content = canvasElement.ownerDocument.body.querySelector('[data-slot="tooltip-content"]')
+
+    if (!(content instanceof HTMLElement)) {
+      throw new Error('Tooltip content was not found.')
+    }
+
+    expect(content).toHaveTextContent('Search tokens')
+
+    return content
+  })
+
+  await expect(tooltip).toHaveAttribute('data-slot', 'tooltip-content')
+  await expect(within(tooltip).getByText('⌘K')).toHaveAttribute('data-slot', 'kbd')
 }
 
 export const DisabledButton: Story = {

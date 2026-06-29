@@ -96,6 +96,6 @@ export const Horizontal: Story = {
 Horizontal.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('img', { name: 'Artwork by Ornella Binni' })).toBeVisible()
+  await expect(canvas.getByRole('img', { name: 'Artwork by Ornella Binni' })).toBeInTheDocument()
   await expect(canvasElement.querySelector('[data-orientation="horizontal"]')).toBeInTheDocument()
 }

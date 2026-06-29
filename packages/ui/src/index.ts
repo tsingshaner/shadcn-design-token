@@ -202,6 +202,8 @@ export {
   SelectGroup,
   SelectItem,
   SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
   SelectValue
@@ -498,6 +500,8 @@ export type {
   SelectItemProps,
   SelectLabelProps,
   SelectProps,
+  SelectScrollDownButtonProps,
+  SelectScrollUpButtonProps,
   SelectSeparatorProps,
   SelectTriggerProps,
   SelectValueProps
