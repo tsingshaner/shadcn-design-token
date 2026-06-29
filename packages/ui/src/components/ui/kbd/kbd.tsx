@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
 type KbdProps = ComponentProps<'kbd'>
-type KbdGroupProps = ComponentProps<'kbd'>
+type KbdGroupProps = ComponentProps<'div'>
 
 const Kbd = ({ className, ...props }: KbdProps) => (
   <kbd

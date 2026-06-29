@@ -16,12 +16,13 @@ describe('Kbd', () => {
 
   test('groups keyboard keys', () => {
     render(
-      <KbdGroup>
+      <KbdGroup aria-label="Keyboard shortcut">
         <Kbd>Ctrl</Kbd>
         <Kbd>K</Kbd>
       </KbdGroup>
     )
 
     expect(screen.getByText('Ctrl').parentElement).toHaveAttribute('data-slot', 'kbd-group')
+    expect(screen.getByLabelText('Keyboard shortcut')).toHaveAttribute('data-slot', 'kbd-group')
   })
 })
