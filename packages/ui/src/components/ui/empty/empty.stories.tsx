@@ -94,6 +94,6 @@ export const Outline: Story = {
 Outline.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="empty-media"]')).toHaveAttribute('data-variant', 'icon')
+  await expect(canvasElement.querySelector('[data-slot="empty-icon"]')).toHaveAttribute('data-variant', 'icon')
   await expect(canvas.getByRole('button', { name: 'Upload Files' })).toBeEnabled()
 }

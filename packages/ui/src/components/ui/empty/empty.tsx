@@ -1,3 +1,5 @@
+import { tv, type VariantProps } from 'tailwind-variants'
+
 import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
@@ -5,16 +7,28 @@ import { cn } from '@/lib/utils'
 type EmptyProps = ComponentProps<'div'>
 type EmptyHeaderProps = ComponentProps<'div'>
 type EmptyTitleProps = ComponentProps<'div'>
-type EmptyDescriptionProps = ComponentProps<'div'>
+type EmptyDescriptionProps = ComponentProps<'p'>
 type EmptyContentProps = ComponentProps<'div'>
-type EmptyMediaProps = ComponentProps<'div'> & {
-  variant?: 'default' | 'icon'
-}
+
+const emptyMediaVariants = tv({
+  base: 'flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  defaultVariants: {
+    variant: 'default'
+  },
+  variants: {
+    variant: {
+      default: 'size-12 rounded-full bg-muted text-muted-foreground',
+      icon: 'size-10 rounded-md bg-transparent text-muted-foreground [&_svg:not([class*=size-])]:size-6'
+    }
+  }
+})
+
+type EmptyMediaProps = ComponentProps<'div'> & VariantProps<typeof emptyMediaVariants>
 
 const Empty = ({ className, ...props }: EmptyProps) => (
   <div
     className={cn(
-      'flex min-h-64 flex-col items-center justify-center gap-6 rounded-lg border border-dashed p-6 text-center',
+      'flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-6 text-balance text-center',
       className
     )}
     data-slot="empty"
@@ -23,7 +37,7 @@ const Empty = ({ className, ...props }: EmptyProps) => (
 )
 
 const EmptyHeader = ({ className, ...props }: EmptyHeaderProps) => (
-  <div className={cn('grid gap-1', className)} data-slot="empty-header" {...props} />
+  <div className={cn('flex max-w-sm flex-col items-center gap-1', className)} data-slot="empty-header" {...props} />
 )
 
 const EmptyTitle = ({ className, ...props }: EmptyTitleProps) => (
@@ -31,22 +45,28 @@ const EmptyTitle = ({ className, ...props }: EmptyTitleProps) => (
 )
 
 const EmptyDescription = ({ className, ...props }: EmptyDescriptionProps) => (
-  <div className={cn('max-w-sm text-muted-foreground text-sm', className)} data-slot="empty-description" {...props} />
+  <p
+    className={cn(
+      'text-muted-foreground text-sm [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
+      className
+    )}
+    data-slot="empty-description"
+    {...props}
+  />
 )
 
 const EmptyContent = ({ className, ...props }: EmptyContentProps) => (
-  <div className={cn('flex items-center gap-2', className)} data-slot="empty-content" {...props} />
+  <div
+    className={cn('flex w-full min-w-0 max-w-sm flex-col items-center gap-2 text-balance', className)}
+    data-slot="empty-content"
+    {...props}
+  />
 )
 
 const EmptyMedia = ({ className, variant = 'default', ...props }: EmptyMediaProps) => (
   <div
-    className={cn(
-      'flex size-12 items-center justify-center rounded-full',
-      variant === 'default' && 'bg-muted text-muted-foreground',
-      variant === 'icon' && 'bg-muted text-muted-foreground [&_svg:not([class*=size-])]:size-6',
-      className
-    )}
-    data-slot="empty-media"
+    className={cn(emptyMediaVariants({ variant }), className)}
+    data-slot="empty-icon"
     data-variant={variant}
     {...props}
   />
