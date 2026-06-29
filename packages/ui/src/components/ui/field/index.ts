@@ -6,6 +6,7 @@ export {
   FieldGroup,
   FieldLabel,
   FieldLegend,
+  FieldSeparator,
   FieldSet,
   FieldTitle
 } from './field'
@@ -16,5 +17,9 @@ export type {
   FieldErrorProps,
   FieldGroupProps,
   FieldLabelProps,
-  FieldProps
+  FieldLegendProps,
+  FieldProps,
+  FieldSeparatorProps,
+  FieldSetProps,
+  FieldTitleProps
 } from './field'

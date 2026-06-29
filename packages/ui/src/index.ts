@@ -142,7 +142,18 @@ export {
   DropdownMenuTrigger
 } from './components/ui/dropdown-menu'
 export { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from './components/ui/empty'
-export { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from './components/ui/field'
+export {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle
+} from './components/ui/field'
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './components/ui/hover-card'
 export { Input } from './components/ui/input'
 export {
@@ -468,7 +479,11 @@ export type {
   FieldErrorProps,
   FieldGroupProps,
   FieldLabelProps,
-  FieldProps
+  FieldLegendProps,
+  FieldProps,
+  FieldSeparatorProps,
+  FieldSetProps,
+  FieldTitleProps
 } from './components/ui/field'
 export type { HoverCardContentProps, HoverCardProps, HoverCardTriggerProps } from './components/ui/hover-card'
 export type { InputProps } from './components/ui/input'
