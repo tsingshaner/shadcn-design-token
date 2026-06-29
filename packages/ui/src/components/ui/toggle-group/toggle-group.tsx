@@ -13,6 +13,9 @@ type ToggleGroupProps = ToggleGroupPrimitive.Props & {
   variant?: ToggleProps['variant']
 }
 type ToggleGroupItemProps = ToggleProps
+type ToggleGroupStyle = CSSProperties & {
+  '--gap'?: number
+}
 
 const ToggleGroupContext = createContext<Pick<ToggleGroupProps, 'orientation' | 'size' | 'spacing' | 'variant'>>({
   orientation: 'horizontal',
@@ -42,7 +45,7 @@ const ToggleGroup = ({
     data-spacing={spacing}
     data-variant={variant}
     orientation={orientation}
-    style={{ '--gap': spacing, ...style } as CSSProperties}
+    style={{ '--gap': spacing, ...style } as ToggleGroupStyle}
     {...props}
   >
     <ToggleGroupContext.Provider value={{ orientation, size, spacing, variant }}>

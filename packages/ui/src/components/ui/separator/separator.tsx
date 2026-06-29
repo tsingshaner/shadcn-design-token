@@ -2,7 +2,9 @@ import { Separator as SeparatorPrimitive } from '@base-ui/react/separator'
 
 import { cn } from '@/lib/utils'
 
-type SeparatorProps = SeparatorPrimitive.Props
+type SeparatorProps = SeparatorPrimitive.Props & {
+  decorative?: boolean
+}
 
 const Separator = ({ className, decorative = true, orientation = 'horizontal', ...props }: SeparatorProps) => (
   <SeparatorPrimitive

@@ -1,8 +1,11 @@
 import { Dialog as SheetPrimitive } from '@base-ui/react/dialog'
+import { XIcon } from 'lucide-react'
 
 import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
+
+import { Button } from '../button'
 
 type SheetProps = SheetPrimitive.Root.Props
 type SheetTriggerProps = SheetPrimitive.Trigger.Props
@@ -16,22 +19,16 @@ type SheetTitleProps = SheetPrimitive.Title.Props
 type SheetDescriptionProps = SheetPrimitive.Description.Props
 type SheetCloseProps = SheetPrimitive.Close.Props
 
-const Sheet = (props: SheetProps) => <SheetPrimitive.Root {...props} />
+const Sheet = (props: SheetProps) => <SheetPrimitive.Root data-slot="sheet" {...props} />
 
-const SheetTrigger = ({ className, ...props }: SheetTriggerProps) => (
-  <SheetPrimitive.Trigger
-    className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
-    data-slot="sheet-trigger"
-    {...props}
-  />
-)
+const SheetTrigger = (props: SheetTriggerProps) => <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />
 
 const SheetPortal = (props: SheetPortalProps) => <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
 
 const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
   <SheetPrimitive.Backdrop
     className={cn(
-      'fixed inset-0 z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
+      'fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
       className
     )}
     data-slot="sheet-overlay"
@@ -50,33 +47,23 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Popup
-      className={cn('fixed z-50 gap-4 bg-background p-6 shadow-lg', sheetSideClasses[side], className)}
+      className={cn('fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg', sheetSideClasses[side], className)}
       data-side={side}
       data-slot="sheet-content"
       {...props}
     >
-      {showCloseButton ? (
-        <SheetPrimitive.Close
-          aria-label="Close"
-          className="absolute top-4 right-4 rounded-sm opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none"
-          data-slot="sheet-close-button"
-        >
-          <svg
-            aria-hidden="true"
-            className="size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-          </svg>
-        </SheetPrimitive.Close>
-      ) : null}
       {children}
+      {showCloseButton && (
+        <SheetPrimitive.Close
+          data-slot="sheet-close"
+          render={
+            <Button className="absolute top-4 right-4 opacity-70 hover:opacity-100" size="icon-sm" variant="ghost" />
+          }
+        >
+          <XIcon />
+          <span className="sr-only">Close</span>
+        </SheetPrimitive.Close>
+      )}
     </SheetPrimitive.Popup>
   </SheetPortal>
 )
@@ -87,7 +74,7 @@ const SheetHeader = ({ className, ...props }: ComponentProps<'div'>) => (
 
 const SheetFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+    className={cn('mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
     data-slot="sheet-footer"
     {...props}
   />
@@ -109,13 +96,7 @@ const SheetDescription = ({ className, ...props }: SheetDescriptionProps) => (
   />
 )
 
-const SheetClose = ({ className, ...props }: SheetCloseProps) => (
-  <SheetPrimitive.Close
-    className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
-    data-slot="sheet-close"
-    {...props}
-  />
-)
+const SheetClose = (props: SheetCloseProps) => <SheetPrimitive.Close data-slot="sheet-close" {...props} />
 
 export type {
   SheetCloseProps,

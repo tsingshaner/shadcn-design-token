@@ -29,7 +29,7 @@ const Badge = ({ className, render, variant = 'default', ...props }: BadgeProps)
     props: mergeProps<'span'>(
       {
         className: cn(badgeVariants({ variant }), className),
-        'data-slot': 'badge'
+        ...({ 'data-slot': 'badge' } as Record<'data-slot', string>)
       },
       props
     ),

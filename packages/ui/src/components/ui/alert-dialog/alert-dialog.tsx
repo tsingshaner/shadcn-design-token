@@ -4,6 +4,8 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
+import { Button } from '../button'
+
 type AlertDialogProps = AlertDialogPrimitive.Root.Props
 type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props
 type AlertDialogPortalProps = AlertDialogPrimitive.Portal.Props
@@ -13,18 +15,15 @@ type AlertDialogContentProps = AlertDialogPrimitive.Popup.Props & {
 }
 type AlertDialogTitleProps = AlertDialogPrimitive.Title.Props
 type AlertDialogDescriptionProps = AlertDialogPrimitive.Description.Props
-type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props
-type AlertDialogActionProps = AlertDialogPrimitive.Close.Props
+type AlertDialogButtonProps = ComponentProps<typeof Button>
+type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props & Pick<AlertDialogButtonProps, 'size' | 'variant'>
+type AlertDialogActionProps = AlertDialogButtonProps
 type AlertDialogMediaProps = ComponentProps<'div'>
 
-const AlertDialog = (props: AlertDialogProps) => <AlertDialogPrimitive.Root {...props} />
+const AlertDialog = (props: AlertDialogProps) => <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
 
-const AlertDialogTrigger = ({ className, ...props }: AlertDialogTriggerProps) => (
-  <AlertDialogPrimitive.Trigger
-    className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
-    data-slot="alert-dialog-trigger"
-    {...props}
-  />
+const AlertDialogTrigger = (props: AlertDialogTriggerProps) => (
+  <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
 )
 
 const AlertDialogPortal = (props: AlertDialogPortalProps) => (
@@ -47,7 +46,7 @@ const AlertDialogContent = ({ className, size = 'default', ...props }: AlertDial
     <AlertDialogOverlay />
     <AlertDialogPrimitive.Popup
       className={cn(
-        'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg sm:max-w-lg',
+        'group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg',
         size === 'sm' && 'sm:max-w-sm',
         className
       )}
@@ -60,7 +59,10 @@ const AlertDialogContent = ({ className, size = 'default', ...props }: AlertDial
 
 const AlertDialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('flex flex-col gap-2 text-center sm:text-left', className)}
+    className={cn(
+      'flex flex-col gap-2 text-center group-data-[size=sm]/alert-dialog-content:text-center sm:text-left',
+      className
+    )}
     data-slot="alert-dialog-header"
     {...props}
   />
@@ -68,7 +70,10 @@ const AlertDialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
 
 const AlertDialogFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+    className={cn(
+      'flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end',
+      className
+    )}
     data-slot="alert-dialog-footer"
     {...props}
   />
@@ -102,17 +107,14 @@ const AlertDialogMedia = ({ className, ...props }: AlertDialogMediaProps) => (
 )
 
 const AlertDialogAction = ({ className, ...props }: AlertDialogActionProps) => (
-  <AlertDialogPrimitive.Close
-    className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
-    data-slot="alert-dialog-action"
-    {...props}
-  />
+  <Button className={cn(className)} data-slot="alert-dialog-action" {...props} />
 )
 
-const AlertDialogCancel = ({ className, ...props }: AlertDialogCancelProps) => (
+const AlertDialogCancel = ({ className, size = 'default', variant = 'outline', ...props }: AlertDialogCancelProps) => (
   <AlertDialogPrimitive.Close
-    className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
+    className={cn(className)}
     data-slot="alert-dialog-cancel"
+    render={<Button size={size} variant={variant} />}
     {...props}
   />
 )
@@ -122,6 +124,7 @@ export type {
   AlertDialogCancelProps,
   AlertDialogContentProps,
   AlertDialogDescriptionProps,
+  AlertDialogMediaProps,
   AlertDialogOverlayProps,
   AlertDialogPortalProps,
   AlertDialogProps,
