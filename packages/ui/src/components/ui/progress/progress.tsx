@@ -8,28 +8,23 @@ type ProgressIndicatorProps = ProgressPrimitive.Indicator.Props
 type ProgressLabelProps = ProgressPrimitive.Label.Props
 type ProgressValueProps = ProgressPrimitive.Value.Props
 
-const Progress = ({ children, className, max = 100, value, ...props }: ProgressProps) => {
-  const percent = value == null ? null : Math.max(0, Math.min(100, ((value - 0) / max) * 100))
-
-  return (
-    <ProgressPrimitive.Root
-      className={cn('grid w-full gap-2', className)}
-      data-slot="progress"
-      max={max}
-      value={value}
-      {...props}
-    >
-      {children}
-      <ProgressTrack>
-        <ProgressIndicator style={{ transform: percent == null ? undefined : `translateX(-${100 - percent}%)` }} />
-      </ProgressTrack>
-    </ProgressPrimitive.Root>
-  )
-}
+const Progress = ({ children, className, value, ...props }: ProgressProps) => (
+  <ProgressPrimitive.Root
+    className={cn('flex w-full flex-wrap gap-3', className)}
+    data-slot="progress"
+    value={value}
+    {...props}
+  >
+    {children}
+    <ProgressTrack>
+      <ProgressIndicator />
+    </ProgressTrack>
+  </ProgressPrimitive.Root>
+)
 
 const ProgressTrack = ({ className, ...props }: ProgressTrackProps) => (
   <ProgressPrimitive.Track
-    className={cn('relative h-2 w-full overflow-hidden rounded-full bg-primary/20', className)}
+    className={cn('relative flex h-2 w-full items-center overflow-x-hidden rounded-full bg-primary/20', className)}
     data-slot="progress-track"
     {...props}
   />
@@ -37,7 +32,7 @@ const ProgressTrack = ({ className, ...props }: ProgressTrackProps) => (
 
 const ProgressIndicator = ({ className, ...props }: ProgressIndicatorProps) => (
   <ProgressPrimitive.Indicator
-    className={cn('size-full flex-1 bg-primary transition-transform', className)}
+    className={cn('h-full bg-primary transition-all', className)}
     data-slot="progress-indicator"
     {...props}
   />
