@@ -1,3 +1,3 @@
-export { ButtonGroup, ButtonGroupSeparator } from './button-group'
+export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from './button-group'
 
-export type { ButtonGroupProps, ButtonGroupSeparatorProps } from './button-group'
+export type { ButtonGroupProps, ButtonGroupSeparatorProps, ButtonGroupTextProps } from './button-group'
