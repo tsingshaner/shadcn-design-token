@@ -8,4 +8,12 @@ export {
   BreadcrumbSeparator
 } from './breadcrumb'
 
-export type { BreadcrumbProps } from './breadcrumb'
+export type {
+  BreadcrumbEllipsisProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbListProps,
+  BreadcrumbPageProps,
+  BreadcrumbProps,
+  BreadcrumbSeparatorProps
+} from './breadcrumb'

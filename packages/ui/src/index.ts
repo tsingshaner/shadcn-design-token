@@ -351,7 +351,15 @@ export type {
   AvatarProps
 } from './components/ui/avatar'
 export type { BadgeProps } from './components/ui/badge'
-export type { BreadcrumbProps } from './components/ui/breadcrumb'
+export type {
+  BreadcrumbEllipsisProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbListProps,
+  BreadcrumbPageProps,
+  BreadcrumbProps,
+  BreadcrumbSeparatorProps
+} from './components/ui/breadcrumb'
 export type { ButtonProps } from './components/ui/button'
 export type { ButtonGroupProps, ButtonGroupSeparatorProps } from './components/ui/button-group'
 export type { CalendarProps } from './components/ui/calendar'
