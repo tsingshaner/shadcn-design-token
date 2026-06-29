@@ -16,6 +16,9 @@ describe('NativeSelect', () => {
     )
 
     expect(screen.getByRole('combobox', { name: 'Component' })).toHaveAttribute('data-slot', 'native-select')
+    expect(screen.getByRole('combobox', { name: 'Component' })).toHaveClass('cn-native-select')
+    expect(document.querySelector('[data-slot="native-select-wrapper"]')).toHaveClass('cn-native-select-wrapper')
+    expect(document.querySelector('[data-slot="native-select-icon"]')).toHaveClass('cn-native-select-icon')
   })
 
   test('renders grouped options', () => {
