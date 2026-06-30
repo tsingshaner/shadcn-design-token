@@ -34,7 +34,7 @@ const ChartContainer = ({ className, config = {}, style, ...props }: ChartContai
   return (
     <div
       className={cn(
-        'flex aspect-video w-full flex-col gap-3 rounded-md border bg-card p-4 text-card-foreground',
+        'cn-chart flex aspect-video w-full flex-col gap-3 rounded-md border bg-card p-4 text-card-foreground',
         className
       )}
       data-slot="chart"
@@ -130,7 +130,10 @@ const ChartLineSeries = ({ className, data, ...props }: ChartLineSeriesProps) =>
 
 const ChartTooltip = ({ className, ...props }: ChartTooltipProps) => (
   <div
-    className={cn('rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md', className)}
+    className={cn(
+      'cn-chart-tooltip rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md',
+      className
+    )}
     data-slot="chart-tooltip"
     {...props}
   />

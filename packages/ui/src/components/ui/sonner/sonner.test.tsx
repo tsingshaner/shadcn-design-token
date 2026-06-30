@@ -15,6 +15,7 @@ describe('Sonner', () => {
     sonnerToast.success('Token published')
 
     expect(await screen.findByText('Token published')).toBeInTheDocument()
+    expect(screen.getByText('Token published').closest('[data-slot="toast"]')).toHaveClass('cn-toast')
   })
 
   test('renders description and positioned viewport data', async () => {
