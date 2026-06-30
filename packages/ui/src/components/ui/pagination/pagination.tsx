@@ -21,14 +21,18 @@ type PaginationNextProps = PaginationLinkProps & {
 const Pagination = ({ className, ...props }: PaginationProps) => (
   <nav
     aria-label="pagination"
-    className={cn('mx-auto flex w-full justify-center', className)}
+    className={cn('cn-pagination mx-auto flex w-full justify-center', className)}
     data-slot="pagination"
     {...props}
   />
 )
 
 const PaginationContent = ({ className, ...props }: ComponentProps<'ul'>) => (
-  <ul className={cn('flex flex-row items-center gap-1', className)} data-slot="pagination-content" {...props} />
+  <ul
+    className={cn('cn-pagination-content flex flex-row items-center gap-1', className)}
+    data-slot="pagination-content"
+    {...props}
+  />
 )
 
 const PaginationItem = ({ className, ...props }: ComponentProps<'li'>) => (
@@ -37,7 +41,7 @@ const PaginationItem = ({ className, ...props }: ComponentProps<'li'>) => (
 
 const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
   <Button
-    className={cn(className)}
+    className={cn('cn-pagination-link', className)}
     nativeButton={false}
     render={
       <a aria-current={isActive ? 'page' : undefined} data-active={isActive} data-slot="pagination-link" {...props} />
@@ -48,23 +52,33 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
 )
 
 const PaginationPrevious = ({ className, text = 'Previous', ...props }: PaginationPreviousProps) => (
-  <PaginationLink aria-label="Go to previous page" className={cn(className)} size="default" {...props}>
-    <ChevronLeftIcon className="rtl:rotate-180" data-icon="inline-start" />
-    <span className="hidden sm:block">{text}</span>
+  <PaginationLink
+    aria-label="Go to previous page"
+    className={cn('cn-pagination-previous', className)}
+    size="default"
+    {...props}
+  >
+    <ChevronLeftIcon className="cn-rtl-flip rtl:rotate-180" data-icon="inline-start" />
+    <span className="cn-pagination-previous-text hidden sm:block">{text}</span>
   </PaginationLink>
 )
 
 const PaginationNext = ({ className, text = 'Next', ...props }: PaginationNextProps) => (
-  <PaginationLink aria-label="Go to next page" className={cn(className)} size="default" {...props}>
-    <span className="hidden sm:block">{text}</span>
-    <ChevronRightIcon className="rtl:rotate-180" data-icon="inline-end" />
+  <PaginationLink
+    aria-label="Go to next page"
+    className={cn('cn-pagination-next', className)}
+    size="default"
+    {...props}
+  >
+    <span className="cn-pagination-next-text hidden sm:block">{text}</span>
+    <ChevronRightIcon className="cn-rtl-flip rtl:rotate-180" data-icon="inline-end" />
   </PaginationLink>
 )
 
 const PaginationEllipsis = ({ className, ...props }: ComponentProps<'span'>) => (
   <span
     aria-hidden="true"
-    className={cn('flex size-9 items-center justify-center', className)}
+    className={cn('cn-pagination-ellipsis flex size-9 items-center justify-center', className)}
     data-slot="pagination-ellipsis"
     {...props}
   >

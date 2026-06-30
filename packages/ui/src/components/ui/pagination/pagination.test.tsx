@@ -29,8 +29,13 @@ describe('Pagination', () => {
       </Pagination>
     )
 
-    expect(screen.getByRole('navigation', { name: 'pagination' })).toHaveAttribute('data-slot', 'pagination')
-    expect(screen.getByRole('button', { name: '1' })).toHaveAttribute('aria-current', 'page')
+    const nav = screen.getByRole('navigation', { name: 'pagination' })
+    const activeLink = screen.getByRole('button', { name: '1' })
+    expect(nav).toHaveAttribute('data-slot', 'pagination')
+    expect(nav).toHaveClass('cn-pagination')
+    expect(screen.getByText('1').closest('[data-slot="pagination-content"]')).toHaveClass('cn-pagination-content')
+    expect(activeLink).toHaveAttribute('aria-current', 'page')
+    expect(activeLink).toHaveClass('cn-pagination-link')
   })
 
   test('renders previous, next, and ellipsis controls', () => {
@@ -50,8 +55,18 @@ describe('Pagination', () => {
       </Pagination>
     )
 
-    expect(screen.getByRole('button', { name: 'Go to previous page' })).toHaveAttribute('data-slot', 'pagination-link')
-    expect(screen.getByRole('button', { name: 'Go to next page' })).toHaveTextContent('Forward')
+    const previous = screen.getByRole('button', { name: 'Go to previous page' })
+    const next = screen.getByRole('button', { name: 'Go to next page' })
+    expect(previous).toHaveAttribute('data-slot', 'pagination-link')
+    expect(previous).toHaveClass('cn-pagination-link')
+    expect(previous).toHaveClass('cn-pagination-previous')
+    expect(previous.querySelector('[data-icon="inline-start"]')).toHaveClass('cn-rtl-flip')
+    expect(next).toHaveTextContent('Forward')
+    expect(next).toHaveClass('cn-pagination-link')
+    expect(next).toHaveClass('cn-pagination-next')
+    expect(next.querySelector('[data-icon="inline-end"]')).toHaveClass('cn-rtl-flip')
+    expect(screen.getByText('Forward')).toHaveClass('cn-pagination-next-text')
+    expect(screen.getByText('More pages').parentElement).toHaveClass('cn-pagination-ellipsis')
     expect(screen.getByText('More pages')).toHaveClass('sr-only')
   })
 })
