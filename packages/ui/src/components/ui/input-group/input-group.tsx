@@ -7,7 +7,9 @@ type InputGroupInputProps = ComponentProps<'input'>
 type InputGroupAddonProps = ComponentProps<'div'> & {
   align?: 'block-end' | 'block-start' | 'inline-end' | 'inline-start'
 }
-type InputGroupButtonProps = ComponentProps<'button'>
+type InputGroupButtonProps = ComponentProps<'button'> & {
+  size?: 'icon-sm' | 'icon-xs' | 'sm' | 'xs'
+}
 type InputGroupTextProps = ComponentProps<'span'>
 type InputGroupTextareaProps = ComponentProps<'textarea'>
 
@@ -49,12 +51,21 @@ const InputGroupAddon = ({ align = 'inline-start', className, ...props }: InputG
   />
 )
 
-const InputGroupButton = ({ className, type = 'button', ...props }: InputGroupButtonProps) => (
+const inputGroupButtonSizeClassName = {
+  'icon-sm': 'cn-input-group-button-size-icon-sm size-8 px-0',
+  'icon-xs': 'cn-input-group-button-size-icon-xs size-7 px-0',
+  sm: 'cn-input-group-button-size-sm h-8 px-2.5',
+  xs: 'cn-input-group-button-size-xs h-7 px-2'
+} as const
+
+const InputGroupButton = ({ className, size = 'xs', type = 'button', ...props }: InputGroupButtonProps) => (
   <button
     className={cn(
-      'cn-input-group-button cn-input-group-button-size-xs inline-flex h-7 shrink-0 items-center justify-center rounded-sm px-2 text-sm shadow-none outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50',
+      'cn-input-group-button inline-flex shrink-0 items-center justify-center rounded-sm text-sm shadow-none outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50',
+      inputGroupButtonSizeClassName[size],
       className
     )}
+    data-size={size}
     data-slot="input-group-button"
     type={type}
     {...props}

@@ -36,6 +36,7 @@ describe('InputGroup', () => {
         <InputGroupText>https://</InputGroupText>
         <InputGroupTextarea aria-label="Description" />
         <InputGroupButton>Save</InputGroupButton>
+        <InputGroupButton aria-label="Open menu" size="icon-sm" />
       </InputGroup>
     )
 
@@ -46,5 +47,19 @@ describe('InputGroup', () => {
       'cn-input-group-button',
       'cn-input-group-button-size-xs'
     )
+    expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('data-size', 'icon-sm')
+    expect(screen.getByRole('button', { name: 'Open menu' })).toHaveClass('cn-input-group-button-size-icon-sm')
+  })
+
+  test('supports shadcn v4 input group button size classes', () => {
+    render(
+      <InputGroup>
+        <InputGroupButton size="sm">Small</InputGroupButton>
+        <InputGroupButton aria-label="Icon xs" size="icon-xs" />
+      </InputGroup>
+    )
+
+    expect(screen.getByRole('button', { name: 'Small' })).toHaveClass('cn-input-group-button-size-sm')
+    expect(screen.getByRole('button', { name: 'Icon xs' })).toHaveClass('cn-input-group-button-size-icon-xs')
   })
 })
