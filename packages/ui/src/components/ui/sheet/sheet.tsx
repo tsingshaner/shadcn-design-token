@@ -28,7 +28,7 @@ const SheetPortal = (props: SheetPortalProps) => <SheetPrimitive.Portal data-slo
 const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
   <SheetPrimitive.Backdrop
     className={cn(
-      'fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
+      'cn-sheet-overlay fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
       className
     )}
     data-slot="sheet-overlay"
@@ -48,7 +48,7 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
     <SheetOverlay />
     <SheetPrimitive.Popup
       className={cn(
-        'fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem] data-ending-style:opacity-0 data-starting-style:opacity-0',
+        'cn-sheet-content fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem] data-ending-style:opacity-0 data-starting-style:opacity-0',
         sheetSideClasses[side],
         className
       )}
@@ -61,7 +61,11 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
         <SheetPrimitive.Close
           data-slot="sheet-close"
           render={
-            <Button className="absolute top-4 right-4 opacity-70 hover:opacity-100" size="icon-sm" variant="ghost" />
+            <Button
+              className="cn-sheet-close absolute top-4 right-4 opacity-70 hover:opacity-100"
+              size="icon-sm"
+              variant="ghost"
+            />
           }
         >
           <XIcon />
@@ -73,12 +77,16 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
 )
 
 const SheetHeader = ({ className, ...props }: ComponentProps<'div'>) => (
-  <div className={cn('flex flex-col gap-2 text-center sm:text-left', className)} data-slot="sheet-header" {...props} />
+  <div
+    className={cn('cn-sheet-header flex flex-col gap-2 text-center sm:text-left', className)}
+    data-slot="sheet-header"
+    {...props}
+  />
 )
 
 const SheetFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
+    className={cn('cn-sheet-footer mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
     data-slot="sheet-footer"
     {...props}
   />
@@ -86,7 +94,7 @@ const SheetFooter = ({ className, ...props }: ComponentProps<'div'>) => (
 
 const SheetTitle = ({ className, ...props }: SheetTitleProps) => (
   <SheetPrimitive.Title
-    className={cn('font-semibold text-lg leading-none', className)}
+    className={cn('cn-sheet-title cn-font-heading font-semibold text-lg leading-none', className)}
     data-slot="sheet-title"
     {...props}
   />
@@ -94,7 +102,7 @@ const SheetTitle = ({ className, ...props }: SheetTitleProps) => (
 
 const SheetDescription = ({ className, ...props }: SheetDescriptionProps) => (
   <SheetPrimitive.Description
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('cn-sheet-description text-muted-foreground text-sm', className)}
     data-slot="sheet-description"
     {...props}
   />
