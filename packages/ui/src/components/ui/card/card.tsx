@@ -30,7 +30,11 @@ const CardHeader = ({ className, ...props }: ComponentProps<'div'>) => (
 )
 
 const CardTitle = ({ className, ...props }: ComponentProps<'div'>) => (
-  <div className={cn('cn-card-title font-semibold leading-none', className)} data-slot="card-title" {...props} />
+  <div
+    className={cn('cn-card-title cn-font-heading font-semibold leading-none', className)}
+    data-slot="card-title"
+    {...props}
+  />
 )
 
 const CardDescription = ({ className, ...props }: ComponentProps<'div'>) => (

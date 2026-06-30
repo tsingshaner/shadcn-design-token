@@ -81,7 +81,7 @@ const AlertDialogFooter = ({ className, ...props }: ComponentProps<'div'>) => (
 
 const AlertDialogTitle = ({ className, ...props }: AlertDialogTitleProps) => (
   <AlertDialogPrimitive.Title
-    className={cn('cn-alert-dialog-title font-semibold text-lg leading-none', className)}
+    className={cn('cn-alert-dialog-title cn-font-heading font-semibold text-lg leading-none', className)}
     data-slot="alert-dialog-title"
     {...props}
   />

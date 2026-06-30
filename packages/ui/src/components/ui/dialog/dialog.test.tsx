@@ -36,7 +36,7 @@ describe('Dialog', () => {
 
     expect(document.querySelector('[data-slot="dialog-overlay"]')).toHaveClass('cn-dialog-overlay', 'isolate')
     expect(screen.getByRole('dialog', { name: 'Slot classes' })).toHaveClass('cn-dialog-content', 'outline-none')
-    expect(screen.getByText('Slot classes')).toHaveClass('cn-dialog-title')
+    expect(screen.getByText('Slot classes')).toHaveClass('cn-dialog-title', 'cn-font-heading')
   })
 
   test('can hide the default close button', () => {

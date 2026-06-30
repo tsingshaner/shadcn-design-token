@@ -23,7 +23,7 @@ describe('Drawer', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Open drawer' }))
 
     expect(screen.getByRole('dialog', { name: 'Edit token set' })).toHaveClass('cn-drawer-content')
-    expect(screen.getByText('Edit token set')).toHaveClass('cn-drawer-title')
+    expect(screen.getByText('Edit token set')).toHaveClass('cn-drawer-title', 'cn-font-heading')
     expect(screen.getByText('Drawer details')).toHaveClass('cn-drawer-description')
     expect(document.querySelector('[data-slot="drawer-overlay"]')).toHaveClass('cn-drawer-overlay')
     expect(document.querySelector('[data-slot="drawer-handle"]')).toHaveClass('cn-drawer-handle')

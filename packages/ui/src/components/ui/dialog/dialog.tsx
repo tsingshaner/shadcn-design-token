@@ -90,7 +90,7 @@ const DialogFooter = ({ children, className, showCloseButton = false, ...props }
 
 const DialogTitle = ({ className, ...props }: DialogTitleProps) => (
   <DialogPrimitive.Title
-    className={cn('cn-dialog-title font-semibold text-lg leading-none', className)}
+    className={cn('cn-dialog-title cn-font-heading font-semibold text-lg leading-none', className)}
     data-slot="dialog-title"
     {...props}
   />

@@ -24,7 +24,7 @@ describe('Card', () => {
     expect(screen.getByText('Report').closest('[data-slot="card"]')).toHaveClass('cn-card')
     expect(screen.getByText('Report').parentElement).toHaveClass('cn-card-header')
     expect(screen.getByText('Report')).toHaveAttribute('data-slot', 'card-title')
-    expect(screen.getByText('Report')).toHaveClass('cn-card-title')
+    expect(screen.getByText('Report')).toHaveClass('cn-card-title', 'cn-font-heading')
     expect(screen.getByText('Monthly metrics')).toHaveClass('cn-card-description')
     expect(screen.getByText('Open')).toHaveClass('cn-card-action')
     expect(screen.getByText('Ready')).toHaveAttribute('data-slot', 'card-content')
