@@ -16,6 +16,18 @@ export {
   AlertDialogTrigger
 } from './components/ui/alert-dialog'
 export { AspectRatio } from './components/ui/aspect-ratio'
+export {
+  Attachment,
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentTitle,
+  AttachmentTrigger,
+  attachmentVariants
+} from './components/ui/attachment'
 export { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from './components/ui/avatar'
 export { Badge, badgeVariants } from './components/ui/badge'
 export {
@@ -27,6 +39,14 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from './components/ui/breadcrumb'
+export {
+  Bubble,
+  BubbleContent,
+  BubbleGroup,
+  BubbleReactions,
+  bubbleReactionsVariants,
+  bubbleVariants
+} from './components/ui/bubble'
 export { Button, buttonVariants } from './components/ui/button'
 export { ButtonGroup, ButtonGroupSeparator } from './components/ui/button-group'
 export { Calendar } from './components/ui/calendar'
@@ -178,6 +198,7 @@ export {
 } from './components/ui/item'
 export { Kbd, KbdGroup } from './components/ui/kbd'
 export { Label } from './components/ui/label'
+export { Marker, MarkerContent, MarkerIcon, markerVariants } from './components/ui/marker'
 export {
   Menubar,
   MenubarCheckboxItem,
@@ -196,6 +217,14 @@ export {
   MenubarSubTrigger,
   MenubarTrigger
 } from './components/ui/menubar'
+export {
+  Message,
+  MessageAvatar,
+  MessageContent,
+  MessageFooter,
+  MessageGroup,
+  MessageHeader
+} from './components/ui/message'
 export { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from './components/ui/native-select'
 export {
   NavigationMenu,
@@ -343,6 +372,17 @@ export type {
 } from './components/ui/alert-dialog'
 export type { AspectRatioProps } from './components/ui/aspect-ratio'
 export type {
+  AttachmentActionProps,
+  AttachmentActionsProps,
+  AttachmentContentProps,
+  AttachmentDescriptionProps,
+  AttachmentGroupProps,
+  AttachmentMediaProps,
+  AttachmentProps,
+  AttachmentTitleProps,
+  AttachmentTriggerProps
+} from './components/ui/attachment'
+export type {
   AvatarBadgeProps,
   AvatarFallbackProps,
   AvatarGroupCountProps,
@@ -360,6 +400,7 @@ export type {
   BreadcrumbProps,
   BreadcrumbSeparatorProps
 } from './components/ui/breadcrumb'
+export type { BubbleContentProps, BubbleGroupProps, BubbleProps, BubbleReactionsProps } from './components/ui/bubble'
 export type { ButtonProps } from './components/ui/button'
 export type { ButtonGroupProps, ButtonGroupSeparatorProps } from './components/ui/button-group'
 export type { CalendarProps } from './components/ui/calendar'
@@ -522,6 +563,7 @@ export type {
 } from './components/ui/item'
 export type { KbdGroupProps, KbdProps } from './components/ui/kbd'
 export type { LabelProps } from './components/ui/label'
+export type { MarkerContentProps, MarkerIconProps, MarkerProps } from './components/ui/marker'
 export type {
   MenubarCheckboxItemProps,
   MenubarContentProps,
@@ -540,6 +582,14 @@ export type {
   MenubarSubTriggerProps,
   MenubarTriggerProps
 } from './components/ui/menubar'
+export type {
+  MessageAvatarProps,
+  MessageContentProps,
+  MessageFooterProps,
+  MessageGroupProps,
+  MessageHeaderProps,
+  MessageProps
+} from './components/ui/message'
 export type {
   NativeSelectOptGroupProps,
   NativeSelectOptionProps,
