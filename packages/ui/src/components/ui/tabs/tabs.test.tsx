@@ -20,6 +20,10 @@ describe('Tabs', () => {
       </Tabs>
     )
 
+    expect(screen.getByRole('tablist').closest('[data-slot="tabs"]')).toHaveClass('cn-tabs')
+    expect(screen.getByRole('tablist')).toHaveClass('cn-tabs-list', 'cn-tabs-list-variant-default')
+    expect(screen.getByRole('tab', { name: 'Account' })).toHaveClass('cn-tabs-trigger')
+    expect(screen.getByRole('tabpanel')).toHaveClass('cn-tabs-content')
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Account panel')
 
     fireEvent.click(screen.getByRole('tab', { name: 'Password' }))
@@ -41,6 +45,7 @@ describe('Tabs', () => {
 
     expect(screen.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical')
     expect(screen.getByRole('tablist')).toHaveAttribute('data-variant', 'line')
+    expect(screen.getByRole('tablist')).toHaveClass('cn-tabs-list-variant-line')
     expect(screen.getByRole('tab', { name: 'Password' })).toHaveAttribute('data-disabled')
   })
 

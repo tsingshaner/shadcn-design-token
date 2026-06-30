@@ -21,5 +21,9 @@ describe('Carousel', () => {
     fireEvent.click(screen.getByLabelText('Next slide'))
 
     expect(screen.getByTestId('content')).toHaveStyle({ transform: 'translateX(-100%)' })
+    expect(screen.getByLabelText('Previous slide')).toHaveClass('cn-carousel-previous')
+    expect(screen.getByLabelText('Previous slide').querySelector('svg')).toHaveClass('cn-rtl-flip')
+    expect(screen.getByLabelText('Next slide')).toHaveClass('cn-carousel-next')
+    expect(screen.getByLabelText('Next slide').querySelector('svg')).toHaveClass('cn-rtl-flip')
   })
 })

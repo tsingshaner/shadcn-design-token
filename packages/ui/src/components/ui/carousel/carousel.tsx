@@ -100,7 +100,7 @@ const CarouselPrevious = ({ children, className, onClick, ...props }: CarouselPr
   return (
     <Button
       aria-label="Previous slide"
-      className={cn('absolute top-1/2 left-2 -translate-y-1/2', className)}
+      className={cn('cn-carousel-previous absolute top-1/2 left-2 -translate-y-1/2', className)}
       data-slot="carousel-previous"
       disabled={index === 0}
       onClick={(event) => {
@@ -114,7 +114,7 @@ const CarouselPrevious = ({ children, className, onClick, ...props }: CarouselPr
       {children ?? (
         <svg
           aria-hidden="true"
-          className="size-4"
+          className="cn-rtl-flip size-4"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
@@ -135,7 +135,7 @@ const CarouselNext = ({ children, className, onClick, ...props }: CarouselNextPr
   return (
     <Button
       aria-label="Next slide"
-      className={cn('absolute top-1/2 right-2 -translate-y-1/2', className)}
+      className={cn('cn-carousel-next absolute top-1/2 right-2 -translate-y-1/2', className)}
       data-slot="carousel-next"
       disabled={index >= itemCount - 1}
       onClick={(event) => {
@@ -149,7 +149,7 @@ const CarouselNext = ({ children, className, onClick, ...props }: CarouselNextPr
       {children ?? (
         <svg
           aria-hidden="true"
-          className="size-4"
+          className="cn-rtl-flip size-4"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
