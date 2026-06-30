@@ -11,6 +11,8 @@ describe('Skeleton', () => {
   test('renders a skeleton slot', () => {
     render(<Skeleton aria-label="Loading" />)
 
-    expect(screen.getByLabelText('Loading')).toHaveAttribute('data-slot', 'skeleton')
+    const skeleton = screen.getByLabelText('Loading')
+    expect(skeleton).toHaveAttribute('data-slot', 'skeleton')
+    expect(skeleton).toHaveClass('cn-skeleton')
   })
 })

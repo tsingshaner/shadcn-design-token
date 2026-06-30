@@ -11,6 +11,8 @@ describe('Spinner', () => {
   test('renders a status indicator', () => {
     render(<Spinner />)
 
-    expect(screen.getByRole('status', { name: 'Loading' })).toHaveAttribute('data-slot', 'spinner')
+    const spinner = screen.getByRole('status', { name: 'Loading' })
+    expect(spinner).toHaveAttribute('data-slot', 'spinner')
+    expect(spinner).toHaveClass('cn-spinner')
   })
 })
