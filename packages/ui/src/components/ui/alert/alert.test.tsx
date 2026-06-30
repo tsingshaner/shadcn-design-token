@@ -21,9 +21,16 @@ describe('Alert', () => {
       </Alert>
     )
 
-    expect(screen.getByRole('alert')).toHaveAttribute('data-slot', 'alert')
-    expect(screen.getByText('Status')).toHaveAttribute('data-slot', 'alert-title')
+    const alert = screen.getByRole('alert')
+    const title = screen.getByText('Status')
+    const action = screen.getByRole('button', { name: 'Review' }).parentElement
+    expect(alert).toHaveAttribute('data-slot', 'alert')
+    expect(alert).toHaveClass('cn-alert', 'cn-alert-variant-default')
+    expect(title).toHaveAttribute('data-slot', 'alert-title')
+    expect(title).toHaveClass('cn-alert-title')
     expect(screen.getByRole('link', { name: 'View status details' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Review' }).parentElement).toHaveAttribute('data-slot', 'alert-action')
+    expect(screen.getByText(/Ready/)).toHaveClass('cn-alert-description')
+    expect(action).toHaveAttribute('data-slot', 'alert-action')
+    expect(action).toHaveClass('cn-alert-action')
   })
 })

@@ -7,17 +7,17 @@ import { Label, type LabelProps } from '../label'
 import { Separator } from '../separator'
 
 const fieldVariants = tv({
-  base: 'group/field flex w-full',
+  base: 'cn-field group/field flex w-full',
   defaultVariants: {
     orientation: 'vertical'
   },
   variants: {
     orientation: {
       horizontal:
-        'flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+        'cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
       responsive:
-        'flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-      vertical: 'flex-col *:w-full [&>.sr-only]:w-auto'
+        'cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+      vertical: 'cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto'
     }
   }
 })
@@ -52,20 +52,21 @@ const Field = ({ className, orientation = 'vertical', ...props }: FieldProps) =>
 
 const FieldGroup = ({ className, ...props }: FieldGroupProps) => (
   <div
-    className={cn('group/field-group @container/field-group flex w-full flex-col gap-4', className)}
+    className={cn('cn-field-group group/field-group @container/field-group flex w-full flex-col gap-4', className)}
     data-slot="field-group"
     {...props}
   />
 )
 
 const FieldSet = ({ className, ...props }: FieldSetProps) => (
-  <fieldset className={cn('flex flex-col gap-4', className)} data-slot="field-set" {...props} />
+  <fieldset className={cn('cn-field-set flex flex-col gap-4', className)} data-slot="field-set" {...props} />
 )
 
 const FieldLegend = ({ className, variant = 'legend', ...props }: FieldLegendProps) => (
   <legend
     className={cn(
       'font-medium text-foreground',
+      'cn-field-legend',
       variant === 'legend' && 'mb-2 text-base',
       variant === 'label' && 'text-sm leading-none',
       className
@@ -78,7 +79,7 @@ const FieldLegend = ({ className, variant = 'legend', ...props }: FieldLegendPro
 
 const FieldContent = ({ className, ...props }: FieldContentProps) => (
   <div
-    className={cn('group/field-content flex flex-1 flex-col gap-1.5 leading-snug', className)}
+    className={cn('cn-field-content group/field-content flex flex-1 flex-col gap-1.5 leading-snug', className)}
     data-slot="field-content"
     {...props}
   />
@@ -88,6 +89,7 @@ const FieldLabel = ({ className, ...props }: FieldLabelProps) => (
   <Label
     className={cn(
       'group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col',
+      'cn-field-label',
       className
     )}
     data-slot="field-label"
@@ -99,6 +101,7 @@ const FieldDescription = ({ className, ...props }: FieldDescriptionProps) => (
   <p
     className={cn(
       'nth-last-2:-mt-1 font-normal text-muted-foreground text-sm leading-normal last:mt-0 group-has-data-[orientation=horizontal]/field:text-balance [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
+      'cn-field-description',
       className
     )}
     data-slot="field-description"
@@ -108,7 +111,7 @@ const FieldDescription = ({ className, ...props }: FieldDescriptionProps) => (
 
 const FieldTitle = ({ className, ...props }: FieldTitleProps) => (
   <div
-    className={cn('flex w-fit items-center font-medium text-sm leading-none', className)}
+    className={cn('cn-field-title flex w-fit items-center font-medium text-sm leading-none', className)}
     data-slot="field-title"
     {...props}
   />
@@ -116,7 +119,7 @@ const FieldTitle = ({ className, ...props }: FieldTitleProps) => (
 
 const FieldSeparator = ({ children, className, ...props }: FieldSeparatorProps) => (
   <div
-    className={cn('relative flex h-5 items-center', className)}
+    className={cn('cn-field-separator relative flex h-5 items-center', className)}
     data-content={!!children}
     data-slot="field-separator"
     {...props}
@@ -124,7 +127,7 @@ const FieldSeparator = ({ children, className, ...props }: FieldSeparatorProps) 
     <Separator className="absolute inset-x-0 top-1/2" />
     {children && (
       <span
-        className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground text-sm"
+        className="cn-field-separator-content relative mx-auto block w-fit bg-background px-2 text-muted-foreground text-sm"
         data-slot="field-separator-content"
       >
         {children}
@@ -164,7 +167,7 @@ const FieldError = ({ children, className, errors, ...props }: FieldErrorProps) 
 
   return (
     <div
-      className={cn('font-normal text-destructive text-sm', className)}
+      className={cn('cn-field-error font-normal text-destructive text-sm', className)}
       data-slot="field-error"
       role="alert"
       {...props}
