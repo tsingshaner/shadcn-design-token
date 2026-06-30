@@ -11,7 +11,9 @@ describe('Progress', () => {
   test('renders progressbar with value', () => {
     render(<Progress aria-label="Loading" value={40} />)
 
-    expect(screen.getByRole('progressbar', { name: 'Loading' })).toHaveAttribute('aria-valuenow', '40')
+    const progress = screen.getByRole('progressbar', { name: 'Loading' })
+    expect(progress).toHaveAttribute('aria-valuenow', '40')
+    expect(progress).toHaveClass('cn-progress-root')
   })
 
   test('renders label and value slots', () => {
@@ -22,7 +24,11 @@ describe('Progress', () => {
       </Progress>
     )
 
-    expect(screen.getByText('Upload progress')).toHaveAttribute('data-slot', 'progress-label')
-    expect(screen.getByText('56%')).toHaveAttribute('data-slot', 'progress-value')
+    const label = screen.getByText('Upload progress')
+    const value = screen.getByText('56%')
+    expect(label).toHaveAttribute('data-slot', 'progress-label')
+    expect(label).toHaveClass('cn-progress-label')
+    expect(value).toHaveAttribute('data-slot', 'progress-value')
+    expect(value).toHaveClass('cn-progress-value')
   })
 })

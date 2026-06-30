@@ -11,7 +11,9 @@ describe('Kbd', () => {
   test('renders keyboard input text', () => {
     render(<Kbd>Esc</Kbd>)
 
-    expect(screen.getByText('Esc')).toHaveAttribute('data-slot', 'kbd')
+    const key = screen.getByText('Esc')
+    expect(key).toHaveAttribute('data-slot', 'kbd')
+    expect(key).toHaveClass('cn-kbd')
   })
 
   test('groups keyboard keys', () => {
@@ -22,7 +24,9 @@ describe('Kbd', () => {
       </KbdGroup>
     )
 
+    const group = screen.getByLabelText('Keyboard shortcut')
     expect(screen.getByText('Ctrl').parentElement).toHaveAttribute('data-slot', 'kbd-group')
-    expect(screen.getByLabelText('Keyboard shortcut')).toHaveAttribute('data-slot', 'kbd-group')
+    expect(group).toHaveAttribute('data-slot', 'kbd-group')
+    expect(group).toHaveClass('cn-kbd-group')
   })
 })
