@@ -40,7 +40,7 @@ const ContextMenu = (props: ContextMenuProps) => <ContextMenuPrimitive.Root data
 
 const ContextMenuTrigger = ({ className, ...props }: ContextMenuTriggerProps) => (
   <ContextMenuPrimitive.Trigger
-    className={cn('select-none outline-none', className)}
+    className={cn('cn-context-menu-trigger select-none outline-none', className)}
     data-slot="context-menu-trigger"
     {...props}
   />
@@ -68,7 +68,7 @@ const ContextMenuContent = ({
     >
       <ContextMenuPrimitive.Popup
         className={cn(
-          'z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none',
+          'cn-context-menu-content cn-context-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none',
           className
         )}
         data-slot="context-menu-content"
@@ -84,7 +84,7 @@ const ContextMenuGroup = (props: ContextMenuGroupProps) => (
 
 const ContextMenuItem = ({ className, inset, variant = 'default', ...props }: ContextMenuItemProps) => (
   <ContextMenuPrimitive.Item
-    className={cn(itemClasses, className)}
+    className={cn('cn-context-menu-item', itemClasses, className)}
     data-inset={inset}
     data-slot="context-menu-item"
     data-variant={variant}
@@ -95,13 +95,13 @@ const ContextMenuItem = ({ className, inset, variant = 'default', ...props }: Co
 const ContextMenuCheckboxItem = ({ children, checked, className, inset, ...props }: ContextMenuCheckboxItemProps) => (
   <ContextMenuPrimitive.CheckboxItem
     checked={checked}
-    className={cn(itemClasses, 'pl-8', className)}
+    className={cn('cn-context-menu-checkbox-item', itemClasses, 'pl-8', className)}
     data-inset={inset}
     data-slot="context-menu-checkbox-item"
     {...props}
   >
     <span
-      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      className="cn-context-menu-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
       data-slot="context-menu-checkbox-item-indicator"
     >
       <ContextMenuPrimitive.CheckboxItemIndicator>
@@ -118,13 +118,13 @@ const ContextMenuRadioGroup = (props: ContextMenuRadioGroupProps) => (
 
 const ContextMenuRadioItem = ({ children, className, inset, ...props }: ContextMenuRadioItemProps) => (
   <ContextMenuPrimitive.RadioItem
-    className={cn(itemClasses, 'pl-8', className)}
+    className={cn('cn-context-menu-radio-item', itemClasses, 'pl-8', className)}
     data-inset={inset}
     data-slot="context-menu-radio-item"
     {...props}
   >
     <span
-      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      className="cn-context-menu-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
       data-slot="context-menu-radio-item-indicator"
     >
       <ContextMenuPrimitive.RadioItemIndicator>
@@ -137,7 +137,7 @@ const ContextMenuRadioItem = ({ children, className, inset, ...props }: ContextM
 
 const ContextMenuLabel = ({ className, inset, ...props }: ContextMenuLabelProps) => (
   <div
-    className={cn('px-2 py-1.5 font-medium text-sm data-[inset=true]:pl-8', className)}
+    className={cn('cn-context-menu-label px-2 py-1.5 font-medium text-sm data-[inset=true]:pl-8', className)}
     data-inset={inset}
     data-slot="context-menu-label"
     role="presentation"
@@ -147,7 +147,7 @@ const ContextMenuLabel = ({ className, inset, ...props }: ContextMenuLabelProps)
 
 const ContextMenuSeparator = ({ className, ...props }: ContextMenuSeparatorProps) => (
   <ContextMenuPrimitive.Separator
-    className={cn('-mx-1 my-1 h-px bg-muted', className)}
+    className={cn('cn-context-menu-separator -mx-1 my-1 h-px bg-muted', className)}
     data-slot="context-menu-separator"
     {...props}
   />
@@ -155,7 +155,7 @@ const ContextMenuSeparator = ({ className, ...props }: ContextMenuSeparatorProps
 
 const ContextMenuShortcut = ({ className, ...props }: ContextMenuShortcutProps) => (
   <span
-    className={cn('ml-auto text-muted-foreground text-xs tracking-widest', className)}
+    className={cn('cn-context-menu-shortcut ml-auto text-muted-foreground text-xs tracking-widest', className)}
     data-slot="context-menu-shortcut"
     {...props}
   />
@@ -167,19 +167,24 @@ const ContextMenuSub = (props: ContextMenuSubProps) => (
 
 const ContextMenuSubTrigger = ({ children, className, inset, ...props }: ContextMenuSubTriggerProps) => (
   <ContextMenuPrimitive.SubmenuTrigger
-    className={cn(itemClasses, 'data-popup-open:bg-accent data-popup-open:text-accent-foreground', className)}
+    className={cn(
+      'cn-context-menu-sub-trigger',
+      itemClasses,
+      'data-popup-open:bg-accent data-popup-open:text-accent-foreground',
+      className
+    )}
     data-inset={inset}
     data-slot="context-menu-sub-trigger"
     {...props}
   >
     {children}
-    <ChevronRightIcon className="ml-auto" />
+    <ChevronRightIcon className="cn-rtl-flip ml-auto" />
   </ContextMenuPrimitive.SubmenuTrigger>
 )
 
 const ContextMenuSubContent = ({ className, side = 'right', ...props }: ContextMenuSubContentProps) => (
   <ContextMenuContent
-    className={cn('min-w-32', className)}
+    className={cn('cn-context-menu-subcontent cn-menu-target cn-menu-translucent min-w-32', className)}
     data-slot="context-menu-sub-content"
     side={side}
     {...props}
