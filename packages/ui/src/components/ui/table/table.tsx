@@ -5,22 +5,22 @@ import { cn } from '@/lib/utils'
 type TableProps = ComponentProps<'table'>
 
 const Table = ({ className, ...props }: TableProps) => (
-  <div className="relative w-full overflow-x-auto" data-slot="table-container">
-    <table className={cn('w-full caption-bottom text-sm', className)} data-slot="table" {...props} />
+  <div className="cn-table-container relative w-full overflow-x-auto" data-slot="table-container">
+    <table className={cn('cn-table w-full caption-bottom text-sm', className)} data-slot="table" {...props} />
   </div>
 )
 
 const TableHeader = ({ className, ...props }: ComponentProps<'thead'>) => (
-  <thead className={cn('[&_tr]:border-b', className)} data-slot="table-header" {...props} />
+  <thead className={cn('cn-table-header [&_tr]:border-b', className)} data-slot="table-header" {...props} />
 )
 
 const TableBody = ({ className, ...props }: ComponentProps<'tbody'>) => (
-  <tbody className={cn('[&_tr:last-child]:border-0', className)} data-slot="table-body" {...props} />
+  <tbody className={cn('cn-table-body [&_tr:last-child]:border-0', className)} data-slot="table-body" {...props} />
 )
 
 const TableFooter = ({ className, ...props }: ComponentProps<'tfoot'>) => (
   <tfoot
-    className={cn('border-t bg-muted/50 font-medium [&>tr]:last:border-b-0', className)}
+    className={cn('cn-table-footer border-t bg-muted/50 font-medium [&>tr]:last:border-b-0', className)}
     data-slot="table-footer"
     {...props}
   />
@@ -29,7 +29,7 @@ const TableFooter = ({ className, ...props }: ComponentProps<'tfoot'>) => (
 const TableRow = ({ className, ...props }: ComponentProps<'tr'>) => (
   <tr
     className={cn(
-      'border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted',
+      'cn-table-row border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted',
       className
     )}
     data-slot="table-row"
@@ -39,18 +39,25 @@ const TableRow = ({ className, ...props }: ComponentProps<'tr'>) => (
 
 const TableHead = ({ className, ...props }: ComponentProps<'th'>) => (
   <th
-    className={cn('h-10 whitespace-nowrap px-2 text-left align-middle font-medium text-muted-foreground', className)}
+    className={cn(
+      'cn-table-head h-10 whitespace-nowrap px-2 text-left align-middle font-medium text-muted-foreground',
+      className
+    )}
     data-slot="table-head"
     {...props}
   />
 )
 
 const TableCell = ({ className, ...props }: ComponentProps<'td'>) => (
-  <td className={cn('whitespace-nowrap p-2 align-middle', className)} data-slot="table-cell" {...props} />
+  <td className={cn('cn-table-cell whitespace-nowrap p-2 align-middle', className)} data-slot="table-cell" {...props} />
 )
 
 const TableCaption = ({ className, ...props }: ComponentProps<'caption'>) => (
-  <caption className={cn('mt-4 text-muted-foreground text-sm', className)} data-slot="table-caption" {...props} />
+  <caption
+    className={cn('cn-table-caption mt-4 text-muted-foreground text-sm', className)}
+    data-slot="table-caption"
+    {...props}
+  />
 )
 
 export type { TableProps }
