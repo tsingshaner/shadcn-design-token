@@ -12,5 +12,6 @@ export type {
   InputGroupButtonProps,
   InputGroupInputProps,
   InputGroupProps,
+  InputGroupTextareaProps,
   InputGroupTextProps
 } from './input-group'
