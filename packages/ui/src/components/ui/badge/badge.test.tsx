@@ -12,12 +12,13 @@ describe('Badge', () => {
     render(<Badge>Stable</Badge>)
 
     expect(screen.getByText('Stable')).toHaveAttribute('data-slot', 'badge')
+    expect(screen.getByText('Stable')).toHaveClass('cn-badge', 'cn-badge-variant-default')
   })
 
   test('applies variants', () => {
     render(<Badge variant="secondary">Secondary</Badge>)
 
-    expect(screen.getByText('Secondary')).toHaveClass('bg-secondary')
+    expect(screen.getByText('Secondary')).toHaveClass('cn-badge-variant-secondary', 'bg-secondary')
   })
 
   test('supports link rendering', () => {

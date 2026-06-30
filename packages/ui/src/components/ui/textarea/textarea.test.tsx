@@ -12,5 +12,6 @@ describe('Textarea', () => {
     render(<Textarea aria-label="Message" />)
 
     expect(screen.getByRole('textbox', { name: 'Message' })).toHaveAttribute('data-slot', 'textarea')
+    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveClass('cn-textarea')
   })
 })

@@ -12,6 +12,11 @@ describe('Button', () => {
     render(<Button>Save</Button>)
 
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass(
+      'cn-button',
+      'cn-button-variant-default',
+      'cn-button-size-default'
+    )
   })
 
   test('applies variant and size classes', () => {
@@ -21,7 +26,12 @@ describe('Button', () => {
       </Button>
     )
 
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass('border', 'h-7')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass(
+      'cn-button-variant-outline',
+      'cn-button-size-sm',
+      'border',
+      'h-7'
+    )
   })
 
   test('supports Base UI render composition', () => {
