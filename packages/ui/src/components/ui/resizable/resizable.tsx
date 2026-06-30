@@ -21,7 +21,7 @@ const ResizablePanelGroup = ({
 }: ResizablePanelGroupProps) => (
   <div
     className={cn(
-      'flex h-full w-full overflow-hidden rounded-md border',
+      'cn-resizable-panel-group flex h-full w-full overflow-hidden rounded-md border',
       orientation === 'vertical' ? 'flex-col' : 'flex-row',
       className
     )}
@@ -44,7 +44,7 @@ const ResizableHandle = ({ className, withHandle = false, ...props }: ResizableH
   <button
     aria-label="Resize panels"
     className={cn(
-      'relative flex in-data-[direction=vertical]:h-px in-data-[direction=vertical]:w-full w-px items-center justify-center bg-border outline-none transition-colors hover:bg-ring focus-visible:ring-3 focus-visible:ring-ring/50',
+      'cn-resizable-handle relative flex in-data-[direction=vertical]:h-px in-data-[direction=vertical]:w-full w-px items-center justify-center bg-border outline-none transition-colors hover:bg-ring focus-visible:ring-3 focus-visible:ring-ring/50',
       className
     )}
     data-slot="resizable-handle"
@@ -52,7 +52,10 @@ const ResizableHandle = ({ className, withHandle = false, ...props }: ResizableH
     {...props}
   >
     {withHandle ? (
-      <span className="z-10 h-4 w-3 rounded-sm border bg-background" data-slot="resizable-handle-grip" />
+      <span
+        className="cn-resizable-handle-icon z-10 h-4 w-3 rounded-sm border bg-background"
+        data-slot="resizable-handle-grip"
+      />
     ) : null}
   </button>
 )
