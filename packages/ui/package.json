@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@shadcn/react": "0.2.0",
     "cmdk": "^1.1.1",
     "lucide-react": "^1.21.0",
     "shadcn": "^4.12.0",

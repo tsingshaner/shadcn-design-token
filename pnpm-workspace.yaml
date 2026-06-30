@@ -5,3 +5,5 @@ allowBuilds:
   esbuild: true
   simple-git-hooks: true
 autoInstallPeers: false
+minimumReleaseAgeExclude:
+  - '@shadcn/react@0.2.0'

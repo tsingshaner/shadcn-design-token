@@ -225,6 +225,17 @@ export {
   MessageGroup,
   MessageHeader
 } from './components/ui/message'
+export {
+  MessageScroller,
+  MessageScrollerButton,
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerProvider,
+  MessageScrollerViewport,
+  useMessageScroller,
+  useMessageScrollerScrollable,
+  useMessageScrollerVisibility
+} from './components/ui/message-scroller'
 export { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from './components/ui/native-select'
 export {
   NavigationMenu,
@@ -590,6 +601,14 @@ export type {
   MessageHeaderProps,
   MessageProps
 } from './components/ui/message'
+export type {
+  MessageScrollerButtonProps,
+  MessageScrollerContentProps,
+  MessageScrollerItemProps,
+  MessageScrollerProps,
+  MessageScrollerProviderProps,
+  MessageScrollerViewportProps
+} from './components/ui/message-scroller'
 export type {
   NativeSelectOptGroupProps,
   NativeSelectOptionProps,
