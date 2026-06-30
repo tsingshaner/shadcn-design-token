@@ -64,7 +64,7 @@ const DropdownMenuContent = ({
     >
       <DropdownMenuPrimitive.Popup
         className={cn(
-          'z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-closed:overflow-hidden',
+          'cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-closed:overflow-hidden',
           className
         )}
         data-slot="dropdown-menu-content"
@@ -80,7 +80,7 @@ const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
 
 const DropdownMenuItem = ({ className, inset, variant = 'default', ...props }: DropdownMenuItemProps) => (
   <DropdownMenuPrimitive.Item
-    className={cn(itemClasses, className)}
+    className={cn('cn-dropdown-menu-item', itemClasses, className)}
     data-inset={inset}
     data-slot="dropdown-menu-item"
     data-variant={variant}
@@ -91,13 +91,13 @@ const DropdownMenuItem = ({ className, inset, variant = 'default', ...props }: D
 const DropdownMenuCheckboxItem = ({ children, className, checked, inset, ...props }: DropdownMenuCheckboxItemProps) => (
   <DropdownMenuPrimitive.CheckboxItem
     checked={checked}
-    className={cn(itemClasses, 'pl-8', className)}
+    className={cn('cn-dropdown-menu-checkbox-item', itemClasses, 'pl-8', className)}
     data-inset={inset}
     data-slot="dropdown-menu-checkbox-item"
     {...props}
   >
     <span
-      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      className="cn-dropdown-menu-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
       data-slot="dropdown-menu-checkbox-item-indicator"
     >
       <DropdownMenuPrimitive.CheckboxItemIndicator>
@@ -114,13 +114,13 @@ const DropdownMenuRadioGroup = (props: DropdownMenuRadioGroupProps) => (
 
 const DropdownMenuRadioItem = ({ children, className, inset, ...props }: DropdownMenuRadioItemProps) => (
   <DropdownMenuPrimitive.RadioItem
-    className={cn(itemClasses, 'pl-8', className)}
+    className={cn('cn-dropdown-menu-radio-item', itemClasses, 'pl-8', className)}
     data-inset={inset}
     data-slot="dropdown-menu-radio-item"
     {...props}
   >
     <span
-      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      className="cn-dropdown-menu-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
       data-slot="dropdown-menu-radio-item-indicator"
     >
       <DropdownMenuPrimitive.RadioItemIndicator>
@@ -133,7 +133,7 @@ const DropdownMenuRadioItem = ({ children, className, inset, ...props }: Dropdow
 
 const DropdownMenuLabel = ({ className, inset, ...props }: DropdownMenuLabelProps) => (
   <DropdownMenuPrimitive.GroupLabel
-    className={cn('px-2 py-1.5 font-medium text-sm data-[inset=true]:pl-8', className)}
+    className={cn('cn-dropdown-menu-label px-2 py-1.5 font-medium text-sm data-[inset=true]:pl-8', className)}
     data-inset={inset}
     data-slot="dropdown-menu-label"
     {...props}
@@ -142,7 +142,7 @@ const DropdownMenuLabel = ({ className, inset, ...props }: DropdownMenuLabelProp
 
 const DropdownMenuSeparator = ({ className, ...props }: DropdownMenuSeparatorProps) => (
   <DropdownMenuPrimitive.Separator
-    className={cn('-mx-1 my-1 h-px bg-muted', className)}
+    className={cn('cn-dropdown-menu-separator -mx-1 my-1 h-px bg-muted', className)}
     data-slot="dropdown-menu-separator"
     {...props}
   />
@@ -150,7 +150,7 @@ const DropdownMenuSeparator = ({ className, ...props }: DropdownMenuSeparatorPro
 
 const DropdownMenuShortcut = ({ className, ...props }: DropdownMenuShortcutProps) => (
   <span
-    className={cn('ml-auto text-muted-foreground text-xs tracking-widest', className)}
+    className={cn('cn-dropdown-menu-shortcut ml-auto text-muted-foreground text-xs tracking-widest', className)}
     data-slot="dropdown-menu-shortcut"
     {...props}
   />
@@ -162,13 +162,18 @@ const DropdownMenuSub = (props: DropdownMenuSubProps) => (
 
 const DropdownMenuSubTrigger = ({ children, className, inset, ...props }: DropdownMenuSubTriggerProps) => (
   <DropdownMenuPrimitive.SubmenuTrigger
-    className={cn(itemClasses, 'data-popup-open:bg-accent data-popup-open:text-accent-foreground', className)}
+    className={cn(
+      'cn-dropdown-menu-sub-trigger',
+      itemClasses,
+      'data-popup-open:bg-accent data-popup-open:text-accent-foreground',
+      className
+    )}
     data-inset={inset}
     data-slot="dropdown-menu-sub-trigger"
     {...props}
   >
     {children}
-    <ChevronRightIcon className="ml-auto" />
+    <ChevronRightIcon className="cn-rtl-flip ml-auto" />
   </DropdownMenuPrimitive.SubmenuTrigger>
 )
 
@@ -183,7 +188,7 @@ const DropdownMenuSubContent = ({
   <DropdownMenuContent
     align={align}
     alignOffset={alignOffset}
-    className={cn('w-auto min-w-32', className)}
+    className={cn('cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto min-w-32', className)}
     data-slot="dropdown-menu-sub-content"
     side={side}
     sideOffset={sideOffset}
