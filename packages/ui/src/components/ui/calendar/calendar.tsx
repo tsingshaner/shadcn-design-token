@@ -116,7 +116,7 @@ const Calendar = ({
 
   return (
     <div
-      className={cn('w-fit rounded-md border bg-background p-3 text-foreground', className)}
+      className={cn('cn-calendar w-fit rounded-md border bg-background p-3 text-foreground', className)}
       data-slot="calendar"
       {...props}
     >
@@ -129,7 +129,7 @@ const Calendar = ({
         >
           <svg
             aria-hidden="true"
-            className="size-4"
+            className="cn-rtl-flip size-4"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -143,7 +143,7 @@ const Calendar = ({
         {captionLayout === 'dropdown' ? (
           <select
             aria-label="Month and year"
-            className="rounded-md border bg-background px-2 py-1 font-medium text-sm"
+            className="cn-calendar-dropdown-root cn-calendar-caption-label rounded-md border bg-background px-2 py-1 font-medium text-sm"
             data-slot="calendar-caption"
             onChange={(event) => setVisibleMonth(new Date(event.currentTarget.value))}
             value={visibleMonth.toISOString()}
@@ -155,7 +155,7 @@ const Calendar = ({
             ))}
           </select>
         ) : (
-          <div className="font-medium text-sm" data-slot="calendar-caption">
+          <div className="cn-calendar-caption font-medium text-sm" data-slot="calendar-caption">
             {monthFormatter.format(visibleMonth)}
           </div>
         )}
@@ -167,7 +167,7 @@ const Calendar = ({
         >
           <svg
             aria-hidden="true"
-            className="size-4"
+            className="cn-rtl-flip size-4"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -205,7 +205,7 @@ const Calendar = ({
                   <Button
                     aria-label={dayFormatter.format(date)}
                     className={cn(
-                      'size-8 p-0 font-normal tabular-nums',
+                      'cn-calendar-day-button size-8 p-0 font-normal tabular-nums',
                       day.outside && 'text-muted-foreground opacity-50',
                       day.rangeMiddle && 'bg-accent text-accent-foreground',
                       day.selected && 'bg-primary text-primary-foreground hover:bg-primary/90'
