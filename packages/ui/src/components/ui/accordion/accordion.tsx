@@ -8,12 +8,16 @@ type AccordionTriggerProps = AccordionPrimitive.Trigger.Props
 type AccordionContentProps = AccordionPrimitive.Panel.Props
 
 const Accordion = ({ className, ...props }: AccordionProps) => (
-  <AccordionPrimitive.Root className={cn('w-full', className)} data-slot="accordion" {...props} />
+  <AccordionPrimitive.Root
+    className={cn('cn-accordion flex w-full flex-col', className)}
+    data-slot="accordion"
+    {...props}
+  />
 )
 
 const AccordionItem = ({ className, ...props }: AccordionItemProps) => (
   <AccordionPrimitive.Item
-    className={cn('border-b last:border-b-0', className)}
+    className={cn('cn-accordion-item border-b last:border-b-0', className)}
     data-slot="accordion-item"
     {...props}
   />
@@ -23,7 +27,7 @@ const AccordionTrigger = ({ children, className, ...props }: AccordionTriggerPro
   <AccordionPrimitive.Header className="flex" data-slot="accordion-header">
     <AccordionPrimitive.Trigger
       className={cn(
-        'flex flex-1 items-center justify-between gap-4 py-4 text-left font-medium text-sm outline-none transition-all hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[open]:[&_svg]:rotate-180',
+        'cn-accordion-trigger group/accordion-trigger relative flex flex-1 items-center justify-between gap-4 py-4 text-left font-medium text-sm outline-none transition-all hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[open]:[&_svg]:rotate-180',
         className
       )}
       data-slot="accordion-trigger"
@@ -32,7 +36,8 @@ const AccordionTrigger = ({ children, className, ...props }: AccordionTriggerPro
       {children}
       <svg
         aria-hidden="true"
-        className="size-4 shrink-0 text-muted-foreground transition-transform duration-200"
+        className="cn-accordion-trigger-icon size-4 shrink-0 text-muted-foreground transition-transform duration-200"
+        data-slot="accordion-trigger-icon"
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
@@ -47,8 +52,12 @@ const AccordionTrigger = ({ children, className, ...props }: AccordionTriggerPro
 )
 
 const AccordionContent = ({ children, className, ...props }: AccordionContentProps) => (
-  <AccordionPrimitive.Panel className="overflow-hidden text-sm" data-slot="accordion-content" {...props}>
-    <div className={cn('pt-0 pb-4', className)}>{children}</div>
+  <AccordionPrimitive.Panel
+    className="cn-accordion-content overflow-hidden text-sm"
+    data-slot="accordion-content"
+    {...props}
+  >
+    <div className={cn('cn-accordion-content-inner pt-0 pb-4', className)}>{children}</div>
   </AccordionPrimitive.Panel>
 )
 

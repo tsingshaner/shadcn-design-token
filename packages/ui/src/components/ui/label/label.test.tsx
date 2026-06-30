@@ -12,5 +12,6 @@ describe('Label', () => {
     render(<Label htmlFor="email">Email</Label>)
 
     expect(screen.getByText('Email')).toHaveAttribute('for', 'email')
+    expect(screen.getByText('Email')).toHaveClass('cn-label')
   })
 })

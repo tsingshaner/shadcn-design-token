@@ -21,5 +21,10 @@ describe('Accordion', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Details' }))
 
     expect(screen.getByText('Expanded content')).toBeVisible()
+    expect(screen.getByRole('button', { name: 'Details' })).toHaveClass('cn-accordion-trigger')
+    expect(document.querySelector('[data-slot="accordion"]')).toHaveClass('cn-accordion')
+    expect(document.querySelector('[data-slot="accordion-item"]')).toHaveClass('cn-accordion-item')
+    expect(document.querySelector('[data-slot="accordion-content"]')).toHaveClass('cn-accordion-content')
+    expect(document.querySelector('[data-slot="accordion-trigger-icon"]')).toHaveClass('cn-accordion-trigger-icon')
   })
 })
