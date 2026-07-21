@@ -22,6 +22,9 @@ export default defineConfig({
       }
     }
   },
+  define: {
+    global: 'globalThis'
+  },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

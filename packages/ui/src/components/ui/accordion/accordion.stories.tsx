@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A vertically stacked set of interactive headings that reveal related content sections. Examples and guidance reference the [shadcn/ui Accordion documentation](https://ui.shadcn.com/docs/components/base/accordion.md).'
+          'A vertically stacked set of interactive headings that reveal related content sections. Add `AccordionTriggerIcon` inside a trigger when an indicator is needed. Examples and guidance reference the [shadcn/ui Accordion documentation](https://ui.shadcn.com/docs/components/base/accordion.md).'
       }
     }
   },
@@ -56,6 +56,9 @@ Basic.play = async ({ canvasElement }) => {
   await expect(
     canvas.getByText('Color, radius, spacing, and typography variables shared by UI components.')
   ).toBeVisible()
+  await expect(
+    canvas.getByRole('button', { name: 'Design tokens' }).querySelector('[data-slot="accordion-trigger-icon"]')
+  ).toHaveAttribute('aria-hidden', 'true')
 
   await userEvent.click(canvas.getByRole('button', { name: 'Components' }))
 

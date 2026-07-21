@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, test } from 'vitest'
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AccordionTriggerIcon } from './accordion'
 
 describe('Accordion', () => {
   afterEach(() => {
@@ -12,7 +12,10 @@ describe('Accordion', () => {
     render(
       <Accordion>
         <AccordionItem value="item">
-          <AccordionTrigger>Details</AccordionTrigger>
+          <AccordionTrigger>
+            Details
+            <AccordionTriggerIcon />
+          </AccordionTrigger>
           <AccordionContent>Expanded content</AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -26,5 +29,6 @@ describe('Accordion', () => {
     expect(document.querySelector('[data-slot="accordion-item"]')).toHaveClass('cn-accordion-item')
     expect(document.querySelector('[data-slot="accordion-content"]')).toHaveClass('cn-accordion-content')
     expect(document.querySelector('[data-slot="accordion-trigger-icon"]')).toHaveClass('cn-accordion-trigger-icon')
+    expect(document.querySelector('[data-slot="accordion-trigger-icon"]')).toHaveAttribute('aria-hidden', 'true')
   })
 })

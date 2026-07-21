@@ -28,19 +28,16 @@ const AccordionItem = ({ className, ...props }: AccordionItemProps) => (
 const AccordionTriggerIcon = ({ className, render, ...props }: AccordionTriggerIconProps) =>
   useRender({
     defaultTagName: 'i',
-    props: mergeProps<'i'>(
-      {
-        'aria-hidden': true,
-        className: cn(
-          'icon-[lucide--chevron-down] group-data-[panel-open]/accordion-trigger:icon-[lucide--chevron-up] group-data-[panel-open]/accordion-trigger:size-4',
-          'cn-accordion-trigger-icon size-4 shrink-0 text-muted-foreground transition-transform duration-200',
-          className
-        ),
-        // @ts-expect-error custom dataset
-        'data-slot': 'accordion-trigger-icon'
-      },
-      props
-    ),
+    props: {
+      'aria-hidden': true,
+      className: cn(
+        'icon-[lucide--chevron-down] group-data-[panel-open]/accordion-trigger:icon-[lucide--chevron-up] group-data-[panel-open]/accordion-trigger:size-4',
+        'cn-accordion-trigger-icon size-4 shrink-0 text-muted-foreground transition-transform duration-200',
+        className
+      ),
+      'data-slot': 'accordion-trigger-icon',
+      ...props
+    },
     render
   })
 

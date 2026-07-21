@@ -737,12 +737,8 @@ ComponentStyles.play = async ({ canvasElement }) => {
     expect(getComputedStyle(input).borderRadius).toBe(initial.input)
   })
 
-  await expect(css).toHaveTextContent(`.cn-button {
-  border-radius: 20px;
-}`)
-  await expect(css).toHaveTextContent(`.cn-card {
-  border-radius: 14px;
-}`)
+  await expect(css).toHaveTextContent(/\.cn-button\s*\{\s*border-radius:\s*20px;\s*\}/)
+  await expect(css).toHaveTextContent(/\.cn-card\s*\{\s*border-radius:\s*14px;\s*\}/)
   await expect(css.textContent).not.toContain('.cn-input {')
 
   await userEvent.click(canvas.getByRole('button', { name: 'Reset' }))
