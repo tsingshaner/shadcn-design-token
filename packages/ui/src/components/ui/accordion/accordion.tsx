@@ -1,3 +1,4 @@
+import { mergeProps, useRender } from '@base-ui/react'
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion'
 
 import { cn } from '@/lib/utils'
@@ -6,6 +7,7 @@ type AccordionProps = AccordionPrimitive.Root.Props
 type AccordionItemProps = AccordionPrimitive.Item.Props
 type AccordionTriggerProps = AccordionPrimitive.Trigger.Props
 type AccordionContentProps = AccordionPrimitive.Panel.Props
+type AccordionTriggerIconProps = useRender.ComponentProps<'i'>
 
 const Accordion = ({ className, ...props }: AccordionProps) => (
   <AccordionPrimitive.Root
@@ -23,6 +25,25 @@ const AccordionItem = ({ className, ...props }: AccordionItemProps) => (
   />
 )
 
+const AccordionTriggerIcon = ({ className, render, ...props }: AccordionTriggerIconProps) =>
+  useRender({
+    defaultTagName: 'i',
+    props: mergeProps<'i'>(
+      {
+        'aria-hidden': true,
+        className: cn(
+          'icon-[lucide--chevron-down] group-data-[panel-open]/accordion-trigger:icon-[lucide--chevron-up] group-data-[panel-open]/accordion-trigger:size-4',
+          'cn-accordion-trigger-icon size-4 shrink-0 text-muted-foreground transition-transform duration-200',
+          className
+        ),
+        // @ts-expect-error custom dataset
+        'data-slot': 'accordion-trigger-icon'
+      },
+      props
+    ),
+    render
+  })
+
 const AccordionTrigger = ({ children, className, ...props }: AccordionTriggerProps) => (
   <AccordionPrimitive.Header className="flex" data-slot="accordion-header">
     <AccordionPrimitive.Trigger
@@ -34,19 +55,6 @@ const AccordionTrigger = ({ children, className, ...props }: AccordionTriggerPro
       {...props}
     >
       {children}
-      <svg
-        aria-hidden="true"
-        className="cn-accordion-trigger-icon size-4 shrink-0 text-muted-foreground transition-transform duration-200"
-        data-slot="accordion-trigger-icon"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        viewBox="0 0 24 24"
-      >
-        <path d="m6 9 6 6 6-6" />
-      </svg>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 )
@@ -61,5 +69,11 @@ const AccordionContent = ({ children, className, ...props }: AccordionContentPro
   </AccordionPrimitive.Panel>
 )
 
-export type { AccordionContentProps, AccordionItemProps, AccordionProps, AccordionTriggerProps }
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger }
+export type {
+  AccordionContentProps,
+  AccordionItemProps,
+  AccordionProps,
+  AccordionTriggerIconProps,
+  AccordionTriggerProps
+}
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AccordionTriggerIcon }

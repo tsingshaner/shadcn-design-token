@@ -1,6 +1,12 @@
 import './styles/globals.css'
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/ui/accordion'
+export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionTriggerIcon
+} from './components/ui/accordion'
 export { Alert, AlertAction, AlertDescription, AlertTitle, alertVariants } from './components/ui/alert'
 export {
   AlertDialog,
@@ -366,6 +372,7 @@ export type {
   AccordionContentProps,
   AccordionItemProps,
   AccordionProps,
+  AccordionTriggerIconProps,
   AccordionTriggerProps
 } from './components/ui/accordion'
 export type { AlertActionProps, AlertDescriptionProps, AlertProps, AlertTitleProps } from './components/ui/alert'

@@ -2,7 +2,7 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AccordionTriggerIcon } from './accordion'
 
 const meta = {
   component: Accordion,
@@ -34,11 +34,17 @@ export const Basic: Story = {
   render: () => (
     <Accordion className="max-w-md" defaultValue={['tokens']}>
       <AccordionItem value="tokens">
-        <AccordionTrigger>Design tokens</AccordionTrigger>
+        <AccordionTrigger>
+          Design tokens
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Color, radius, spacing, and typography variables shared by UI components.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="components">
-        <AccordionTrigger>Components</AccordionTrigger>
+        <AccordionTrigger>
+          Components
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Composable React primitives styled with the shared token system.</AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -68,15 +74,24 @@ export const Multiple: Story = {
   render: () => (
     <Accordion className="max-w-md" defaultValue={['tokens', 'components']}>
       <AccordionItem value="tokens">
-        <AccordionTrigger>Design tokens</AccordionTrigger>
+        <AccordionTrigger>
+          Design tokens
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Centralized values for colors, spacing, radius, and typography.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="components">
-        <AccordionTrigger>Components</AccordionTrigger>
+        <AccordionTrigger>
+          Components
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Composable primitives styled with the shared token system.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="themes">
-        <AccordionTrigger>Themes</AccordionTrigger>
+        <AccordionTrigger>
+          Themes
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Light and dark mode values can be swapped without changing markup.</AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -95,11 +110,17 @@ export const Disabled: Story = {
   render: () => (
     <Accordion className="max-w-md" defaultValue={['tokens']}>
       <AccordionItem value="tokens">
-        <AccordionTrigger>Design tokens</AccordionTrigger>
+        <AccordionTrigger>
+          Design tokens
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Published token sets are available for use.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="themes">
-        <AccordionTrigger disabled>Themes</AccordionTrigger>
+        <AccordionTrigger disabled>
+          Themes
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Theme publishing is disabled for this workspace.</AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -124,11 +145,17 @@ export const Borders: Story = {
   render: () => (
     <Accordion className="max-w-md rounded-md border px-4" defaultValue={['usage']}>
       <AccordionItem value="usage">
-        <AccordionTrigger>Usage</AccordionTrigger>
+        <AccordionTrigger>
+          Usage
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Import components from the package entry point.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="styling">
-        <AccordionTrigger>Styling</AccordionTrigger>
+        <AccordionTrigger>
+          Styling
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Adjust design tokens in the stylesheet to theme every component.</AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -147,11 +174,17 @@ export const Card: Story = {
   render: () => (
     <Accordion className="max-w-md rounded-lg border bg-card px-4 shadow-sm" defaultValue={['sync']}>
       <AccordionItem value="sync">
-        <AccordionTrigger>Token sync</AccordionTrigger>
+        <AccordionTrigger>
+          Token sync
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Automatically sync token updates from the source repository.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="review">
-        <AccordionTrigger>Review changes</AccordionTrigger>
+        <AccordionTrigger>
+          Review changes
+          <AccordionTriggerIcon />
+        </AccordionTrigger>
         <AccordionContent>Require manual review before publishing generated component styles.</AccordionContent>
       </AccordionItem>
     </Accordion>
