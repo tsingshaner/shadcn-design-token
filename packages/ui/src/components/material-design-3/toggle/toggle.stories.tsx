@@ -137,7 +137,7 @@ export const Size: Story = {
 Size.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('button', { name: 'Toggle small' })).toHaveClass('h-8')
+  await expect(canvas.getByRole('button', { name: 'Toggle small' })).toHaveClass('h-7')
   await expect(canvas.getByRole('button', { name: 'Toggle large' })).toHaveClass('h-10')
 }
 
