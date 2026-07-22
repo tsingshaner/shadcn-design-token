@@ -2,8 +2,8 @@ import { expect, userEvent, waitFor, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
 import { Kbd } from '../../ui/kbd'
+import { Button } from '../button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip'
 
 const meta = {

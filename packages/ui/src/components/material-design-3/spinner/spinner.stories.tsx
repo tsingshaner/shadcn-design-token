@@ -3,8 +3,6 @@ import { expect, within } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '../../ui/empty'
 import {
   InputGroup,
@@ -13,6 +11,8 @@ import {
   InputGroupInput,
   InputGroupTextarea
 } from '../../ui/input-group'
+import { Badge } from '../badge'
+import { Button } from '../button'
 import { Spinner } from './spinner'
 
 type IconProps = SVGProps<SVGSVGElement>

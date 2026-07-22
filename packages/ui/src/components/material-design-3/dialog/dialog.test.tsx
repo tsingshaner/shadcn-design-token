@@ -38,21 +38,26 @@ describe('Dialog', () => {
     expect(screen.getByRole('dialog', { name: 'Slot classes' })).toHaveClass(
       'cn-dialog-content',
       'outline-none',
-      'rounded-[28px]'
+      'rounded-[28px]',
+      'min-w-[280px]',
+      'max-w-[560px]',
+      'gap-6'
     )
-    expect(screen.getByText('Slot classes')).toHaveClass('cn-dialog-title', 'cn-font-heading')
+    expect(screen.getByText('Slot classes')).toHaveClass('cn-dialog-title', 'cn-font-heading', 'text-2xl')
   })
 
-  test('can hide the default close button', () => {
+  test('uses an opt-in MD3 close button', () => {
     render(
       <Dialog defaultOpen>
-        <DialogContent showCloseButton={false}>
-          <DialogTitle>No close button</DialogTitle>
+        <DialogContent showCloseButton>
+          <DialogTitle>Close button</DialogTitle>
         </DialogContent>
       </Dialog>
     )
 
-    expect(screen.getByRole('dialog', { name: 'No close button' })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveClass('cn-button', 'cn-button-variant-ghost')
+    expect(screen.getByRole('button', { name: 'Close' })).toContainElement(
+      document.querySelector('[data-slot="ripple"]')
+    )
   })
 })

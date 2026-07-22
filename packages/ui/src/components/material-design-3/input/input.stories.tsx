@@ -3,12 +3,12 @@ import { expect, userEvent, within } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
 import { ButtonGroup } from '../../ui/button-group'
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '../../ui/field'
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '../../ui/input-group'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
+import { Badge } from '../badge'
+import { Button } from '../button'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../select'
 import { Input } from './input'
 
 type IconProps = SVGProps<SVGSVGElement>
@@ -47,12 +47,17 @@ const meta = {
     },
     placeholder: {
       control: 'text',
-      description: 'Helper text shown when the input has no value.'
+      description: 'Placeholder shown when the input has no value.'
     },
     type: {
       control: 'select',
       description: 'Native input type forwarded to the underlying input element.',
       options: ['text', 'email', 'password', 'search', 'url', 'tel', 'file']
+    },
+    variant: {
+      control: 'inline-radio',
+      description: 'Material Design 3 text field appearance.',
+      options: ['filled', 'outlined']
     }
   },
   component: Input,
@@ -60,7 +65,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A text input component for forms and user data entry. Story examples are adapted from the [shadcn/ui Base Input documentation](https://ui.shadcn.com/docs/components/base/input.md).'
+          'Material Design 3 filled and outlined text fields. Dimensions and states follow the [MD3 text field specification](https://m3.material.io/components/text-fields/specs).'
       }
     }
   },
@@ -92,6 +97,13 @@ Basic.play = async ({ canvasElement }) => {
   await userEvent.type(input, 'Token name')
 
   await expect(input).toHaveValue('Token name')
+}
+
+export const Outlined: Story = {
+  args: {
+    placeholder: 'Enter text',
+    variant: 'outlined'
+  }
 }
 
 export const FieldExample: Story = {

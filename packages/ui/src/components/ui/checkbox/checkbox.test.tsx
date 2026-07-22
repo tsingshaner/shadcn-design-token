@@ -12,7 +12,7 @@ describe('Checkbox', () => {
     render(<Checkbox aria-label="Accept" />)
 
     expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveAttribute('data-slot', 'checkbox')
-    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveClass('cn-checkbox')
+    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveClass('cn-checkbox', 'rounded-[4px]')
   })
 
   test('calls onCheckedChange when toggled', () => {

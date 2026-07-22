@@ -4,14 +4,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
-import { Button } from '../../ui/button'
+import { Button } from '../button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '../../ui/dropdown-menu'
+} from '../dropdown-menu'
 import {
   Item,
   ItemActions,

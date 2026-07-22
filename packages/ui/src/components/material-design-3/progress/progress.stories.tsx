@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Slider } from '../../ui/slider'
+import { Slider } from '../slider'
 import { Progress, ProgressLabel, ProgressValue } from './progress'
 
 const meta = {

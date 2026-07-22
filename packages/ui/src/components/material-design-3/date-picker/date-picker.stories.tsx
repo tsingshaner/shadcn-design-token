@@ -2,11 +2,11 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
-import { Calendar, type DateRange } from '../../ui/calendar'
 import { Field, FieldLabel } from '../../ui/field'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../../ui/input-group'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+import { Button } from '../button'
+import { Calendar, type DateRange } from '../calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '../popover'
 import { DatePicker } from './date-picker'
 
 const meta = {

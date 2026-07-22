@@ -38,12 +38,12 @@ const DialogOverlay = ({ className, ...props }: DialogOverlayProps) => (
   />
 )
 
-const DialogContent = ({ children, className, showCloseButton = true, ...props }: DialogContentProps) => (
+const DialogContent = ({ children, className, showCloseButton = false, ...props }: DialogContentProps) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Popup
       className={cn(
-        'cn-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-[28px] border-0 bg-muted p-6 shadow-xl outline-none sm:max-w-[560px]',
+        'cn-dialog-content fixed top-1/2 left-1/2 z-50 grid w-[calc(100%-3rem)] min-w-[280px] max-w-[560px] -translate-x-1/2 -translate-y-1/2 gap-6 rounded-[28px] border-0 bg-muted p-6 shadow-xl outline-none',
         className
       )}
       data-slot="dialog-content"
@@ -71,7 +71,7 @@ const DialogContent = ({ children, className, showCloseButton = true, ...props }
 
 const DialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('cn-dialog-header flex flex-col gap-2 text-center sm:text-left', className)}
+    className={cn('cn-dialog-header flex flex-col gap-4 text-left', className)}
     data-slot="dialog-header"
     {...props}
   />
@@ -79,12 +79,12 @@ const DialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
 
 const DialogFooter = ({ children, className, showCloseButton = false, ...props }: DialogFooterProps) => (
   <div
-    className={cn('cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+    className={cn('cn-dialog-footer flex flex-row justify-end gap-2', className)}
     data-slot="dialog-footer"
     {...props}
   >
     {children}
-    {showCloseButton && <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>}
+    {showCloseButton && <DialogPrimitive.Close render={<Button variant="ghost" />}>Close</DialogPrimitive.Close>}
   </div>
 )
 

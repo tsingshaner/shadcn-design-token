@@ -3,7 +3,7 @@ import { expect, userEvent, within } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
-import { Button } from '../../ui/button'
+import { Button } from '../button'
 import {
   AlertDialog,
   AlertDialogAction,

@@ -2,8 +2,8 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
-import { Card, CardContent, CardFooter } from '../../ui/card'
+import { Button } from '../button'
+import { Card, CardContent, CardFooter } from '../card'
 import { Calendar, type DateRange } from './calendar'
 
 const meta = {

@@ -2,9 +2,9 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
 import { Label } from '../../ui/label'
+import { Button } from '../button'
+import { Input } from '../input'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 const meta = {

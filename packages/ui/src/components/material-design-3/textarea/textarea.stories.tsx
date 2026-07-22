@@ -2,8 +2,8 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
 import { Field, FieldDescription, FieldLabel } from '../../ui/field'
+import { Button } from '../button'
 import { Textarea } from './textarea'
 
 const meta = {

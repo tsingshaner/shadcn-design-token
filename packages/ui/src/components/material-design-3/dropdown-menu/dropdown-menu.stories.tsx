@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
 import { AvatarFallback, Avatar as AvatarRoot } from '../../ui/avatar'
-import { Button } from '../../ui/button'
+import { Button } from '../button'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,

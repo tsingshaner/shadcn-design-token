@@ -2,10 +2,10 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog'
-import { Input } from '../../ui/input'
 import { Label } from '../../ui/label'
+import { Button } from '../button'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../dialog'
+import { Input } from '../input'
 import {
   Drawer,
   DrawerClose,

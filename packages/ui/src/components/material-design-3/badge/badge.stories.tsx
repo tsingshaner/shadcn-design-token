@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SVGProps } from 'react'
 
-import { Spinner } from '../../ui/spinner'
+import { Spinner } from '../spinner'
 import { Badge } from './badge'
 
 type IconProps = SVGProps<SVGSVGElement>

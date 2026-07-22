@@ -2,9 +2,9 @@ import { expect, userEvent, within } from 'storybook/test'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
 import { Label } from '../../ui/label'
+import { Button } from '../button'
+import { Input } from '../input'
 import {
   Dialog,
   DialogClose,
@@ -22,7 +22,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A modal layer for focused tasks, forms, and supporting content. Examples and guidance reference the [shadcn/ui Dialog documentation](https://ui.shadcn.com/docs/components/base/dialog.md).'
+          'Material Design 3 basic dialog with a 28dp shape, 280–560dp width, and MD3 action buttons. See the [MD3 dialog specification](https://m3.material.io/components/dialogs/specs).'
       }
     }
   },
@@ -39,15 +39,14 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Replace the default close control with your own button. Reference: [shadcn/ui Dialog Custom Close Button example](https://ui.shadcn.com/docs/components/base/dialog.md#custom-close-button)'
+        story: 'Basic dialog with start-aligned copy and trailing Material Design 3 actions.'
       }
     }
   },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button variant="outline" />}>Share</DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
@@ -60,8 +59,8 @@ export const Default: Story = {
             <Input defaultValue="https://ui.shadcn.com/docs/installation" id="link" readOnly />
           </div>
         </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose render={<Button type="button" />}>Close</DialogClose>
+        <DialogFooter>
+          <DialogClose render={<Button type="button" variant="ghost" />}>Close</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -71,41 +70,42 @@ Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
 
+  await expect(canvas.getByRole('button', { name: 'Share' })).toHaveClass('cn-button', 'cn-button-variant-outline')
   await userEvent.click(canvas.getByRole('button', { name: 'Share' }))
 
   await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-slot', 'dialog-content')
   await expect(page.getByDisplayValue('https://ui.shadcn.com/docs/installation')).toBeInTheDocument()
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveClass('cn-button', 'cn-button-variant-ghost')
 }
 
-export const NoCloseButton: Story = {
+export const WithCloseButton: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Use showCloseButton={false} to hide the close button. Reference: [shadcn/ui Dialog No Close Button example](https://ui.shadcn.com/docs/components/base/dialog.md#no-close-button)'
+        story: 'Basic dialogs omit the close affordance by default; enable it only when the flow requires one.'
       }
     }
   },
   render: () => (
     <Dialog>
-      <DialogTrigger render={<Button variant="outline" />}>No Close Button</DialogTrigger>
-      <DialogContent showCloseButton={false}>
+      <DialogTrigger render={<Button variant="outline" />}>With Close Button</DialogTrigger>
+      <DialogContent showCloseButton>
         <DialogHeader>
-          <DialogTitle>No Close Button</DialogTitle>
-          <DialogDescription>This dialog doesn&apos;t have a close button in the top-right corner.</DialogDescription>
+          <DialogTitle>With Close Button</DialogTitle>
+          <DialogDescription>This dialog opts into a close affordance.</DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>
   )
 }
-NoCloseButton.play = async ({ canvasElement }) => {
+WithCloseButton.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
 
-  await userEvent.click(canvas.getByRole('button', { name: 'No Close Button' }))
+  await userEvent.click(canvas.getByRole('button', { name: 'With Close Button' }))
 
-  await expect(await page.findByRole('dialog', { name: 'No Close Button' })).toBeVisible()
-  await expect(page.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+  await expect(await page.findByRole('dialog', { name: 'With Close Button' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveClass('cn-button')
 }
 
 export const StickyFooter: Story = {
@@ -136,7 +136,7 @@ export const StickyFooter: Story = {
           ))}
         </div>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+          <DialogClose render={<Button variant="ghost" />}>Close</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
