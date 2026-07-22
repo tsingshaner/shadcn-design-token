@@ -1,3 +1,4 @@
+import { Volume2Icon } from 'lucide-react'
 import { useState } from 'react'
 import { expect, within } from 'storybook/test'
 
@@ -17,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A range input for choosing numeric values. Examples and guidance reference the [shadcn/ui Slider documentation](https://ui.shadcn.com/docs/components/base/slider.md).'
+          'Material 3 Expressive slider built on Base UI. Includes standard, centered, range, discrete, icon, size, and orientation variants from the [Material 3 Slider specs](https://m3.material.io/components/sliders/specs).'
       }
     }
   },
@@ -30,12 +31,52 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => <Slider className="max-w-sm" {...args} />
+  render: (args) => (
+    <div className="w-80">
+      <Slider {...args} />
+    </div>
+  )
 }
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '50')
+}
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="grid w-80 gap-6">
+      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+        <div className="grid gap-2" key={size}>
+          <Label className="uppercase" htmlFor={`slider-${size}`}>
+            {size}
+          </Label>
+          <Slider aria-label={`${size} slider`} defaultValue={50} id={`slider-${size}`} size={size} />
+        </div>
+      ))}
+    </div>
+  )
+}
+Sizes.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('slider', { hidden: true })).toHaveLength(5)
+}
+
+export const Centered: Story = {
+  render: () => (
+    <div className="grid w-80 gap-8">
+      <Slider aria-label="Negative value" defaultValue={-40} max={100} min={-100} variant="centered" />
+      <Slider aria-label="Positive value" defaultValue={40} max={100} min={-100} variant="centered" />
+    </div>
+  )
+}
+Centered.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const thumbs = canvas.getAllByRole('slider', { hidden: true })
+
+  await expect(thumbs[0]).toHaveAttribute('aria-valuenow', '-40')
+  await expect(thumbs[1]).toHaveAttribute('aria-valuenow', '40')
 }
 
 export const Range: Story = {
@@ -53,7 +94,11 @@ export const Range: Story = {
       }
     }
   },
-  render: (args) => <Slider aria-label="Volume" className="max-w-sm" {...args} />
+  render: (args) => (
+    <div className="w-80">
+      <Slider aria-label="Volume" {...args} />
+    </div>
+  )
 }
 Range.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
@@ -62,6 +107,57 @@ Range.play = async ({ canvasElement }) => {
   await expect(thumbs).toHaveLength(2)
   await expect(thumbs[0]).toHaveAttribute('aria-valuenow', '25')
   await expect(thumbs[1]).toHaveAttribute('aria-valuenow', '50')
+}
+
+export const RangePositions: Story = {
+  render: () => (
+    <div className="grid w-80 gap-8">
+      <Slider aria-label="Collapsed range" defaultValue={[0, 0]} max={100} min={-100} />
+      <Slider aria-label="Negative range" defaultValue={[-50, 0]} max={100} min={-100} />
+      <Slider aria-label="Positive range" defaultValue={[0, 50]} max={100} min={-100} />
+    </div>
+  )
+}
+RangePositions.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('slider', { hidden: true })).toHaveLength(6)
+}
+
+export const Discrete: Story = {
+  render: () => (
+    <div className="w-80">
+      <Slider aria-label="Discrete value" defaultValue={40} max={100} min={0} showStops showValueIndicator step={20} />
+    </div>
+  )
+}
+Discrete.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '40')
+  await expect(canvasElement.querySelectorAll('[data-slot="slider-stop"]')).toHaveLength(6)
+  await expect(canvasElement.querySelector('[data-slot="slider-value-indicator"]')).toHaveTextContent('40')
+}
+
+export const WithIcon: Story = {
+  render: () => (
+    <div className="grid w-80 gap-8">
+      {(['md', 'lg', 'xl'] as const).map((size) => (
+        <Slider
+          aria-label={`${size} volume`}
+          defaultValue={60}
+          icon={<Volume2Icon aria-hidden="true" />}
+          key={size}
+          size={size}
+        />
+      ))}
+    </div>
+  )
+}
+WithIcon.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  await expect(canvas.getAllByRole('slider', { hidden: true })).toHaveLength(3)
 }
 
 export const MultipleThumbs: Story = {
@@ -73,7 +169,11 @@ export const MultipleThumbs: Story = {
       }
     }
   },
-  render: () => <Slider className="max-w-sm" defaultValue={[10, 20, 70]} max={100} step={10} />
+  render: () => (
+    <div className="w-80">
+      <Slider defaultValue={[10, 20, 70]} max={100} step={10} />
+    </div>
+  )
 }
 MultipleThumbs.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
@@ -92,10 +192,24 @@ export const Vertical: Story = {
   },
   render: () => (
     <div className="flex h-40 w-full max-w-sm items-center justify-center gap-6">
-      <Slider defaultValue={50} max={100} orientation="vertical" step={1} />
-      <Slider defaultValue={25} max={100} orientation="vertical" step={1} />
+      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+        <Slider
+          aria-label={`${size} vertical slider`}
+          defaultValue={50}
+          key={size}
+          orientation="vertical"
+          size={size}
+        />
+      ))}
     </div>
   )
+}
+Vertical.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+
+  for (const slider of canvas.getAllByRole('slider', { hidden: true })) {
+    await expect(slider).toHaveAttribute('aria-orientation', 'vertical')
+  }
 }
 
 export const Controlled: Story = {
@@ -144,7 +258,11 @@ export const Disabled: Story = {
       }
     }
   },
-  render: (args) => <Slider aria-label="Disabled volume" className="max-w-sm" {...args} />
+  render: (args) => (
+    <div className="w-80">
+      <Slider aria-label="Disabled volume" {...args} />
+    </div>
+  )
 }
 Disabled.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)

@@ -8,9 +8,25 @@ import { Progress, ProgressLabel, ProgressValue } from './progress'
 
 const meta = {
   args: {
-    value: 66
+    shape: 'flat',
+    showTrack: true,
+    thickness: 4,
+    value: 66,
+    variant: 'linear'
+  },
+  argTypes: {
+    shape: { control: 'select', options: ['flat', 'wave'] },
+    thickness: { control: 'select', options: [4, 8] },
+    variant: { control: 'select', options: ['linear', 'circular'] }
   },
   component: Progress,
+  decorators: [
+    (Story) => (
+      <div className="w-80">
+        <Story />
+      </div>
+    )
+  ],
   parameters: {
     docs: {
       description: {
@@ -43,6 +59,41 @@ Indeterminate.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('progressbar')).not.toHaveAttribute('aria-valuenow')
+}
+
+export const Variants: Story = {
+  render: () => (
+    <div className="grid gap-6">
+      {(['linear', 'circular'] as const).flatMap((variant) =>
+        (['flat', 'wave'] as const).flatMap((shape) =>
+          ([4, 8] as const).flatMap((thickness) =>
+            ([66, null] as const).map((value) => (
+              <div className="grid gap-2" key={`${variant}-${shape}-${thickness}-${value}`}>
+                <span className="text-muted-foreground text-xs">
+                  {variant} · {shape} · {thickness}px · {value === null ? 'indeterminate' : 'determinate'}
+                </span>
+                <Progress
+                  aria-label={`${variant} ${shape}`}
+                  shape={shape}
+                  thickness={thickness}
+                  value={value}
+                  variant={variant}
+                />
+              </div>
+            ))
+          )
+        )
+      )}
+    </div>
+  )
+}
+
+export const NoTrack: Story = {
+  args: {
+    showTrack: false,
+    value: null,
+    variant: 'circular'
+  }
 }
 
 export const Label: Story = {

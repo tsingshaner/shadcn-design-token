@@ -646,6 +646,18 @@
       "dependencies": ["@base-ui/react"],
       "files": [
         {
+          "path": "packages/ui/src/components/material-design-3/loading-indicator/loading-indicator.tsx",
+          "target": "@components/material-design-3/loading-indicator/index.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "material-design-3-loading-indicator",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
           "path": "packages/ui/src/components/material-design-3/popover/popover.tsx",
           "target": "@components/material-design-3/popover/index.tsx",
           "type": "registry:ui"

@@ -30,7 +30,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => <Slider className="max-w-sm" {...args} />
+  render: (args) => (
+    <div className="w-80">
+      <Slider {...args} />
+    </div>
+  )
 }
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
@@ -53,7 +57,11 @@ export const Range: Story = {
       }
     }
   },
-  render: (args) => <Slider aria-label="Volume" className="max-w-sm" {...args} />
+  render: (args) => (
+    <div className="w-80">
+      <Slider aria-label="Volume" {...args} />
+    </div>
+  )
 }
 Range.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
@@ -73,7 +81,11 @@ export const MultipleThumbs: Story = {
       }
     }
   },
-  render: () => <Slider className="max-w-sm" defaultValue={[10, 20, 70]} max={100} step={10} />
+  render: () => (
+    <div className="w-80">
+      <Slider defaultValue={[10, 20, 70]} max={100} step={10} />
+    </div>
+  )
 }
 MultipleThumbs.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
@@ -144,7 +156,11 @@ export const Disabled: Story = {
       }
     }
   },
-  render: (args) => <Slider aria-label="Disabled volume" className="max-w-sm" {...args} />
+  render: (args) => (
+    <div className="w-80">
+      <Slider aria-label="Disabled volume" {...args} />
+    </div>
+  )
 }
 Disabled.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)

@@ -31,6 +31,13 @@ const departments = [
 
 const meta = {
   component: Field,
+  decorators: [
+    (Story) => (
+      <div className="w-96">
+        <Story />
+      </div>
+    )
+  ],
   parameters: {
     docs: {
       description: {

@@ -11,6 +11,13 @@ const meta = {
     value: 66
   },
   component: Progress,
+  decorators: [
+    (Story) => (
+      <div className="w-80">
+        <Story />
+      </div>
+    )
+  ],
   parameters: {
     docs: {
       description: {
