@@ -1,0 +1,35 @@
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, test, vi } from 'vitest'
+
+import { Checkbox } from './checkbox'
+
+describe('Checkbox', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
+  test('renders an unchecked checkbox', () => {
+    render(<Checkbox aria-label="Accept" />)
+
+    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveAttribute('data-slot', 'checkbox')
+    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveClass('cn-checkbox')
+  })
+
+  test('calls onCheckedChange when toggled', () => {
+    const onCheckedChange = vi.fn()
+
+    render(<Checkbox aria-label="Accept" onCheckedChange={onCheckedChange} />)
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Accept' }))
+
+    expect(onCheckedChange).toHaveBeenCalledWith(true, expect.any(Object))
+  })
+
+  test('applies the MD3 checkbox shape and indicator', () => {
+    render(<Checkbox aria-label="Accept" defaultChecked />)
+
+    const checkbox = screen.getByRole('checkbox', { name: 'Accept' })
+
+    expect(checkbox).toHaveClass('size-[18px]', 'rounded-[2px]', 'border-2')
+    expect(checkbox.querySelector('[data-slot="checkbox-indicator"]')).toHaveClass('cn-checkbox-indicator')
+  })
+})
