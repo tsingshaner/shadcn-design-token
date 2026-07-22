@@ -1,82 +1,95 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises'
-import { dirname, join, relative } from 'node:path'
+import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const rootDir = dirname(fileURLToPath(new URL('../package.json', import.meta.url)))
-const componentsDir = join(rootDir, 'packages/ui/src/components/ui')
+const componentsDir = join(rootDir, 'packages/ui/src/components')
 const registryPath = join(rootDir, 'registry.json')
 
+const groups = [
+  { directory: 'ui', namespace: '@ui', prefix: '', target: '@ui' },
+  {
+    directory: 'material-design-3',
+    namespace: '@material-design-3',
+    prefix: 'material-design-3-',
+    target: '@components/material-design-3'
+  }
+]
 const importPattern = /from\s+['"]([^'"]+)['"]/g
 
 const toPosixPath = (path) => path.split('\\').join('/')
 
-const getComponentNames = async () => {
-  const entries = await readdir(componentsDir, { withFileTypes: true })
+const getComponents = async () =>
+  (
+    await Promise.all(
+      groups.map(async (group) => {
+        const entries = await readdir(join(componentsDir, group.directory), { withFileTypes: true })
 
-  return entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b))
+        return (
+          await Promise.all(
+            entries
+              .filter((entry) => entry.isDirectory())
+              .map(async (entry) => {
+                const files = await readdir(join(componentsDir, group.directory, entry.name))
+                return files.includes(`${entry.name}.tsx`) ? { ...group, componentName: entry.name } : null
+              })
+          )
+        ).filter(Boolean)
+      })
+    )
+  )
+    .flat()
+    .sort((a, b) => `${a.prefix}${a.componentName}`.localeCompare(`${b.prefix}${b.componentName}`))
+
+const getRegistryDependency = (specifier, filePath, componentNames) => {
+  const aliasMatch = specifier.match(/^@\/components\/(ui|material-design-3)\/([^/]+)/)
+  const parts = aliasMatch
+    ? aliasMatch.slice(1)
+    : specifier.startsWith('.')
+      ? toPosixPath(relative(componentsDir, resolve(dirname(filePath), specifier))).split('/')
+      : []
+  const [directory, componentName] = parts
+  const group = groups.find((candidate) => candidate.directory === directory)
+
+  return group && componentNames.has(`${directory}/${componentName}`) ? `${group.namespace}/${componentName}` : null
 }
 
-const readComponentImports = async (name) => {
-  const filePath = join(componentsDir, name, `${name}.tsx`)
-  const source = await readFile(filePath, 'utf8')
-  const imports = [...source.matchAll(importPattern)].map((match) => match[1])
+const getPackageName = (specifier) => {
+  if (
+    specifier.startsWith('.') ||
+    specifier.startsWith('@/') ||
+    specifier === 'react' ||
+    specifier.startsWith('react/')
+  ) {
+    return null
+  }
 
-  return { filePath, imports }
+  return specifier.startsWith('@') ? specifier.split('/').slice(0, 2).join('/') : specifier.split('/')[0]
 }
 
-const getRegistryDependencies = (imports, componentNames) => {
-  const localComponentImports = imports
-    .filter((specifier) => specifier.startsWith('../'))
-    .map((specifier) => specifier.replace(/^\.\.\//, '').split('/')[0])
-    .filter((name) => componentNames.has(name))
-
-  return [...new Set(localComponentImports)].sort((a, b) => a.localeCompare(b))
-}
-
-const getDependencies = (imports) => {
-  const dependencies = imports
-    .flatMap((specifier) => {
-      if (specifier === '@base-ui/react' || specifier.startsWith('@base-ui/react/')) {
-        return '@base-ui/react'
-      }
-
-      if (specifier === 'tailwind-variants' || specifier.startsWith('tailwind-variants/')) {
-        return ['tailwind-variants', 'tailwind-merge']
-      }
-
-      return null
-    })
-    .filter(Boolean)
-
-  return [...new Set(dependencies)].sort((a, b) => a.localeCompare(b))
-}
-
-const components = await getComponentNames()
-const componentNames = new Set(components)
+const components = await getComponents()
+const componentNames = new Set(components.map(({ componentName, directory }) => `${directory}/${componentName}`))
 
 const items = await Promise.all(
-  components.map(async (name) => {
-    const { filePath, imports } = await readComponentImports(name)
-    const registryDependencies = getRegistryDependencies(imports, componentNames)
-    const dependencies = getDependencies(imports)
+  components.map(async ({ componentName, directory, prefix, target }) => {
+    const filePath = join(componentsDir, directory, componentName, `${componentName}.tsx`)
+    const source = await readFile(filePath, 'utf8')
+    const imports = [...source.matchAll(importPattern)].map((match) => match[1])
+    const registryDependencies = [
+      ...new Set(imports.map((specifier) => getRegistryDependency(specifier, filePath, componentNames)).filter(Boolean))
+    ].sort((a, b) => a.localeCompare(b))
+    const dependencies = [...new Set(imports.map(getPackageName).filter(Boolean))].sort((a, b) => a.localeCompare(b))
 
     return {
-      ...(dependencies.length > 0
-        ? {
-            dependencies
-          }
-        : {}),
+      ...(dependencies.length > 0 ? { dependencies } : {}),
       files: [
         {
           path: toPosixPath(relative(rootDir, filePath)),
-          target: `@ui/${name}.tsx`,
+          target: `${target}/${componentName}/index.tsx`,
           type: 'registry:ui'
         }
       ],
-      name,
+      name: `${prefix}${componentName}`,
       ...(registryDependencies.length > 0 ? { registryDependencies } : {}),
       type: 'registry:ui'
     }

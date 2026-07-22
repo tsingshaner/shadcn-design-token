@@ -24,7 +24,7 @@ type AlertDescriptionProps = ComponentProps<'div'>
 type AlertActionProps = ComponentProps<'div'>
 
 const Alert = ({ className, variant, ...props }: AlertProps) => (
-  <div className={cn(alertVariants({ variant }), className)} data-slot="alert" role="alert" {...props} />
+  <div className={alertVariants({ className, variant })} data-slot="alert" role="alert" {...props} />
 )
 
 const AlertTitle = ({ className, ...props }: AlertTitleProps) => (

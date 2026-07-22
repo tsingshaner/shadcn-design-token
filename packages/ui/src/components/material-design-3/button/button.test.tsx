@@ -44,4 +44,12 @@ describe('Button', () => {
 
     expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'button')
   })
+
+  test('includes the Material Design press state layer', () => {
+    render(<Button>Save</Button>)
+
+    expect(screen.getByRole('button', { name: 'Save' })).toContainElement(
+      document.querySelector('[data-slot="ripple"]')
+    )
+  })
 })

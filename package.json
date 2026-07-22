@@ -26,7 +26,7 @@
     "format": "biome format . --write",
     "lint": "biome lint . --write",
     "prepare": "simple-git-hooks",
-    "registry:build": "pnpm registry:generate && npm exec --yes shadcn@latest -- build registry.json",
+    "registry:build": "pnpm registry:generate && npm exec --yes shadcn@latest -- build registry.json --output public/r",
     "registry:build:pages": "pnpm registry:generate && npm exec --yes shadcn@latest -- build registry.json --output packages/ui/storybook-static/r",
     "registry:generate": "node scripts/generate-shadcn-registry.mjs && pnpm biome format registry.json --write",
     "test": "pnpm --filter=ui test"

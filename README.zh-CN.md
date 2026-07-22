@@ -98,12 +98,30 @@ export function Example() {
 
 ## shadcn Registry
 
-`registry.json` 由 `scripts/generate-shadcn-registry.mjs` 根据 `packages/ui/src/components/ui` 下的组件目录自动生成。脚本会：
+`registry.json` 由 `scripts/generate-shadcn-registry.mjs` 根据 `packages/ui/src/components/ui` 和 `packages/ui/src/components/material-design-3` 下的组件目录自动生成。脚本会：
 
-- 扫描组件目录名作为 registry item 名称。
-- 将每个组件源码映射到 `@ui/<component>.tsx`。
+- 将 UI 组件注册为 `<component>`，Material Design 3 组件注册为 `material-design-3-<component>`。
+- 将 UI 组件安装到 `@ui/<component>/index.tsx`，Material Design 3 组件安装到 `@components/material-design-3/<component>/index.tsx`。
 - 从本地组件 import 推导 `registryDependencies`。
-- 从外部 import 推导必要的 npm dependencies，例如 `@base-ui/react`、`tailwind-variants` 和 `tailwind-merge`。
+- 从外部 import 推导必要的 npm dependencies。
+
+用户可以为两个组件族分别配置 namespace：
+
+```json
+{
+  "registries": {
+    "@ui": "https://<your-domain>/r/{name}.json",
+    "@material-design-3": "https://<your-domain>/r/material-design-3-{name}.json"
+  }
+}
+```
+
+然后按需下载同名组件：
+
+```bash
+pnpm dlx shadcn@latest add @ui/button
+pnpm dlx shadcn@latest add @material-design-3/button
+```
 
 生成 registry：
 
@@ -116,6 +134,8 @@ pnpm registry:generate
 ```bash
 pnpm registry:build
 ```
+
+生成文件位于 `public/r`。
 
 构建到 Storybook 静态目录：
 

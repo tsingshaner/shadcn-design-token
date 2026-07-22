@@ -3,6 +3,8 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 import { cn } from '@/lib/utils'
 
+import { Ripple } from '../ripple'
+
 type TabsProps = TabsPrimitive.Root.Props
 type TabsListProps = TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>
 type TabsTriggerProps = TabsPrimitive.Tab.Props
@@ -40,7 +42,7 @@ const TabsList = ({ className, variant = 'default', ...props }: TabsListProps) =
   />
 )
 
-const TabsTrigger = ({ className, ...props }: TabsTriggerProps) => (
+const TabsTrigger = ({ children, className, ...props }: TabsTriggerProps) => (
   <TabsPrimitive.Tab
     className={cn(
       "cn-tabs-trigger relative inline-flex min-h-12 flex-1 items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-none border border-transparent px-4 py-2 font-medium text-muted-foreground text-sm outline-none transition-colors after:pointer-events-none hover:text-foreground focus-visible:bg-primary/10 disabled:pointer-events-none disabled:opacity-[0.38] has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3 aria-disabled:pointer-events-none aria-disabled:opacity-[0.38] group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start [&_svg:not([class*='size-'])]:size-[18px] [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -51,7 +53,10 @@ const TabsTrigger = ({ className, ...props }: TabsTriggerProps) => (
     )}
     data-slot="tabs-trigger"
     {...props}
-  />
+  >
+    {children}
+    <Ripple />
+  </TabsPrimitive.Tab>
 )
 
 const TabsContent = ({ className, ...props }: TabsContentProps) => (

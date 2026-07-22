@@ -1,4 +1,4 @@
-import { mergeProps, useRender } from '@base-ui/react'
+import { useRender } from '@base-ui/react'
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion'
 
 import { cn } from '@/lib/utils'

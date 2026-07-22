@@ -3,8 +3,10 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 import { cn } from '@/lib/utils'
 
+import { Ripple } from '../ripple'
+
 const buttonVariants = tv({
-  base: "cn-button group/button relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap outline-none select-none transition-[background-color,box-shadow,color] after:absolute after:inset-0 after:bg-current after:opacity-0 after:transition-opacity hover:after:opacity-[0.08] focus-visible:after:opacity-[0.1] active:after:opacity-[0.1] disabled:pointer-events-none disabled:opacity-[0.38] disabled:after:hidden aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&>*]:relative [&>*]:z-10 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[18px]",
+  base: "cn-button group/button relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap outline-none select-none transition-[background-color,box-shadow,color] after:pointer-events-none after:absolute after:inset-0 after:bg-current after:opacity-0 after:transition-opacity focus-visible:after:opacity-[0.1] disabled:pointer-events-none disabled:opacity-[0.38] disabled:after:hidden aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[18px]",
   defaultVariants: {
     size: 'default',
     variant: 'default'
@@ -36,6 +38,7 @@ const buttonVariants = tv({
 })
 
 const Button = ({
+  children,
   className,
   variant = 'default',
   size = 'default',
@@ -52,7 +55,10 @@ const Button = ({
       }
       data-slot="button"
       {...props}
-    />
+    >
+      {children}
+      <Ripple />
+    </ButtonPrimitive>
   )
 }
 

@@ -1,10 +1,9 @@
-import { Toggle as TogglePrimitive } from '@base-ui/react/toggle'
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group'
 import { type CSSProperties, createContext, useContext } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { type ToggleProps, toggleVariants } from '../toggle'
+import { Toggle, type ToggleProps, toggleVariants } from '../toggle'
 
 type ToggleGroupProps = ToggleGroupPrimitive.Props & {
   orientation?: 'horizontal' | 'vertical'
@@ -60,7 +59,7 @@ const ToggleGroupItem = ({ className, size = 'default', variant = 'default', ...
   const resolvedSize = context.size ?? size
 
   return (
-    <TogglePrimitive
+    <Toggle
       className={cn(
         'cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l',
         toggleVariants({ size: resolvedSize, variant: resolvedVariant }),

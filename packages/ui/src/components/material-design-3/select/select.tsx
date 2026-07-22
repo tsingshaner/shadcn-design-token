@@ -4,6 +4,8 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
+import { Ripple } from '../ripple'
+
 type SelectProps<Value = string, Multiple extends boolean | undefined = false> = SelectPrimitive.Root.Props<
   Value,
   Multiple
@@ -119,7 +121,7 @@ const SelectLabel = ({ className, ...props }: SelectLabelProps) => (
 const SelectItem = ({ children, className, ...props }: SelectItemProps) => (
   <SelectPrimitive.Item
     className={cn(
-      'cn-select-item relative flex min-h-12 w-full cursor-default select-none items-center gap-3 rounded-none py-2 pr-10 pl-3 text-sm outline-hidden focus:bg-primary/[0.08] focus:text-foreground data-[disabled]:pointer-events-none data-disabled:pointer-events-none data-[highlighted]:bg-primary/[0.08] data-[highlighted]:text-foreground data-[disabled]:opacity-[0.38] data-disabled:opacity-[0.38] [&_svg:not([class*=size-])]:size-[18px] [&_svg]:pointer-events-none [&_svg]:shrink-0 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
+      'cn-select-item relative flex min-h-12 w-full cursor-default select-none items-center gap-3 overflow-hidden rounded-none py-2 pr-10 pl-3 text-sm outline-hidden focus:bg-primary/[0.08] focus:text-foreground data-[disabled]:pointer-events-none data-disabled:pointer-events-none data-[highlighted]:bg-primary/[0.08] data-[highlighted]:text-foreground data-[disabled]:opacity-[0.38] data-disabled:opacity-[0.38] [&_svg:not([class*=size-])]:size-[18px] [&_svg]:pointer-events-none [&_svg]:shrink-0 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
       className
     )}
     data-slot="select-item"
@@ -144,6 +146,7 @@ const SelectItem = ({ children, className, ...props }: SelectItemProps) => (
         </svg>
       </SelectPrimitive.ItemIndicator>
     </span>
+    <Ripple hover={false} />
   </SelectPrimitive.Item>
 )
 

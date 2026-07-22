@@ -5,6 +5,8 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
+import { Ripple } from '../ripple'
+
 type DropdownMenuProps = DropdownMenuPrimitive.Root.Props
 type DropdownMenuTriggerProps = DropdownMenuPrimitive.Trigger.Props
 type DropdownMenuPortalProps = DropdownMenuPrimitive.Portal.Props
@@ -34,7 +36,7 @@ type DropdownMenuSubContentProps = DropdownMenuContentProps
 type DropdownMenuShortcutProps = ComponentProps<'span'>
 
 const itemClasses =
-  'group/dropdown-menu-item relative flex min-h-12 cursor-default select-none items-center gap-3 rounded-none px-3 py-2 text-sm outline-hidden data-disabled:pointer-events-none data-disabled:opacity-[0.38] data-[highlighted]:bg-primary/[0.08] data-[highlighted]:text-foreground data-[inset=true]:pl-10 data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive/10 data-[variant=destructive]:data-[highlighted]:text-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-[18px]'
+  'group/dropdown-menu-item relative flex min-h-12 cursor-default select-none items-center gap-3 overflow-hidden rounded-none px-3 py-2 text-sm outline-hidden data-disabled:pointer-events-none data-disabled:opacity-[0.38] data-[highlighted]:bg-primary/[0.08] data-[highlighted]:text-foreground data-[inset=true]:pl-10 data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive/10 data-[variant=destructive]:data-[highlighted]:text-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-[18px]'
 
 const DropdownMenu = (props: DropdownMenuProps) => <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />
 
@@ -78,14 +80,17 @@ const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
   <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />
 )
 
-const DropdownMenuItem = ({ className, inset, variant = 'default', ...props }: DropdownMenuItemProps) => (
+const DropdownMenuItem = ({ children, className, inset, variant = 'default', ...props }: DropdownMenuItemProps) => (
   <DropdownMenuPrimitive.Item
     className={cn('cn-dropdown-menu-item', itemClasses, className)}
     data-inset={inset}
     data-slot="dropdown-menu-item"
     data-variant={variant}
     {...props}
-  />
+  >
+    {children}
+    <Ripple hover={false} />
+  </DropdownMenuPrimitive.Item>
 )
 
 const DropdownMenuCheckboxItem = ({ children, className, checked, inset, ...props }: DropdownMenuCheckboxItemProps) => (
@@ -105,6 +110,7 @@ const DropdownMenuCheckboxItem = ({ children, className, checked, inset, ...prop
       </DropdownMenuPrimitive.CheckboxItemIndicator>
     </span>
     {children}
+    <Ripple hover={false} />
   </DropdownMenuPrimitive.CheckboxItem>
 )
 
@@ -128,6 +134,7 @@ const DropdownMenuRadioItem = ({ children, className, inset, ...props }: Dropdow
       </DropdownMenuPrimitive.RadioItemIndicator>
     </span>
     {children}
+    <Ripple hover={false} />
   </DropdownMenuPrimitive.RadioItem>
 )
 
@@ -174,6 +181,7 @@ const DropdownMenuSubTrigger = ({ children, className, inset, ...props }: Dropdo
   >
     {children}
     <ChevronRightIcon className="cn-rtl-flip ml-auto" />
+    <Ripple hover={false} />
   </DropdownMenuPrimitive.SubmenuTrigger>
 )
 

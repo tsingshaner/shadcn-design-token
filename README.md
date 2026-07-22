@@ -98,12 +98,30 @@ If the package is published independently, build output is exported from `packag
 
 ## shadcn Registry
 
-`registry.json` is generated from component directories under `packages/ui/src/components/ui` by `scripts/generate-shadcn-registry.mjs`. The script:
+`registry.json` is generated from component directories under `packages/ui/src/components/ui` and `packages/ui/src/components/material-design-3` by `scripts/generate-shadcn-registry.mjs`. The script:
 
-- Uses component directory names as registry item names.
-- Maps each component source file to `@ui/<component>.tsx`.
+- Registers UI components as `<component>` and Material Design 3 components as `material-design-3-<component>`.
+- Installs UI components at `@ui/<component>/index.tsx` and Material Design 3 components at `@components/material-design-3/<component>/index.tsx`.
 - Infers `registryDependencies` from local component imports.
-- Infers npm dependencies from external imports, including `@base-ui/react`, `tailwind-variants`, and `tailwind-merge`.
+- Infers npm dependencies from external imports.
+
+Consumers can configure a namespace for each component family:
+
+```json
+{
+  "registries": {
+    "@ui": "https://<your-domain>/r/{name}.json",
+    "@material-design-3": "https://<your-domain>/r/material-design-3-{name}.json"
+  }
+}
+```
+
+Then install either implementation by name:
+
+```bash
+pnpm dlx shadcn@latest add @ui/button
+pnpm dlx shadcn@latest add @material-design-3/button
+```
 
 Generate the registry:
 
@@ -116,6 +134,8 @@ Build the shadcn registry:
 ```bash
 pnpm registry:build
 ```
+
+Generated files are written to `public/r`.
 
 Build the registry into the Storybook static directory:
 

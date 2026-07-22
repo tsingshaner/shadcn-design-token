@@ -2,6 +2,8 @@ import { Slider as SliderPrimitive } from '@base-ui/react/slider'
 
 import { cn } from '@/lib/utils'
 
+import { Ripple } from '../ripple'
+
 type SliderValue = number | readonly number[]
 type SliderProps = SliderPrimitive.Root.Props<SliderValue> & {
   thumbCount?: number
@@ -73,11 +75,13 @@ const Slider = ({ className, defaultValue, max = 100, min = 0, thumbCount, value
         </SliderPrimitive.Track>
         {thumbs.map((thumb) => (
           <SliderPrimitive.Thumb
-            className="cn-slider-thumb relative block size-5 shrink-0 select-none rounded-full border-0 bg-primary shadow-sm outline-none transition-[width,height,box-shadow] after:absolute after:-inset-2.5 after:rounded-full after:bg-primary after:opacity-0 after:transition-opacity hover:after:opacity-[0.08] focus-visible:after:opacity-[0.1] active:size-3 active:after:opacity-[0.1] disabled:pointer-events-none disabled:opacity-[0.38]"
+            className="cn-slider-thumb relative block size-5 shrink-0 select-none rounded-full border-0 bg-primary text-primary shadow-sm outline-none transition-[width,height,box-shadow] after:pointer-events-none after:absolute after:-inset-2.5 after:rounded-full after:bg-primary after:opacity-0 focus-visible:after:opacity-[0.1] active:size-3 disabled:pointer-events-none disabled:opacity-[0.38]"
             data-slot="slider-thumb"
             index={thumb.index}
             key={thumb.id}
-          />
+          >
+            <Ripple unbounded />
+          </SliderPrimitive.Thumb>
         ))}
       </SliderPrimitive.Control>
     </SliderPrimitive.Root>

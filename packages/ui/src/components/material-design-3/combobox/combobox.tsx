@@ -6,6 +6,8 @@ import { Button } from '@/components/material-design-3/button'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group'
 import { cn } from '@/lib/utils'
 
+import { Ripple } from '../ripple'
+
 type ComboboxProps<Value = string, Multiple extends boolean | undefined = false> = ComboboxPrimitive.Root.Props<
   Value,
   Multiple
@@ -78,7 +80,7 @@ const ComboboxClear = ({ className, ...props }: ComboboxClearProps) => (
 const ComboboxTrigger = ({ children, className, ...props }: ComboboxTriggerProps) => (
   <ComboboxPrimitive.Trigger
     className={cn(
-      "cn-combobox-trigger inline-flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4",
+      "cn-combobox-trigger relative inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-md text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4",
       className
     )}
     data-slot="combobox-trigger"
@@ -87,6 +89,7 @@ const ComboboxTrigger = ({ children, className, ...props }: ComboboxTriggerProps
     {children ?? (
       <ChevronDownIcon className="cn-combobox-trigger-icon pointer-events-none size-4 text-muted-foreground" />
     )}
+    <Ripple hover={false} />
   </ComboboxPrimitive.Trigger>
 )
 
@@ -188,7 +191,7 @@ const ComboboxCollection = (props: ComboboxCollectionProps) => (
 const ComboboxItem = ({ children, className, ...props }: ComboboxItemProps) => (
   <ComboboxPrimitive.Item
     className={cn(
-      "cn-combobox-item relative flex min-h-12 w-full cursor-default select-none items-center gap-3 rounded-none py-2 pr-10 pl-3 text-sm outline-hidden data-disabled:pointer-events-none data-highlighted:bg-primary/[0.08] data-highlighted:text-foreground data-disabled:opacity-[0.38] not-data-[variant=destructive]:data-highlighted:**:text-foreground [&_svg:not([class*='size-'])]:size-[18px] [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "cn-combobox-item relative flex min-h-12 w-full cursor-default select-none items-center gap-3 overflow-hidden rounded-none py-2 pr-10 pl-3 text-sm outline-hidden data-disabled:pointer-events-none data-highlighted:bg-primary/[0.08] data-highlighted:text-foreground data-disabled:opacity-[0.38] not-data-[variant=destructive]:data-highlighted:**:text-foreground [&_svg:not([class*='size-'])]:size-[18px] [&_svg]:pointer-events-none [&_svg]:shrink-0",
       className
     )}
     data-slot="combobox-item"
@@ -203,6 +206,7 @@ const ComboboxItem = ({ children, className, ...props }: ComboboxItemProps) => (
         </span>
       }
     />
+    <Ripple hover={false} />
   </ComboboxPrimitive.Item>
 )
 
