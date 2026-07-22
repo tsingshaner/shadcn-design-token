@@ -106,6 +106,7 @@ export {
   CommandSeparator,
   CommandShortcut
 } from './components/ui/command'
+export { ConfirmDialog } from './components/ui/confirm-dialog'
 export {
   ContextMenu,
   ContextMenuCheckboxItem,
@@ -474,6 +475,7 @@ export type {
   CommandSeparatorProps,
   CommandShortcutProps
 } from './components/ui/command'
+export type { ConfirmDialogProps } from './components/ui/confirm-dialog'
 export type {
   ContextMenuCheckboxItemProps,
   ContextMenuContentProps,

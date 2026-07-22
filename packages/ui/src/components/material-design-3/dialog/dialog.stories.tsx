@@ -22,7 +22,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Material Design 3 basic dialog with a 28dp shape, 280–560dp width, and MD3 action buttons. See the [MD3 dialog specification](https://m3.material.io/components/dialogs/specs).'
+          'Material Design 3 basic dialog with a 28dp shape, 280–560dp width, and MD3 action buttons. See the [MD3 dialog specification](https://m3.material.io/components/dialogs/specs). For an awaitable confirmation flow, use [ConfirmDialog](?path=/docs/material-design-3-confirmdialog--docs).'
       }
     }
   },

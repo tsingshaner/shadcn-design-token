@@ -233,6 +233,19 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["react-call"],
+      "files": [
+        {
+          "path": "packages/ui/src/components/ui/confirm-dialog/confirm-dialog.tsx",
+          "target": "@ui/confirm-dialog/index.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "confirm-dialog",
+      "registryDependencies": ["@ui/alert-dialog"],
+      "type": "registry:ui"
+    },
+    {
       "dependencies": ["@base-ui/react", "lucide-react"],
       "files": [
         {
@@ -536,6 +549,19 @@
         "@material-design-3/ripple",
         "@ui/input-group"
       ],
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": ["react-call"],
+      "files": [
+        {
+          "path": "packages/ui/src/components/material-design-3/confirm-dialog/confirm-dialog.tsx",
+          "target": "@components/material-design-3/confirm-dialog/index.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "material-design-3-confirm-dialog",
+      "registryDependencies": ["@material-design-3/alert-dialog"],
       "type": "registry:ui"
     },
     {

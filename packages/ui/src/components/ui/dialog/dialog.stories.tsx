@@ -22,7 +22,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A modal layer for focused tasks, forms, and supporting content. Examples and guidance reference the [shadcn/ui Dialog documentation](https://ui.shadcn.com/docs/components/base/dialog.md).'
+          'A modal layer for focused tasks, forms, and supporting content. Examples and guidance reference the [shadcn/ui Dialog documentation](https://ui.shadcn.com/docs/components/base/dialog.md). For an awaitable confirmation flow, use [ConfirmDialog](?path=/docs/ui-confirmdialog--docs).'
       }
     }
   },
