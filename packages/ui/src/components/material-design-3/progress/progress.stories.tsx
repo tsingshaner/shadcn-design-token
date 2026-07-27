@@ -47,6 +47,7 @@ export const Default: Story = {}
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
+  await expect(canvasElement.ownerDocument.documentElement).toHaveAttribute('data-theme', 'md3')
   await expect(canvas.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '66')
 }
 

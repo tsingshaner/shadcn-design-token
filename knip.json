@@ -1,4 +1,5 @@
 {
   "$schema": "node_modules/knip/schema.json",
+  "entry": ["packages/ui/src/index.ts", "packages/ui/src/components/**/*/index.ts"],
   "tags": ["-lintignore"]
 }

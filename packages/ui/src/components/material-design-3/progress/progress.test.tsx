@@ -56,6 +56,16 @@ describe('Progress', () => {
     expect(wave).toHaveAttribute('stroke-width', '4')
   })
 
+  test.each(['flat', 'wave'] as const)('separates loaded and remaining linear %s indeterminate progress', (shape) => {
+    render(<Progress shape={shape} value={null} />)
+
+    const progress = screen.getByRole('progressbar')
+    expect(progress.querySelector('[data-slot="progress-track-rest"]')).toHaveStyle({ left: 0 })
+    expect(progress.querySelector('[data-slot="progress-indicator"]')).toHaveStyle({
+      boxShadow: '0 0 0 6px var(--background)'
+    })
+  })
+
   test('preserves the existing wave when progress grows', () => {
     const before = linearWavePath(48, 12, 4)
     const after = linearWavePath(50, 12, 4)

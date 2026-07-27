@@ -101,7 +101,7 @@ const LinearProgressVisual = ({ percentage, shape, showTrack, thickness, value }
       )}
     >
       <style>{linearIndeterminateKeyframes}</style>
-      {showTrack && value !== null && percentage < 100 && (
+      {showTrack && (value === null || percentage < 100) && (
         <span
           aria-hidden="true"
           className={cn(
@@ -109,7 +109,7 @@ const LinearProgressVisual = ({ percentage, shape, showTrack, thickness, value }
             linearThicknesses[thickness]
           )}
           data-slot="progress-track-rest"
-          style={{ left: percentage > 0 ? `calc(${percentage}% + ${linearGaps[thickness]}px)` : 0 }}
+          style={{ left: value !== null && percentage > 0 ? `calc(${percentage}% + ${linearGaps[thickness]}px)` : 0 }}
         />
       )}
       <ProgressIndicator
@@ -117,6 +117,7 @@ const LinearProgressVisual = ({ percentage, shape, showTrack, thickness, value }
           'relative data-[indeterminate]:w-1/2 data-[indeterminate]:animate-[md3-progress-linear_1.5s_ease-in-out_infinite] motion-reduce:data-[indeterminate]:animate-none',
           shape === 'wave' && 'absolute inset-y-0 rounded-none bg-background'
         )}
+        style={value === null ? { boxShadow: `0 0 0 ${linearGaps[thickness]}px var(--background)` } : undefined}
       >
         {shape === 'wave' && <LinearWave thickness={thickness} />}
       </ProgressIndicator>
