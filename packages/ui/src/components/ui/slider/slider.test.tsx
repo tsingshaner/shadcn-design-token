@@ -12,10 +12,14 @@ describe('Slider', () => {
     render(<Slider aria-label="Volume" defaultValue={25} />)
 
     expect(screen.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '25')
-    expect(document.querySelector('[data-slot="slider-control"]')).toHaveClass('cn-slider')
-    expect(document.querySelector('[data-slot="slider-track"]')).toHaveClass('cn-slider-track')
-    expect(document.querySelector('[data-slot="slider-range"]')).toHaveClass('cn-slider-range')
-    expect(document.querySelector('[data-slot="slider-thumb"]')).toHaveClass('cn-slider-thumb')
+    expect(document.querySelector('[data-scope="slider"][data-slot="control"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="control"]')).toHaveAttribute('data-slot', 'control')
+    expect(document.querySelector('[data-scope="slider"][data-slot="track"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="track"]')).toHaveAttribute('data-slot', 'track')
+    expect(document.querySelector('[data-scope="slider"][data-slot="range"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="range"]')).toHaveAttribute('data-slot', 'range')
+    expect(document.querySelector('[data-scope="slider"][data-slot="thumb"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="thumb"]')).toHaveAttribute('data-slot', 'thumb')
   })
 
   test('renders multiple thumbs for range values', () => {

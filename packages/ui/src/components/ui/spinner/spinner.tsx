@@ -8,10 +8,11 @@ const Spinner = ({ className, ...props }: SpinnerProps) => (
   <span
     aria-label="Loading"
     className={cn(
-      'cn-spinner inline-block size-4 animate-spin rounded-full border-2 border-current border-r-transparent',
+      'inline-block size-4 animate-spin rounded-full border-2 border-current border-r-transparent',
       className
     )}
-    data-slot="spinner"
+    data-scope="spinner"
+    data-slot="root"
     role="status"
     {...props}
   />

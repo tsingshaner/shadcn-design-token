@@ -198,7 +198,8 @@ Shortcuts.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Open Menu' }))
 
-  await expect(await page.findByText('⌘P')).toHaveAttribute('data-slot', 'command-shortcut')
+  await expect(await page.findByText('⌘P')).toHaveAttribute('data-scope', 'command')
+  await expect(await page.findByText('⌘P')).toHaveAttribute('data-slot', 'shortcut')
   await expect(page.getByRole('option', { name: /Profile/ })).toBeVisible()
 }
 
@@ -260,9 +261,10 @@ Groups.play = async ({ canvasElement }) => {
 
   const settingsHeading = page
     .getAllByText('Settings')
-    .find((element) => element.getAttribute('data-slot') === 'command-group-heading')
+    .find((element) => element.matches('[data-scope="command"][data-slot="group-heading"]'))
 
-  await expect(await page.findByText('Suggestions')).toHaveAttribute('data-slot', 'command-group-heading')
+  await expect(await page.findByText('Suggestions')).toHaveAttribute('data-scope', 'command')
+  await expect(await page.findByText('Suggestions')).toHaveAttribute('data-slot', 'group-heading')
   await expect(settingsHeading).toBeVisible()
   await expect(page.getByRole('option', { name: /Billing/ })).toBeVisible()
 }

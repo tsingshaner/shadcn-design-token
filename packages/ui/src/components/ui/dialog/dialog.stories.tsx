@@ -73,7 +73,8 @@ Default.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Share' }))
 
-  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-slot', 'dialog-content')
+  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-scope', 'dialog')
+  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-slot', 'content')
   await expect(page.getByDisplayValue('https://ui.shadcn.com/docs/installation')).toBeInTheDocument()
 }
 

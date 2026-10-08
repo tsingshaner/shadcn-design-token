@@ -12,18 +12,23 @@ describe('Slider', () => {
     render(<Slider aria-label="Volume" defaultValue={25} />)
 
     expect(screen.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '25')
-    expect(document.querySelector('[data-slot="slider-control"]')).toHaveClass('cn-slider')
-    expect(document.querySelector('[data-slot="slider-track"]')).toHaveClass('cn-slider-track')
-    expect(document.querySelector('[data-slot="slider-range"]')).toHaveClass('cn-slider-range', 'rounded-[2px]')
-    const range = document.querySelector<HTMLElement>('[data-slot="slider-range"]')
+    expect(document.querySelector('[data-scope="slider"][data-slot="control"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="control"]')).toHaveAttribute('data-slot', 'control')
+    expect(document.querySelector('[data-scope="slider"][data-slot="track"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="track"]')).toHaveAttribute('data-slot', 'track')
+    expect(document.querySelector('[data-scope="slider"][data-slot="range"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="range"]')).toHaveAttribute('data-slot', 'range')
+    expect(document.querySelector('[data-scope="slider"][data-slot="range"]')).toHaveClass('rounded-[2px]')
+    const range = document.querySelector<HTMLElement>('[data-scope="slider"][data-slot="range"]')
 
     expect(range).toHaveStyle({
       width: 'max(0px, calc(25% - var(--slider-track-gap)))'
     })
     expect(range?.style.borderStartStartRadius).toBe('var(--slider-track-radius)')
-    expect(document.querySelector('[data-slot="slider-track"]')).toHaveClass('data-horizontal:h-4')
-    expect(document.querySelector('[data-slot="slider-thumb"]')).toHaveClass(
-      'cn-slider-thumb',
+    expect(document.querySelector('[data-scope="slider"][data-slot="track"]')).toHaveClass('data-horizontal:h-4')
+    expect(document.querySelector('[data-scope="slider"][data-slot="thumb"]')).toHaveAttribute('data-scope', 'slider')
+    expect(document.querySelector('[data-scope="slider"][data-slot="thumb"]')).toHaveAttribute('data-slot', 'thumb')
+    expect(document.querySelector('[data-scope="slider"][data-slot="thumb"]')).toHaveClass(
       'data-horizontal:h-11',
       'data-horizontal:w-1',
       'bg-primary'
@@ -60,25 +65,25 @@ describe('Slider', () => {
     render(<Slider aria-label="Centered value" defaultValue={40} max={100} min={-100} variant="centered" />)
 
     expect(screen.getByRole('group', { name: 'Centered value' })).toHaveAttribute('data-variant', 'centered')
-    expect(document.querySelector('[data-slot="slider-range"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-scope="slider"][data-slot="range"]')).toBeInTheDocument()
   })
 
   test('renders one stop for every discrete value', () => {
     render(<Slider defaultValue={50} max={100} min={0} showStops step={25} />)
 
-    expect(document.querySelectorAll('[data-slot="slider-stop"]')).toHaveLength(5)
+    expect(document.querySelectorAll('[data-scope="slider"][data-slot="stop"]')).toHaveLength(5)
   })
 
   test('renders the current value in the value indicator', () => {
     render(<Slider defaultValue={40} showValueIndicator />)
 
-    expect(document.querySelector('[data-slot="slider-value-indicator"]')).toHaveTextContent('40')
+    expect(document.querySelector('[data-scope="slider"][data-slot="value-indicator"]')).toHaveTextContent('40')
   })
 
   test('renders a value indicator for each range thumb', () => {
     render(<Slider defaultValue={[20, 80]} showValueIndicator />)
 
-    const indicators = document.querySelectorAll('[data-slot="slider-value-indicator"]')
+    const indicators = document.querySelectorAll('[data-scope="slider"][data-slot="value-indicator"]')
 
     expect(indicators).toHaveLength(2)
     expect(indicators[0]).toHaveTextContent('20')
@@ -88,7 +93,9 @@ describe('Slider', () => {
   test('renders an icon inside the thumb', () => {
     render(<Slider defaultValue={50} icon={<svg aria-label="Volume icon" role="img" />} size="md" />)
 
-    expect(document.querySelector('[data-slot="slider-icon"] [aria-label="Volume icon"]')).toBeInTheDocument()
+    expect(
+      document.querySelector('[data-scope="slider"][data-slot="icon"] [aria-label="Volume icon"]')
+    ).toBeInTheDocument()
   })
 
   test('applies vertical sizing without changing slider orientation semantics', () => {

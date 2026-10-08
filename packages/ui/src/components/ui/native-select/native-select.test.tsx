@@ -15,10 +15,25 @@ describe('NativeSelect', () => {
       </NativeSelect>
     )
 
-    expect(screen.getByRole('combobox', { name: 'Component' })).toHaveAttribute('data-slot', 'native-select')
-    expect(screen.getByRole('combobox', { name: 'Component' })).toHaveClass('cn-native-select')
-    expect(document.querySelector('[data-slot="native-select-wrapper"]')).toHaveClass('cn-native-select-wrapper')
-    expect(document.querySelector('[data-slot="native-select-icon"]')).toHaveClass('cn-native-select-icon')
+    expect(screen.getByRole('combobox', { name: 'Component' })).toHaveAttribute('data-scope', 'native-select')
+    expect(screen.getByRole('combobox', { name: 'Component' })).toHaveAttribute('data-slot', 'root')
+
+    expect(document.querySelector('[data-scope="native-select"][data-slot="wrapper"]')).toHaveAttribute(
+      'data-scope',
+      'native-select'
+    )
+    expect(document.querySelector('[data-scope="native-select"][data-slot="wrapper"]')).toHaveAttribute(
+      'data-slot',
+      'wrapper'
+    )
+    expect(document.querySelector('[data-scope="native-select"][data-slot="icon"]')).toHaveAttribute(
+      'data-scope',
+      'native-select'
+    )
+    expect(document.querySelector('[data-scope="native-select"][data-slot="icon"]')).toHaveAttribute(
+      'data-slot',
+      'icon'
+    )
   })
 
   test('renders grouped options', () => {
@@ -30,6 +45,7 @@ describe('NativeSelect', () => {
       </NativeSelect>
     )
 
-    expect(screen.getByRole('group', { name: 'Engineering' })).toHaveAttribute('data-slot', 'native-select-optgroup')
+    expect(screen.getByRole('group', { name: 'Engineering' })).toHaveAttribute('data-scope', 'native-select')
+    expect(screen.getByRole('group', { name: 'Engineering' })).toHaveAttribute('data-slot', 'optgroup')
   })
 })

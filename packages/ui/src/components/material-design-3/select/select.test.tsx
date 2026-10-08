@@ -20,7 +20,7 @@ describe('Select', () => {
     )
 
     expect(screen.getByRole('combobox')).toHaveTextContent('Dark')
-    expect(screen.getByRole('combobox')).toHaveClass('data-[size=default]:h-14', 'rounded-[4px]')
+    expect(screen.getByRole('combobox')).toHaveClass('data-[size=md]:h-14', 'rounded-[4px]')
   })
 
   test('calls onValueChange when selecting an item', () => {

@@ -29,14 +29,30 @@ describe('Breadcrumb', () => {
 
     const nav = screen.getByRole('navigation', { name: 'breadcrumb' })
     const page = screen.getByRole('link', { name: 'Current' })
-    expect(nav).toHaveAttribute('data-slot', 'breadcrumb')
-    expect(nav).toHaveClass('cn-breadcrumb')
-    expect(screen.getByText('Current').closest('[data-slot="breadcrumb-list"]')).toHaveClass('cn-breadcrumb-list')
-    expect(screen.getByText('Current').closest('[data-slot="breadcrumb-item"]')).toHaveClass('cn-breadcrumb-item')
+    expect(nav).toHaveAttribute('data-scope', 'breadcrumb')
+    expect(nav).toHaveAttribute('data-slot', 'root')
+
+    expect(screen.getByText('Current').closest('[data-scope="breadcrumb"][data-slot="list"]')).toHaveAttribute(
+      'data-scope',
+      'breadcrumb'
+    )
+    expect(screen.getByText('Current').closest('[data-scope="breadcrumb"][data-slot="list"]')).toHaveAttribute(
+      'data-slot',
+      'list'
+    )
+    expect(screen.getByText('Current').closest('[data-scope="breadcrumb"][data-slot="item"]')).toHaveAttribute(
+      'data-scope',
+      'breadcrumb'
+    )
+    expect(screen.getByText('Current').closest('[data-scope="breadcrumb"][data-slot="item"]')).toHaveAttribute(
+      'data-slot',
+      'item'
+    )
     expect(page).toHaveAttribute('aria-current', 'page')
     expect(page).toHaveAttribute('aria-disabled', 'true')
     expect(page).toHaveAttribute('tabIndex', '-1')
-    expect(page).toHaveClass('cn-breadcrumb-page')
+    expect(page).toHaveAttribute('data-scope', 'breadcrumb')
+    expect(page).toHaveAttribute('data-slot', 'page')
   })
 
   test('renders default separator and ellipsis slots', () => {
@@ -55,11 +71,14 @@ describe('Breadcrumb', () => {
       </Breadcrumb>
     )
 
-    expect(screen.getByTestId('separator')).toHaveAttribute('data-slot', 'breadcrumb-separator')
-    expect(screen.getByTestId('separator')).toHaveClass('cn-breadcrumb-separator')
-    expect(screen.getByTestId('separator').querySelector('svg')).toHaveClass('cn-rtl-flip')
-    expect(screen.getByRole('link', { name: 'Docs' })).toHaveClass('cn-breadcrumb-link')
-    expect(screen.getByText('More').parentElement).toHaveClass('cn-breadcrumb-ellipsis')
+    expect(screen.getByTestId('separator')).toHaveAttribute('data-scope', 'breadcrumb')
+    expect(screen.getByTestId('separator')).toHaveAttribute('data-slot', 'separator')
+
+    expect(screen.getByTestId('separator').querySelector('svg')).toHaveClass('rtl:rotate-180')
+    expect(screen.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-scope', 'breadcrumb')
+    expect(screen.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-slot', 'link')
+    expect(screen.getByText('More').parentElement).toHaveAttribute('data-scope', 'breadcrumb')
+    expect(screen.getByText('More').parentElement).toHaveAttribute('data-slot', 'ellipsis')
     expect(screen.getByText('More')).toHaveClass('sr-only')
   })
 })

@@ -50,10 +50,9 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('heading', { level: 1, name: 'Design tokens' })).toHaveAttribute(
-    'data-slot',
-    'typography-h1'
-  )
-  await expect(canvas.getByRole('heading', { level: 2, name: 'Usage' })).toHaveAttribute('data-slot', 'typography-h2')
-  await expect(canvas.getByText('data-slot')).toHaveAttribute('data-slot', 'typography-inline-code')
+  await expect(canvas.getByRole('heading', { level: 1, name: 'Design tokens' })).toHaveAttribute('data-slot', 'h1')
+  await expect(canvas.getByRole('heading', { level: 2, name: 'Usage' })).toHaveAttribute('data-scope', 'typography')
+  await expect(canvas.getByRole('heading', { level: 2, name: 'Usage' })).toHaveAttribute('data-slot', 'h2')
+  await expect(canvas.getByText('data-slot')).toHaveAttribute('data-scope', 'typography')
+  await expect(canvas.getByText('data-slot')).toHaveAttribute('data-slot', 'inline-code')
 }

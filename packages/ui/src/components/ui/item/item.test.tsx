@@ -28,8 +28,10 @@ describe('Item', () => {
       </Item>
     )
 
-    expect(screen.getByText('Token set')).toHaveAttribute('data-slot', 'item-title')
-    expect(screen.getByText('Shared colors')).toHaveAttribute('data-slot', 'item-description')
+    expect(screen.getByText('Token set')).toHaveAttribute('data-scope', 'item')
+    expect(screen.getByText('Token set')).toHaveAttribute('data-slot', 'title')
+    expect(screen.getByText('Shared colors')).toHaveAttribute('data-scope', 'item')
+    expect(screen.getByText('Shared colors')).toHaveAttribute('data-slot', 'description')
   })
 
   test('renders item grouping and media slots', () => {
@@ -47,12 +49,15 @@ describe('Item', () => {
       </ItemGroup>
     )
 
-    expect(screen.getByText('Grouped item').closest('[data-slot="item"]')).toHaveAttribute('data-variant', 'outline')
+    expect(screen.getByText('Grouped item').closest('[data-scope="item"][data-slot="root"]')).toHaveAttribute(
+      'data-variant',
+      'outline'
+    )
     expect(screen.getByText('I')).toHaveAttribute('data-variant', 'icon')
-    expect(document.querySelector('[data-slot="item-group"]')).toBeInTheDocument()
-    expect(document.querySelector('[data-slot="item-header"]')).toBeInTheDocument()
-    expect(document.querySelector('[data-slot="item-footer"]')).toBeInTheDocument()
-    expect(document.querySelector('[data-slot="item-separator"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-scope="item"][data-slot="group"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-scope="item"][data-slot="header"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-scope="item"][data-slot="footer"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-scope="item"][data-slot="separator"]')).toBeInTheDocument()
   })
 
   test('supports render composition', () => {
@@ -64,6 +69,7 @@ describe('Item', () => {
       </Item>
     )
 
-    expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('data-slot', 'item')
+    expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('data-scope', 'item')
+    expect(screen.getByRole('link', { name: 'Documentation' })).toHaveAttribute('data-slot', 'root')
   })
 })

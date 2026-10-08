@@ -183,8 +183,10 @@ Submenu.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByRole('menuitem', { name: 'File' }))
   await userEvent.hover(await page.findByText('Export'))
 
-  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-slot', 'menubar-item')
-  await expect(page.getByText('⌘N')).toHaveAttribute('data-slot', 'menubar-shortcut')
+  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-scope', 'menubar')
+  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-slot', 'item')
+  await expect(page.getByText('⌘N')).toHaveAttribute('data-scope', 'menubar')
+  await expect(page.getByText('⌘N')).toHaveAttribute('data-slot', 'shortcut')
 }
 
 export const WithIcons: Story = {
@@ -222,6 +224,8 @@ WithIcons.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('menuitem', { name: 'File' }))
 
-  await expect(await page.findByText('New file')).toHaveAttribute('data-slot', 'menubar-item')
-  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-slot', 'menubar-shortcut')
+  await expect(await page.findByText('New file')).toHaveAttribute('data-scope', 'menubar')
+  await expect(await page.findByText('New file')).toHaveAttribute('data-slot', 'item')
+  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-scope', 'menubar')
+  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-slot', 'shortcut')
 }

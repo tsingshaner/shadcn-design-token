@@ -12,7 +12,9 @@ describe('Spinner', () => {
     render(<Spinner />)
 
     const spinner = screen.getByRole('status', { name: 'Loading' })
-    expect(spinner).toHaveAttribute('data-slot', 'spinner')
-    expect(spinner).toHaveClass('cn-spinner', 'size-10', 'border-4')
+    expect(spinner).toHaveAttribute('data-scope', 'spinner')
+    expect(spinner).toHaveAttribute('data-slot', 'root')
+
+    expect(spinner).toHaveClass('size-10', 'border-4')
   })
 })

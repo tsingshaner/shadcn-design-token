@@ -175,7 +175,7 @@ Size.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('switch', { name: 'Small' })).toHaveAttribute('data-size', 'sm')
-  await expect(canvas.getByRole('switch', { name: 'Default' })).toHaveAttribute('data-size', 'default')
+  await expect(canvas.getByRole('switch', { name: 'Default' })).toHaveAttribute('data-size', 'md')
 }
 
 export const Checked: Story = {

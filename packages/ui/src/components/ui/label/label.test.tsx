@@ -12,6 +12,7 @@ describe('Label', () => {
     render(<Label htmlFor="email">Email</Label>)
 
     expect(screen.getByText('Email')).toHaveAttribute('for', 'email')
-    expect(screen.getByText('Email')).toHaveClass('cn-label')
+    expect(screen.getByText('Email')).toHaveAttribute('data-scope', 'label')
+    expect(screen.getByText('Email')).toHaveAttribute('data-slot', 'root')
   })
 })

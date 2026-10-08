@@ -29,7 +29,8 @@ const drawerSwipeDirections = {
 const Drawer = ({ children, direction = 'bottom', swipeDirection, ...props }: DrawerProps) => (
   <DrawerDirectionContext.Provider value={direction}>
     <DrawerPrimitive.Root
-      data-slot="drawer"
+      data-scope="drawer"
+      data-slot="root"
       swipeDirection={swipeDirection ?? drawerSwipeDirections[direction]}
       {...props}
     >
@@ -41,20 +42,24 @@ const Drawer = ({ children, direction = 'bottom', swipeDirection, ...props }: Dr
 const DrawerTrigger = ({ className, ...props }: DrawerTriggerProps) => (
   <DrawerPrimitive.Trigger
     className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
-    data-slot="drawer-trigger"
+    data-scope="drawer"
+    data-slot="trigger"
     {...props}
   />
 )
 
-const DrawerPortal = (props: DrawerPortalProps) => <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />
+const DrawerPortal = (props: DrawerPortalProps) => (
+  <DrawerPrimitive.Portal data-scope="drawer" data-slot="portal" {...props} />
+)
 
 const DrawerOverlay = ({ className, ...props }: DrawerOverlayProps) => (
   <DrawerPrimitive.Backdrop
     className={cn(
-      'cn-drawer-overlay fixed inset-0 z-50 bg-black/32 data-[ending-style]:animate-out data-[starting-style]:animate-in',
+      'fixed inset-0 z-50 bg-black/32 data-[ending-style]:animate-out data-[starting-style]:animate-in',
       className
     )}
-    data-slot="drawer-overlay"
+    data-scope="drawer"
+    data-slot="overlay"
     {...props}
   />
 )
@@ -62,7 +67,8 @@ const DrawerOverlay = ({ className, ...props }: DrawerOverlayProps) => (
 const DrawerViewport = ({ className, ...props }: DrawerViewportProps) => (
   <DrawerPrimitive.Viewport
     className={cn('pointer-events-none fixed inset-0 z-50', className)}
-    data-slot="drawer-viewport"
+    data-scope="drawer"
+    data-slot="viewport"
     {...props}
   />
 )
@@ -83,21 +89,27 @@ const DrawerContent = ({ children, className, ...props }: DrawerContentProps) =>
       <DrawerViewport>
         <DrawerPrimitive.Popup
           className={cn(
-            'cn-drawer-content pointer-events-auto fixed flex flex-col bg-muted shadow-xl',
+            'pointer-events-auto fixed flex flex-col bg-muted shadow-xl',
             drawerDirectionClasses[direction],
             className
           )}
           data-direction={direction}
-          data-slot="drawer-content"
+          data-scope="drawer"
+          data-slot="content"
           {...props}
         >
           {direction === 'bottom' || direction === 'top' ? (
             <div
-              className="cn-drawer-handle mx-auto mt-4 h-1 w-8 rounded-full bg-muted-foreground/40"
-              data-slot="drawer-handle"
+              className="mx-auto mt-4 h-1 w-8 rounded-full bg-muted-foreground/40"
+              data-scope="drawer"
+              data-slot="handle"
             />
           ) : null}
-          <DrawerPrimitive.Content className="flex min-h-0 flex-1 flex-col gap-4 p-6" data-slot="drawer-body">
+          <DrawerPrimitive.Content
+            className="flex min-h-0 flex-1 flex-col gap-4 p-6"
+            data-scope="drawer"
+            data-slot="body"
+          >
             {children}
           </DrawerPrimitive.Content>
         </DrawerPrimitive.Popup>
@@ -108,32 +120,36 @@ const DrawerContent = ({ children, className, ...props }: DrawerContentProps) =>
 
 const DrawerHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('cn-drawer-header grid gap-2 text-center sm:text-left', className)}
-    data-slot="drawer-header"
+    className={cn('grid gap-2 text-center sm:text-left', className)}
+    data-scope="drawer"
+    data-slot="header"
     {...props}
   />
 )
 
 const DrawerFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('cn-drawer-footer mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
-    data-slot="drawer-footer"
+    className={cn('mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
+    data-scope="drawer"
+    data-slot="footer"
     {...props}
   />
 )
 
 const DrawerTitle = ({ className, ...props }: DrawerTitleProps) => (
   <DrawerPrimitive.Title
-    className={cn('cn-drawer-title cn-font-heading font-normal text-2xl leading-8', className)}
-    data-slot="drawer-title"
+    className={cn('font-normal text-2xl leading-8', className)}
+    data-scope="drawer"
+    data-slot="title"
     {...props}
   />
 )
 
 const DrawerDescription = ({ className, ...props }: DrawerDescriptionProps) => (
   <DrawerPrimitive.Description
-    className={cn('cn-drawer-description text-muted-foreground text-sm', className)}
-    data-slot="drawer-description"
+    className={cn('text-muted-foreground text-sm', className)}
+    data-scope="drawer"
+    data-slot="description"
     {...props}
   />
 )
@@ -141,7 +157,8 @@ const DrawerDescription = ({ className, ...props }: DrawerDescriptionProps) => (
 const DrawerClose = ({ className, ...props }: DrawerCloseProps) => (
   <DrawerPrimitive.Close
     className={cn('outline-none focus-visible:ring-3 focus-visible:ring-ring/50', className)}
-    data-slot="drawer-close"
+    data-scope="drawer"
+    data-slot="close"
     {...props}
   />
 )

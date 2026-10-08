@@ -94,7 +94,8 @@ export const Basic: Story = {
 Basic.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('navigation', { name: 'breadcrumb' })).toHaveAttribute('data-slot', 'breadcrumb')
+  await expect(canvas.getByRole('navigation', { name: 'breadcrumb' })).toHaveAttribute('data-scope', 'breadcrumb')
+  await expect(canvas.getByRole('navigation', { name: 'breadcrumb' })).toHaveAttribute('data-slot', 'root')
   await expect(canvas.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '#')
   await expect(canvas.getByText('Breadcrumb')).toHaveAttribute('aria-current', 'page')
 }

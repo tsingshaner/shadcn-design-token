@@ -47,25 +47,31 @@ const checkableItemClasses =
 
 const Menubar = ({ className, ...props }: MenubarProps) => (
   <MenubarPrimitive
-    className={cn('cn-menubar flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-xs', className)}
-    data-slot="menubar"
+    className={cn('flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-xs', className)}
+    data-scope="menubar"
+    data-slot="root"
     {...props}
   />
 )
 
-const MenubarMenu = (props: MenubarMenuProps) => <DropdownMenu data-slot="menubar-menu" {...props} />
+const MenubarMenu = (props: MenubarMenuProps) => <DropdownMenu data-scope="menubar" data-slot="menu" {...props} />
 
-const MenubarGroup = (props: MenubarGroupProps) => <DropdownMenuGroup data-slot="menubar-group" {...props} />
+const MenubarGroup = (props: MenubarGroupProps) => (
+  <DropdownMenuGroup data-scope="menubar" data-slot="group" {...props} />
+)
 
-const MenubarPortal = (props: MenubarPortalProps) => <DropdownMenuPortal data-slot="menubar-portal" {...props} />
+const MenubarPortal = (props: MenubarPortalProps) => (
+  <DropdownMenuPortal data-scope="menubar" data-slot="portal" {...props} />
+)
 
 const MenubarTrigger = ({ className, ...props }: MenubarTriggerProps) => (
   <DropdownMenuTrigger
     className={cn(
-      'cn-menubar-trigger flex cursor-default select-none items-center rounded-sm px-3 py-1.5 font-medium text-sm outline-hidden focus:bg-accent focus:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-accent-foreground',
+      'flex cursor-default select-none items-center rounded-sm px-3 py-1.5 font-medium text-sm outline-hidden focus:bg-accent focus:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-accent-foreground',
       className
     )}
-    data-slot="menubar-trigger"
+    data-scope="menubar"
+    data-slot="trigger"
     {...props}
   />
 )
@@ -80,11 +86,9 @@ const MenubarContent = ({
   <DropdownMenuContent
     align={align}
     alignOffset={alignOffset}
-    className={cn(
-      'cn-menubar-content cn-menubar-content-logical cn-menu-target cn-menu-translucent min-w-32',
-      className
-    )}
-    data-slot="menubar-content"
+    className={cn('min-w-32', className)}
+    data-scope="menubar"
+    data-slot="content"
     sideOffset={sideOffset}
     {...props}
   />
@@ -92,9 +96,10 @@ const MenubarContent = ({
 
 const MenubarItem = ({ className, inset, variant = 'default', ...props }: MenubarItemProps) => (
   <DropdownMenuItem
-    className={cn('cn-menubar-item group/menubar-item', className)}
+    className={cn('group/menubar-item', className)}
     data-inset={inset}
-    data-slot="menubar-item"
+    data-scope="menubar"
+    data-slot="item"
     data-variant={variant}
     inset={inset}
     variant={variant}
@@ -105,14 +110,16 @@ const MenubarItem = ({ className, inset, variant = 'default', ...props }: Menuba
 const MenubarCheckboxItem = ({ children, className, checked, inset, ...props }: MenubarCheckboxItemProps) => (
   <MenuPrimitive.CheckboxItem
     checked={checked}
-    className={cn('cn-menubar-checkbox-item', checkableItemClasses, 'pl-8', className)}
+    className={cn('', checkableItemClasses, 'pl-8', className)}
     data-inset={inset}
-    data-slot="menubar-checkbox-item"
+    data-scope="menubar"
+    data-slot="checkbox-item"
     {...props}
   >
     <span
-      className="cn-menubar-checkbox-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
-      data-slot="menubar-checkbox-item-indicator"
+      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      data-scope="menubar"
+      data-slot="checkbox-item-indicator"
     >
       <MenuPrimitive.CheckboxItemIndicator>
         <CheckIcon />
@@ -123,19 +130,21 @@ const MenubarCheckboxItem = ({ children, className, checked, inset, ...props }: 
 )
 
 const MenubarRadioGroup = (props: MenubarRadioGroupProps) => (
-  <DropdownMenuRadioGroup data-slot="menubar-radio-group" {...props} />
+  <DropdownMenuRadioGroup data-scope="menubar" data-slot="radio-group" {...props} />
 )
 
 const MenubarRadioItem = ({ children, className, inset, ...props }: MenubarRadioItemProps) => (
   <MenuPrimitive.RadioItem
-    className={cn('cn-menubar-radio-item', checkableItemClasses, 'pl-8', className)}
+    className={cn('', checkableItemClasses, 'pl-8', className)}
     data-inset={inset}
-    data-slot="menubar-radio-item"
+    data-scope="menubar"
+    data-slot="radio-item"
     {...props}
   >
     <span
-      className="cn-menubar-radio-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
-      data-slot="menubar-radio-item-indicator"
+      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      data-scope="menubar"
+      data-slot="radio-item-indicator"
     >
       <MenuPrimitive.RadioItemIndicator>
         <CheckIcon />
@@ -147,9 +156,10 @@ const MenubarRadioItem = ({ children, className, inset, ...props }: MenubarRadio
 
 const MenubarLabel = ({ className, inset, ...props }: MenubarLabelProps) => (
   <DropdownMenuLabel
-    className={cn('cn-menubar-label', className)}
+    className={className}
     data-inset={inset}
-    data-slot="menubar-label"
+    data-scope="menubar"
+    data-slot="label"
     inset={inset}
     {...props}
   />
@@ -157,27 +167,25 @@ const MenubarLabel = ({ className, inset, ...props }: MenubarLabelProps) => (
 
 const MenubarSeparator = ({ className, ...props }: MenubarSeparatorProps) => (
   <DropdownMenuSeparator
-    className={cn('cn-menubar-separator -mx-1 my-1 h-px', className)}
-    data-slot="menubar-separator"
+    className={cn('-mx-1 my-1 h-px', className)}
+    data-scope="menubar"
+    data-slot="separator"
     {...props}
   />
 )
 
 const MenubarShortcut = ({ className, ...props }: MenubarShortcutProps) => (
-  <DropdownMenuShortcut
-    className={cn('cn-menubar-shortcut ml-auto', className)}
-    data-slot="menubar-shortcut"
-    {...props}
-  />
+  <DropdownMenuShortcut className={cn('ml-auto', className)} data-scope="menubar" data-slot="shortcut" {...props} />
 )
 
-const MenubarSub = (props: MenubarSubProps) => <DropdownMenuSub data-slot="menubar-sub" {...props} />
+const MenubarSub = (props: MenubarSubProps) => <DropdownMenuSub data-scope="menubar" data-slot="sub" {...props} />
 
 const MenubarSubTrigger = ({ className, inset, ...props }: MenubarSubTriggerProps) => (
   <DropdownMenuSubTrigger
-    className={cn('cn-menubar-sub-trigger', className)}
+    className={className}
     data-inset={inset}
-    data-slot="menubar-sub-trigger"
+    data-scope="menubar"
+    data-slot="sub-trigger"
     inset={inset}
     {...props}
   />
@@ -185,8 +193,9 @@ const MenubarSubTrigger = ({ className, inset, ...props }: MenubarSubTriggerProp
 
 const MenubarSubContent = ({ className, ...props }: MenubarSubContentProps) => (
   <DropdownMenuSubContent
-    className={cn('cn-menubar-sub-content cn-menu-target cn-menu-translucent min-w-32', className)}
-    data-slot="menubar-sub-content"
+    className={cn('min-w-32', className)}
+    data-scope="menubar"
+    data-slot="sub-content"
     {...props}
   />
 )

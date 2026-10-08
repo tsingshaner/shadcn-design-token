@@ -53,9 +53,15 @@ Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
 
-  await expect(canvas.getByRole('button', { name: /Tokens/ })).toHaveAttribute('data-slot', 'navigation-menu-trigger')
-  await expect(await page.findByText('Color tokens')).toHaveAttribute('data-slot', 'navigation-menu-link')
-  await expect(page.getByText('Typography tokens')).toHaveAttribute('data-slot', 'navigation-menu-link')
-  await expect(canvas.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-slot', 'navigation-menu-link')
-  await expect(page.getByText('Color tokens').closest('[data-slot="navigation-menu-popup"]')).toBeInTheDocument()
+  await expect(canvas.getByRole('button', { name: /Tokens/ })).toHaveAttribute('data-scope', 'navigation-menu')
+  await expect(canvas.getByRole('button', { name: /Tokens/ })).toHaveAttribute('data-slot', 'trigger')
+  await expect(await page.findByText('Color tokens')).toHaveAttribute('data-scope', 'navigation-menu')
+  await expect(await page.findByText('Color tokens')).toHaveAttribute('data-slot', 'link')
+  await expect(page.getByText('Typography tokens')).toHaveAttribute('data-scope', 'navigation-menu')
+  await expect(page.getByText('Typography tokens')).toHaveAttribute('data-slot', 'link')
+  await expect(canvas.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-scope', 'navigation-menu')
+  await expect(canvas.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-slot', 'link')
+  await expect(
+    page.getByText('Color tokens').closest('[data-scope="navigation-menu"][data-slot="popup"]')
+  ).toBeInTheDocument()
 }

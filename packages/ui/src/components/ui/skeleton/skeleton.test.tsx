@@ -12,7 +12,7 @@ describe('Skeleton', () => {
     render(<Skeleton aria-label="Loading" />)
 
     const skeleton = screen.getByLabelText('Loading')
-    expect(skeleton).toHaveAttribute('data-slot', 'skeleton')
-    expect(skeleton).toHaveClass('cn-skeleton')
+    expect(skeleton).toHaveAttribute('data-scope', 'skeleton')
+    expect(skeleton).toHaveAttribute('data-slot', 'root')
   })
 })

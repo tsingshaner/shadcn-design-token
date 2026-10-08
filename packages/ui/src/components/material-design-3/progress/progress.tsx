@@ -75,7 +75,8 @@ const LinearWave = ({ thickness }: Pick<ProgressVisualProps, 'thickness'>) => {
     <svg
       aria-hidden="true"
       className="absolute inset-0 size-full overflow-visible"
-      data-slot="progress-wave"
+      data-scope="progress"
+      data-slot="wave"
       preserveAspectRatio="none"
       ref={ref}
       viewBox={`0 0 ${width || 1} ${height}`}
@@ -107,7 +108,8 @@ const LinearProgressVisual = ({ percentage, shape, showTrack, thickness, value }
             'absolute top-1/2 right-0 -translate-y-1/2 rounded-full bg-secondary',
             linearThicknesses[thickness]
           )}
-          data-slot="progress-track-rest"
+          data-scope="progress"
+          data-slot="track-rest"
           style={{ left: value !== null && percentage > 0 ? `calc(${percentage}% + ${linearGaps[thickness]}px)` : 0 }}
         />
       )}
@@ -124,7 +126,8 @@ const LinearProgressVisual = ({ percentage, shape, showTrack, thickness, value }
         <span
           aria-hidden="true"
           className="absolute top-1/2 right-0 size-1 -translate-y-1/2 rounded-full bg-primary"
-          data-slot="progress-stop"
+          data-scope="progress"
+          data-slot="stop"
         />
       )}
     </ProgressTrack>
@@ -153,7 +156,8 @@ const CircularProgressVisual = ({ percentage, shape, showTrack, thickness, value
               className="fill-none stroke-secondary"
               cx={center}
               cy={center}
-              data-slot="progress-circular-rest"
+              data-scope="progress"
+              data-slot="circular-rest"
               pathLength="100"
               r={radius}
               strokeDasharray={`${restPercentage} ${100 - restPercentage}`}
@@ -193,9 +197,10 @@ const Progress = ({
 
   return (
     <ProgressPrimitive.Root
-      className={cn('cn-progress-root flex flex-wrap gap-3', variant === 'linear' ? 'w-full' : 'w-fit', className)}
+      className={cn('flex flex-wrap gap-3', variant === 'linear' ? 'w-full' : 'w-fit', className)}
+      data-scope="progress"
       data-shape={shape}
-      data-slot="progress"
+      data-slot="root"
       data-thickness={thickness}
       data-variant={variant}
       max={max}
@@ -215,35 +220,36 @@ const Progress = ({
 
 const ProgressTrack = ({ className, ...props }: ProgressTrackProps) => (
   <ProgressPrimitive.Track
-    className={cn(
-      'cn-progress-track relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-secondary',
-      className
-    )}
-    data-slot="progress-track"
+    className={cn('relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-secondary', className)}
+    data-scope="progress"
+    data-slot="track"
     {...props}
   />
 )
 
 const ProgressIndicator = ({ className, ...props }: ProgressIndicatorProps) => (
   <ProgressPrimitive.Indicator
-    className={cn('cn-progress-indicator h-full rounded-full bg-primary transition-all', className)}
-    data-slot="progress-indicator"
+    className={cn('h-full rounded-full bg-primary transition-all', className)}
+    data-scope="progress"
+    data-slot="indicator"
     {...props}
   />
 )
 
 const ProgressLabel = ({ className, ...props }: ProgressLabelProps) => (
   <ProgressPrimitive.Label
-    className={cn('cn-progress-label font-medium text-sm', className)}
-    data-slot="progress-label"
+    className={cn('font-medium text-sm', className)}
+    data-scope="progress"
+    data-slot="label"
     {...props}
   />
 )
 
 const ProgressValue = ({ className, ...props }: ProgressValueProps) => (
   <ProgressPrimitive.Value
-    className={cn('cn-progress-value text-muted-foreground text-sm tabular-nums', className)}
-    data-slot="progress-value"
+    className={cn('text-muted-foreground text-sm tabular-nums', className)}
+    data-scope="progress"
+    data-slot="value"
     {...props}
   />
 )

@@ -17,11 +17,10 @@ describe('ButtonGroup', () => {
       </ButtonGroup>
     )
 
-    expect(screen.getByLabelText('Text actions')).toHaveAttribute('data-slot', 'button-group')
-    expect(screen.getByLabelText('Text actions')).toHaveClass(
-      'cn-button-group',
-      'cn-button-group-orientation-horizontal'
-    )
+    expect(screen.getByLabelText('Text actions')).toHaveAttribute('data-scope', 'button-group')
+    expect(screen.getByLabelText('Text actions')).toHaveAttribute('data-slot', 'root')
+
+    expect(screen.getByLabelText('Text actions')).toHaveAttribute('data-orientation', 'horizontal')
   })
 
   test('supports vertical orientation', () => {
@@ -33,7 +32,8 @@ describe('ButtonGroup', () => {
     )
 
     expect(screen.getByLabelText('Media controls')).toHaveAttribute('data-orientation', 'vertical')
-    expect(screen.getByLabelText('Media controls')).toHaveClass('cn-button-group-orientation-vertical')
+    expect(screen.getByLabelText('Media controls')).toHaveAttribute('data-scope', 'button-group')
+    expect(screen.getByLabelText('Media controls')).toHaveAttribute('data-slot', 'root')
   })
 
   test('renders text and separator slots', () => {
@@ -45,8 +45,10 @@ describe('ButtonGroup', () => {
       </ButtonGroup>
     )
 
-    expect(screen.getByText('USD')).toHaveAttribute('data-slot', 'button-group-text')
-    expect(screen.getByText('USD')).toHaveClass('cn-button-group-text')
-    expect(screen.getByTestId('separator')).toHaveClass('cn-button-group-separator')
+    expect(screen.getByText('USD')).toHaveAttribute('data-scope', 'button-group')
+    expect(screen.getByText('USD')).toHaveAttribute('data-slot', 'text')
+
+    expect(screen.getByTestId('separator')).toHaveAttribute('data-scope', 'button-group')
+    expect(screen.getByTestId('separator')).toHaveAttribute('data-slot', 'separator')
   })
 })

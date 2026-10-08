@@ -11,7 +11,9 @@ describe('Textarea', () => {
   test('renders a textarea', () => {
     render(<Textarea aria-label="Message" />)
 
-    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveAttribute('data-slot', 'textarea')
-    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveClass('cn-textarea', 'min-h-28', 'rounded-[4px]')
+    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveAttribute('data-scope', 'textarea')
+    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveAttribute('data-slot', 'root')
+
+    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveClass('min-h-28', 'rounded-[4px]')
   })
 })

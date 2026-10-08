@@ -20,9 +20,18 @@ describe('InputOTP', () => {
 
     fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: '1' } })
 
-    expect(screen.getAllByRole('textbox')[0].closest('[data-slot="input-otp"]')).toHaveClass('cn-input-otp')
-    expect(screen.getAllByRole('textbox')[0].parentElement).toHaveClass('cn-input-otp-group')
-    expect(screen.getAllByRole('textbox')[0]).toHaveClass('cn-input-otp-input', 'cn-input-otp-slot')
+    expect(screen.getAllByRole('textbox')[0].closest('[data-scope="input-otp"][data-slot="root"]')).toHaveAttribute(
+      'data-scope',
+      'input-otp'
+    )
+    expect(screen.getAllByRole('textbox')[0].closest('[data-scope="input-otp"][data-slot="root"]')).toHaveAttribute(
+      'data-slot',
+      'root'
+    )
+    expect(screen.getAllByRole('textbox')[0].parentElement).toHaveAttribute('data-scope', 'input-otp')
+    expect(screen.getAllByRole('textbox')[0].parentElement).toHaveAttribute('data-slot', 'group')
+    expect(screen.getAllByRole('textbox')[0]).toHaveAttribute('data-scope', 'input-otp')
+    expect(screen.getAllByRole('textbox')[0]).toHaveAttribute('data-slot', 'slot')
     expect(onValueChange).toHaveBeenCalledWith('1', expect.any(Object))
   })
 
@@ -54,6 +63,13 @@ describe('InputOTP', () => {
       </InputOTP>
     )
 
-    expect(document.querySelector('[data-slot="input-otp-separator"]')).toHaveClass('cn-input-otp-separator')
+    expect(document.querySelector('[data-scope="input-otp"][data-slot="separator"]')).toHaveAttribute(
+      'data-scope',
+      'input-otp'
+    )
+    expect(document.querySelector('[data-scope="input-otp"][data-slot="separator"]')).toHaveAttribute(
+      'data-slot',
+      'separator'
+    )
   })
 })

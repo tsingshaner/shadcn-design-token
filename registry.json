@@ -15,24 +15,34 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/alert/alert.tsx",
           "target": "@ui/alert/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "alert",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/alert-dialog/alert-dialog.tsx",
           "target": "@ui/alert-dialog/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "alert-dialog",
@@ -52,12 +62,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/attachment/attachment.tsx",
           "target": "@ui/attachment/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "attachment",
@@ -65,24 +80,34 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/avatar/avatar.tsx",
           "target": "@ui/avatar/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "avatar",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/badge/badge.tsx",
           "target": "@ui/badge/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "badge",
@@ -101,36 +126,51 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/bubble/bubble.tsx",
           "target": "@ui/bubble/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "bubble",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/button/button.tsx",
           "target": "@ui/button/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "button",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/button-group/button-group.tsx",
           "target": "@ui/button-group/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "button-group",
@@ -337,24 +377,34 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/empty/empty.tsx",
           "target": "@ui/empty/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "empty",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/field/field.tsx",
           "target": "@ui/field/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "field",
@@ -386,12 +436,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/input-group/input-group.tsx",
           "target": "@ui/input-group/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "input-group",
@@ -410,12 +465,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/item/item.tsx",
           "target": "@ui/item/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "item",
@@ -447,24 +507,34 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/marker/marker.tsx",
           "target": "@ui/marker/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "marker",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/alert-dialog/alert-dialog.tsx",
           "target": "@components/material-design-3/alert-dialog/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-alert-dialog",
@@ -472,24 +542,34 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/badge/badge.tsx",
           "target": "@components/material-design-3/badge/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-badge",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/button/button.tsx",
           "target": "@components/material-design-3/button/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-button",
@@ -633,24 +713,34 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/input/input.tsx",
           "target": "@components/material-design-3/input/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-input",
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/item/item.tsx",
           "target": "@components/material-design-3/item/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-item",
@@ -757,12 +847,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/sidebar/sidebar.tsx",
           "target": "@components/material-design-3/sidebar/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-sidebar",
@@ -775,12 +870,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/slider/slider.tsx",
           "target": "@components/material-design-3/slider/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-slider",
@@ -811,12 +911,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/tabs/tabs.tsx",
           "target": "@components/material-design-3/tabs/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-tabs",
@@ -848,12 +953,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toggle/toggle.tsx",
           "target": "@components/material-design-3/toggle/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "material-design-3-toggle",
@@ -1058,12 +1168,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cn"],
+      "dependencies": ["cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/sidebar/sidebar.tsx",
           "target": "@ui/sidebar/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "sidebar",
@@ -1143,12 +1258,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/tabs/tabs.tsx",
           "target": "@ui/tabs/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "tabs",
@@ -1179,12 +1299,17 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "cn"],
+      "dependencies": ["@base-ui/react", "cn", "cva@1.0.0-beta.12"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/toggle/toggle.tsx",
           "target": "@ui/toggle/index.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "packages/ui/src/lib/cva.ts",
+          "target": "@lib/cva.ts",
+          "type": "registry:lib"
         }
       ],
       "name": "toggle",

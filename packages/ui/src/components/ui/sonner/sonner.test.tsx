@@ -15,7 +15,14 @@ describe('Sonner', () => {
     sonnerToast.success('Token published')
 
     expect(await screen.findByText('Token published')).toBeInTheDocument()
-    expect(screen.getByText('Token published').closest('[data-slot="toast"]')).toHaveClass('cn-toast')
+    expect(screen.getByText('Token published').closest('[data-scope="toast"][data-slot="root"]')).toHaveAttribute(
+      'data-scope',
+      'toast'
+    )
+    expect(screen.getByText('Token published').closest('[data-scope="toast"][data-slot="root"]')).toHaveAttribute(
+      'data-slot',
+      'root'
+    )
   })
 
   test('renders description and positioned viewport data', async () => {

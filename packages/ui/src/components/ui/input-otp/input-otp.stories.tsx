@@ -75,7 +75,7 @@ Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getAllByRole('textbox')).toHaveLength(6)
-  await expect(canvasElement.querySelectorAll('[data-slot="input-otp-group"]')).toHaveLength(2)
+  await expect(canvasElement.querySelectorAll('[data-scope="input-otp"][data-slot="group"]')).toHaveLength(2)
 }
 
 export const Separator: Story = {
@@ -110,7 +110,7 @@ Separator.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getAllByRole('textbox')).toHaveLength(6)
-  await expect(canvasElement.querySelectorAll('[data-slot="input-otp-separator"]')).toHaveLength(2)
+  await expect(canvasElement.querySelectorAll('[data-scope="input-otp"][data-slot="separator"]')).toHaveLength(2)
 }
 
 export const Disabled: Story = {
@@ -285,13 +285,13 @@ export const Form: Story = {
             </Button>
           </div>
           <InputOTP id="otp-verification" maxLength={6} required>
-            <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
+            <InputOTPGroup className="*:data-[scope=input-otp]:data-[slot=slot]:h-12 *:data-[scope=input-otp]:data-[slot=slot]:w-11 *:data-[scope=input-otp]:data-[slot=slot]:text-xl">
               <InputOTPSlot index={0} />
               <InputOTPSlot index={1} />
               <InputOTPSlot index={2} />
             </InputOTPGroup>
             <InputOTPSeparator className="mx-2" />
-            <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
+            <InputOTPGroup className="*:data-[scope=input-otp]:data-[slot=slot]:h-12 *:data-[scope=input-otp]:data-[slot=slot]:w-11 *:data-[scope=input-otp]:data-[slot=slot]:text-xl">
               <InputOTPSlot index={3} />
               <InputOTPSlot index={4} />
               <InputOTPSlot index={5} />

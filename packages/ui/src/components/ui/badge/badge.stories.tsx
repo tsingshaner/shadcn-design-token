@@ -41,12 +41,12 @@ const BookmarkIcon = (props: IconProps) => (
 const meta = {
   args: {
     children: 'Badge',
-    variant: 'default'
+    variant: 'primary'
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link']
+      options: ['primary', 'secondary', 'destructive', 'outline', 'ghost', 'link']
     }
   },
   component: Badge,
@@ -70,7 +70,8 @@ export const Default: Story = {}
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('Badge')).toHaveAttribute('data-slot', 'badge')
+  await expect(canvas.getByText('Badge')).toHaveAttribute('data-scope', 'badge')
+  await expect(canvas.getByText('Badge')).toHaveAttribute('data-slot', 'root')
 }
 
 export const Variants: Story = {
@@ -166,7 +167,8 @@ Link.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('link', { name: 'Open Link' })).toHaveAttribute('href', '#link')
-  await expect(canvas.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-slot', 'badge')
+  await expect(canvas.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-scope', 'badge')
+  await expect(canvas.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-slot', 'root')
 }
 
 export const CustomColors: Story = {

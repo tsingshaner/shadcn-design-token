@@ -11,10 +11,10 @@ type PopoverHeaderProps = ComponentProps<'div'>
 type PopoverTitleProps = PopoverPrimitive.Title.Props
 type PopoverDescriptionProps = PopoverPrimitive.Description.Props
 
-const Popover = (props: PopoverProps) => <PopoverPrimitive.Root data-slot="popover" {...props} />
+const Popover = (props: PopoverProps) => <PopoverPrimitive.Root data-scope="popover" data-slot="root" {...props} />
 
 const PopoverTrigger = (props: PopoverTriggerProps) => (
-  <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+  <PopoverPrimitive.Trigger data-scope="popover" data-slot="trigger" {...props} />
 )
 
 const PopoverContent = ({
@@ -35,10 +35,11 @@ const PopoverContent = ({
     >
       <PopoverPrimitive.Popup
         className={cn(
-          'cn-popover-content cn-popover-content-logical z-50 w-72 origin-(--transform-origin) rounded-md border bg-background p-4 text-foreground shadow-md outline-hidden',
+          'z-50 w-72 origin-(--transform-origin) rounded-md border bg-background p-4 text-foreground shadow-md outline-hidden',
           className
         )}
-        data-slot="popover-content"
+        data-scope="popover"
+        data-slot="content"
         {...props}
       />
     </PopoverPrimitive.Positioner>
@@ -46,21 +47,23 @@ const PopoverContent = ({
 )
 
 const PopoverHeader = ({ className, ...props }: PopoverHeaderProps) => (
-  <div className={cn('cn-popover-header grid gap-1.5', className)} data-slot="popover-header" {...props} />
+  <div className={cn('grid gap-1.5', className)} data-scope="popover" data-slot="header" {...props} />
 )
 
 const PopoverTitle = ({ className, ...props }: PopoverTitleProps) => (
   <PopoverPrimitive.Title
-    className={cn('cn-popover-title font-medium leading-none', className)}
-    data-slot="popover-title"
+    className={cn('font-medium leading-none', className)}
+    data-scope="popover"
+    data-slot="title"
     {...props}
   />
 )
 
 const PopoverDescription = ({ className, ...props }: PopoverDescriptionProps) => (
   <PopoverPrimitive.Description
-    className={cn('cn-popover-description text-muted-foreground text-sm', className)}
-    data-slot="popover-description"
+    className={cn('text-muted-foreground text-sm', className)}
+    data-scope="popover"
+    data-slot="description"
     {...props}
   />
 )

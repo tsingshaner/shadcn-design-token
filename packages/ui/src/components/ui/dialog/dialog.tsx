@@ -20,19 +20,24 @@ type DialogTitleProps = DialogPrimitive.Title.Props
 type DialogDescriptionProps = DialogPrimitive.Description.Props
 type DialogCloseProps = DialogPrimitive.Close.Props
 
-const Dialog = (props: DialogProps) => <DialogPrimitive.Root data-slot="dialog" {...props} />
+const Dialog = (props: DialogProps) => <DialogPrimitive.Root data-scope="dialog" data-slot="root" {...props} />
 
-const DialogTrigger = (props: DialogTriggerProps) => <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
+const DialogTrigger = (props: DialogTriggerProps) => (
+  <DialogPrimitive.Trigger data-scope="dialog" data-slot="trigger" {...props} />
+)
 
-const DialogPortal = (props: DialogPortalProps) => <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
+const DialogPortal = (props: DialogPortalProps) => (
+  <DialogPrimitive.Portal data-scope="dialog" data-slot="portal" {...props} />
+)
 
 const DialogOverlay = ({ className, ...props }: DialogOverlayProps) => (
   <DialogPrimitive.Backdrop
     className={cn(
-      'cn-dialog-overlay fixed inset-0 isolate z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
+      'fixed inset-0 isolate z-50 bg-black/50 data-[ending-style]:animate-out data-[starting-style]:animate-in',
       className
     )}
-    data-slot="dialog-overlay"
+    data-scope="dialog"
+    data-slot="overlay"
     {...props}
   />
 )
@@ -42,19 +47,23 @@ const DialogContent = ({ children, className, showCloseButton = true, ...props }
     <DialogOverlay />
     <DialogPrimitive.Popup
       className={cn(
-        'cn-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg',
+        'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg',
         className
       )}
-      data-slot="dialog-content"
+      data-scope="dialog"
+      data-slot="content"
       {...props}
     >
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close
-          data-slot="dialog-close"
+          data-scope="dialog"
+          data-slot="close"
           render={
             <Button
-              className="cn-dialog-close absolute top-4 right-4 opacity-70 hover:opacity-100"
+              className="absolute top-4 right-4 opacity-70 hover:opacity-100"
+              data-scope="dialog"
+              data-slot="close"
               size="icon-sm"
               variant="ghost"
             />
@@ -70,16 +79,18 @@ const DialogContent = ({ children, className, showCloseButton = true, ...props }
 
 const DialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('cn-dialog-header flex flex-col gap-2 text-center sm:text-left', className)}
-    data-slot="dialog-header"
+    className={cn('flex flex-col gap-2 text-center sm:text-left', className)}
+    data-scope="dialog"
+    data-slot="header"
     {...props}
   />
 )
 
 const DialogFooter = ({ children, className, showCloseButton = false, ...props }: DialogFooterProps) => (
   <div
-    className={cn('cn-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
-    data-slot="dialog-footer"
+    className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+    data-scope="dialog"
+    data-slot="footer"
     {...props}
   >
     {children}
@@ -89,21 +100,25 @@ const DialogFooter = ({ children, className, showCloseButton = false, ...props }
 
 const DialogTitle = ({ className, ...props }: DialogTitleProps) => (
   <DialogPrimitive.Title
-    className={cn('cn-dialog-title cn-font-heading font-semibold text-lg leading-none', className)}
-    data-slot="dialog-title"
+    className={cn('font-semibold text-lg leading-none', className)}
+    data-scope="dialog"
+    data-slot="title"
     {...props}
   />
 )
 
 const DialogDescription = ({ className, ...props }: DialogDescriptionProps) => (
   <DialogPrimitive.Description
-    className={cn('cn-dialog-description text-muted-foreground text-sm', className)}
-    data-slot="dialog-description"
+    className={cn('text-muted-foreground text-sm', className)}
+    data-scope="dialog"
+    data-slot="description"
     {...props}
   />
 )
 
-const DialogClose = (props: DialogCloseProps) => <DialogPrimitive.Close data-slot="dialog-close" {...props} />
+const DialogClose = (props: DialogCloseProps) => (
+  <DialogPrimitive.Close data-scope="dialog" data-slot="close" {...props} />
+)
 
 export type {
   DialogCloseProps,

@@ -75,8 +75,12 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('CN')).toHaveAttribute('data-slot', 'avatar-fallback')
-  await expect(canvasElement.querySelector('[data-slot="avatar"]')).toHaveAttribute('data-size', 'default')
+  await expect(canvas.getByText('CN')).toHaveAttribute('data-scope', 'avatar')
+  await expect(canvas.getByText('CN')).toHaveAttribute('data-slot', 'fallback')
+  await expect(canvasElement.querySelector('[data-scope="avatar"][data-slot="root"]')).toHaveAttribute(
+    'data-size',
+    'md'
+  )
 }
 
 export const WithBadge: Story = {
@@ -97,7 +101,7 @@ export const WithBadge: Story = {
   )
 }
 WithBadge.play = async ({ canvasElement }) => {
-  await expect(canvasElement.querySelector('[data-slot="avatar-badge"]')).toHaveClass('bg-green-600')
+  await expect(canvasElement.querySelector('[data-scope="avatar"][data-slot="badge"]')).toHaveClass('bg-green-600')
 }
 
 export const BadgeWithIcon: Story = {
@@ -165,8 +169,9 @@ export const GroupCount: Story = {
 GroupCount.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('+3')).toHaveAttribute('data-slot', 'avatar-group-count')
-  await expect(canvasElement.querySelectorAll('[data-slot="avatar"]')).toHaveLength(3)
+  await expect(canvas.getByText('+3')).toHaveAttribute('data-scope', 'avatar')
+  await expect(canvas.getByText('+3')).toHaveAttribute('data-slot', 'group-count')
+  await expect(canvasElement.querySelectorAll('[data-scope="avatar"][data-slot="root"]')).toHaveLength(3)
 }
 
 export const GroupCountIcon: Story = {
@@ -204,7 +209,7 @@ export const Sizes: Story = {
   },
   render: () => (
     <div className="flex flex-wrap items-center gap-2 grayscale">
-      {(['sm', 'default', 'lg'] as const).map((size) => (
+      {(['sm', 'md', 'lg'] as const).map((size) => (
         <Avatar key={size} size={size}>
           <AvatarImage alt="@shadcn" src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
@@ -214,10 +219,10 @@ export const Sizes: Story = {
   )
 }
 Sizes.play = async ({ canvasElement }) => {
-  const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]')
+  const avatars = canvasElement.querySelectorAll('[data-scope="avatar"][data-slot="root"]')
 
   await expect(avatars[0]).toHaveAttribute('data-size', 'sm')
-  await expect(avatars[1]).toHaveAttribute('data-size', 'default')
+  await expect(avatars[1]).toHaveAttribute('data-size', 'md')
   await expect(avatars[2]).toHaveAttribute('data-size', 'lg')
 }
 

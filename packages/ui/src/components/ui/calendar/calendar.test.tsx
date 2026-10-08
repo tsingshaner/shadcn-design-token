@@ -22,6 +22,6 @@ describe('Calendar', () => {
   test('renders six weeks when fixedWeeks is enabled', () => {
     const { container } = render(<Calendar defaultMonth={new Date(2026, 5, 1)} fixedWeeks />)
 
-    expect(container.querySelector('[data-slot="calendar-grid"]')?.children).toHaveLength(49)
+    expect(container.querySelector('[data-scope="calendar"][data-slot="grid"]')?.children).toHaveLength(49)
   })
 })

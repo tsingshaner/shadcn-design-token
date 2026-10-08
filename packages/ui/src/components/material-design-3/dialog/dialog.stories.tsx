@@ -70,12 +70,17 @@ Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
 
-  await expect(canvas.getByRole('button', { name: 'Share' })).toHaveClass('cn-button', 'cn-button-variant-outline')
+  await expect(canvas.getByRole('button', { name: 'Share' })).toHaveAttribute('data-scope', 'dialog')
+  await expect(canvas.getByRole('button', { name: 'Share' })).toHaveAttribute('data-slot', 'trigger')
+  await expect(canvas.getByRole('button', { name: 'Share' })).toHaveAttribute('data-variant', 'outline')
   await userEvent.click(canvas.getByRole('button', { name: 'Share' }))
 
-  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-slot', 'dialog-content')
+  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-scope', 'dialog')
+  await expect(await page.findByRole('dialog', { name: 'Share link' })).toHaveAttribute('data-slot', 'content')
   await expect(page.getByDisplayValue('https://ui.shadcn.com/docs/installation')).toBeInTheDocument()
-  await expect(page.getByRole('button', { name: 'Close' })).toHaveClass('cn-button', 'cn-button-variant-ghost')
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveAttribute('data-scope', 'dialog')
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveAttribute('data-slot', 'close')
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveAttribute('data-variant', 'ghost')
 }
 
 export const WithCloseButton: Story = {
@@ -105,7 +110,8 @@ WithCloseButton.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByRole('button', { name: 'With Close Button' }))
 
   await expect(await page.findByRole('dialog', { name: 'With Close Button' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Close' })).toHaveClass('cn-button')
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveAttribute('data-scope', 'dialog')
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveAttribute('data-slot', 'close')
 }
 
 export const StickyFooter: Story = {

@@ -344,7 +344,7 @@ export const WithButtonGroup: Story = {
   render: () => (
     <Field className="max-w-sm">
       <FieldLabel htmlFor="input-button-group">Search</FieldLabel>
-      <ButtonGroup className="w-full [&_[data-slot=button]]:rounded-l-none [&_[data-slot=input]]:rounded-r-none [&_[data-slot=input]]:shadow-none">
+      <ButtonGroup className="w-full [&_[data-scope=button][data-slot=root]]:rounded-l-none [&_[data-scope=input][data-slot=root]]:rounded-r-none [&_[data-scope=input][data-slot=root]]:shadow-none">
         <Input id="input-button-group" placeholder="Type to search..." />
         <Button variant="outline">Search</Button>
       </ButtonGroup>

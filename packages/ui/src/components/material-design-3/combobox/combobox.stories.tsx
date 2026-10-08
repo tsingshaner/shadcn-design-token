@@ -78,11 +78,14 @@ Basic.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
 
-  await expect(canvas.getByPlaceholderText('Select a framework')).toHaveAttribute('data-slot', 'combobox-input')
-  await expect(await page.findByText('Next.js')).toHaveAttribute('data-slot', 'combobox-item')
+  await expect(canvas.getByPlaceholderText('Select a framework')).toHaveAttribute('data-scope', 'combobox')
+  await expect(canvas.getByPlaceholderText('Select a framework')).toHaveAttribute('data-slot', 'input')
+  await expect(await page.findByText('Next.js')).toHaveAttribute('data-scope', 'combobox')
+  await expect(await page.findByText('Next.js')).toHaveAttribute('data-slot', 'item')
 
   await userEvent.type(canvas.getByPlaceholderText('Select a framework'), 'Ast')
-  await expect(page.getByText('Astro')).toHaveAttribute('data-slot', 'combobox-item')
+  await expect(page.getByText('Astro')).toHaveAttribute('data-scope', 'combobox')
+  await expect(page.getByText('Astro')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Multiple: Story = {
@@ -114,8 +117,9 @@ Multiple.play = async ({ canvasElement }) => {
   const page = within(canvasElement.ownerDocument.body)
 
   await expect(canvas.getByText('Next.js')).toBeVisible()
-  await expect(canvasElement.querySelector('[data-slot="combobox-trigger"]')).toBeVisible()
-  await expect(await page.findByText('SvelteKit')).toHaveAttribute('data-slot', 'combobox-item')
+  await expect(canvasElement.querySelector('[data-scope="combobox"][data-slot="trigger"]')).toBeVisible()
+  await expect(await page.findByText('SvelteKit')).toHaveAttribute('data-scope', 'combobox')
+  await expect(await page.findByText('SvelteKit')).toHaveAttribute('data-slot', 'item')
 }
 
 export const ClearButton: Story = {
@@ -149,8 +153,9 @@ ClearButton.play = async ({ canvasElement }) => {
   const page = within(canvasElement.ownerDocument.body)
 
   await expect(canvas.getByText('Clear')).toBeVisible()
-  await expect(canvasElement.querySelector('[data-slot="combobox-trigger"]')).toBeVisible()
-  await expect(await page.findByText('Next.js')).toHaveAttribute('data-slot', 'combobox-item')
+  await expect(canvasElement.querySelector('[data-scope="combobox"][data-slot="trigger"]')).toBeVisible()
+  await expect(await page.findByText('Next.js')).toHaveAttribute('data-scope', 'combobox')
+  await expect(await page.findByText('Next.js')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Groups: Story = {
@@ -190,7 +195,10 @@ Groups.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
 
-  await expect(canvas.getByPlaceholderText('Select a timezone')).toHaveAttribute('data-slot', 'combobox-input')
-  await expect(await page.findByText('Europe')).toHaveAttribute('data-slot', 'combobox-group-label')
-  await expect(page.getByText('(GMT+9) Tokyo')).toHaveAttribute('data-slot', 'combobox-item')
+  await expect(canvas.getByPlaceholderText('Select a timezone')).toHaveAttribute('data-scope', 'combobox')
+  await expect(canvas.getByPlaceholderText('Select a timezone')).toHaveAttribute('data-slot', 'input')
+  await expect(await page.findByText('Europe')).toHaveAttribute('data-scope', 'combobox')
+  await expect(await page.findByText('Europe')).toHaveAttribute('data-slot', 'group-label')
+  await expect(page.getByText('(GMT+9) Tokyo')).toHaveAttribute('data-scope', 'combobox')
+  await expect(page.getByText('(GMT+9) Tokyo')).toHaveAttribute('data-slot', 'item')
 }

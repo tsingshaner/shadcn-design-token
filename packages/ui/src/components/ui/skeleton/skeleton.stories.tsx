@@ -42,7 +42,7 @@ export const Avatar: Story = {
   )
 }
 Avatar.play = async ({ canvasElement }) => {
-  const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]')
+  const skeletons = canvasElement.querySelectorAll('[data-scope="skeleton"][data-slot="root"]')
 
   await expect(skeletons).toHaveLength(3)
   await expect(skeletons[0]).toHaveClass('rounded-full')
@@ -66,7 +66,7 @@ export const Card: Story = {
   )
 }
 Card.play = async ({ canvasElement }) => {
-  const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]')
+  const skeletons = canvasElement.querySelectorAll('[data-scope="skeleton"][data-slot="root"]')
 
   await expect(skeletons).toHaveLength(3)
   await expect(skeletons[0]).toHaveClass('aspect-video')
@@ -140,5 +140,5 @@ export const Table: Story = {
   )
 }
 Table.play = async ({ canvasElement }) => {
-  await expect(canvasElement.querySelectorAll('[data-slot="skeleton"]')).toHaveLength(12)
+  await expect(canvasElement.querySelectorAll('[data-scope="skeleton"][data-slot="root"]')).toHaveLength(12)
 }

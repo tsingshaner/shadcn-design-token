@@ -11,8 +11,8 @@ describe('Switch', () => {
   test('renders a switch control', () => {
     render(<Switch aria-label="Notifications" />)
 
-    expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveAttribute('data-slot', 'switch')
-    expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveClass('cn-switch')
+    expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveAttribute('data-scope', 'switch')
+    expect(screen.getByRole('switch', { name: 'Notifications' })).toHaveAttribute('data-slot', 'root')
   })
 
   test('calls onCheckedChange when toggled', () => {
@@ -34,7 +34,10 @@ describe('Switch', () => {
     render(<Switch aria-label="Notifications" />)
 
     expect(
-      screen.getByRole('switch', { name: 'Notifications' }).querySelector('[data-slot="switch-thumb"]')
-    ).toHaveClass('cn-switch-thumb')
+      screen.getByRole('switch', { name: 'Notifications' }).querySelector('[data-scope="switch"][data-slot="thumb"]')
+    ).toHaveAttribute('data-scope', 'switch')
+    expect(
+      screen.getByRole('switch', { name: 'Notifications' }).querySelector('[data-scope="switch"][data-slot="thumb"]')
+    ).toHaveAttribute('data-slot', 'thumb')
   })
 })

@@ -29,6 +29,6 @@ describe('NavigationMenu', () => {
 
     expect(screen.getByRole('button', { name: /Tokens/ })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Color tokens' })).toBeInTheDocument()
-    expect(document.querySelector('[data-slot="navigation-menu-positioner"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-scope="navigation-menu"][data-slot="positioner"]')).toBeInTheDocument()
   })
 })

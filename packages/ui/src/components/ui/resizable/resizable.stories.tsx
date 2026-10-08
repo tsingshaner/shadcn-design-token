@@ -46,7 +46,8 @@ Default.play = async ({ canvasElement }) => {
 
   await expect(canvas.getByText('Sidebar')).toBeVisible()
   await expect(canvas.getByText('Content')).toBeVisible()
-  await expect(canvas.getByLabelText('Resize panels')).toHaveAttribute('data-slot', 'resizable-handle')
+  await expect(canvas.getByLabelText('Resize panels')).toHaveAttribute('data-scope', 'resizable')
+  await expect(canvas.getByLabelText('Resize panels')).toHaveAttribute('data-slot', 'handle')
 }
 
 export const Vertical: Story = {
@@ -77,7 +78,7 @@ export const Vertical: Story = {
 Vertical.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="resizable-panel-group"]')).toHaveAttribute(
+  await expect(canvasElement.querySelector('[data-scope="resizable"][data-slot="panel-group"]')).toHaveAttribute(
     'data-direction',
     'vertical'
   )
@@ -113,6 +114,6 @@ Handle.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(
-    canvas.getByLabelText('Resize panels').querySelector('[data-slot="resizable-handle-grip"]')
+    canvas.getByLabelText('Resize panels').querySelector('[data-scope="resizable"][data-slot="handle-grip"]')
   ).toBeVisible()
 }

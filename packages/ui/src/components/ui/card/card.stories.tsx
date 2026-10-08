@@ -47,8 +47,10 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('Project activity')).toHaveAttribute('data-slot', 'card-title')
-  await expect(canvas.getByText('Latest design-token sync summary.')).toHaveAttribute('data-slot', 'card-description')
+  await expect(canvas.getByText('Project activity')).toHaveAttribute('data-scope', 'card')
+  await expect(canvas.getByText('Project activity')).toHaveAttribute('data-slot', 'title')
+  await expect(canvas.getByText('Latest design-token sync summary.')).toHaveAttribute('data-scope', 'card')
+  await expect(canvas.getByText('Latest design-token sync summary.')).toHaveAttribute('data-slot', 'description')
   await expect(canvas.getByRole('button', { name: 'Open report' })).toBeEnabled()
 }
 
@@ -137,5 +139,6 @@ Image.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('img', { name: 'Abstract token preview' })).toBeVisible()
-  await expect(canvas.getByText('Token preview')).toHaveAttribute('data-slot', 'card-title')
+  await expect(canvas.getByText('Token preview')).toHaveAttribute('data-scope', 'card')
+  await expect(canvas.getByText('Token preview')).toHaveAttribute('data-slot', 'title')
 }

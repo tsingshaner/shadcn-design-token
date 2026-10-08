@@ -22,12 +22,18 @@ describe('Sheet', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Open sheet' }))
 
-    expect(screen.getByRole('dialog', { name: 'Token settings' })).toHaveClass('cn-sheet-content')
-    expect(screen.getByText('Token settings')).toHaveClass('cn-sheet-title', 'cn-font-heading')
-    expect(screen.getByText('Manage token sync preferences.')).toHaveClass('cn-sheet-description')
-    expect(screen.getByText('Token settings').parentElement).toHaveClass('cn-sheet-header')
-    expect(document.querySelector('[data-slot="sheet-overlay"]')).toHaveClass('cn-sheet-overlay')
-    expect(screen.getByRole('button', { name: 'Close' })).toHaveClass('cn-sheet-close')
+    expect(screen.getByRole('dialog', { name: 'Token settings' })).toHaveAttribute('data-scope', 'sheet')
+    expect(screen.getByRole('dialog', { name: 'Token settings' })).toHaveAttribute('data-slot', 'content')
+    expect(screen.getByText('Token settings')).toHaveAttribute('data-scope', 'sheet')
+    expect(screen.getByText('Token settings')).toHaveAttribute('data-slot', 'title')
+    expect(screen.getByText('Manage token sync preferences.')).toHaveAttribute('data-scope', 'sheet')
+    expect(screen.getByText('Manage token sync preferences.')).toHaveAttribute('data-slot', 'description')
+    expect(screen.getByText('Token settings').parentElement).toHaveAttribute('data-scope', 'sheet')
+    expect(screen.getByText('Token settings').parentElement).toHaveAttribute('data-slot', 'header')
+    expect(document.querySelector('[data-scope="sheet"][data-slot="overlay"]')).toHaveAttribute('data-scope', 'sheet')
+    expect(document.querySelector('[data-scope="sheet"][data-slot="overlay"]')).toHaveAttribute('data-slot', 'overlay')
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveAttribute('data-scope', 'sheet')
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveAttribute('data-slot', 'close')
   })
 
   test('can hide the default close button', () => {
@@ -56,8 +62,9 @@ describe('Sheet', () => {
       </Sheet>
     )
 
+    expect(screen.getByRole('dialog', { name: 'Animated sheet' })).toHaveAttribute('data-scope', 'sheet')
+    expect(screen.getByRole('dialog', { name: 'Animated sheet' })).toHaveAttribute('data-slot', 'content')
     expect(screen.getByRole('dialog', { name: 'Animated sheet' })).toHaveClass(
-      'cn-sheet-content',
       'rounded-l-[16px]',
       'data-[side=right]:data-starting-style:translate-x-[2.5rem]'
     )

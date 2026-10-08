@@ -35,14 +35,16 @@ type DropdownMenuShortcutProps = ComponentProps<'span'>
 const itemClasses =
   'group/dropdown-menu-item relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden data-disabled:pointer-events-none data-disabled:opacity-50 data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[inset=true]:pl-8 data-[variant=destructive]:text-destructive data-[variant=destructive]:data-[highlighted]:bg-destructive/10 data-[variant=destructive]:data-[highlighted]:text-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4'
 
-const DropdownMenu = (props: DropdownMenuProps) => <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+const DropdownMenu = (props: DropdownMenuProps) => (
+  <DropdownMenuPrimitive.Root data-scope="dropdown-menu" data-slot="root" {...props} />
+)
 
 const DropdownMenuTrigger = (props: DropdownMenuTriggerProps) => (
-  <DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+  <DropdownMenuPrimitive.Trigger data-scope="dropdown-menu" data-slot="trigger" {...props} />
 )
 
 const DropdownMenuPortal = (props: DropdownMenuPortalProps) => (
-  <DropdownMenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
+  <DropdownMenuPrimitive.Portal data-scope="dropdown-menu" data-slot="portal" {...props} />
 )
 
 const DropdownMenuContent = ({
@@ -63,10 +65,11 @@ const DropdownMenuContent = ({
     >
       <DropdownMenuPrimitive.Popup
         className={cn(
-          'cn-dropdown-menu-content cn-dropdown-menu-content-logical cn-menu-target cn-menu-translucent z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-closed:overflow-hidden',
+          'z-50 max-h-(--available-height) w-(--anchor-width) min-w-32 origin-(--transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-closed:overflow-hidden',
           className
         )}
-        data-slot="dropdown-menu-content"
+        data-scope="dropdown-menu"
+        data-slot="content"
         {...props}
       />
     </DropdownMenuPrimitive.Positioner>
@@ -74,14 +77,15 @@ const DropdownMenuContent = ({
 )
 
 const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
-  <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />
+  <DropdownMenuPrimitive.Group data-scope="dropdown-menu" data-slot="group" {...props} />
 )
 
 const DropdownMenuItem = ({ className, inset, variant = 'default', ...props }: DropdownMenuItemProps) => (
   <DropdownMenuPrimitive.Item
-    className={cn('cn-dropdown-menu-item', itemClasses, className)}
+    className={cn('', itemClasses, className)}
     data-inset={inset}
-    data-slot="dropdown-menu-item"
+    data-scope="dropdown-menu"
+    data-slot="item"
     data-variant={variant}
     {...props}
   />
@@ -90,14 +94,16 @@ const DropdownMenuItem = ({ className, inset, variant = 'default', ...props }: D
 const DropdownMenuCheckboxItem = ({ children, className, checked, inset, ...props }: DropdownMenuCheckboxItemProps) => (
   <DropdownMenuPrimitive.CheckboxItem
     checked={checked}
-    className={cn('cn-dropdown-menu-checkbox-item', itemClasses, 'pl-8', className)}
+    className={cn('', itemClasses, 'pl-8', className)}
     data-inset={inset}
-    data-slot="dropdown-menu-checkbox-item"
+    data-scope="dropdown-menu"
+    data-slot="checkbox-item"
     {...props}
   >
     <span
-      className="cn-dropdown-menu-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
-      data-slot="dropdown-menu-checkbox-item-indicator"
+      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      data-scope="dropdown-menu"
+      data-slot="checkbox-item-indicator"
     >
       <DropdownMenuPrimitive.CheckboxItemIndicator>
         <CheckIcon />
@@ -108,19 +114,21 @@ const DropdownMenuCheckboxItem = ({ children, className, checked, inset, ...prop
 )
 
 const DropdownMenuRadioGroup = (props: DropdownMenuRadioGroupProps) => (
-  <DropdownMenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />
+  <DropdownMenuPrimitive.RadioGroup data-scope="dropdown-menu" data-slot="radio-group" {...props} />
 )
 
 const DropdownMenuRadioItem = ({ children, className, inset, ...props }: DropdownMenuRadioItemProps) => (
   <DropdownMenuPrimitive.RadioItem
-    className={cn('cn-dropdown-menu-radio-item', itemClasses, 'pl-8', className)}
+    className={cn('', itemClasses, 'pl-8', className)}
     data-inset={inset}
-    data-slot="dropdown-menu-radio-item"
+    data-scope="dropdown-menu"
+    data-slot="radio-item"
     {...props}
   >
     <span
-      className="cn-dropdown-menu-item-indicator pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
-      data-slot="dropdown-menu-radio-item-indicator"
+      className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
+      data-scope="dropdown-menu"
+      data-slot="radio-item-indicator"
     >
       <DropdownMenuPrimitive.RadioItemIndicator>
         <CircleIcon className="size-2 fill-current" />
@@ -132,47 +140,46 @@ const DropdownMenuRadioItem = ({ children, className, inset, ...props }: Dropdow
 
 const DropdownMenuLabel = ({ className, inset, ...props }: DropdownMenuLabelProps) => (
   <DropdownMenuPrimitive.GroupLabel
-    className={cn('cn-dropdown-menu-label px-2 py-1.5 font-medium text-sm data-[inset=true]:pl-8', className)}
+    className={cn('px-2 py-1.5 font-medium text-sm data-[inset=true]:pl-8', className)}
     data-inset={inset}
-    data-slot="dropdown-menu-label"
+    data-scope="dropdown-menu"
+    data-slot="label"
     {...props}
   />
 )
 
 const DropdownMenuSeparator = ({ className, ...props }: DropdownMenuSeparatorProps) => (
   <DropdownMenuPrimitive.Separator
-    className={cn('cn-dropdown-menu-separator -mx-1 my-1 h-px bg-muted', className)}
-    data-slot="dropdown-menu-separator"
+    className={cn('-mx-1 my-1 h-px bg-muted', className)}
+    data-scope="dropdown-menu"
+    data-slot="separator"
     {...props}
   />
 )
 
 const DropdownMenuShortcut = ({ className, ...props }: DropdownMenuShortcutProps) => (
   <span
-    className={cn('cn-dropdown-menu-shortcut ml-auto text-muted-foreground text-xs tracking-widest', className)}
-    data-slot="dropdown-menu-shortcut"
+    className={cn('ml-auto text-muted-foreground text-xs tracking-widest', className)}
+    data-scope="dropdown-menu"
+    data-slot="shortcut"
     {...props}
   />
 )
 
 const DropdownMenuSub = (props: DropdownMenuSubProps) => (
-  <DropdownMenuPrimitive.SubmenuRoot data-slot="dropdown-menu-sub" {...props} />
+  <DropdownMenuPrimitive.SubmenuRoot data-scope="dropdown-menu" data-slot="sub" {...props} />
 )
 
 const DropdownMenuSubTrigger = ({ children, className, inset, ...props }: DropdownMenuSubTriggerProps) => (
   <DropdownMenuPrimitive.SubmenuTrigger
-    className={cn(
-      'cn-dropdown-menu-sub-trigger',
-      itemClasses,
-      'data-popup-open:bg-accent data-popup-open:text-accent-foreground',
-      className
-    )}
+    className={cn('', itemClasses, 'data-popup-open:bg-accent data-popup-open:text-accent-foreground', className)}
     data-inset={inset}
-    data-slot="dropdown-menu-sub-trigger"
+    data-scope="dropdown-menu"
+    data-slot="sub-trigger"
     {...props}
   >
     {children}
-    <ChevronRightIcon className="cn-rtl-flip ml-auto" />
+    <ChevronRightIcon className="ml-auto" />
   </DropdownMenuPrimitive.SubmenuTrigger>
 )
 
@@ -187,8 +194,9 @@ const DropdownMenuSubContent = ({
   <DropdownMenuContent
     align={align}
     alignOffset={alignOffset}
-    className={cn('cn-dropdown-menu-sub-content cn-menu-target cn-menu-translucent w-auto min-w-32', className)}
-    data-slot="dropdown-menu-sub-content"
+    className={cn('w-auto min-w-32', className)}
+    data-scope="dropdown-menu"
+    data-slot="sub-content"
     side={side}
     sideOffset={sideOffset}
     {...props}

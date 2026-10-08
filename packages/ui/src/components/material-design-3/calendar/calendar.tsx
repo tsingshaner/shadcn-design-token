@@ -125,14 +125,12 @@ const Calendar = ({
 
   return (
     <div
-      className={cn(
-        'cn-calendar w-fit rounded-[16px] border-0 bg-surface-container-high text-foreground shadow-none',
-        className
-      )}
-      data-slot="calendar"
+      className={cn('w-fit rounded-[16px] border-0 bg-surface-container-high text-foreground shadow-none', className)}
+      data-scope="calendar"
+      data-slot="root"
       {...props}
     >
-      <div className="flex h-16 items-center justify-between px-3" data-slot="calendar-header">
+      <div className="flex h-16 items-center justify-between px-3" data-scope="calendar" data-slot="header">
         {captionLayout === 'dropdown' ? (
           <>
             <div className="flex items-center">
@@ -143,13 +141,14 @@ const Calendar = ({
                 size="icon"
                 variant="ghost"
               >
-                <ChevronLeftIcon className="cn-rtl-flip size-6" />
+                <ChevronLeftIcon className="size-6" />
               </Button>
               <label className="relative flex h-10 items-center rounded-full font-medium text-muted-foreground text-sm">
                 <select
                   aria-label="Month and year"
-                  className="cn-calendar-dropdown-root cn-calendar-caption-label appearance-none bg-transparent py-2 pr-7 pl-2 outline-none"
-                  data-slot="calendar-caption"
+                  className="appearance-none bg-transparent py-2 pr-7 pl-2 outline-none"
+                  data-scope="calendar"
+                  data-slot="caption"
                   onChange={(event) =>
                     setVisibleMonth(new Date(visibleMonth.getFullYear(), Number(event.currentTarget.value), 1))
                   }
@@ -174,7 +173,7 @@ const Calendar = ({
                 size="icon"
                 variant="ghost"
               >
-                <ChevronRightIcon className="cn-rtl-flip size-6" />
+                <ChevronRightIcon className="size-6" />
               </Button>
             </div>
             <div className="flex items-center">
@@ -185,7 +184,7 @@ const Calendar = ({
                 size="icon"
                 variant="ghost"
               >
-                <ChevronLeftIcon className="cn-rtl-flip size-6" />
+                <ChevronLeftIcon className="size-6" />
               </Button>
               <label className="relative flex h-10 items-center rounded-full font-medium text-muted-foreground text-sm">
                 <select
@@ -211,13 +210,13 @@ const Calendar = ({
                 size="icon"
                 variant="ghost"
               >
-                <ChevronRightIcon className="cn-rtl-flip size-6" />
+                <ChevronRightIcon className="size-6" />
               </Button>
             </div>
           </>
         ) : (
           <>
-            <div className="cn-calendar-caption px-3 font-medium text-sm" data-slot="calendar-caption">
+            <div className="px-3 font-medium text-sm" data-scope="calendar" data-slot="caption">
               {monthFormatter.format(visibleMonth)}
             </div>
             <div className="flex items-center">
@@ -228,7 +227,7 @@ const Calendar = ({
                 size="icon"
                 variant="ghost"
               >
-                <ChevronLeftIcon className="cn-rtl-flip size-6" />
+                <ChevronLeftIcon className="size-6" />
               </Button>
               <Button
                 aria-label="Next month"
@@ -237,7 +236,7 @@ const Calendar = ({
                 size="icon"
                 variant="ghost"
               >
-                <ChevronRightIcon className="cn-rtl-flip size-6" />
+                <ChevronRightIcon className="size-6" />
               </Button>
             </div>
           </>
@@ -250,11 +249,17 @@ const Calendar = ({
           return (
             <div
               className="grid auto-rows-[48px] grid-cols-[repeat(7,48px)] text-center"
-              data-slot="calendar-grid"
+              data-scope="calendar"
+              data-slot="grid"
               key={visibleMonthItem.toISOString()}
             >
               {weekdayLabels.map((weekday) => (
-                <div className="size-12 content-center text-base" data-slot="calendar-weekday" key={weekday}>
+                <div
+                  className="size-12 content-center text-base"
+                  data-scope="calendar"
+                  data-slot="weekday"
+                  key={weekday}
+                >
                   {weekday}
                 </div>
               ))}
@@ -265,7 +270,7 @@ const Calendar = ({
                   <Button
                     aria-label={dayFormatter.format(date)}
                     className={cn(
-                      'cn-calendar-day-button size-10 place-self-center p-0 font-normal text-base tabular-nums',
+                      'size-10 place-self-center p-0 font-normal text-base tabular-nums',
                       day.outside && 'text-muted-foreground opacity-[0.38]',
                       day.today && !day.selected && 'border-primary text-primary',
                       day.rangeMiddle &&
@@ -274,13 +279,15 @@ const Calendar = ({
                       day.selected && 'border-transparent bg-primary text-primary-foreground'
                     )}
                     data-outside={day.outside}
+                    data-scope="calendar"
                     data-selected={day.selected}
+                    data-slot="day-button"
                     data-today={day.today}
                     disabled={day.disabled}
                     key={date.toISOString()}
                     onClick={() => onSelect?.(mode === 'range' ? { from: date, to: day.selectedRange?.to } : date)}
                     size="icon"
-                    variant={day.selected ? 'default' : 'ghost'}
+                    variant={day.selected ? 'primary' : 'ghost'}
                   >
                     {date.getDate()}
                   </Button>

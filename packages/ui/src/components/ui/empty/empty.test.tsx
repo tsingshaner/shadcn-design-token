@@ -21,21 +21,32 @@ describe('Empty', () => {
       </Empty>
     )
 
-    expect(screen.getByText('No data').closest('[data-slot="empty"]')).toHaveClass('cn-empty')
-    expect(screen.getByText('No data').parentElement).toHaveClass('cn-empty-header')
-    expect(screen.getByText('No data')).toHaveAttribute('data-slot', 'empty-title')
-    expect(screen.getByText('No data')).toHaveClass('cn-empty-title')
-    expect(screen.getByText(/Nothing to show/)).toHaveAttribute('data-slot', 'empty-description')
-    expect(screen.getByText(/Nothing to show/)).toHaveClass('cn-empty-description')
-    expect(screen.getByText('Try another filter.')).toHaveClass('cn-empty-content')
+    expect(screen.getByText('No data').closest('[data-scope="empty"][data-slot="root"]')).toHaveAttribute(
+      'data-scope',
+      'empty'
+    )
+    expect(screen.getByText('No data').closest('[data-scope="empty"][data-slot="root"]')).toHaveAttribute(
+      'data-slot',
+      'root'
+    )
+    expect(screen.getByText('No data').parentElement).toHaveAttribute('data-scope', 'empty')
+    expect(screen.getByText('No data').parentElement).toHaveAttribute('data-slot', 'header')
+    expect(screen.getByText('No data')).toHaveAttribute('data-scope', 'empty')
+    expect(screen.getByText('No data')).toHaveAttribute('data-slot', 'title')
+
+    expect(screen.getByText(/Nothing to show/)).toHaveAttribute('data-scope', 'empty')
+    expect(screen.getByText(/Nothing to show/)).toHaveAttribute('data-slot', 'description')
+
+    expect(screen.getByText('Try another filter.')).toHaveAttribute('data-scope', 'empty')
+    expect(screen.getByText('Try another filter.')).toHaveAttribute('data-slot', 'content')
     expect(screen.getByRole('link', { name: 'Read empty state documentation' })).toBeInTheDocument()
   })
 
   test('renders empty media as the v4 empty icon slot', () => {
     render(<EmptyMedia variant="icon">0</EmptyMedia>)
 
-    expect(screen.getByText('0')).toHaveAttribute('data-slot', 'empty-icon')
+    expect(screen.getByText('0')).toHaveAttribute('data-scope', 'empty')
+    expect(screen.getByText('0')).toHaveAttribute('data-slot', 'icon')
     expect(screen.getByText('0')).toHaveAttribute('data-variant', 'icon')
-    expect(screen.getByText('0')).toHaveClass('cn-empty-media', 'cn-empty-media-icon')
   })
 })

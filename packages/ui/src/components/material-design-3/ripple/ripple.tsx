@@ -174,25 +174,28 @@ const Ripple = ({ className, disabled = false, hover: showHover = true, unbounde
     <span
       aria-hidden="true"
       className={cn(
-        'cn-ripple pointer-events-none absolute overflow-hidden forced-colors:hidden',
+        'pointer-events-none absolute overflow-hidden forced-colors:hidden',
         unbounded
           ? 'top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 rounded-full'
           : 'inset-0 rounded-[inherit]',
         disabled && 'hidden',
         className
       )}
-      data-slot="ripple"
+      data-scope="ripple"
+      data-slot="root"
       ref={rootRef}
       {...props}
     >
       <span
         className="absolute inset-0 bg-current opacity-0 transition-opacity duration-[15ms]"
-        data-slot="ripple-hover"
+        data-scope="ripple"
+        data-slot="hover"
         ref={hoverRef}
       />
       <span
         className="absolute top-0 left-0 rounded-full opacity-0 transition-opacity"
-        data-slot="ripple-press"
+        data-scope="ripple"
+        data-slot="press"
         ref={pressRef}
         style={{
           background: 'radial-gradient(closest-side, currentColor max(calc(100% - 70px), 65%), transparent 100%)'

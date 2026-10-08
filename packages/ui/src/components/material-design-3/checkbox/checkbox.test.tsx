@@ -11,8 +11,8 @@ describe('Checkbox', () => {
   test('renders an unchecked checkbox', () => {
     render(<Checkbox aria-label="Accept" />)
 
-    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveAttribute('data-slot', 'checkbox')
-    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveClass('cn-checkbox')
+    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveAttribute('data-scope', 'checkbox')
+    expect(screen.getByRole('checkbox', { name: 'Accept' })).toHaveAttribute('data-slot', 'root')
   })
 
   test('calls onCheckedChange when toggled', () => {
@@ -30,6 +30,13 @@ describe('Checkbox', () => {
     const checkbox = screen.getByRole('checkbox', { name: 'Accept' })
 
     expect(checkbox).toHaveClass('size-[18px]', 'rounded-[2px]', 'border-2')
-    expect(checkbox.querySelector('[data-slot="checkbox-indicator"]')).toHaveClass('cn-checkbox-indicator')
+    expect(checkbox.querySelector('[data-scope="checkbox"][data-slot="indicator"]')).toHaveAttribute(
+      'data-scope',
+      'checkbox'
+    )
+    expect(checkbox.querySelector('[data-scope="checkbox"][data-slot="indicator"]')).toHaveAttribute(
+      'data-slot',
+      'indicator'
+    )
   })
 })

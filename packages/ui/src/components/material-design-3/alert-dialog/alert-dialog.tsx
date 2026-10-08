@@ -3,15 +3,25 @@ import { cn } from 'cn'
 
 import type { ComponentProps } from 'react'
 
+import { cva, type VariantProps } from '@/lib/cva'
+
 import { Button } from '../button'
+
+const alertDialogContentVariants = cva({
+  base: 'group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-[28px] border-0 bg-muted p-6 shadow-xl outline-none sm:max-w-[560px]',
+  variants: {
+    size: {
+      md: '',
+      sm: 'sm:max-w-sm'
+    }
+  }
+})
 
 type AlertDialogProps = AlertDialogPrimitive.Root.Props
 type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props
 type AlertDialogPortalProps = AlertDialogPrimitive.Portal.Props
 type AlertDialogOverlayProps = AlertDialogPrimitive.Backdrop.Props
-type AlertDialogContentProps = AlertDialogPrimitive.Popup.Props & {
-  size?: 'default' | 'sm'
-}
+type AlertDialogContentProps = AlertDialogPrimitive.Popup.Props & VariantProps<typeof alertDialogContentVariants>
 type AlertDialogTitleProps = AlertDialogPrimitive.Title.Props
 type AlertDialogDescriptionProps = AlertDialogPrimitive.Description.Props
 type AlertDialogButtonProps = ComponentProps<typeof Button>
@@ -19,38 +29,38 @@ type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props & Pick<AlertDialo
 type AlertDialogActionProps = AlertDialogButtonProps
 type AlertDialogMediaProps = ComponentProps<'div'>
 
-const AlertDialog = (props: AlertDialogProps) => <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
+const AlertDialog = (props: AlertDialogProps) => (
+  <AlertDialogPrimitive.Root data-scope="alert-dialog" data-slot="root" {...props} />
+)
 
 const AlertDialogTrigger = (props: AlertDialogTriggerProps) => (
-  <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
+  <AlertDialogPrimitive.Trigger data-scope="alert-dialog" data-slot="trigger" {...props} />
 )
 
 const AlertDialogPortal = (props: AlertDialogPortalProps) => (
-  <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
+  <AlertDialogPrimitive.Portal data-scope="alert-dialog" data-slot="portal" {...props} />
 )
 
 const AlertDialogOverlay = ({ className, ...props }: AlertDialogOverlayProps) => (
   <AlertDialogPrimitive.Backdrop
     className={cn(
-      'cn-alert-dialog-overlay fixed inset-0 isolate z-50 bg-black/32 data-[ending-style]:animate-out data-[starting-style]:animate-in',
+      'fixed inset-0 isolate z-50 bg-black/32 data-ending-style:animate-out data-starting-style:animate-in',
       className
     )}
-    data-slot="alert-dialog-overlay"
+    data-scope="alert-dialog"
+    data-slot="overlay"
     {...props}
   />
 )
 
-const AlertDialogContent = ({ className, size = 'default', ...props }: AlertDialogContentProps) => (
+const AlertDialogContent = ({ className, size = 'md', ...props }: AlertDialogContentProps) => (
   <AlertDialogPortal>
     <AlertDialogOverlay />
     <AlertDialogPrimitive.Popup
-      className={cn(
-        'cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-[28px] border-0 bg-muted p-6 shadow-xl outline-none sm:max-w-[560px]',
-        size === 'sm' && 'sm:max-w-sm',
-        className
-      )}
+      className={alertDialogContentVariants({ className, size })}
+      data-scope="alert-dialog"
       data-size={size}
-      data-slot="alert-dialog-content"
+      data-slot="content"
       {...props}
     />
   </AlertDialogPortal>
@@ -59,10 +69,11 @@ const AlertDialogContent = ({ className, size = 'default', ...props }: AlertDial
 const AlertDialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
     className={cn(
-      'cn-alert-dialog-header flex flex-col gap-2 text-center group-data-[size=sm]/alert-dialog-content:text-center sm:text-left',
+      'flex flex-col gap-2 text-center group-data-[size=sm]/alert-dialog-content:text-center sm:text-left',
       className
     )}
-    data-slot="alert-dialog-header"
+    data-scope="alert-dialog"
+    data-slot="header"
     {...props}
   />
 )
@@ -70,26 +81,29 @@ const AlertDialogHeader = ({ className, ...props }: ComponentProps<'div'>) => (
 const AlertDialogFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
     className={cn(
-      'cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end',
+      'flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end',
       className
     )}
-    data-slot="alert-dialog-footer"
+    data-scope="alert-dialog"
+    data-slot="footer"
     {...props}
   />
 )
 
 const AlertDialogTitle = ({ className, ...props }: AlertDialogTitleProps) => (
   <AlertDialogPrimitive.Title
-    className={cn('cn-alert-dialog-title cn-font-heading font-normal text-2xl leading-8', className)}
-    data-slot="alert-dialog-title"
+    className={cn('font-normal text-2xl leading-8', className)}
+    data-scope="alert-dialog"
+    data-slot="title"
     {...props}
   />
 )
 
 const AlertDialogDescription = ({ className, ...props }: AlertDialogDescriptionProps) => (
   <AlertDialogPrimitive.Description
-    className={cn('cn-alert-dialog-description text-muted-foreground text-sm', className)}
-    data-slot="alert-dialog-description"
+    className={cn('text-muted-foreground text-sm', className)}
+    data-scope="alert-dialog"
+    data-slot="description"
     {...props}
   />
 )
@@ -97,22 +111,24 @@ const AlertDialogDescription = ({ className, ...props }: AlertDialogDescriptionP
 const AlertDialogMedia = ({ className, ...props }: AlertDialogMediaProps) => (
   <div
     className={cn(
-      'cn-alert-dialog-media mx-auto flex size-10 items-center justify-center rounded-full bg-muted text-muted-foreground sm:mx-0 [&_svg:not([class*=size-])]:size-5',
+      'mx-auto flex size-10 items-center justify-center rounded-full bg-muted text-muted-foreground sm:mx-0 [&_svg:not([class*=size-])]:size-5',
       className
     )}
-    data-slot="alert-dialog-media"
+    data-scope="alert-dialog"
+    data-slot="media"
     {...props}
   />
 )
 
 const AlertDialogAction = ({ className, ...props }: AlertDialogActionProps) => (
-  <Button className={cn('cn-alert-dialog-action', className)} data-slot="alert-dialog-action" {...props} />
+  <Button className={className} data-scope="alert-dialog" data-slot="action" {...props} />
 )
 
-const AlertDialogCancel = ({ className, size = 'default', variant = 'outline', ...props }: AlertDialogCancelProps) => (
+const AlertDialogCancel = ({ className, size = 'md', variant = 'outline', ...props }: AlertDialogCancelProps) => (
   <AlertDialogPrimitive.Close
-    className={cn('cn-alert-dialog-cancel', className)}
-    data-slot="alert-dialog-cancel"
+    className={className}
+    data-scope="alert-dialog"
+    data-slot="cancel"
     render={<Button size={size} variant={variant} />}
     {...props}
   />

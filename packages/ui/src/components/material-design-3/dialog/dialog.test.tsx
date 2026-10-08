@@ -18,10 +18,11 @@ describe('Dialog', () => {
       </Dialog>
     )
 
-    expect(screen.getByRole('dialog', { name: 'Confirm publish' })).toHaveAttribute('data-slot', 'dialog-content')
-    expect(screen.getByRole('dialog', { name: 'Confirm publish' })).toHaveClass('cn-dialog-content')
-    expect(screen.getByText('Publish these tokens?')).toHaveAttribute('data-slot', 'dialog-description')
-    expect(screen.getByText('Publish these tokens?')).toHaveClass('cn-dialog-description')
+    expect(screen.getByRole('dialog', { name: 'Confirm publish' })).toHaveAttribute('data-scope', 'dialog')
+    expect(screen.getByRole('dialog', { name: 'Confirm publish' })).toHaveAttribute('data-slot', 'content')
+
+    expect(screen.getByText('Publish these tokens?')).toHaveAttribute('data-scope', 'dialog')
+    expect(screen.getByText('Publish these tokens?')).toHaveAttribute('data-slot', 'description')
   })
 
   test('applies MD3 dialog surface classes', () => {
@@ -34,16 +35,21 @@ describe('Dialog', () => {
       </Dialog>
     )
 
-    expect(document.querySelector('[data-slot="dialog-overlay"]')).toHaveClass('cn-dialog-overlay', 'isolate')
+    expect(document.querySelector('[data-scope="dialog"][data-slot="overlay"]')).toHaveAttribute('data-scope', 'dialog')
+    expect(document.querySelector('[data-scope="dialog"][data-slot="overlay"]')).toHaveAttribute('data-slot', 'overlay')
+    expect(document.querySelector('[data-scope="dialog"][data-slot="overlay"]')).toHaveClass('isolate')
+    expect(screen.getByRole('dialog', { name: 'Slot classes' })).toHaveAttribute('data-scope', 'dialog')
+    expect(screen.getByRole('dialog', { name: 'Slot classes' })).toHaveAttribute('data-slot', 'content')
     expect(screen.getByRole('dialog', { name: 'Slot classes' })).toHaveClass(
-      'cn-dialog-content',
       'outline-none',
       'rounded-[28px]',
       'min-w-[280px]',
       'max-w-[560px]',
       'gap-6'
     )
-    expect(screen.getByText('Slot classes')).toHaveClass('cn-dialog-title', 'cn-font-heading', 'text-2xl')
+    expect(screen.getByText('Slot classes')).toHaveAttribute('data-scope', 'dialog')
+    expect(screen.getByText('Slot classes')).toHaveAttribute('data-slot', 'title')
+    expect(screen.getByText('Slot classes')).toHaveClass('text-2xl')
   })
 
   test('uses an opt-in MD3 close button', () => {
@@ -55,9 +61,11 @@ describe('Dialog', () => {
       </Dialog>
     )
 
-    expect(screen.getByRole('button', { name: 'Close' })).toHaveClass('cn-button', 'cn-button-variant-ghost')
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveAttribute('data-scope', 'dialog')
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveAttribute('data-slot', 'close')
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveAttribute('data-variant', 'ghost')
     expect(screen.getByRole('button', { name: 'Close' })).toContainElement(
-      document.querySelector('[data-slot="ripple"]')
+      document.querySelector('[data-scope="ripple"][data-slot="root"]')
     )
   })
 })

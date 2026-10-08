@@ -39,7 +39,7 @@ export const Default: Story = {
 }
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
-  const aspectRatio = canvasElement.querySelector('[data-slot="aspect-ratio"]')
+  const aspectRatio = canvasElement.querySelector('[data-scope="aspect-ratio"][data-slot="root"]')
 
   await expect(canvas.getByText('16:9')).toBeVisible()
   await expect(aspectRatio).toHaveStyle({ aspectRatio: '1.7777777777777777' })
@@ -64,7 +64,9 @@ export const Square: Story = {
   )
 }
 Square.play = async ({ canvasElement }) => {
-  await expect(canvasElement.querySelector('[data-slot="aspect-ratio"]')).toHaveStyle({ aspectRatio: '1' })
+  await expect(canvasElement.querySelector('[data-scope="aspect-ratio"][data-slot="root"]')).toHaveStyle({
+    aspectRatio: '1'
+  })
 }
 
 export const Portrait: Story = {
@@ -86,5 +88,7 @@ export const Portrait: Story = {
   )
 }
 Portrait.play = async ({ canvasElement }) => {
-  await expect(canvasElement.querySelector('[data-slot="aspect-ratio"]')).toHaveStyle({ aspectRatio: '0.75' })
+  await expect(canvasElement.querySelector('[data-scope="aspect-ratio"][data-slot="root"]')).toHaveStyle({
+    aspectRatio: '0.75'
+  })
 }

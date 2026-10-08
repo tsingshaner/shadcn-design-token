@@ -37,6 +37,8 @@ Default.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Show toast' }))
 
-  await expect(await page.findByText('Token sync completed')).toHaveAttribute('data-slot', 'toast-description')
-  await expect(page.getByTestId('toast-viewport-top-right')).toHaveAttribute('data-slot', 'toast-viewport')
+  await expect(await page.findByText('Token sync completed')).toHaveAttribute('data-scope', 'toast')
+  await expect(await page.findByText('Token sync completed')).toHaveAttribute('data-slot', 'description')
+  await expect(page.getByTestId('toast-viewport-top-right')).toHaveAttribute('data-scope', 'toast')
+  await expect(page.getByTestId('toast-viewport-top-right')).toHaveAttribute('data-slot', 'viewport')
 }

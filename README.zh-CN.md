@@ -98,12 +98,15 @@ export function Example() {
 
 ## shadcn Registry
 
+两套组件共用 `cva` 管理变体。标准尺寸使用 `size="md"`，Button 和 Badge 的主变体使用 `variant="primary"`，其他变体保留各自的语义名称。样式定位改用 `data-scope` 和局部 `data-slot`，例如 `[data-scope="card"][data-slot="header"]` 替代 `.cn-card-header` 和 `[data-slot="card-header"]`。旧的 `cn-*` 标记类已移除，外部样式选择器需要同步更新。
+
 `registry.json` 由 `scripts/generate-shadcn-registry.mjs` 根据 `packages/ui/src/components/ui` 和 `packages/ui/src/components/material-design-3` 下的组件目录自动生成。脚本会：
 
 - 将 UI 组件注册为 `<component>`，Material Design 3 组件注册为 `material-design-3-<component>`。
 - 将 UI 组件安装到 `@ui/<component>/index.tsx`，Material Design 3 组件安装到 `@components/material-design-3/<component>/index.tsx`。
 - 从本地组件 import 推导 `registryDependencies`。
 - 从外部 import 推导必要的 npm dependencies。
+- 为使用变体的组件附带共享的 `@lib/cva.ts` 文件及其依赖。
 
 用户可以为两个组件族分别配置 namespace：
 

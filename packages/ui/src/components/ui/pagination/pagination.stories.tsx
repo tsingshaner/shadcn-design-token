@@ -57,7 +57,8 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('navigation', { name: 'pagination' })).toHaveAttribute('data-slot', 'pagination')
+  await expect(canvas.getByRole('navigation', { name: 'pagination' })).toHaveAttribute('data-scope', 'pagination')
+  await expect(canvas.getByRole('navigation', { name: 'pagination' })).toHaveAttribute('data-slot', 'root')
   await expect(canvas.getByRole('button', { name: '2' })).toHaveAttribute('aria-current', 'page')
   await expect(canvas.getAllByRole('button')).toHaveLength(5)
 }
@@ -75,7 +76,7 @@ export const IconsOnly: Story = {
     <div className="flex items-center justify-between gap-4">
       <Field className="w-fit grid-cols-[auto_auto] items-center">
         <FieldLabel htmlFor="select-rows-per-page">Rows per page</FieldLabel>
-        <Select defaultValue="25" items={['10', '25', '50', '100']}>
+        <Select defaultValue="25" items={['10', '25', '50', '100'].map((value) => ({ label: value, value }))}>
           <SelectTrigger className="w-20" id="select-rows-per-page">
             <SelectValue />
           </SelectTrigger>
@@ -107,9 +108,7 @@ IconsOnly.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByText('Rows per page')).toBeVisible()
-  await expect(canvas.getByRole('button', { name: 'Go to previous page' })).toHaveAttribute(
-    'data-slot',
-    'pagination-link'
-  )
-  await expect(canvas.getByRole('button', { name: 'Go to next page' })).toHaveAttribute('data-slot', 'pagination-link')
+  await expect(canvas.getByRole('button', { name: 'Go to previous page' })).toHaveAttribute('data-slot', 'previous')
+  await expect(canvas.getByRole('button', { name: 'Go to next page' })).toHaveAttribute('data-scope', 'pagination')
+  await expect(canvas.getByRole('button', { name: 'Go to next page' })).toHaveAttribute('data-slot', 'next')
 }

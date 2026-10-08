@@ -71,19 +71,20 @@ const DatePicker = ({
 
   return (
     <Popover onOpenChange={setOpen} open={resolvedOpen}>
-      <div className="w-fit" data-slot="date-picker">
+      <div className="w-fit" data-scope="date-picker" data-slot="root">
         <PopoverTrigger
           render={
             <Button
               aria-describedby={supportingText ? supportingTextId : undefined}
               aria-expanded={resolvedOpen}
               className={cn(
-                'cn-date-picker h-14 w-[312px] max-w-full justify-start rounded-[4px] border-muted-foreground bg-background px-4 pr-14 text-left font-normal text-base text-foreground shadow-none outline-none focus-visible:border-2 focus-visible:border-primary focus-visible:ring-0',
+                'h-14 w-[312px] max-w-full justify-start rounded-[4px] border-muted-foreground bg-background px-4 pr-14 text-left font-normal text-base text-foreground shadow-none outline-none focus-visible:border-2 focus-visible:border-primary focus-visible:ring-0',
                 !selected && 'text-muted-foreground',
                 resolvedOpen && 'border-2 border-primary',
                 className
               )}
-              data-slot="date-picker-trigger"
+              data-scope="date-picker"
+              data-slot="trigger"
               data-state={resolvedOpen ? 'open' : 'closed'}
               variant="outline"
               {...props}
@@ -111,7 +112,8 @@ const DatePicker = ({
         {supportingText && (
           <div
             className="px-4 pt-1 text-muted-foreground text-xs leading-4"
-            data-slot="date-picker-supporting-text"
+            data-scope="date-picker"
+            data-slot="supporting-text"
             id={supportingTextId}
           >
             {supportingText}
@@ -121,7 +123,8 @@ const DatePicker = ({
       <PopoverContent
         align="start"
         className="w-auto overflow-hidden rounded-[16px] bg-surface-container-high p-0 shadow-xl"
-        data-slot="date-picker-content"
+        data-scope="date-picker"
+        data-slot="content"
         sideOffset={8}
       >
         <Calendar
@@ -133,7 +136,7 @@ const DatePicker = ({
           onSelect={handleSelect}
           selected={draftValue}
         />
-        <div className="flex h-14 items-center justify-between px-3 pb-1" data-slot="date-picker-actions">
+        <div className="flex h-14 items-center justify-between px-3 pb-1" data-scope="date-picker" data-slot="actions">
           <div>
             {showClearButton && (
               <Button className="h-12 px-4" onClick={() => setDraftValue(undefined)} variant="ghost">

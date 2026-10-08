@@ -64,7 +64,13 @@ const Carousel = ({
 
   return (
     <CarouselContext.Provider value={value}>
-      <div className={cn('relative', className)} data-orientation={orientation} data-slot="carousel" {...props} />
+      <div
+        className={cn('relative', className)}
+        data-orientation={orientation}
+        data-scope="carousel"
+        data-slot="root"
+        {...props}
+      />
     </CarouselContext.Provider>
   )
 }
@@ -74,14 +80,15 @@ const CarouselContent = ({ className, style, ...props }: CarouselContentProps) =
   const transform = orientation === 'vertical' ? `translateY(-${index * 100}%)` : `translateX(-${index * 100}%)`
 
   return (
-    <div className="overflow-hidden" data-slot="carousel-viewport">
+    <div className="overflow-hidden" data-scope="carousel" data-slot="viewport">
       <div
         className={cn(
           'flex transition-transform duration-300 ease-out data-[orientation=vertical]:flex-col',
           className
         )}
         data-orientation={orientation}
-        data-slot="carousel-content"
+        data-scope="carousel"
+        data-slot="content"
         style={{ transform, ...style }}
         {...props}
       />
@@ -90,7 +97,12 @@ const CarouselContent = ({ className, style, ...props }: CarouselContentProps) =
 }
 
 const CarouselItem = ({ className, ...props }: CarouselItemProps) => (
-  <div className={cn('min-w-0 shrink-0 grow-0 basis-full', className)} data-slot="carousel-item" {...props} />
+  <div
+    className={cn('min-w-0 shrink-0 grow-0 basis-full', className)}
+    data-scope="carousel"
+    data-slot="item"
+    {...props}
+  />
 )
 
 const CarouselPrevious = ({ children, className, onClick, ...props }: CarouselPreviousProps) => {
@@ -99,8 +111,9 @@ const CarouselPrevious = ({ children, className, onClick, ...props }: CarouselPr
   return (
     <Button
       aria-label="Previous slide"
-      className={cn('cn-carousel-previous absolute top-1/2 left-2 -translate-y-1/2', className)}
-      data-slot="carousel-previous"
+      className={cn('absolute top-1/2 left-2 -translate-y-1/2', className)}
+      data-scope="carousel"
+      data-slot="previous"
       disabled={index === 0}
       onClick={(event) => {
         scrollPrevious()
@@ -113,7 +126,7 @@ const CarouselPrevious = ({ children, className, onClick, ...props }: CarouselPr
       {children ?? (
         <svg
           aria-hidden="true"
-          className="cn-rtl-flip size-4"
+          className="size-4"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
@@ -134,8 +147,9 @@ const CarouselNext = ({ children, className, onClick, ...props }: CarouselNextPr
   return (
     <Button
       aria-label="Next slide"
-      className={cn('cn-carousel-next absolute top-1/2 right-2 -translate-y-1/2', className)}
-      data-slot="carousel-next"
+      className={cn('absolute top-1/2 right-2 -translate-y-1/2', className)}
+      data-scope="carousel"
+      data-slot="next"
       disabled={index >= itemCount - 1}
       onClick={(event) => {
         scrollNext()
@@ -148,7 +162,7 @@ const CarouselNext = ({ children, className, onClick, ...props }: CarouselNextPr
       {children ?? (
         <svg
           aria-hidden="true"
-          className="cn-rtl-flip size-4"
+          className="size-4"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"

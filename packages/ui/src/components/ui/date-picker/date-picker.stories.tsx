@@ -55,7 +55,8 @@ Basic.play = async ({ canvasElement }) => {
   await expect(canvas.getByLabelText('Date')).toHaveTextContent('January 20, 2026')
   await userEvent.click(canvas.getByLabelText('Date'))
 
-  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(await page.findByText('January 2026')).toHaveAttribute('data-scope', 'calendar')
+  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'caption')
   await expect(page.getByRole('button', { name: 'January 20, 2026' })).toHaveAttribute('data-selected', 'true')
 }
 
@@ -91,7 +92,9 @@ RangePicker.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByLabelText('Date Picker Range'))
 
   await expect(await page.findByText('January 2026')).toBeVisible()
-  await expect(canvasElement.ownerDocument.body.querySelectorAll('[data-slot="calendar-grid"]')).toHaveLength(2)
+  await expect(
+    canvasElement.ownerDocument.body.querySelectorAll('[data-scope="calendar"][data-slot="grid"]')
+  ).toHaveLength(2)
   await expect(page.getByRole('button', { name: 'February 9, 2026' })).toHaveAttribute('data-selected', 'true')
 }
 
@@ -124,7 +127,8 @@ DateOfBirth.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByLabelText('Date of birth'))
 
-  await expect(await page.findByLabelText('Month and year')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(await page.findByLabelText('Month and year')).toHaveAttribute('data-scope', 'calendar')
+  await expect(await page.findByLabelText('Month and year')).toHaveAttribute('data-slot', 'caption')
 }
 
 export const Input: Story = {
@@ -162,5 +166,6 @@ Input.play = async ({ canvasElement }) => {
   await expect(canvas.getByLabelText('Subscription Date')).toHaveValue('January 20, 2026')
   await userEvent.click(canvas.getByRole('button', { name: 'Select date' }))
 
-  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(await page.findByText('January 2026')).toHaveAttribute('data-scope', 'calendar')
+  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'caption')
 }

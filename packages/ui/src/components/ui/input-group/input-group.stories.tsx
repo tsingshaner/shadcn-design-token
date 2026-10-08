@@ -101,8 +101,10 @@ Default.play = async ({ canvasElement }) => {
   await userEvent.type(input, 'docs')
 
   await expect(input).toHaveValue('docs')
-  await expect(canvas.getByText('https://')).toHaveAttribute('data-slot', 'input-group-text')
-  await expect(canvas.getByRole('button', { name: 'Copy' })).toHaveAttribute('data-slot', 'input-group-button')
+  await expect(canvas.getByText('https://')).toHaveAttribute('data-scope', 'input-group')
+  await expect(canvas.getByText('https://')).toHaveAttribute('data-slot', 'text')
+  await expect(canvas.getByRole('button', { name: 'Copy' })).toHaveAttribute('data-scope', 'input-group')
+  await expect(canvas.getByRole('button', { name: 'Copy' })).toHaveAttribute('data-slot', 'button')
 }
 
 export const WithIcons: Story = {
@@ -184,6 +186,7 @@ export const WithKbd: Story = {
 WithKbd.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('⌘K')).toHaveAttribute('data-slot', 'kbd')
+  await expect(canvas.getByText('⌘K')).toHaveAttribute('data-scope', 'kbd')
+  await expect(canvas.getByText('⌘K')).toHaveAttribute('data-slot', 'root')
   await expect(canvas.getByPlaceholderText('Search...')).toBeEnabled()
 }

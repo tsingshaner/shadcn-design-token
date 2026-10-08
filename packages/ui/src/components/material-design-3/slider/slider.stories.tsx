@@ -135,8 +135,10 @@ Discrete.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('slider', { hidden: true })).toHaveAttribute('aria-valuenow', '40')
-  await expect(canvasElement.querySelectorAll('[data-slot="slider-stop"]')).toHaveLength(6)
-  await expect(canvasElement.querySelector('[data-slot="slider-value-indicator"]')).toHaveTextContent('40')
+  await expect(canvasElement.querySelectorAll('[data-scope="slider"][data-slot="stop"]')).toHaveLength(6)
+  await expect(canvasElement.querySelector('[data-scope="slider"][data-slot="value-indicator"]')).toHaveTextContent(
+    '40'
+  )
 }
 
 export const WithIcon: Story = {

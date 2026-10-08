@@ -12,7 +12,8 @@ describe('Separator', () => {
     render(<Separator data-testid="separator" />)
 
     expect(screen.getByTestId('separator')).toHaveAttribute('role', 'none')
-    expect(screen.getByTestId('separator')).toHaveClass('cn-divider')
+    expect(screen.getByTestId('separator')).toHaveAttribute('data-scope', 'separator')
+    expect(screen.getByTestId('separator')).toHaveAttribute('data-slot', 'root')
   })
 
   test('supports semantic vertical orientation', () => {

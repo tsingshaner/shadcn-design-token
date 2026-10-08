@@ -83,9 +83,11 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByLabelText('Name')).toHaveAttribute('data-slot', 'input')
+  await expect(canvas.getByLabelText('Name')).toHaveAttribute('data-scope', 'input')
+  await expect(canvas.getByLabelText('Name')).toHaveAttribute('data-slot', 'root')
   await expect(canvas.getByLabelText('Slug')).toHaveAttribute('aria-invalid', 'true')
-  await expect(canvas.getByText('Slug is already in use.')).toHaveAttribute('data-slot', 'field-error')
+  await expect(canvas.getByText('Slug is already in use.')).toHaveAttribute('data-scope', 'field')
+  await expect(canvas.getByText('Slug is already in use.')).toHaveAttribute('data-slot', 'error')
 }
 
 export const TextareaExample: Story = {
@@ -167,7 +169,8 @@ SliderExample.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getAllByRole('slider')).toHaveLength(2)
-  await expect(canvas.getByText('Price Range')).toHaveAttribute('data-slot', 'field-title')
+  await expect(canvas.getByText('Price Range')).toHaveAttribute('data-scope', 'field')
+  await expect(canvas.getByText('Price Range')).toHaveAttribute('data-slot', 'title')
 }
 
 export const CheckboxExample: Story = {
@@ -301,7 +304,7 @@ export const FieldSeparatorExample: Story = {
 FieldSeparatorExample.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="field-separator"]')).toBeInTheDocument()
+  await expect(canvasElement.querySelector('[data-scope="field"][data-slot="separator"]')).toBeInTheDocument()
   await expect(canvas.getByRole('button', { name: 'Save' })).toBeEnabled()
 }
 

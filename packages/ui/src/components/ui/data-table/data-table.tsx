@@ -63,7 +63,7 @@ const DataTable = <TData,>({ columns, data, emptyMessage = 'No results.', getRow
   }
 
   return (
-    <Table data-slot="data-table">
+    <Table data-scope="data-table" data-slot="root">
       <TableHeader>
         <TableRow>
           {columns.map((column) => (

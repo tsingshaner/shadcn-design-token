@@ -75,10 +75,13 @@ const items = await Promise.all(
     const filePath = join(componentsDir, directory, componentName, `${componentName}.tsx`)
     const source = await readFile(filePath, 'utf8')
     const imports = [...source.matchAll(importPattern)].map((match) => match[1])
+    const usesCva = imports.includes('@/lib/cva')
     const registryDependencies = [
       ...new Set(imports.map((specifier) => getRegistryDependency(specifier, filePath, componentNames)).filter(Boolean))
     ].sort((a, b) => a.localeCompare(b))
-    const dependencies = [...new Set(imports.map(getPackageName).filter(Boolean))].sort((a, b) => a.localeCompare(b))
+    const dependencies = [
+      ...new Set([...imports.map(getPackageName).filter(Boolean), ...(usesCva ? ['cn', 'cva@1.0.0-beta.12'] : [])])
+    ].sort((a, b) => a.localeCompare(b))
 
     return {
       ...(dependencies.length > 0 ? { dependencies } : {}),
@@ -87,7 +90,8 @@ const items = await Promise.all(
           path: toPosixPath(relative(rootDir, filePath)),
           target: `${target}/${componentName}/index.tsx`,
           type: 'registry:ui'
-        }
+        },
+        ...(usesCva ? [{ path: 'packages/ui/src/lib/cva.ts', target: '@lib/cva.ts', type: 'registry:lib' }] : [])
       ],
       name: `${prefix}${componentName}`,
       ...(registryDependencies.length > 0 ? { registryDependencies } : {}),

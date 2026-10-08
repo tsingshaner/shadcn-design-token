@@ -60,10 +60,18 @@ const colorControls: Array<{ key: ColorKey; label: string }> = [
 
 const componentDefinitions: Record<ComponentName, { colorKeys: ComponentColorKey[]; label: string; selector: string }> =
   {
-    badge: { colorKeys: ['fill', 'textColor'], label: 'Badge', selector: '.cn-badge' },
-    button: { colorKeys: ['fill', 'textColor'], label: 'Button', selector: '.cn-button' },
-    card: { colorKeys: ['fill', 'textColor', 'border'], label: 'Card', selector: '.cn-card' },
-    input: { colorKeys: ['fill', 'textColor', 'border'], label: 'Input', selector: '.cn-input' }
+    badge: { colorKeys: ['fill', 'textColor'], label: 'Badge', selector: '[data-scope="badge"][data-slot="root"]' },
+    button: { colorKeys: ['fill', 'textColor'], label: 'Button', selector: '[data-scope="button"][data-slot="root"]' },
+    card: {
+      colorKeys: ['fill', 'textColor', 'border'],
+      label: 'Card',
+      selector: '[data-scope="card"][data-slot="root"]'
+    },
+    input: {
+      colorKeys: ['fill', 'textColor', 'border'],
+      label: 'Input',
+      selector: '[data-scope="input"][data-slot="root"]'
+    }
   }
 
 const componentNames = Object.keys(componentDefinitions) as ComponentName[]
@@ -121,9 +129,9 @@ const getComponentCss = (overrides: ComponentOverrides, scope = '') => {
 
     if (component === 'button') {
       return [
-        formatRule('.cn-button', [['border-radius', radius]], scope),
+        formatRule('[data-scope="button"][data-slot="root"]', [['border-radius', radius]], scope),
         formatRule(
-          '.cn-button-variant-default',
+          '[data-scope="button"][data-slot="root"]:is([data-variant="primary"], :not([data-variant]))',
           [
             ['--primary', override.fill],
             ['--primary-foreground', override.textColor],
@@ -136,9 +144,9 @@ const getComponentCss = (overrides: ComponentOverrides, scope = '') => {
 
     if (component === 'badge') {
       return [
-        formatRule('.cn-badge', [['border-radius', radius]], scope),
+        formatRule('[data-scope="badge"][data-slot="root"]', [['border-radius', radius]], scope),
         formatRule(
-          '.cn-badge-variant-default',
+          '[data-scope="badge"][data-slot="root"][data-variant="primary"]',
           [
             ['--primary', override.fill],
             ['--primary-foreground', override.textColor]
@@ -151,7 +159,7 @@ const getComponentCss = (overrides: ComponentOverrides, scope = '') => {
     if (component === 'card') {
       return [
         formatRule(
-          '.cn-card',
+          '[data-scope="card"][data-slot="root"]',
           [
             ['--card', override.fill],
             ['--card-foreground', override.textColor],
@@ -165,7 +173,7 @@ const getComponentCss = (overrides: ComponentOverrides, scope = '') => {
 
     return [
       formatRule(
-        '.cn-input',
+        '[data-scope="input"][data-slot="root"]',
         [
           ['background-color', override.fill],
           ['color', override.textColor],
@@ -707,7 +715,7 @@ ComponentStyles.play = async ({ canvasElement }) => {
   const preview = within(canvas.getByTestId('theme-preview'))
   const radius = canvas.getByRole('slider', { name: 'Component radius' })
   const button = preview.getByRole('button', { name: 'Primary' })
-  const card = preview.getByText('Design system activity').closest<HTMLElement>('[data-slot="card"]')
+  const card = preview.getByText('Design system activity').closest<HTMLElement>('[data-scope="card"][data-slot="root"]')
   const input = preview.getByRole('textbox', { name: 'Name' })
 
   if (!card) {
@@ -716,6 +724,7 @@ ComponentStyles.play = async ({ canvasElement }) => {
 
   const initial = {
     button: getComputedStyle(button).borderRadius,
+    buttonColor: getComputedStyle(button).backgroundColor,
     card: getComputedStyle(card).borderRadius,
     css: css.textContent,
     input: getComputedStyle(input).borderRadius
@@ -723,6 +732,7 @@ ComponentStyles.play = async ({ canvasElement }) => {
 
   await expect(canvas.getByRole('heading', { name: 'Component style studio' })).toBeVisible()
   await fireEvent.change(radius, { target: { value: '20' } })
+  await fireEvent.change(canvas.getByLabelText('Button fill color'), { target: { value: '#123456' } })
 
   await userEvent.selectOptions(component, 'card')
   await expect(radius).toHaveValue('10')
@@ -733,18 +743,20 @@ ComponentStyles.play = async ({ canvasElement }) => {
 
   await waitFor(() => {
     expect(getComputedStyle(button).borderRadius).toBe('20px')
+    expect(getComputedStyle(button).backgroundColor).toBe('rgb(18, 52, 86)')
     expect(getComputedStyle(card).borderRadius).toBe('14px')
     expect(getComputedStyle(input).borderRadius).toBe(initial.input)
   })
 
-  await expect(css).toHaveTextContent(/\.cn-button\s*\{\s*border-radius:\s*20px;\s*\}/)
-  await expect(css).toHaveTextContent(/\.cn-card\s*\{\s*border-radius:\s*14px;\s*\}/)
-  await expect(css.textContent).not.toContain('.cn-input {')
+  await expect(css).toHaveTextContent('[data-scope="button"][data-slot="root"] { border-radius: 20px; }')
+  await expect(css).toHaveTextContent('[data-scope="card"][data-slot="root"] { border-radius: 14px; }')
+  await expect(css.textContent).not.toContain('[data-scope="input"][data-slot="root"] {')
 
   await userEvent.click(canvas.getByRole('button', { name: 'Reset' }))
 
   await waitFor(() => {
     expect(getComputedStyle(button).borderRadius).toBe(initial.button)
+    expect(getComputedStyle(button).backgroundColor).toBe(initial.buttonColor)
     expect(getComputedStyle(card).borderRadius).toBe(initial.card)
     expect(getComputedStyle(input).borderRadius).toBe(initial.input)
     expect(css.textContent).toBe(initial.css)

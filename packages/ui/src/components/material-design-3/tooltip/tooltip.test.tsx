@@ -17,8 +17,11 @@ describe('Tooltip', () => {
       </TooltipProvider>
     )
 
-    expect(screen.getByText('Helpful hint')).toHaveAttribute('data-slot', 'tooltip-content')
-    expect(screen.getByText('Helpful hint')).toHaveClass('cn-tooltip-content', 'cn-tooltip-content-logical')
-    expect(document.querySelector('.cn-tooltip-arrow')).toHaveClass('cn-tooltip-arrow-logical', 'hidden')
+    expect(screen.getByText('Helpful hint')).toHaveAttribute('data-scope', 'tooltip')
+    expect(screen.getByText('Helpful hint')).toHaveAttribute('data-slot', 'content')
+
+    expect(document.querySelector('[data-scope="tooltip"][data-slot="arrow"]')).toHaveAttribute('data-scope', 'tooltip')
+    expect(document.querySelector('[data-scope="tooltip"][data-slot="arrow"]')).toHaveAttribute('data-slot', 'arrow')
+    expect(document.querySelector('[data-scope="tooltip"][data-slot="arrow"]')).toHaveClass('hidden')
   })
 })

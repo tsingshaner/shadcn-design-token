@@ -41,12 +41,14 @@ export const Basic: Story = {
 Basic.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(canvas.getByText('January 2026')).toHaveAttribute('data-scope', 'calendar')
+  await expect(canvas.getByText('January 2026')).toHaveAttribute('data-slot', 'caption')
   await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
 
   await userEvent.click(canvas.getByRole('button', { name: 'Next month' }))
 
-  await expect(canvas.getByText('February 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(canvas.getByText('February 2026')).toHaveAttribute('data-scope', 'calendar')
+  await expect(canvas.getByText('February 2026')).toHaveAttribute('data-slot', 'caption')
 }
 
 export const RangeCalendar: Story = {
@@ -72,7 +74,7 @@ RangeCalendar.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByText('January 2026')).toBeVisible()
-  await expect(canvasElement.querySelectorAll('[data-slot="calendar-grid"]')).toHaveLength(2)
+  await expect(canvasElement.querySelectorAll('[data-scope="calendar"][data-slot="grid"]')).toHaveLength(2)
   await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
   await expect(canvas.getByRole('button', { name: 'February 11, 2026' })).toHaveAttribute('data-selected', 'true')
 }
@@ -99,7 +101,8 @@ export const MonthAndYearSelector: Story = {
 MonthAndYearSelector.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByLabelText('Month and year')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(canvas.getByLabelText('Month and year')).toHaveAttribute('data-scope', 'calendar')
+  await expect(canvas.getByLabelText('Month and year')).toHaveAttribute('data-slot', 'caption')
   await expect(canvas.getByRole('button', { name: 'January 12, 2026' })).toHaveAttribute('data-selected', 'true')
 }
 

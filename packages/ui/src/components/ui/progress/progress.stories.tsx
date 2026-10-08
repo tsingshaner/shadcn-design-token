@@ -73,8 +73,10 @@ export const Label: Story = {
 Label.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('Upload progress')).toHaveAttribute('data-slot', 'progress-label')
-  await expect(canvas.getByText('56%')).toHaveAttribute('data-slot', 'progress-value')
+  await expect(canvas.getByText('Upload progress')).toHaveAttribute('data-scope', 'progress')
+  await expect(canvas.getByText('Upload progress')).toHaveAttribute('data-slot', 'label')
+  await expect(canvas.getByText('56%')).toHaveAttribute('data-scope', 'progress')
+  await expect(canvas.getByText('56%')).toHaveAttribute('data-slot', 'value')
 }
 
 export const Controlled: Story = {

@@ -11,14 +11,19 @@ describe('Badge', () => {
   test('renders badge content', () => {
     render(<Badge>Stable</Badge>)
 
-    expect(screen.getByText('Stable')).toHaveAttribute('data-slot', 'badge')
-    expect(screen.getByText('Stable')).toHaveClass('cn-badge', 'cn-badge-variant-default')
+    expect(screen.getByText('Stable')).toHaveAttribute('data-scope', 'badge')
+    expect(screen.getByText('Stable')).toHaveAttribute('data-slot', 'root')
+
+    expect(screen.getByText('Stable')).toHaveAttribute('data-variant', 'primary')
   })
 
   test('applies variants', () => {
     render(<Badge variant="secondary">Secondary</Badge>)
 
-    expect(screen.getByText('Secondary')).toHaveClass('cn-badge-variant-secondary', 'bg-secondary')
+    expect(screen.getByText('Secondary')).toHaveAttribute('data-scope', 'badge')
+    expect(screen.getByText('Secondary')).toHaveAttribute('data-slot', 'root')
+    expect(screen.getByText('Secondary')).toHaveAttribute('data-variant', 'secondary')
+    expect(screen.getByText('Secondary')).toHaveClass('bg-secondary')
   })
 
   test('supports link rendering', () => {
@@ -28,6 +33,7 @@ describe('Badge', () => {
       </Badge>
     )
 
-    expect(screen.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-slot', 'badge')
+    expect(screen.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-scope', 'badge')
+    expect(screen.getByRole('link', { name: 'Open Link' })).toHaveAttribute('data-slot', 'root')
   })
 })

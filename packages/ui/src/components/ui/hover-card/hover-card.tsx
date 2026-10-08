@@ -6,10 +6,12 @@ type HoverCardTriggerProps = HoverCardPrimitive.Trigger.Props
 type HoverCardContentProps = HoverCardPrimitive.Popup.Props &
   Pick<HoverCardPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
 
-const HoverCard = (props: HoverCardProps) => <HoverCardPrimitive.Root data-slot="hover-card" {...props} />
+const HoverCard = (props: HoverCardProps) => (
+  <HoverCardPrimitive.Root data-scope="hover-card" data-slot="root" {...props} />
+)
 
 const HoverCardTrigger = (props: HoverCardTriggerProps) => (
-  <HoverCardPrimitive.Trigger data-slot="hover-card-trigger" {...props} />
+  <HoverCardPrimitive.Trigger data-scope="hover-card" data-slot="trigger" {...props} />
 )
 
 const HoverCardContent = ({
@@ -20,7 +22,7 @@ const HoverCardContent = ({
   sideOffset = 4,
   ...props
 }: HoverCardContentProps) => (
-  <HoverCardPrimitive.Portal data-slot="hover-card-portal">
+  <HoverCardPrimitive.Portal data-scope="hover-card" data-slot="portal">
     <HoverCardPrimitive.Positioner
       align={align}
       alignOffset={alignOffset}
@@ -30,10 +32,11 @@ const HoverCardContent = ({
     >
       <HoverCardPrimitive.Popup
         className={cn(
-          'cn-hover-card-content cn-hover-card-content-logical z-50 w-64 origin-(--transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden',
+          'z-50 w-64 origin-(--transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden',
           className
         )}
-        data-slot="hover-card-content"
+        data-scope="hover-card"
+        data-slot="content"
         {...props}
       />
     </HoverCardPrimitive.Positioner>

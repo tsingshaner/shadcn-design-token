@@ -53,7 +53,7 @@ export const Default: Story = {
   )
 }
 Default.play = async ({ canvasElement }) => {
-  await expect(canvasElement.querySelectorAll('[data-slot="kbd"]')).toHaveLength(2)
+  await expect(canvasElement.querySelectorAll('[data-scope="kbd"][data-slot="root"]')).toHaveLength(2)
 }
 
 export const Group: Story = {
@@ -81,8 +81,9 @@ export const Group: Story = {
 Group.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('Ctrl + B')).toHaveAttribute('data-slot', 'kbd')
-  await expect(canvasElement.querySelector('[data-slot="kbd-group"]')).toBeInTheDocument()
+  await expect(canvas.getByText('Ctrl + B')).toHaveAttribute('data-scope', 'kbd')
+  await expect(canvas.getByText('Ctrl + B')).toHaveAttribute('data-slot', 'root')
+  await expect(canvasElement.querySelector('[data-scope="kbd"][data-slot="group"]')).toBeInTheDocument()
 }
 
 export const ButtonExample: Story = {
@@ -108,7 +109,8 @@ ButtonExample.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('button', { name: /Accept/ })).toBeEnabled()
-  await expect(canvas.getByText('⏎')).toHaveAttribute('data-slot', 'kbd')
+  await expect(canvas.getByText('⏎')).toHaveAttribute('data-scope', 'kbd')
+  await expect(canvas.getByText('⏎')).toHaveAttribute('data-slot', 'root')
 }
 
 export const TooltipExample: Story = {
@@ -177,5 +179,5 @@ InputGroupExample.play = async ({ canvasElement }) => {
   await userEvent.type(input, 'tokens')
 
   await expect(input).toHaveValue('tokens')
-  await expect(canvasElement.querySelectorAll('[data-slot="kbd"]')).toHaveLength(2)
+  await expect(canvasElement.querySelectorAll('[data-scope="kbd"][data-slot="root"]')).toHaveLength(2)
 }

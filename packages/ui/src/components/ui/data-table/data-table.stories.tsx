@@ -29,7 +29,7 @@ const data: Invoice[] = [
 ]
 
 const meta = {
-  component: DataTable,
+  component: DataTable<Invoice>,
   parameters: {
     docs: {
       description: {
@@ -40,19 +40,21 @@ const meta = {
   },
   tags: ['autodocs'],
   title: 'Components/Data Table'
-} satisfies Meta<typeof DataTable>
+} satisfies Meta<typeof DataTable<Invoice>>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
+  args: { columns, data },
   render: () => <DataTable columns={columns} data={data} getRowId={(invoice) => invoice.customer} />
 }
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('table')).toHaveAttribute('data-slot', 'data-table')
+  await expect(canvas.getByRole('table')).toHaveAttribute('data-scope', 'data-table')
+  await expect(canvas.getByRole('table')).toHaveAttribute('data-slot', 'root')
   await expect(canvas.getByRole('columnheader', { name: /Customer/ })).toBeVisible()
   await expect(canvas.getByRole('cell', { name: 'Avery Stone' })).toBeVisible()
 

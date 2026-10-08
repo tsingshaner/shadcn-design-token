@@ -24,11 +24,37 @@ describe('Accordion', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Details' }))
 
     expect(screen.getByText('Expanded content')).toBeVisible()
-    expect(screen.getByRole('button', { name: 'Details' })).toHaveClass('cn-accordion-trigger')
-    expect(document.querySelector('[data-slot="accordion"]')).toHaveClass('cn-accordion')
-    expect(document.querySelector('[data-slot="accordion-item"]')).toHaveClass('cn-accordion-item')
-    expect(document.querySelector('[data-slot="accordion-content"]')).toHaveClass('cn-accordion-content')
-    expect(document.querySelector('[data-slot="accordion-trigger-icon"]')).toHaveClass('cn-accordion-trigger-icon')
-    expect(document.querySelector('[data-slot="accordion-trigger-icon"]')).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByRole('button', { name: 'Details' })).toHaveAttribute('data-scope', 'accordion')
+    expect(screen.getByRole('button', { name: 'Details' })).toHaveAttribute('data-slot', 'trigger')
+    expect(document.querySelector('[data-scope="accordion"][data-slot="root"]')).toHaveAttribute(
+      'data-scope',
+      'accordion'
+    )
+    expect(document.querySelector('[data-scope="accordion"][data-slot="root"]')).toHaveAttribute('data-slot', 'root')
+    expect(document.querySelector('[data-scope="accordion"][data-slot="item"]')).toHaveAttribute(
+      'data-scope',
+      'accordion'
+    )
+    expect(document.querySelector('[data-scope="accordion"][data-slot="item"]')).toHaveAttribute('data-slot', 'item')
+    expect(document.querySelector('[data-scope="accordion"][data-slot="content"]')).toHaveAttribute(
+      'data-scope',
+      'accordion'
+    )
+    expect(document.querySelector('[data-scope="accordion"][data-slot="content"]')).toHaveAttribute(
+      'data-slot',
+      'content'
+    )
+    expect(document.querySelector('[data-scope="accordion"][data-slot="trigger-icon"]')).toHaveAttribute(
+      'data-scope',
+      'accordion'
+    )
+    expect(document.querySelector('[data-scope="accordion"][data-slot="trigger-icon"]')).toHaveAttribute(
+      'data-slot',
+      'trigger-icon'
+    )
+    expect(document.querySelector('[data-scope="accordion"][data-slot="trigger-icon"]')).toHaveAttribute(
+      'aria-hidden',
+      'true'
+    )
   })
 })

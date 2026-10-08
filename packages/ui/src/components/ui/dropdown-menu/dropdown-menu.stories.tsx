@@ -109,8 +109,10 @@ Basic.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
 
-  await expect(await page.findByText('Theme tokens')).toHaveAttribute('data-slot', 'dropdown-menu-label')
-  await expect(page.getByText('Sync')).toHaveAttribute('data-slot', 'dropdown-menu-item')
+  await expect(await page.findByText('Theme tokens')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(await page.findByText('Theme tokens')).toHaveAttribute('data-slot', 'label')
+  await expect(page.getByText('Sync')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(page.getByText('Sync')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Submenu: Story = {
@@ -146,7 +148,8 @@ Submenu.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
   await userEvent.hover(await page.findByText('Export as'))
 
-  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-slot', 'dropdown-menu-item')
+  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(await page.findByText('CSS variables')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Shortcuts: Story = {
@@ -184,8 +187,10 @@ Shortcuts.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Open' }))
 
-  await expect(await page.findByText('⌘N')).toHaveAttribute('data-slot', 'dropdown-menu-shortcut')
-  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-slot', 'dropdown-menu-shortcut')
+  await expect(await page.findByText('⌘N')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(await page.findByText('⌘N')).toHaveAttribute('data-slot', 'shortcut')
+  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(page.getByText('⇧⌘E')).toHaveAttribute('data-slot', 'shortcut')
 }
 
 export const Icons: Story = {
@@ -388,8 +393,10 @@ Avatar.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: /Design Tokens/ }))
 
-  await expect(await page.findByText('Workspace')).toHaveAttribute('data-slot', 'dropdown-menu-label')
-  await expect(page.getByText('Invite team')).toHaveAttribute('data-slot', 'dropdown-menu-item')
+  await expect(await page.findByText('Workspace')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(await page.findByText('Workspace')).toHaveAttribute('data-slot', 'label')
+  await expect(page.getByText('Invite team')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(page.getByText('Invite team')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Complex: Story = {
@@ -437,6 +444,7 @@ Complex.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByRole('button', { name: 'Token actions' }))
   await userEvent.hover(await page.findByText('Export'))
 
-  await expect(await page.findByText('JSON')).toHaveAttribute('data-slot', 'dropdown-menu-item')
+  await expect(await page.findByText('JSON')).toHaveAttribute('data-scope', 'dropdown-menu')
+  await expect(await page.findByText('JSON')).toHaveAttribute('data-slot', 'item')
   await expect(page.getByRole('menuitemcheckbox', { name: 'Show in sidebar' })).toHaveAttribute('aria-checked', 'true')
 }

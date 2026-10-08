@@ -20,7 +20,7 @@ describe('Progress', () => {
     render(<Progress aria-label="Loading" shape={shape} thickness={thickness} value={value} variant={variant} />)
 
     const progress = screen.getByRole('progressbar', { name: 'Loading' })
-    const indicator = progress.querySelector('[data-slot="progress-indicator"]')
+    const indicator = progress.querySelector('[data-scope="progress"][data-slot="indicator"]')
     expect(progress).toHaveAttribute('data-variant', variant)
     expect(progress).toHaveAttribute('data-shape', shape)
     expect(progress).toHaveAttribute('data-thickness', String(thickness))
@@ -37,10 +37,10 @@ describe('Progress', () => {
     render(<Progress shape={shape} thickness={thickness} value={40} />)
 
     const progress = screen.getByRole('progressbar')
-    const track = progress.querySelector('[data-slot="progress-track"]')
-    const indicator = progress.querySelector('[data-slot="progress-indicator"]')
-    const rest = progress.querySelector('[data-slot="progress-track-rest"]')
-    const wave = progress.querySelector('[data-slot="progress-wave"]')
+    const track = progress.querySelector('[data-scope="progress"][data-slot="track"]')
+    const indicator = progress.querySelector('[data-scope="progress"][data-slot="indicator"]')
+    const rest = progress.querySelector('[data-scope="progress"][data-slot="track-rest"]')
+    const wave = progress.querySelector('[data-scope="progress"][data-slot="wave"]')
     expect(track).toHaveClass(sizes[shape][thickness])
     expect(rest).toHaveClass('rounded-full')
     expect(rest).toHaveStyle({ left: `calc(40% + ${gaps[thickness]}px)` })
@@ -51,7 +51,7 @@ describe('Progress', () => {
   test('rounds both ends of the linear wave path', () => {
     render(<Progress shape="wave" value={40} />)
 
-    const wave = screen.getByRole('progressbar').querySelector('[data-slot="progress-wave"] path')
+    const wave = screen.getByRole('progressbar').querySelector('[data-scope="progress"][data-slot="wave"] path')
     expect(wave).toHaveAttribute('stroke-linecap', 'round')
     expect(wave).toHaveAttribute('stroke-width', '4')
   })
@@ -60,8 +60,8 @@ describe('Progress', () => {
     render(<Progress shape={shape} value={null} />)
 
     const progress = screen.getByRole('progressbar')
-    expect(progress.querySelector('[data-slot="progress-track-rest"]')).toHaveStyle({ left: 0 })
-    expect(progress.querySelector('[data-slot="progress-indicator"]')).toHaveStyle({
+    expect(progress.querySelector('[data-scope="progress"][data-slot="track-rest"]')).toHaveStyle({ left: '0px' })
+    expect(progress.querySelector('[data-scope="progress"][data-slot="indicator"]')).toHaveStyle({
       boxShadow: '0 0 0 6px var(--background)'
     })
   })
@@ -79,8 +79,8 @@ describe('Progress', () => {
     render(<Progress shape={shape} thickness={thickness} value={40} variant="circular" />)
 
     const indicator = screen.getByRole('progressbar').querySelector('path')
-    const track = screen.getByRole('progressbar').querySelector('[data-slot="progress-track"]')
-    const rest = screen.getByRole('progressbar').querySelector('[data-slot="progress-circular-rest"]')
+    const track = screen.getByRole('progressbar').querySelector('[data-scope="progress"][data-slot="track"]')
+    const rest = screen.getByRole('progressbar').querySelector('[data-scope="progress"][data-slot="circular-rest"]')
     expect(track).toHaveClass(
       {
         flat: { 4: 'size-10', 8: 'size-11' },
@@ -107,7 +107,9 @@ describe('Progress', () => {
   test.each(['linear', 'circular'] as const)('hides the %s track', (variant) => {
     render(<Progress aria-label="Loading" showTrack={false} value={40} variant={variant} />)
 
-    const track = screen.getByRole('progressbar', { name: 'Loading' }).querySelector('[data-slot="progress-track"]')
+    const track = screen
+      .getByRole('progressbar', { name: 'Loading' })
+      .querySelector('[data-scope="progress"][data-slot="track"]')
     if (variant === 'linear') {
       expect(track).toHaveClass('bg-transparent')
     } else {
@@ -118,10 +120,14 @@ describe('Progress', () => {
   test('renders the linear determinate stop indicator until completion', () => {
     const { rerender } = render(<Progress value={40} />)
 
-    expect(screen.getByRole('progressbar').querySelector('[data-slot="progress-stop"]')).toHaveClass('size-1')
+    expect(screen.getByRole('progressbar').querySelector('[data-scope="progress"][data-slot="stop"]')).toHaveClass(
+      'size-1'
+    )
 
     rerender(<Progress value={100} />)
-    expect(screen.getByRole('progressbar').querySelector('[data-slot="progress-stop"]')).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('progressbar').querySelector('[data-scope="progress"][data-slot="stop"]')
+    ).not.toBeInTheDocument()
   })
 
   test('renders label and value slots', () => {
@@ -134,9 +140,10 @@ describe('Progress', () => {
 
     const label = screen.getByText('Upload progress')
     const value = screen.getByText('56%')
-    expect(label).toHaveAttribute('data-slot', 'progress-label')
-    expect(label).toHaveClass('cn-progress-label')
-    expect(value).toHaveAttribute('data-slot', 'progress-value')
-    expect(value).toHaveClass('cn-progress-value')
+    expect(label).toHaveAttribute('data-scope', 'progress')
+    expect(label).toHaveAttribute('data-slot', 'label')
+
+    expect(value).toHaveAttribute('data-scope', 'progress')
+    expect(value).toHaveAttribute('data-slot', 'value')
   })
 })

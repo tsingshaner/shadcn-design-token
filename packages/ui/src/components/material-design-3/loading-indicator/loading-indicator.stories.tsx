@@ -29,6 +29,11 @@ WithoutContainer.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('progressbar', { name: 'Loading' })).not.toHaveAttribute('aria-valuenow')
+  const shape = canvasElement.querySelector('[data-scope="loading-indicator"][data-slot="shape"]')
+  if (!shape) {
+    throw new Error('Loading indicator shape was not found.')
+  }
+  await expect(getComputedStyle(shape).animationName).toBe('loading-indicator-morph, loading-indicator-rotate')
 }
 
 export const WithContainer: Story = {

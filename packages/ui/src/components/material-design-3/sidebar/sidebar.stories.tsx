@@ -77,14 +77,16 @@ export const Default: Story = {
 }
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
-  const wrapper = canvasElement.querySelector('[data-slot="sidebar-wrapper"]')
-  const sidebar = canvasElement.querySelector('[data-slot="sidebar"]')
+  const wrapper = canvasElement.querySelector('[data-scope="sidebar"][data-slot="wrapper"]')
+  const sidebar = canvasElement.querySelector('[data-scope="sidebar"][data-slot="root"]')
 
   await expect(wrapper).toHaveAttribute('data-sidebar-state', 'expanded')
   await expect(sidebar).toHaveAttribute('data-state', 'expanded')
   await expect(canvas.getByRole('button', { name: 'Acme Studio' })).toHaveAttribute('data-active', 'true')
-  await expect(canvas.getByText('Workspace')).toHaveAttribute('data-slot', 'sidebar-group-label')
-  await expect(canvas.getByText('12')).toHaveAttribute('data-slot', 'sidebar-menu-badge')
+  await expect(canvas.getByText('Workspace')).toHaveAttribute('data-scope', 'sidebar')
+  await expect(canvas.getByText('Workspace')).toHaveAttribute('data-slot', 'group-label')
+  await expect(canvas.getByText('12')).toHaveAttribute('data-scope', 'sidebar')
+  await expect(canvas.getByText('12')).toHaveAttribute('data-slot', 'menu-badge')
 
   await userEvent.click(canvas.getByRole('button', { name: 'Toggle sidebar' }))
 

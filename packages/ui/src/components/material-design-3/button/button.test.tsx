@@ -12,11 +12,10 @@ describe('Button', () => {
     render(<Button>Save</Button>)
 
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass(
-      'cn-button',
-      'cn-button-variant-default',
-      'cn-button-size-default'
-    )
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-scope', 'button')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'root')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-variant', 'primary')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-size', 'md')
   })
 
   test('applies variant and size classes', () => {
@@ -26,13 +25,11 @@ describe('Button', () => {
       </Button>
     )
 
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass(
-      'cn-button-variant-outline',
-      'cn-button-size-sm',
-      'border',
-      'h-9',
-      'rounded-full'
-    )
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-scope', 'button')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'root')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-variant', 'outline')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-size', 'sm')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass('border', 'h-9', 'rounded-full')
   })
 
   test('supports Base UI render composition', () => {
@@ -42,14 +39,15 @@ describe('Button', () => {
       </Button>
     )
 
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'button')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-scope', 'button')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'root')
   })
 
   test('includes the Material Design press state layer', () => {
     render(<Button>Save</Button>)
 
     expect(screen.getByRole('button', { name: 'Save' })).toContainElement(
-      document.querySelector('[data-slot="ripple"]')
+      document.querySelector('[data-scope="ripple"][data-slot="root"]')
     )
   })
 })

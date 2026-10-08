@@ -14,24 +14,26 @@ type BreadcrumbSeparatorProps = ComponentProps<'li'>
 type BreadcrumbEllipsisProps = ComponentProps<'span'>
 
 const Breadcrumb = ({ className, ...props }: BreadcrumbProps) => (
-  <nav aria-label="breadcrumb" className={cn('cn-breadcrumb', className)} data-slot="breadcrumb" {...props} />
+  <nav aria-label="breadcrumb" className={className} data-scope="breadcrumb" data-slot="root" {...props} />
 )
 
 const BreadcrumbList = ({ className, ...props }: BreadcrumbListProps) => (
   <ol
     className={cn(
-      'cn-breadcrumb-list flex flex-wrap items-center gap-1.5 break-words text-muted-foreground text-sm sm:gap-2.5',
+      'flex flex-wrap items-center gap-1.5 break-words text-muted-foreground text-sm sm:gap-2.5',
       className
     )}
-    data-slot="breadcrumb-list"
+    data-scope="breadcrumb"
+    data-slot="list"
     {...props}
   />
 )
 
 const BreadcrumbItem = ({ className, ...props }: BreadcrumbItemProps) => (
   <li
-    className={cn('cn-breadcrumb-item inline-flex items-center gap-1.5', className)}
-    data-slot="breadcrumb-item"
+    className={cn('inline-flex items-center gap-1.5', className)}
+    data-scope="breadcrumb"
+    data-slot="item"
     {...props}
   />
 )
@@ -41,8 +43,8 @@ const BreadcrumbLink = ({ className, render, ...props }: BreadcrumbLinkProps) =>
     defaultTagName: 'a',
     props: mergeProps<'a'>(
       {
-        className: cn('cn-breadcrumb-link transition-colors hover:text-foreground'),
-        ...({ 'data-slot': 'breadcrumb-link' } as Record<'data-slot', string>)
+        className: cn('transition-colors hover:text-foreground'),
+        ...({ 'data-scope': 'breadcrumb', 'data-slot': 'link' } as Record<'data-scope' | 'data-slot', string>)
       },
       props,
       {
@@ -51,7 +53,8 @@ const BreadcrumbLink = ({ className, render, ...props }: BreadcrumbLinkProps) =>
     ),
     render,
     state: {
-      slot: 'breadcrumb-link'
+      scope: 'breadcrumb',
+      slot: 'link'
     }
   })
 
@@ -60,8 +63,9 @@ const BreadcrumbPage = ({ className, ...props }: BreadcrumbPageProps) => (
   <span
     aria-current="page"
     aria-disabled="true"
-    className={cn('cn-breadcrumb-page font-normal text-foreground', className)}
-    data-slot="breadcrumb-page"
+    className={cn('font-normal text-foreground', className)}
+    data-scope="breadcrumb"
+    data-slot="page"
     role="link"
     tabIndex={-1}
     {...props}
@@ -71,20 +75,22 @@ const BreadcrumbPage = ({ className, ...props }: BreadcrumbPageProps) => (
 const BreadcrumbSeparator = ({ children, className, ...props }: BreadcrumbSeparatorProps) => (
   <li
     aria-hidden="true"
-    className={cn('cn-breadcrumb-separator [&>svg]:size-3.5', className)}
-    data-slot="breadcrumb-separator"
+    className={cn('[&>svg]:size-3.5', className)}
+    data-scope="breadcrumb"
+    data-slot="separator"
     role="presentation"
     {...props}
   >
-    {children ?? <ChevronRightIcon className="cn-rtl-flip rtl:rotate-180" />}
+    {children ?? <ChevronRightIcon className="rtl:rotate-180" />}
   </li>
 )
 
 const BreadcrumbEllipsis = ({ className, ...props }: BreadcrumbEllipsisProps) => (
   <span
     aria-hidden="true"
-    className={cn('cn-breadcrumb-ellipsis flex size-9 items-center justify-center', className)}
-    data-slot="breadcrumb-ellipsis"
+    className={cn('flex size-9 items-center justify-center', className)}
+    data-scope="breadcrumb"
+    data-slot="ellipsis"
     role="presentation"
     {...props}
   >

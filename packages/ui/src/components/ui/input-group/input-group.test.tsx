@@ -23,11 +23,15 @@ describe('InputGroup', () => {
       </InputGroup>
     )
 
-    expect(screen.getByLabelText('Amount')).toHaveAttribute('data-slot', 'input-group-control')
-    expect(screen.getByLabelText('Amount')).toHaveClass('cn-input-group-input')
-    expect(screen.getByText('$')).toHaveAttribute('data-slot', 'input-group-addon')
-    expect(screen.getByText('$')).toHaveClass('cn-input-group-addon', 'cn-input-group-addon-align-inline-start')
-    expect(screen.getByLabelText('Amount').parentElement).toHaveClass('cn-input-group')
+    expect(screen.getByLabelText('Amount')).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByLabelText('Amount')).toHaveAttribute('data-slot', 'control')
+
+    expect(screen.getByText('$')).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByText('$')).toHaveAttribute('data-slot', 'addon')
+
+    expect(screen.getByText('$')).toHaveAttribute('data-align', 'inline-start')
+    expect(screen.getByLabelText('Amount').parentElement).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByLabelText('Amount').parentElement).toHaveAttribute('data-slot', 'root')
   })
 
   test('applies shadcn v4 text, button, and textarea classes', () => {
@@ -40,15 +44,17 @@ describe('InputGroup', () => {
       </InputGroup>
     )
 
-    expect(screen.getByText('https://')).toHaveClass('cn-input-group-text')
-    expect(screen.getByRole('textbox', { name: 'Description' })).toHaveAttribute('data-slot', 'input-group-control')
-    expect(screen.getByRole('textbox', { name: 'Description' })).toHaveClass('cn-input-group-textarea')
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass(
-      'cn-input-group-button',
-      'cn-input-group-button-size-xs'
-    )
+    expect(screen.getByText('https://')).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByText('https://')).toHaveAttribute('data-slot', 'text')
+    expect(screen.getByRole('textbox', { name: 'Description' })).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByRole('textbox', { name: 'Description' })).toHaveAttribute('data-slot', 'control')
+
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-slot', 'button')
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveAttribute('data-size', 'xs')
     expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('data-size', 'icon-sm')
-    expect(screen.getByRole('button', { name: 'Open menu' })).toHaveClass('cn-input-group-button-size-icon-sm')
+    expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('data-slot', 'button')
   })
 
   test('supports shadcn v4 input group button size classes', () => {
@@ -59,7 +65,11 @@ describe('InputGroup', () => {
       </InputGroup>
     )
 
-    expect(screen.getByRole('button', { name: 'Small' })).toHaveClass('cn-input-group-button-size-sm')
-    expect(screen.getByRole('button', { name: 'Icon xs' })).toHaveClass('cn-input-group-button-size-icon-xs')
+    expect(screen.getByRole('button', { name: 'Small' })).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByRole('button', { name: 'Small' })).toHaveAttribute('data-slot', 'button')
+    expect(screen.getByRole('button', { name: 'Small' })).toHaveAttribute('data-size', 'sm')
+    expect(screen.getByRole('button', { name: 'Icon xs' })).toHaveAttribute('data-scope', 'input-group')
+    expect(screen.getByRole('button', { name: 'Icon xs' })).toHaveAttribute('data-slot', 'button')
+    expect(screen.getByRole('button', { name: 'Icon xs' })).toHaveAttribute('data-size', 'icon-xs')
   })
 })

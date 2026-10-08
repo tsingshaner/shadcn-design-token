@@ -17,7 +17,7 @@ type ToggleGroupStyle = CSSProperties & {
 
 const ToggleGroupContext = createContext<Pick<ToggleGroupProps, 'orientation' | 'size' | 'spacing' | 'variant'>>({
   orientation: 'horizontal',
-  size: 'default',
+  size: 'md',
   spacing: 2,
   variant: 'default'
 })
@@ -26,7 +26,7 @@ const ToggleGroup = ({
   children,
   className,
   orientation = 'horizontal',
-  size = 'default',
+  size = 'md',
   spacing = 2,
   style,
   variant = 'default',
@@ -34,12 +34,13 @@ const ToggleGroup = ({
 }: ToggleGroupProps) => (
   <ToggleGroupPrimitive
     className={cn(
-      'cn-toggle-group group/toggle-group flex w-fit flex-row items-center gap-[calc(var(--gap)*0.25rem)] rounded-full data-vertical:flex-col data-vertical:items-stretch',
+      'group/toggle-group flex w-fit flex-row items-center gap-[calc(var(--gap)*0.25rem)] rounded-full data-vertical:flex-col data-vertical:items-stretch',
       className
     )}
     data-orientation={orientation}
+    data-scope="toggle-group"
     data-size={size}
-    data-slot="toggle-group"
+    data-slot="root"
     data-spacing={spacing}
     data-variant={variant}
     orientation={orientation}
@@ -52,7 +53,7 @@ const ToggleGroup = ({
   </ToggleGroupPrimitive>
 )
 
-const ToggleGroupItem = ({ className, size = 'default', variant = 'default', ...props }: ToggleGroupItemProps) => {
+const ToggleGroupItem = ({ className, size = 'md', variant = 'default', ...props }: ToggleGroupItemProps) => {
   const context = useContext(ToggleGroupContext)
   const resolvedVariant = context.variant ?? variant
   const resolvedSize = context.size ?? size
@@ -60,12 +61,13 @@ const ToggleGroupItem = ({ className, size = 'default', variant = 'default', ...
   return (
     <Toggle
       className={cn(
-        'cn-toggle-group-item shrink-0 focus:z-10 focus-visible:z-10 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l',
+        'shrink-0 focus:z-10 focus-visible:z-10 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l',
         toggleVariants({ size: resolvedSize, variant: resolvedVariant }),
         className
       )}
+      data-scope="toggle-group"
       data-size={resolvedSize}
-      data-slot="toggle-group-item"
+      data-slot="item"
       data-spacing={context.spacing}
       data-variant={resolvedVariant}
       {...props}

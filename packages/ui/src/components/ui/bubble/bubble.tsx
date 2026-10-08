@@ -1,49 +1,48 @@
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
-import { type ClassValue, cn } from 'cn'
+import { cn } from 'cn'
 
-type BubbleVariantsProps = {
-  variant?: 'default' | 'destructive' | 'ghost' | 'muted' | 'outline' | 'secondary' | 'tinted' | null
-}
+import { cva, type VariantProps } from '@/lib/cva'
 
-const bubbleVariants = ({
-  variant = 'default',
-  class: classValue,
-  className
-}: BubbleVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
-  cn(
-    'cn-bubble group/bubble relative flex w-fit min-w-0 flex-col',
-    variant === 'default' && 'cn-bubble-variant-default',
-    variant === 'destructive' && 'cn-bubble-variant-destructive',
-    variant === 'ghost' && 'cn-bubble-variant-ghost',
-    variant === 'muted' && 'cn-bubble-variant-muted',
-    variant === 'outline' && 'cn-bubble-variant-outline',
-    variant === 'secondary' && 'cn-bubble-variant-secondary',
-    variant === 'tinted' && 'cn-bubble-variant-tinted',
-    classValue,
-    className
-  )
+type BubbleVariantsProps = VariantProps<typeof bubbleVariants>
 
-type BubbleReactionsVariantsProps = {
-  align?: 'end' | 'start' | null
-  side?: 'bottom' | 'top' | null
-}
+const bubbleVariants = cva({
+  base: 'group/bubble relative flex w-fit min-w-0 flex-col',
+  defaultVariants: {
+    variant: 'default'
+  },
+  variants: {
+    variant: {
+      default: '',
+      destructive: '',
+      ghost: '',
+      muted: '',
+      outline: '',
+      secondary: '',
+      tinted: ''
+    }
+  }
+})
 
-const bubbleReactionsVariants = ({
-  align = 'end',
-  side = 'bottom',
-  class: classValue,
-  className
-}: BubbleReactionsVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
-  cn(
-    'cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center',
-    align === 'end' && 'cn-bubble-reactions-align-end',
-    align === 'start' && 'cn-bubble-reactions-align-start',
-    side === 'bottom' && 'cn-bubble-reactions-side-bottom',
-    side === 'top' && 'cn-bubble-reactions-side-top',
-    classValue,
-    className
-  )
+type BubbleReactionsVariantsProps = VariantProps<typeof bubbleReactionsVariants>
+
+const bubbleReactionsVariants = cva({
+  base: 'absolute z-10 flex w-fit items-center justify-center',
+  defaultVariants: {
+    align: 'end',
+    side: 'bottom'
+  },
+  variants: {
+    align: {
+      end: '',
+      start: ''
+    },
+    side: {
+      bottom: '',
+      top: ''
+    }
+  }
+})
 
 type BubbleGroupProps = React.ComponentProps<'div'>
 type BubbleProps = React.ComponentProps<'div'> &
@@ -51,20 +50,18 @@ type BubbleProps = React.ComponentProps<'div'> &
     align?: 'end' | 'start'
   }
 type BubbleContentProps = useRender.ComponentProps<'div'>
-type BubbleReactionsProps = React.ComponentProps<'div'> & {
-  align?: 'end' | 'start'
-  side?: 'bottom' | 'top'
-}
+type BubbleReactionsProps = React.ComponentProps<'div'> & BubbleReactionsVariantsProps
 
 const BubbleGroup = ({ className, ...props }: BubbleGroupProps) => (
-  <div className={cn('cn-bubble-group flex min-w-0 flex-col', className)} data-slot="bubble-group" {...props} />
+  <div className={cn('flex min-w-0 flex-col', className)} data-scope="bubble" data-slot="group" {...props} />
 )
 
 const Bubble = ({ align = 'start', className, variant = 'default', ...props }: BubbleProps) => (
   <div
-    className={cn(bubbleVariants({ variant }), className)}
+    className={bubbleVariants({ className, variant })}
     data-align={align}
-    data-slot="bubble"
+    data-scope="bubble"
+    data-slot="root"
     data-variant={variant}
     {...props}
   />
@@ -76,7 +73,7 @@ const BubbleContent = ({ className, render, ...props }: BubbleContentProps) =>
     props: mergeProps<'div'>(
       {
         className: cn(
-          'cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors',
+          'w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors',
           className
         )
       },
@@ -84,16 +81,18 @@ const BubbleContent = ({ className, render, ...props }: BubbleContentProps) =>
     ),
     render,
     state: {
-      slot: 'bubble-content'
+      scope: 'bubble',
+      slot: 'content'
     }
   })
 
 const BubbleReactions = ({ align = 'end', className, side = 'bottom', ...props }: BubbleReactionsProps) => (
   <div
-    className={cn(bubbleReactionsVariants({ align, side }), className)}
+    className={bubbleReactionsVariants({ align, className, side })}
     data-align={align}
+    data-scope="bubble"
     data-side={side}
-    data-slot="bubble-reactions"
+    data-slot="reactions"
     {...props}
   />
 )

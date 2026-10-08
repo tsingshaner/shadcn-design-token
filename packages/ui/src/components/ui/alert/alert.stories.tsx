@@ -60,10 +60,11 @@ Basic.play = async ({ canvasElement }) => {
   const alert = canvas.getByRole('alert')
 
   await expect(alert).toBeInTheDocument()
-  await expect(canvas.getByText('Heads up')).toHaveAttribute('data-slot', 'alert-title')
+  await expect(canvas.getByText('Heads up')).toHaveAttribute('data-scope', 'alert')
+  await expect(canvas.getByText('Heads up')).toHaveAttribute('data-slot', 'title')
   await expect(canvas.getByText('You can add components to your app using the CLI.')).toHaveAttribute(
     'data-slot',
-    'alert-description'
+    'description'
   )
 }
 

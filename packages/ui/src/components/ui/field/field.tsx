@@ -1,28 +1,38 @@
-import { type ClassValue, cn } from 'cn'
+import { cn } from 'cn'
 import { type ComponentProps, type ReactNode, useMemo } from 'react'
+
+import { cva, type VariantProps } from '@/lib/cva'
 
 import { Label, type LabelProps } from '../label'
 import { Separator } from '../separator'
 
-type FieldVariantsProps = {
-  orientation?: 'horizontal' | 'responsive' | 'vertical' | null
-}
+const fieldLegendVariants = cva({
+  base: 'font-medium text-foreground',
+  variants: {
+    variant: {
+      label: 'text-sm leading-none',
+      legend: 'mb-2 text-base'
+    }
+  }
+})
 
-const fieldVariants = ({
-  orientation = 'vertical',
-  class: classValue,
-  className
-}: FieldVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
-  cn(
-    'cn-field group/field flex w-full',
-    orientation === 'horizontal' &&
-      'cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-    orientation === 'responsive' &&
-      'cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-    orientation === 'vertical' && 'cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto',
-    classValue,
-    className
-  )
+type FieldVariantsProps = VariantProps<typeof fieldVariants>
+
+const fieldVariants = cva({
+  base: 'group/field flex w-full',
+  defaultVariants: {
+    orientation: 'vertical'
+  },
+  variants: {
+    orientation: {
+      horizontal:
+        'flex-row items-center has-[>[data-scope=field][data-slot=content]]:items-start *:data-[scope=field]:data-[slot=label]:flex-auto has-[>[data-scope=field][data-slot=content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+      responsive:
+        'flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-scope=field][data-slot=content]]:items-start @md/field-group:*:data-[scope=field]:data-[slot=label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-scope=field][data-slot=content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+      vertical: 'flex-col *:w-full [&>.sr-only]:w-auto'
+    }
+  }
+})
 
 type FieldProps = ComponentProps<'div'> & FieldVariantsProps
 type FieldLabelProps = LabelProps
@@ -33,9 +43,7 @@ type FieldErrorProps = ComponentProps<'div'> & {
 type FieldGroupProps = ComponentProps<'div'>
 type FieldContentProps = ComponentProps<'div'>
 type FieldSetProps = ComponentProps<'fieldset'>
-type FieldLegendProps = ComponentProps<'legend'> & {
-  variant?: 'label' | 'legend'
-}
+type FieldLegendProps = ComponentProps<'legend'> & VariantProps<typeof fieldLegendVariants>
 type FieldTitleProps = ComponentProps<'div'>
 type FieldSeparatorProps = ComponentProps<'div'> & {
   children?: ReactNode
@@ -44,9 +52,10 @@ type FieldSeparatorProps = ComponentProps<'div'> & {
 const Field = ({ className, orientation = 'vertical', ...props }: FieldProps) => (
   // biome-ignore lint/a11y/useSemanticElements: shadcn v4 uses role="group" for field layout without fieldset semantics.
   <div
-    className={cn(fieldVariants({ orientation }), className)}
+    className={fieldVariants({ className, orientation })}
     data-orientation={orientation}
-    data-slot="field"
+    data-scope="field"
+    data-slot="root"
     role="group"
     {...props}
   />
@@ -54,26 +63,22 @@ const Field = ({ className, orientation = 'vertical', ...props }: FieldProps) =>
 
 const FieldGroup = ({ className, ...props }: FieldGroupProps) => (
   <div
-    className={cn('cn-field-group group/field-group @container/field-group flex w-full flex-col gap-4', className)}
-    data-slot="field-group"
+    className={cn('group/field-group @container/field-group flex w-full flex-col gap-4', className)}
+    data-scope="field"
+    data-slot="group"
     {...props}
   />
 )
 
 const FieldSet = ({ className, ...props }: FieldSetProps) => (
-  <fieldset className={cn('cn-field-set flex flex-col gap-4', className)} data-slot="field-set" {...props} />
+  <fieldset className={cn('flex flex-col gap-4', className)} data-scope="field" data-slot="set" {...props} />
 )
 
 const FieldLegend = ({ className, variant = 'legend', ...props }: FieldLegendProps) => (
   <legend
-    className={cn(
-      'font-medium text-foreground',
-      'cn-field-legend',
-      variant === 'legend' && 'mb-2 text-base',
-      variant === 'label' && 'text-sm leading-none',
-      className
-    )}
-    data-slot="field-legend"
+    className={fieldLegendVariants({ className, variant })}
+    data-scope="field"
+    data-slot="legend"
     data-variant={variant}
     {...props}
   />
@@ -81,8 +86,9 @@ const FieldLegend = ({ className, variant = 'legend', ...props }: FieldLegendPro
 
 const FieldContent = ({ className, ...props }: FieldContentProps) => (
   <div
-    className={cn('cn-field-content group/field-content flex flex-1 flex-col gap-1.5 leading-snug', className)}
-    data-slot="field-content"
+    className={cn('group/field-content flex flex-1 flex-col gap-1.5 leading-snug', className)}
+    data-scope="field"
+    data-slot="content"
     {...props}
   />
 )
@@ -90,11 +96,12 @@ const FieldContent = ({ className, ...props }: FieldContentProps) => (
 const FieldLabel = ({ className, ...props }: FieldLabelProps) => (
   <Label
     className={cn(
-      'group/field-label peer/field-label flex w-fit has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col',
-      'cn-field-label',
+      'group/field-label peer/field-label flex w-fit has-[>[data-scope=field][data-slot=root]]:w-full has-[>[data-scope=field][data-slot=root]]:flex-col',
+
       className
     )}
-    data-slot="field-label"
+    data-scope="field"
+    data-slot="label"
     {...props}
   />
 )
@@ -103,34 +110,38 @@ const FieldDescription = ({ className, ...props }: FieldDescriptionProps) => (
   <p
     className={cn(
       'nth-last-2:-mt-1 font-normal text-muted-foreground text-sm leading-normal last:mt-0 group-has-data-[orientation=horizontal]/field:text-balance [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
-      'cn-field-description',
+
       className
     )}
-    data-slot="field-description"
+    data-scope="field"
+    data-slot="description"
     {...props}
   />
 )
 
 const FieldTitle = ({ className, ...props }: FieldTitleProps) => (
   <div
-    className={cn('cn-field-title flex w-fit items-center font-medium text-sm leading-none', className)}
-    data-slot="field-title"
+    className={cn('flex w-fit items-center font-medium text-sm leading-none', className)}
+    data-scope="field"
+    data-slot="title"
     {...props}
   />
 )
 
 const FieldSeparator = ({ children, className, ...props }: FieldSeparatorProps) => (
   <div
-    className={cn('cn-field-separator relative flex h-5 items-center', className)}
+    className={cn('relative flex h-5 items-center', className)}
     data-content={!!children}
-    data-slot="field-separator"
+    data-scope="field"
+    data-slot="separator"
     {...props}
   >
     <Separator className="absolute inset-x-0 top-1/2" />
     {children && (
       <span
-        className="cn-field-separator-content relative mx-auto block w-fit bg-background px-2 text-muted-foreground text-sm"
-        data-slot="field-separator-content"
+        className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground text-sm"
+        data-scope="field"
+        data-slot="separator-content"
       >
         {children}
       </span>
@@ -169,8 +180,9 @@ const FieldError = ({ children, className, errors, ...props }: FieldErrorProps) 
 
   return (
     <div
-      className={cn('cn-field-error font-normal text-destructive text-sm', className)}
-      data-slot="field-error"
+      className={cn('font-normal text-destructive text-sm', className)}
+      data-scope="field"
+      data-slot="error"
       role="alert"
       {...props}
     >

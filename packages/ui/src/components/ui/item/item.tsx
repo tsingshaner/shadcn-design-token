@@ -1,16 +1,48 @@
 import { cn } from 'cn'
 import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
 
+import { cva, type VariantProps } from '@/lib/cva'
+
 import { Separator, type SeparatorProps } from '../separator'
 
-type ItemProps = ComponentProps<'div'> & {
-  render?: ReactElement<{ className?: string; 'data-size'?: string; 'data-slot'?: string; 'data-variant'?: string }>
-  size?: 'default' | 'sm' | 'xs'
-  variant?: 'default' | 'outline' | 'muted'
-}
-type ItemMediaProps = ComponentProps<'div'> & {
-  variant?: 'default' | 'icon' | 'image'
-}
+const itemVariants = cva({
+  base: 'group/item flex w-full flex-wrap items-center gap-4 rounded-lg outline-none transition-colors duration-100 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors',
+  variants: {
+    size: {
+      md: 'p-3',
+      sm: 'gap-3 p-2.5',
+      xs: 'gap-2 rounded-md p-2'
+    },
+    variant: {
+      default: 'hover:bg-muted/50',
+      muted: 'bg-muted/50 hover:bg-muted',
+      outline: 'border bg-background shadow-xs hover:bg-muted/50'
+    }
+  }
+})
+
+const itemMediaVariants = cva({
+  base: 'flex shrink-0 items-center justify-center overflow-hidden text-muted-foreground',
+  variants: {
+    variant: {
+      default: 'size-10 rounded-md bg-muted',
+      icon: 'size-10 rounded-md border bg-background [&>svg]:size-5',
+      image: 'size-10 rounded-md bg-muted [&>img]:size-full [&>img]:object-cover'
+    }
+  }
+})
+
+type ItemProps = ComponentProps<'div'> &
+  VariantProps<typeof itemVariants> & {
+    render?: ReactElement<{
+      className?: string
+      'data-scope'?: string
+      'data-size'?: string
+      'data-slot'?: string
+      'data-variant'?: string
+    }>
+  }
+type ItemMediaProps = ComponentProps<'div'> & VariantProps<typeof itemMediaVariants>
 type ItemContentProps = ComponentProps<'div'>
 type ItemTitleProps = ComponentProps<'div'>
 type ItemDescriptionProps = ComponentProps<'p'>
@@ -20,44 +52,46 @@ type ItemSeparatorProps = SeparatorProps
 type ItemHeaderProps = ComponentProps<'div'>
 type ItemFooterProps = ComponentProps<'div'>
 
-const Item = ({ className, render, size = 'default', variant = 'default', ...props }: ItemProps) => {
-  const itemClassName = cn(
-    'cn-item group/item flex w-full flex-wrap items-center gap-4 rounded-lg outline-none transition-colors duration-100 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors',
-    variant === 'default' && 'cn-item-variant-default hover:bg-muted/50',
-    variant === 'outline' && 'cn-item-variant-outline border bg-background shadow-xs hover:bg-muted/50',
-    variant === 'muted' && 'cn-item-variant-muted bg-muted/50 hover:bg-muted',
-    size === 'default' && 'cn-item-size-default p-3',
-    size === 'sm' && 'cn-item-size-sm gap-3 p-2.5',
-    size === 'xs' && 'cn-item-size-xs gap-2 rounded-md p-2',
-    render?.props.className,
-    className
-  )
+const Item = ({ className, render, size = 'md', variant = 'default', ...props }: ItemProps) => {
+  const itemClassName = cn(itemVariants({ size, variant }), render?.props.className, className)
 
   if (isValidElement(render)) {
     return cloneElement(render, {
       ...props,
       className: itemClassName,
+      'data-scope': 'item',
       'data-size': size,
-      'data-slot': 'item',
+      'data-slot': 'root',
       'data-variant': variant
     })
   }
 
-  return <div className={itemClassName} data-size={size} data-slot="item" data-variant={variant} {...props} />
+  return (
+    <div
+      className={itemClassName}
+      data-scope="item"
+      data-size={size}
+      data-slot="root"
+      data-variant={variant}
+      {...props}
+    />
+  )
 }
 
 const ItemGroup = ({ className, ...props }: ItemGroupProps) => (
   <ul
-    className={cn('cn-item-group group/item-group flex w-full flex-col gap-2', className)}
-    data-slot="item-group"
+    className={cn('group/item-group flex w-full flex-col gap-2', className)}
+    data-scope="item"
+    data-slot="group"
     {...props}
   />
 )
 
 const ItemSeparator = ({ className, ...props }: ItemSeparatorProps) => (
   <Separator
-    className={cn('cn-item-separator data-horizontal:w-full', className)}
-    data-slot="item-separator"
+    className={cn('data-horizontal:w-full', className)}
+    data-scope="item"
+    data-slot="separator"
     orientation="horizontal"
     {...props}
   />
@@ -65,31 +99,27 @@ const ItemSeparator = ({ className, ...props }: ItemSeparatorProps) => (
 
 const ItemHeader = ({ className, ...props }: ItemHeaderProps) => (
   <div
-    className={cn('cn-item-header flex basis-full items-center justify-between', className)}
-    data-slot="item-header"
+    className={cn('flex basis-full items-center justify-between', className)}
+    data-scope="item"
+    data-slot="header"
     {...props}
   />
 )
 
 const ItemFooter = ({ className, ...props }: ItemFooterProps) => (
   <div
-    className={cn('cn-item-footer flex basis-full items-center justify-between', className)}
-    data-slot="item-footer"
+    className={cn('flex basis-full items-center justify-between', className)}
+    data-scope="item"
+    data-slot="footer"
     {...props}
   />
 )
 
 const ItemMedia = ({ className, variant = 'default', ...props }: ItemMediaProps) => (
   <div
-    className={cn(
-      'cn-item-media flex shrink-0 items-center justify-center overflow-hidden text-muted-foreground',
-      variant === 'default' && 'cn-item-media-variant-default size-10 rounded-md bg-muted',
-      variant === 'icon' && 'cn-item-media-variant-icon size-10 rounded-md border bg-background [&>svg]:size-5',
-      variant === 'image' &&
-        'cn-item-media-variant-image size-10 rounded-md bg-muted [&>img]:size-full [&>img]:object-cover',
-      className
-    )}
-    data-slot="item-media"
+    className={itemMediaVariants({ className, variant })}
+    data-scope="item"
+    data-slot="media"
     data-variant={variant}
     {...props}
   />
@@ -97,19 +127,18 @@ const ItemMedia = ({ className, variant = 'default', ...props }: ItemMediaProps)
 
 const ItemContent = ({ className, ...props }: ItemContentProps) => (
   <div
-    className={cn(
-      'cn-item-content flex min-w-0 flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none',
-      className
-    )}
-    data-slot="item-content"
+    className={cn('flex min-w-0 flex-1 flex-col gap-1 [&+[data-scope=item][data-slot=content]]:flex-none', className)}
+    data-scope="item"
+    data-slot="content"
     {...props}
   />
 )
 
 const ItemTitle = ({ className, ...props }: ItemTitleProps) => (
   <div
-    className={cn('cn-item-title line-clamp-1 flex w-fit items-center font-medium text-sm', className)}
-    data-slot="item-title"
+    className={cn('line-clamp-1 flex w-fit items-center font-medium text-sm', className)}
+    data-scope="item"
+    data-slot="title"
     {...props}
   />
 )
@@ -117,20 +146,17 @@ const ItemTitle = ({ className, ...props }: ItemTitleProps) => (
 const ItemDescription = ({ className, ...props }: ItemDescriptionProps) => (
   <p
     className={cn(
-      'cn-item-description line-clamp-2 font-normal text-muted-foreground text-sm [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
+      'line-clamp-2 font-normal text-muted-foreground text-sm [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
       className
     )}
-    data-slot="item-description"
+    data-scope="item"
+    data-slot="description"
     {...props}
   />
 )
 
 const ItemActions = ({ className, ...props }: ItemActionsProps) => (
-  <div
-    className={cn('cn-item-actions flex shrink-0 items-center gap-2', className)}
-    data-slot="item-actions"
-    {...props}
-  />
+  <div className={cn('flex shrink-0 items-center gap-2', className)} data-scope="item" data-slot="actions" {...props} />
 )
 
 export type {

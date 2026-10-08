@@ -44,12 +44,14 @@ export const BarChart: Story = {
 BarChart.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="chart"]')?.getAttribute('style')).toContain(
+  await expect(canvasElement.querySelector('[data-scope="chart"][data-slot="root"]')?.getAttribute('style')).toContain(
     '--color-desktop: var(--primary)'
   )
-  await expect(canvas.getByRole('img', { name: 'Bar chart' })).toHaveAttribute('data-slot', 'chart-bar-series')
-  await expect(canvas.getByLabelText('Feb: 305')).toHaveAttribute('data-slot', 'chart-bar')
-  await expect(canvasElement.querySelectorAll('[data-slot="chart-bar"]')).toHaveLength(3)
+  await expect(canvas.getByRole('img', { name: 'Bar chart' })).toHaveAttribute('data-scope', 'chart')
+  await expect(canvas.getByRole('img', { name: 'Bar chart' })).toHaveAttribute('data-slot', 'bar-series')
+  await expect(canvas.getByLabelText('Feb: 305')).toHaveAttribute('data-scope', 'chart')
+  await expect(canvas.getByLabelText('Feb: 305')).toHaveAttribute('data-slot', 'bar')
+  await expect(canvasElement.querySelectorAll('[data-scope="chart"][data-slot="bar"]')).toHaveLength(3)
   await expect(canvas.getByText('Desktop')).toBeVisible()
   await expect(canvas.getByText('Mobile')).toBeVisible()
 }

@@ -8,13 +8,13 @@ type TooltipContentProps = TooltipPrimitive.Popup.Props &
   Pick<TooltipPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
 
 const TooltipProvider = ({ delay = 0, ...props }: TooltipProviderProps) => (
-  <TooltipPrimitive.Provider data-slot="tooltip-provider" delay={delay} {...props} />
+  <TooltipPrimitive.Provider data-scope="tooltip" data-slot="provider" delay={delay} {...props} />
 )
 
-const Tooltip = (props: TooltipProps) => <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+const Tooltip = (props: TooltipProps) => <TooltipPrimitive.Root data-scope="tooltip" data-slot="root" {...props} />
 
 const TooltipTrigger = (props: TooltipTriggerProps) => (
-  <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+  <TooltipPrimitive.Trigger data-scope="tooltip" data-slot="trigger" {...props} />
 )
 
 const TooltipContent = ({
@@ -36,14 +36,15 @@ const TooltipContent = ({
     >
       <TooltipPrimitive.Popup
         className={cn(
-          'cn-tooltip-content cn-tooltip-content-logical data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95 z-50 inline-flex min-h-6 w-fit max-w-xs origin-(--transform-origin) items-center gap-1 rounded-sm bg-foreground px-2 py-1 text-background text-xs has-data-[slot=kbd]:pr-1 data-[state=delayed-open]:animate-in data-closed:animate-out data-open:animate-in **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm',
+          'data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95 z-50 inline-flex min-h-6 w-fit max-w-xs origin-(--transform-origin) items-center gap-1 rounded-sm bg-foreground px-2 py-1 text-background text-xs has-[[data-scope=kbd][data-slot=root]]:pr-1 data-[state=delayed-open]:animate-in data-closed:animate-out data-open:animate-in **:data-[scope=kbd]:data-[slot=root]:relative **:data-[scope=kbd]:data-[slot=root]:isolate **:data-[scope=kbd]:data-[slot=root]:z-50 **:data-[scope=kbd]:data-[slot=root]:rounded-sm',
           className
         )}
-        data-slot="tooltip-content"
+        data-scope="tooltip"
+        data-slot="content"
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="cn-tooltip-arrow cn-tooltip-arrow-logical hidden" />
+        <TooltipPrimitive.Arrow className="hidden" data-scope="tooltip" data-slot="arrow" />
       </TooltipPrimitive.Popup>
     </TooltipPrimitive.Positioner>
   </TooltipPrimitive.Portal>

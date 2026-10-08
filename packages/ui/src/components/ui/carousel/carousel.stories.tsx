@@ -94,7 +94,7 @@ export const Sizes: Story = {
 Sizes.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelectorAll('[data-slot="carousel"]')).toHaveLength(2)
+  await expect(canvasElement.querySelectorAll('[data-scope="carousel"][data-slot="root"]')).toHaveLength(2)
   await expect(canvas.getAllByRole('button', { name: 'Previous slide' })[0]).toBeDisabled()
   await expect(canvas.getAllByRole('button', { name: 'Next slide' })[1]).toBeEnabled()
 }
@@ -125,8 +125,8 @@ export const Spacing: Story = {
   )
 }
 Spacing.play = async ({ canvasElement }) => {
-  await expect(canvasElement.querySelector('[data-slot="carousel-content"]')).toHaveClass('-ml-4')
-  await expect(canvasElement.querySelectorAll('[data-slot="carousel-item"]')).toHaveLength(3)
+  await expect(canvasElement.querySelector('[data-scope="carousel"][data-slot="content"]')).toHaveClass('-ml-4')
+  await expect(canvasElement.querySelectorAll('[data-scope="carousel"][data-slot="item"]')).toHaveLength(3)
 }
 
 export const Orientation: Story = {
@@ -157,7 +157,10 @@ export const Orientation: Story = {
 Orientation.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="carousel"]')).toHaveAttribute('data-orientation', 'vertical')
+  await expect(canvasElement.querySelector('[data-scope="carousel"][data-slot="root"]')).toHaveAttribute(
+    'data-orientation',
+    'vertical'
+  )
   await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }))
 
   await expect(canvas.getByRole('button', { name: 'Previous slide' })).toBeEnabled()

@@ -32,9 +32,19 @@ describe('RadioGroup', () => {
 
     const radio = screen.getByRole('radio', { name: 'Default' })
 
-    expect(screen.getByTestId('group')).toHaveClass('cn-radio-group')
-    expect(radio).toHaveClass('cn-radio-group-item', 'size-5', 'border-2')
-    expect(radio.querySelector('[data-slot="radio-group-indicator"]')).toHaveClass('cn-radio-group-indicator')
-    expect(radio.querySelector('.cn-radio-group-indicator-icon')).toBeInTheDocument()
+    expect(screen.getByTestId('group')).toHaveAttribute('data-scope', 'radio-group')
+    expect(screen.getByTestId('group')).toHaveAttribute('data-slot', 'root')
+    expect(radio).toHaveAttribute('data-scope', 'radio-group')
+    expect(radio).toHaveAttribute('data-slot', 'item')
+    expect(radio).toHaveClass('size-5', 'border-2')
+    expect(radio.querySelector('[data-scope="radio-group"][data-slot="indicator"]')).toHaveAttribute(
+      'data-scope',
+      'radio-group'
+    )
+    expect(radio.querySelector('[data-scope="radio-group"][data-slot="indicator"]')).toHaveAttribute(
+      'data-slot',
+      'indicator'
+    )
+    expect(radio.querySelector('[data-scope="radio-group"][data-slot="indicator-icon"]')).toBeInTheDocument()
   })
 })

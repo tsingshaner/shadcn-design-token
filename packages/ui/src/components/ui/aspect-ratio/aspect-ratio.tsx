@@ -9,7 +9,8 @@ type AspectRatioProps = ComponentProps<'div'> & {
 const AspectRatio = ({ className, ratio = 16 / 9, style, ...props }: AspectRatioProps) => (
   <div
     className={cn('relative aspect-(--ratio) w-full overflow-hidden', className)}
-    data-slot="aspect-ratio"
+    data-scope="aspect-ratio"
+    data-slot="root"
     style={{ '--ratio': ratio, ...style } as CSSProperties}
     {...props}
   />

@@ -34,8 +34,9 @@ const InputOTP = ({
 
   return (
     <InputOTPPrimitive.Root
-      className={cn('cn-input-otp flex items-center gap-2', className)}
-      data-slot="input-otp"
+      className={cn('flex items-center gap-2', className)}
+      data-scope="input-otp"
+      data-slot="root"
       length={otpLength}
       normalizeValue={(value) => {
         const normalized = normalizeValue?.(value) ?? value
@@ -58,26 +59,23 @@ const InputOTP = ({
 }
 
 const InputOTPGroup = ({ className, ...props }: InputOTPGroupProps) => (
-  <div className={cn('cn-input-otp-group flex items-center', className)} data-slot="input-otp-group" {...props} />
+  <div className={cn('flex items-center', className)} data-scope="input-otp" data-slot="group" {...props} />
 )
 
 const InputOTPSlot = ({ className, index: _index, ...props }: InputOTPSlotProps) => (
   <InputOTPPrimitive.Input
     className={cn(
-      'cn-input-otp-input cn-input-otp-slot relative flex size-10 items-center justify-center border-input border-y border-r bg-background text-center text-sm shadow-xs outline-none transition-all first:rounded-l-md first:border-l last:rounded-r-md focus:z-10 focus:border-ring focus:ring-3 focus:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20',
+      'relative flex size-10 items-center justify-center border-input border-y border-r bg-background text-center text-sm shadow-xs outline-none transition-all first:rounded-l-md first:border-l last:rounded-r-md focus:z-10 focus:border-ring focus:ring-3 focus:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20',
       className
     )}
-    data-slot="input-otp-slot"
+    data-scope="input-otp"
+    data-slot="slot"
     {...props}
   />
 )
 
 const InputOTPSeparator = ({ className, ...props }: InputOTPSeparatorProps) => (
-  <div
-    className={cn('cn-input-otp-separator px-2 text-muted-foreground', className)}
-    data-slot="input-otp-separator"
-    {...props}
-  >
+  <div className={cn('px-2 text-muted-foreground', className)} data-scope="input-otp" data-slot="separator" {...props}>
     <span aria-hidden="true">-</span>
   </div>
 )

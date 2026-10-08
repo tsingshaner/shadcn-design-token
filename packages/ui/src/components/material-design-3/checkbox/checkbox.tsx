@@ -9,15 +9,17 @@ type CheckboxProps = CheckboxPrimitive.Root.Props
 const Checkbox = ({ className, ...props }: CheckboxProps) => (
   <CheckboxPrimitive.Root
     className={cn(
-      'cn-checkbox peer relative flex size-[18px] shrink-0 items-center justify-center rounded-[2px] border-2 border-muted-foreground bg-transparent outline-none transition-colors after:pointer-events-none after:absolute after:-inset-[11px] after:rounded-full after:bg-primary after:opacity-0 focus-visible:after:opacity-[0.1] disabled:cursor-not-allowed disabled:opacity-[0.38] disabled:after:hidden group-has-disabled/field:opacity-[0.38] aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground',
+      'peer relative flex size-[18px] shrink-0 items-center justify-center rounded-[2px] border-2 border-muted-foreground bg-transparent outline-none transition-colors after:pointer-events-none after:absolute after:-inset-[11px] after:rounded-full after:bg-primary after:opacity-0 focus-visible:after:opacity-[0.1] disabled:cursor-not-allowed disabled:opacity-[0.38] disabled:after:hidden group-has-disabled/field:opacity-[0.38] aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground',
       className
     )}
-    data-slot="checkbox"
+    data-scope="checkbox"
+    data-slot="root"
     {...props}
   >
     <CheckboxPrimitive.Indicator
-      className="cn-checkbox-indicator z-10 grid place-content-center text-current transition-none [&>svg]:size-4"
-      data-slot="checkbox-indicator"
+      className="z-10 grid place-content-center text-current transition-none [&>svg]:size-4"
+      data-scope="checkbox"
+      data-slot="indicator"
     >
       <CheckIcon />
     </CheckboxPrimitive.Indicator>

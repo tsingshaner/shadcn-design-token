@@ -98,12 +98,15 @@ If the package is published independently, build output is exported from `packag
 
 ## shadcn Registry
 
+Both component families use shared `cva` variants. Use `size="md"` for the standard size and `variant="primary"` for primary Buttons and Badges. Other variants keep their semantic names. Styling hooks use `data-scope` and a local `data-slot`: for example, `[data-scope="card"][data-slot="header"]` replaces `.cn-card-header` and `[data-slot="card-header"]`. The old `cn-*` marker classes are removed; update external selectors accordingly.
+
 `registry.json` is generated from component directories under `packages/ui/src/components/ui` and `packages/ui/src/components/material-design-3` by `scripts/generate-shadcn-registry.mjs`. The script:
 
 - Registers UI components as `<component>` and Material Design 3 components as `material-design-3-<component>`.
 - Installs UI components at `@ui/<component>/index.tsx` and Material Design 3 components at `@components/material-design-3/<component>/index.tsx`.
 - Infers `registryDependencies` from local component imports.
 - Infers npm dependencies from external imports.
+- Includes the shared `@lib/cva.ts` helper and its dependencies for components that use variants.
 
 Consumers can configure a namespace for each component family:
 

@@ -11,7 +11,7 @@ describe('Input', () => {
   test('renders a textbox input', () => {
     render(<Input aria-label="Email" placeholder="Email" />)
 
-    expect(screen.getByRole('textbox', { name: 'Email' })).toHaveAttribute('data-slot', 'input')
-    expect(screen.getByRole('textbox', { name: 'Email' })).toHaveClass('cn-input')
+    expect(screen.getByRole('textbox', { name: 'Email' })).toHaveAttribute('data-scope', 'input')
+    expect(screen.getByRole('textbox', { name: 'Email' })).toHaveAttribute('data-slot', 'root')
   })
 })

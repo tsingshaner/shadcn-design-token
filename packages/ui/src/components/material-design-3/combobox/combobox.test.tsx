@@ -57,7 +57,8 @@ describe('Combobox', () => {
       </Combobox>
     )
 
-    expect(screen.getByLabelText('Framework chips')).toHaveAttribute('data-slot', 'combobox-chip-input')
+    expect(screen.getByLabelText('Framework chips')).toHaveAttribute('data-scope', 'combobox')
+    expect(screen.getByLabelText('Framework chips')).toHaveAttribute('data-slot', 'chip-input')
     expect(screen.getByText('React')).toBeInTheDocument()
   })
 })

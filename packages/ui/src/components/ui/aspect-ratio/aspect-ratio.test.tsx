@@ -11,6 +11,6 @@ describe('AspectRatio', () => {
   test('applies ratio as a CSS variable', () => {
     render(<AspectRatio data-testid="ratio" ratio={4 / 3} />)
 
-    expect(screen.getByTestId('ratio')).toHaveStyle({ '--ratio': String(4 / 3) })
+    expect(screen.getByTestId('ratio').style.getPropertyValue('--ratio')).toBe(String(4 / 3))
   })
 })

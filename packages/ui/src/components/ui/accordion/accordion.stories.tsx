@@ -57,7 +57,9 @@ Basic.play = async ({ canvasElement }) => {
     canvas.getByText('Color, radius, spacing, and typography variables shared by UI components.')
   ).toBeVisible()
   await expect(
-    canvas.getByRole('button', { name: 'Design tokens' }).querySelector('[data-slot="accordion-trigger-icon"]')
+    canvas
+      .getByRole('button', { name: 'Design tokens' })
+      .querySelector('[data-scope="accordion"][data-slot="trigger-icon"]')
   ).toHaveAttribute('aria-hidden', 'true')
 
   await userEvent.click(canvas.getByRole('button', { name: 'Components' }))

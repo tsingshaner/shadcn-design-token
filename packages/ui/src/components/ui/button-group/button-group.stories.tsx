@@ -95,12 +95,14 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="button-group"]')).toHaveAttribute(
+  await expect(canvasElement.querySelector('[data-scope="button-group"][data-slot="root"]')).toHaveAttribute(
     'data-orientation',
     'horizontal'
   )
   await expect(canvas.getByRole('button', { name: 'Copy' })).toBeEnabled()
-  await expect(canvasElement.querySelector('[data-slot="button-group-separator"]')).toBeInTheDocument()
+  await expect(canvasElement.querySelector('[data-scope="button-group"][data-slot="separator"]')).toBeInTheDocument()
+  await expect(getComputedStyle(canvas.getByRole('button', { name: 'Copy' })).borderTopRightRadius).toBe('0px')
+  await expect(getComputedStyle(canvas.getByRole('button', { name: 'Paste' })).borderTopLeftRadius).toBe('0px')
 }
 
 export const Orientation: Story = {
@@ -128,6 +130,8 @@ Orientation.play = async ({ canvasElement }) => {
 
   await expect(canvas.getByLabelText('Media controls')).toHaveAttribute('data-orientation', 'vertical')
   await expect(canvas.getByRole('button', { name: 'Increase' })).toBeEnabled()
+  await expect(getComputedStyle(canvas.getByRole('button', { name: 'Increase' })).borderBottomLeftRadius).toBe('0px')
+  await expect(getComputedStyle(canvas.getByRole('button', { name: 'Decrease' })).borderTopLeftRadius).toBe('0px')
 }
 
 export const Size: Story = {
@@ -193,7 +197,7 @@ export const WithInput: Story = {
     }
   },
   render: () => (
-    <ButtonGroup className="w-full max-w-sm [&_[data-slot=button]]:rounded-l-none [&_[data-slot=input]]:rounded-r-none [&_[data-slot=input]]:shadow-none">
+    <ButtonGroup className="w-full max-w-sm [&_[data-scope=button][data-slot=root]]:rounded-l-none [&_[data-scope=input][data-slot=root]]:rounded-r-none [&_[data-scope=input][data-slot=root]]:shadow-none">
       <Input placeholder="Search..." />
       <Button aria-label="Search" variant="outline">
         <SearchIcon />

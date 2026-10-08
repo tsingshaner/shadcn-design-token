@@ -50,7 +50,7 @@ export const Vertical: Story = {
 }
 Vertical.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
-  const separators = canvasElement.querySelectorAll('[data-slot="separator"]')
+  const separators = canvasElement.querySelectorAll('[data-scope="separator"][data-slot="root"]')
 
   await expect(canvas.getByText('Design tokens')).toBeVisible()
   await expect(separators).toHaveLength(3)
@@ -85,7 +85,10 @@ Menu.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
   await expect(canvas.getByRole('button', { name: 'Profile' })).toBeEnabled()
-  await expect(canvasElement.querySelector('[data-slot="separator"]')).toHaveAttribute('data-orientation', 'horizontal')
+  await expect(canvasElement.querySelector('[data-scope="separator"][data-slot="root"]')).toHaveAttribute(
+    'data-orientation',
+    'horizontal'
+  )
 }
 
 export const List: Story = {

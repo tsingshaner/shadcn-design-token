@@ -9,8 +9,9 @@ type ProgressValueProps = ProgressPrimitive.Value.Props
 
 const Progress = ({ children, className, value, ...props }: ProgressProps) => (
   <ProgressPrimitive.Root
-    className={cn('cn-progress-root flex w-full flex-wrap gap-3', className)}
-    data-slot="progress"
+    className={cn('flex w-full flex-wrap gap-3', className)}
+    data-scope="progress"
+    data-slot="root"
     value={value}
     {...props}
   >
@@ -23,35 +24,36 @@ const Progress = ({ children, className, value, ...props }: ProgressProps) => (
 
 const ProgressTrack = ({ className, ...props }: ProgressTrackProps) => (
   <ProgressPrimitive.Track
-    className={cn(
-      'cn-progress-track relative flex h-2 w-full items-center overflow-x-hidden rounded-full bg-primary/20',
-      className
-    )}
-    data-slot="progress-track"
+    className={cn('relative flex h-2 w-full items-center overflow-x-hidden rounded-full bg-primary/20', className)}
+    data-scope="progress"
+    data-slot="track"
     {...props}
   />
 )
 
 const ProgressIndicator = ({ className, ...props }: ProgressIndicatorProps) => (
   <ProgressPrimitive.Indicator
-    className={cn('cn-progress-indicator h-full bg-primary transition-all', className)}
-    data-slot="progress-indicator"
+    className={cn('h-full bg-primary transition-all', className)}
+    data-scope="progress"
+    data-slot="indicator"
     {...props}
   />
 )
 
 const ProgressLabel = ({ className, ...props }: ProgressLabelProps) => (
   <ProgressPrimitive.Label
-    className={cn('cn-progress-label font-medium text-sm', className)}
-    data-slot="progress-label"
+    className={cn('font-medium text-sm', className)}
+    data-scope="progress"
+    data-slot="label"
     {...props}
   />
 )
 
 const ProgressValue = ({ className, ...props }: ProgressValueProps) => (
   <ProgressPrimitive.Value
-    className={cn('cn-progress-value text-muted-foreground text-sm tabular-nums', className)}
-    data-slot="progress-value"
+    className={cn('text-muted-foreground text-sm tabular-nums', className)}
+    data-scope="progress"
+    data-slot="value"
     {...props}
   />
 )

@@ -37,7 +37,8 @@ Default.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Publish' }))
 
-  await expect(await page.findByText('Token published')).toHaveAttribute('data-slot', 'toast-title')
+  await expect(await page.findByText('Token published')).toHaveAttribute('data-scope', 'toast')
+  await expect(await page.findByText('Token published')).toHaveAttribute('data-slot', 'title')
 }
 
 export const Types: Story = {
@@ -98,7 +99,8 @@ Types.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Success' }))
 
-  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'toast-title')
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-scope', 'toast')
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'title')
 }
 
 export const Description: Story = {
@@ -133,8 +135,10 @@ Description.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Show Toast' }))
 
-  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'toast-title')
-  await expect(page.getByText('Monday, January 3rd at 6:00pm')).toHaveAttribute('data-slot', 'toast-description')
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-scope', 'toast')
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'title')
+  await expect(page.getByText('Monday, January 3rd at 6:00pm')).toHaveAttribute('data-scope', 'toast')
+  await expect(page.getByText('Monday, January 3rd at 6:00pm')).toHaveAttribute('data-slot', 'description')
 }
 
 export const Position: Story = {
@@ -193,6 +197,7 @@ Position.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('button', { name: 'Bottom Left' }))
 
-  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'toast-title')
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-scope', 'toast')
+  await expect(await page.findByText('Event has been created')).toHaveAttribute('data-slot', 'title')
   await expect(page.getByTestId('toast-viewport-bottom-left')).toHaveAttribute('data-position', 'bottom-left')
 }

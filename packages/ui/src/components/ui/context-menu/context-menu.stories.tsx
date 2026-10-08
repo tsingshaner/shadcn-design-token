@@ -107,8 +107,10 @@ Basic.play = async ({ canvasElement }) => {
 
   fireEvent.contextMenu(canvas.getByText('Right click here'))
 
-  await expect(await page.findByText('Token')).toHaveAttribute('data-slot', 'context-menu-label')
-  await expect(page.getByText('Rename')).toHaveAttribute('data-slot', 'context-menu-item')
+  await expect(await page.findByText('Token')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(await page.findByText('Token')).toHaveAttribute('data-slot', 'label')
+  await expect(page.getByText('Rename')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(page.getByText('Rename')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Submenu: Story = {
@@ -143,7 +145,8 @@ Submenu.play = async ({ canvasElement }) => {
   fireEvent.contextMenu(canvas.getByText('Right click here'))
   await userEvent.hover(await page.findByText('Export as'))
 
-  await expect(await page.findByText('JSON tokens')).toHaveAttribute('data-slot', 'context-menu-item')
+  await expect(await page.findByText('JSON tokens')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(await page.findByText('JSON tokens')).toHaveAttribute('data-slot', 'item')
 }
 
 export const Shortcuts: Story = {
@@ -177,8 +180,10 @@ Shortcuts.play = async ({ canvasElement }) => {
 
   fireEvent.contextMenu(canvas.getByText('Right click here'))
 
-  await expect(await page.findByText('⌘R')).toHaveAttribute('data-slot', 'context-menu-shortcut')
-  await expect(page.getByText('⌘D')).toHaveAttribute('data-slot', 'context-menu-shortcut')
+  await expect(await page.findByText('⌘R')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(await page.findByText('⌘R')).toHaveAttribute('data-slot', 'shortcut')
+  await expect(page.getByText('⌘D')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(page.getByText('⌘D')).toHaveAttribute('data-slot', 'shortcut')
 }
 
 export const Groups: Story = {
@@ -356,6 +361,8 @@ Sides.play = async ({ canvasElement }) => {
 
   fireEvent.contextMenu(canvas.getByText('Right click for side placement'))
 
-  await expect(await page.findByText('Right aligned')).toHaveAttribute('data-slot', 'context-menu-item')
-  await expect(page.getByText('Open details')).toHaveAttribute('data-slot', 'context-menu-item')
+  await expect(await page.findByText('Right aligned')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(await page.findByText('Right aligned')).toHaveAttribute('data-slot', 'item')
+  await expect(page.getByText('Open details')).toHaveAttribute('data-scope', 'context-menu')
+  await expect(page.getByText('Open details')).toHaveAttribute('data-slot', 'item')
 }

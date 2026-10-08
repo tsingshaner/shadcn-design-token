@@ -34,14 +34,20 @@ describe('Table', () => {
     const columnHeader = screen.getByRole('columnheader', { name: 'Name' })
     const bodyCell = screen.getByRole('cell', { name: 'Button' })
     const footerCell = screen.getByRole('cell', { name: 'Total' })
-    expect(table.parentElement).toHaveClass('cn-table-container')
-    expect(table).toHaveAttribute('data-slot', 'table')
-    expect(table).toHaveClass('cn-table')
-    expect(columnHeader).toHaveAttribute('data-slot', 'table-head')
-    expect(columnHeader).toHaveClass('cn-table-head')
-    expect(bodyCell).toHaveClass('cn-table-cell')
-    expect(footerCell.closest('tfoot')).toHaveClass('cn-table-footer')
-    expect(screen.getByText('Components')).toHaveClass('cn-table-caption')
+    expect(table.parentElement).toHaveAttribute('data-scope', 'table')
+    expect(table.parentElement).toHaveAttribute('data-slot', 'container')
+    expect(table).toHaveAttribute('data-scope', 'table')
+    expect(table).toHaveAttribute('data-slot', 'root')
+
+    expect(columnHeader).toHaveAttribute('data-scope', 'table')
+    expect(columnHeader).toHaveAttribute('data-slot', 'head')
+
+    expect(bodyCell).toHaveAttribute('data-scope', 'table')
+    expect(bodyCell).toHaveAttribute('data-slot', 'cell')
+    expect(footerCell.closest('tfoot')).toHaveAttribute('data-scope', 'table')
+    expect(footerCell.closest('tfoot')).toHaveAttribute('data-slot', 'footer')
+    expect(screen.getByText('Components')).toHaveAttribute('data-scope', 'table')
+    expect(screen.getByText('Components')).toHaveAttribute('data-slot', 'caption')
   })
 
   test('supports expanded row state styling', () => {

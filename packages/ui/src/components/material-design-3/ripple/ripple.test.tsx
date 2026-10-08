@@ -34,7 +34,7 @@ describe('Ripple', () => {
 
     fireEvent.pointerDown(button, { button: 0, clientX: 30, clientY: 40, pointerType: 'mouse' })
 
-    const press = button.querySelector('[data-slot="ripple-press"]')
+    const press = button.querySelector('[data-scope="ripple"][data-slot="press"]')
     expect(press).toHaveStyle({ height: '20px', opacity: '0.12', width: '20px' })
     expect(animate).toHaveBeenCalledWith(
       {
@@ -75,7 +75,7 @@ describe('Ripple', () => {
         <Ripple unbounded />
       </button>
     )
-    const ripple = document.querySelector<HTMLElement>('[data-slot="ripple"]') as HTMLElement
+    const ripple = document.querySelector<HTMLElement>('[data-scope="ripple"][data-slot="root"]') as HTMLElement
     vi.spyOn(ripple, 'getBoundingClientRect').mockReturnValue({
       bottom: 50,
       height: 40,

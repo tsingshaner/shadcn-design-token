@@ -18,19 +18,24 @@ type SheetTitleProps = SheetPrimitive.Title.Props
 type SheetDescriptionProps = SheetPrimitive.Description.Props
 type SheetCloseProps = SheetPrimitive.Close.Props
 
-const Sheet = (props: SheetProps) => <SheetPrimitive.Root data-slot="sheet" {...props} />
+const Sheet = (props: SheetProps) => <SheetPrimitive.Root data-scope="sheet" data-slot="root" {...props} />
 
-const SheetTrigger = (props: SheetTriggerProps) => <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />
+const SheetTrigger = (props: SheetTriggerProps) => (
+  <SheetPrimitive.Trigger data-scope="sheet" data-slot="trigger" {...props} />
+)
 
-const SheetPortal = (props: SheetPortalProps) => <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
+const SheetPortal = (props: SheetPortalProps) => (
+  <SheetPrimitive.Portal data-scope="sheet" data-slot="portal" {...props} />
+)
 
 const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
   <SheetPrimitive.Backdrop
     className={cn(
-      'cn-sheet-overlay fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
+      'fixed inset-0 z-50 bg-black/50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
       className
     )}
-    data-slot="sheet-overlay"
+    data-scope="sheet"
+    data-slot="overlay"
     {...props}
   />
 )
@@ -47,21 +52,25 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
     <SheetOverlay />
     <SheetPrimitive.Popup
       className={cn(
-        'cn-sheet-content fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem] data-ending-style:opacity-0 data-starting-style:opacity-0',
+        'fixed z-50 flex flex-col gap-4 bg-background p-6 shadow-lg data-[side=left]:data-ending-style:translate-x-[-2.5rem] data-[side=left]:data-starting-style:translate-x-[-2.5rem] data-[side=right]:data-ending-style:translate-x-[2.5rem] data-[side=right]:data-starting-style:translate-x-[2.5rem] data-[side=bottom]:data-ending-style:translate-y-[2.5rem] data-[side=bottom]:data-starting-style:translate-y-[2.5rem] data-[side=top]:data-ending-style:translate-y-[-2.5rem] data-[side=top]:data-starting-style:translate-y-[-2.5rem] data-ending-style:opacity-0 data-starting-style:opacity-0',
         sheetSideClasses[side],
         className
       )}
+      data-scope="sheet"
       data-side={side}
-      data-slot="sheet-content"
+      data-slot="content"
       {...props}
     >
       {children}
       {showCloseButton && (
         <SheetPrimitive.Close
-          data-slot="sheet-close"
+          data-scope="sheet"
+          data-slot="close"
           render={
             <Button
-              className="cn-sheet-close absolute top-4 right-4 opacity-70 hover:opacity-100"
+              className="absolute top-4 right-4 opacity-70 hover:opacity-100"
+              data-scope="sheet"
+              data-slot="close"
               size="icon-sm"
               variant="ghost"
             />
@@ -77,37 +86,41 @@ const SheetContent = ({ children, className, showCloseButton = true, side = 'rig
 
 const SheetHeader = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('cn-sheet-header flex flex-col gap-2 text-center sm:text-left', className)}
-    data-slot="sheet-header"
+    className={cn('flex flex-col gap-2 text-center sm:text-left', className)}
+    data-scope="sheet"
+    data-slot="header"
     {...props}
   />
 )
 
 const SheetFooter = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
-    className={cn('cn-sheet-footer mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
-    data-slot="sheet-footer"
+    className={cn('mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
+    data-scope="sheet"
+    data-slot="footer"
     {...props}
   />
 )
 
 const SheetTitle = ({ className, ...props }: SheetTitleProps) => (
   <SheetPrimitive.Title
-    className={cn('cn-sheet-title cn-font-heading font-semibold text-lg leading-none', className)}
-    data-slot="sheet-title"
+    className={cn('font-semibold text-lg leading-none', className)}
+    data-scope="sheet"
+    data-slot="title"
     {...props}
   />
 )
 
 const SheetDescription = ({ className, ...props }: SheetDescriptionProps) => (
   <SheetPrimitive.Description
-    className={cn('cn-sheet-description text-muted-foreground text-sm', className)}
-    data-slot="sheet-description"
+    className={cn('text-muted-foreground text-sm', className)}
+    data-scope="sheet"
+    data-slot="description"
     {...props}
   />
 )
 
-const SheetClose = (props: SheetCloseProps) => <SheetPrimitive.Close data-slot="sheet-close" {...props} />
+const SheetClose = (props: SheetCloseProps) => <SheetPrimitive.Close data-scope="sheet" data-slot="close" {...props} />
 
 export type {
   SheetCloseProps,

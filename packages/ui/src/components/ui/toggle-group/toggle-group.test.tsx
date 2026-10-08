@@ -34,12 +34,11 @@ describe('ToggleGroup', () => {
     )
 
     expect(screen.getByRole('group')).toHaveAttribute('data-variant', 'outline')
-    expect(screen.getByRole('group')).toHaveClass('cn-toggle-group')
-    expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-slot', 'toggle-group-item')
-    expect(screen.getByRole('button', { name: 'All' })).toHaveClass(
-      'cn-toggle-group-item',
-      'cn-toggle-variant-outline',
-      'cn-toggle-size-default'
-    )
+    expect(screen.getByRole('group')).toHaveAttribute('data-scope', 'toggle-group')
+    expect(screen.getByRole('group')).toHaveAttribute('data-slot', 'root')
+    expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-scope', 'toggle-group')
+    expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-slot', 'item')
+    expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-variant', 'outline')
+    expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-size', 'md')
   })
 })

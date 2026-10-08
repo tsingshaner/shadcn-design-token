@@ -53,7 +53,7 @@ Side.play = async ({ canvasElement }) => {
   await userEvent.hover(canvas.getByRole('button', { name: 'top' }))
 
   await waitFor(() =>
-    expect(page.getByText('Open top', { selector: '[data-slot="tooltip-content"]' })).toBeInTheDocument()
+    expect(page.getByText('Open top', { selector: '[data-scope="tooltip"][data-slot="content"]' })).toBeInTheDocument()
   )
 }
 
@@ -83,7 +83,7 @@ WithKeyboardShortcut.play = async ({ canvasElement }) => {
   await userEvent.hover(canvas.getByRole('button', { name: 'Search' }))
 
   const tooltip = await waitFor(() => {
-    const content = canvasElement.ownerDocument.body.querySelector('[data-slot="tooltip-content"]')
+    const content = canvasElement.ownerDocument.body.querySelector('[data-scope="tooltip"][data-slot="content"]')
 
     if (!(content instanceof HTMLElement)) {
       throw new Error('Tooltip content was not found.')
@@ -94,8 +94,10 @@ WithKeyboardShortcut.play = async ({ canvasElement }) => {
     return content
   })
 
-  await expect(tooltip).toHaveAttribute('data-slot', 'tooltip-content')
-  await expect(within(tooltip).getByText('⌘K')).toHaveAttribute('data-slot', 'kbd')
+  await expect(tooltip).toHaveAttribute('data-scope', 'tooltip')
+  await expect(tooltip).toHaveAttribute('data-slot', 'content')
+  await expect(within(tooltip).getByText('⌘K')).toHaveAttribute('data-scope', 'kbd')
+  await expect(within(tooltip).getByText('⌘K')).toHaveAttribute('data-slot', 'root')
 }
 
 export const DisabledButton: Story = {

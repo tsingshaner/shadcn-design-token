@@ -15,8 +15,8 @@ describe('Popover', () => {
       </Popover>
     )
 
-    expect(screen.getByText('Popover content')).toHaveAttribute('data-slot', 'popover-content')
-    expect(screen.getByText('Popover content')).toHaveClass('cn-popover-content', 'cn-popover-content-logical')
+    expect(screen.getByText('Popover content')).toHaveAttribute('data-scope', 'popover')
+    expect(screen.getByText('Popover content')).toHaveAttribute('data-slot', 'content')
   })
 
   test('applies shadcn v4 popover heading slot classes', () => {
@@ -31,8 +31,11 @@ describe('Popover', () => {
       </Popover>
     )
 
-    expect(screen.getByText('Dimensions')).toHaveClass('cn-popover-title')
-    expect(screen.getByText('Set component size.')).toHaveClass('cn-popover-description')
-    expect(screen.getByText('Dimensions').parentElement).toHaveClass('cn-popover-header')
+    expect(screen.getByText('Dimensions')).toHaveAttribute('data-scope', 'popover')
+    expect(screen.getByText('Dimensions')).toHaveAttribute('data-slot', 'title')
+    expect(screen.getByText('Set component size.')).toHaveAttribute('data-scope', 'popover')
+    expect(screen.getByText('Set component size.')).toHaveAttribute('data-slot', 'description')
+    expect(screen.getByText('Dimensions').parentElement).toHaveAttribute('data-scope', 'popover')
+    expect(screen.getByText('Dimensions').parentElement).toHaveAttribute('data-slot', 'header')
   })
 })

@@ -104,8 +104,10 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByRole('table')).toHaveAttribute('data-slot', 'table')
-  await expect(canvas.getByText('A list of your recent invoices.')).toHaveAttribute('data-slot', 'table-caption')
+  await expect(canvas.getByRole('table')).toHaveAttribute('data-scope', 'table')
+  await expect(canvas.getByRole('table')).toHaveAttribute('data-slot', 'root')
+  await expect(canvas.getByText('A list of your recent invoices.')).toHaveAttribute('data-scope', 'table')
+  await expect(canvas.getByText('A list of your recent invoices.')).toHaveAttribute('data-slot', 'caption')
   await expect(canvas.getByRole('row', { name: /INV001/ })).toHaveTextContent('Paid')
   await expect(canvas.getByRole('row', { name: /Total/ })).toHaveTextContent('$750.00')
 }

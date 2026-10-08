@@ -35,22 +35,29 @@ const ToastProvider = ({ toastManager: manager = toastManager, ...props }: Toast
 const Toast = ({ className, ...props }: ToastProps) => (
   <ToastPrimitive.Root
     className={cn(
-      'cn-toast absolute right-4 left-4 grid gap-1 rounded-md border bg-background p-4 text-foreground shadow-lg transition-[transform,opacity] duration-300 ease-out [bottom:var(--toast-anchor-bottom)] [opacity:calc(1_-_min(var(--toast-index),2)_*_0.08)] [top:var(--toast-anchor-top)] [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)_+_var(--toast-stack-direction)_*_min(var(--toast-index),2)_*_0.75rem))_scale(calc(1_-_min(var(--toast-index),2)_*_0.05))] [z-index:calc(100_-_var(--toast-index))] data-[limited]:hidden data-[expanded]:opacity-100 data-[swiping]:transition-none data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)_+_var(--toast-stack-direction)_*_var(--toast-offset-y)))_scale(1)]',
+      'absolute right-4 left-4 grid gap-1 rounded-md border bg-background p-4 text-foreground shadow-lg transition-[transform,opacity] duration-300 ease-out [bottom:var(--toast-anchor-bottom)] [opacity:calc(1_-_min(var(--toast-index),2)_*_0.08)] [top:var(--toast-anchor-top)] [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)_+_var(--toast-stack-direction)_*_min(var(--toast-index),2)_*_0.75rem))_scale(calc(1_-_min(var(--toast-index),2)_*_0.05))] [z-index:calc(100_-_var(--toast-index))] data-[limited]:hidden data-[expanded]:opacity-100 data-[swiping]:transition-none data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)_+_var(--toast-stack-direction)_*_var(--toast-offset-y)))_scale(1)]',
       className
     )}
-    data-slot="toast"
+    data-scope="toast"
+    data-slot="root"
     {...props}
   />
 )
 
 const ToastTitle = ({ className, ...props }: ToastTitleProps) => (
-  <ToastPrimitive.Title className={cn('font-semibold text-sm', className)} data-slot="toast-title" {...props} />
+  <ToastPrimitive.Title
+    className={cn('font-semibold text-sm', className)}
+    data-scope="toast"
+    data-slot="title"
+    {...props}
+  />
 )
 
 const ToastDescription = ({ className, ...props }: ToastDescriptionProps) => (
   <ToastPrimitive.Description
     className={cn('text-muted-foreground text-sm', className)}
-    data-slot="toast-description"
+    data-scope="toast"
+    data-slot="description"
     {...props}
   />
 )
@@ -61,7 +68,8 @@ const ToastAction = ({ className, ...props }: ToastActionProps) => (
       'inline-flex h-8 items-center justify-center rounded-md border px-3 font-medium text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
       className
     )}
-    data-slot="toast-action"
+    data-scope="toast"
+    data-slot="action"
     {...props}
   />
 )
@@ -72,7 +80,8 @@ const ToastClose = ({ className, ...props }: ToastCloseProps) => (
       'absolute top-2 right-2 rounded-sm p-1 text-muted-foreground outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50',
       className
     )}
-    data-slot="toast-close"
+    data-scope="toast"
+    data-slot="close"
     {...props}
   />
 )
@@ -98,12 +107,13 @@ const ToastViewport = ({
   const renderViewport = (viewportPosition: ToastPosition, viewportToasts = toasts) => (
     <ToastPrimitive.Viewport
       className={cn(
-        'pointer-events-none fixed z-100 h-[calc(var(--toast-frontmost-height)_+_2rem)] max-h-screen w-full overflow-visible sm:max-w-sm [&_[data-slot=toast]]:pointer-events-auto',
+        'pointer-events-none fixed z-100 h-[calc(var(--toast-frontmost-height)_+_2rem)] max-h-screen w-full overflow-visible sm:max-w-sm [&_[data-scope=toast][data-slot=root]]:pointer-events-auto',
         toastViewportPositionClassName[viewportPosition],
         className
       )}
       data-position={viewportPosition}
-      data-slot="toast-viewport"
+      data-scope="toast"
+      data-slot="viewport"
       data-testid={`toast-viewport-${viewportPosition}`}
       {...props}
     >

@@ -59,7 +59,7 @@ Default.play = async ({ canvasElement }) => {
 
   await expect(canvas.getByText('Tokens')).toBeVisible()
   await expect(canvas.getByText('Token 24')).toBeInTheDocument()
-  await expect(canvasElement.querySelector('[data-slot="scroll-area-viewport"]')).toBeInTheDocument()
+  await expect(canvasElement.querySelector('[data-scope="scroll-area"][data-slot="viewport"]')).toBeInTheDocument()
 }
 
 export const Horizontal: Story = {

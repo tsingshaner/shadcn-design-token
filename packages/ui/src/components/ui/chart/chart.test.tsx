@@ -15,9 +15,18 @@ describe('Chart', () => {
       </ChartContainer>
     )
 
-    expect(screen.getByLabelText('January: 42').closest('[data-slot="chart"]')).toHaveClass('cn-chart')
-    expect(screen.getByLabelText('January: 42')).toHaveAttribute('data-slot', 'chart-bar')
-    expect(screen.getByText('42 sales')).toHaveClass('cn-chart-tooltip')
+    expect(screen.getByLabelText('January: 42').closest('[data-scope="chart"][data-slot="root"]')).toHaveAttribute(
+      'data-scope',
+      'chart'
+    )
+    expect(screen.getByLabelText('January: 42').closest('[data-scope="chart"][data-slot="root"]')).toHaveAttribute(
+      'data-slot',
+      'root'
+    )
+    expect(screen.getByLabelText('January: 42')).toHaveAttribute('data-scope', 'chart')
+    expect(screen.getByLabelText('January: 42')).toHaveAttribute('data-slot', 'bar')
+    expect(screen.getByText('42 sales')).toHaveAttribute('data-scope', 'chart')
+    expect(screen.getByText('42 sales')).toHaveAttribute('data-slot', 'tooltip')
     expect(screen.getByText('Sales')).toBeInTheDocument()
   })
 })

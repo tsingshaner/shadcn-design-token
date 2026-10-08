@@ -57,10 +57,11 @@ export const Default: Story = {
 Default.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvas.getByText('No tokens found')).toHaveAttribute('data-slot', 'empty-title')
+  await expect(canvas.getByText('No tokens found')).toHaveAttribute('data-scope', 'empty')
+  await expect(canvas.getByText('No tokens found')).toHaveAttribute('data-slot', 'title')
   await expect(canvas.getByText('Create a token set to start generating component themes.')).toHaveAttribute(
     'data-slot',
-    'empty-description'
+    'description'
   )
   await expect(canvas.getByRole('button', { name: 'Create token set' })).toBeEnabled()
 }
@@ -94,6 +95,9 @@ export const Outline: Story = {
 Outline.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
 
-  await expect(canvasElement.querySelector('[data-slot="empty-icon"]')).toHaveAttribute('data-variant', 'icon')
+  await expect(canvasElement.querySelector('[data-scope="empty"][data-slot="icon"]')).toHaveAttribute(
+    'data-variant',
+    'icon'
+  )
   await expect(canvas.getByRole('button', { name: 'Upload Files' })).toBeEnabled()
 }

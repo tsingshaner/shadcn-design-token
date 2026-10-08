@@ -88,27 +88,27 @@ const Spinner = ({ 'data-icon': dataIcon }: { 'data-icon'?: 'inline-start' | 'in
 const meta = {
   args: {
     children: 'Button',
-    size: 'default',
-    variant: 'default'
+    size: 'md',
+    variant: 'primary'
   },
   argTypes: {
     size: {
       control: 'select',
       description: 'Controls the button height and horizontal padding.',
-      options: ['default', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
+      options: ['md', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
       table: {
-        defaultValue: { summary: 'default' },
-        type: { summary: '"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"' }
+        defaultValue: { summary: 'md' },
+        type: { summary: '"md" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"' }
       }
     },
     variant: {
       control: 'select',
       description: 'Controls the visual treatment for the button action.',
-      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+      options: ['primary', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
       table: {
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: 'primary' },
         type: {
-          summary: '"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"'
+          summary: '"primary" | "destructive" | "outline" | "secondary" | "ghost" | "link"'
         }
       }
     }

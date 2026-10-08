@@ -19,8 +19,9 @@ describe('Avatar', () => {
     )
 
     const fallback = screen.getByText('JD')
-    expect(fallback).toHaveAttribute('data-slot', 'avatar-fallback')
-    expect(fallback).toHaveClass('cn-avatar-fallback')
+    expect(fallback).toHaveAttribute('data-scope', 'avatar')
+    expect(fallback).toHaveAttribute('data-slot', 'fallback')
+
     expect(onLoadingStatusChange).toHaveBeenCalled()
   })
 
@@ -35,15 +36,19 @@ describe('Avatar', () => {
       </AvatarGroup>
     )
 
-    const avatar = screen.getByText('JD').closest('[data-slot="avatar"]')
+    const avatar = screen.getByText('JD').closest('[data-scope="avatar"][data-slot="root"]')
     const groupCount = screen.getByText('+3')
-    const badge = document.querySelector('[data-slot="avatar-badge"]')
-    const group = document.querySelector('[data-slot="avatar-group"]')
+    const badge = document.querySelector('[data-scope="avatar"][data-slot="badge"]')
+    const group = document.querySelector('[data-scope="avatar"][data-slot="group"]')
     expect(avatar).toHaveAttribute('data-size', 'lg')
-    expect(avatar).toHaveClass('cn-avatar')
-    expect(groupCount).toHaveAttribute('data-slot', 'avatar-group-count')
-    expect(groupCount).toHaveClass('cn-avatar-group-count')
-    expect(badge).toHaveClass('cn-avatar-badge')
-    expect(group).toHaveClass('cn-avatar-group')
+    expect(avatar).toHaveAttribute('data-scope', 'avatar')
+    expect(avatar).toHaveAttribute('data-slot', 'root')
+    expect(groupCount).toHaveAttribute('data-scope', 'avatar')
+    expect(groupCount).toHaveAttribute('data-slot', 'group-count')
+
+    expect(badge).toHaveAttribute('data-scope', 'avatar')
+    expect(badge).toHaveAttribute('data-slot', 'badge')
+    expect(group).toHaveAttribute('data-scope', 'avatar')
+    expect(group).toHaveAttribute('data-slot', 'group')
   })
 })

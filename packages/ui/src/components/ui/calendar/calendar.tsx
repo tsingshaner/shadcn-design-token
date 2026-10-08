@@ -118,11 +118,12 @@ const Calendar = ({
 
   return (
     <div
-      className={cn('cn-calendar w-fit rounded-md border bg-background p-3 text-foreground', className)}
-      data-slot="calendar"
+      className={cn('w-fit rounded-md border bg-background p-3 text-foreground', className)}
+      data-scope="calendar"
+      data-slot="root"
       {...props}
     >
-      <div className="mb-3 flex items-center justify-between gap-2" data-slot="calendar-header">
+      <div className="mb-3 flex items-center justify-between gap-2" data-scope="calendar" data-slot="header">
         <Button
           aria-label="Previous month"
           onClick={() => setVisibleMonth(addMonths(visibleMonth, -1))}
@@ -131,7 +132,7 @@ const Calendar = ({
         >
           <svg
             aria-hidden="true"
-            className="cn-rtl-flip size-4"
+            className="size-4"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -145,8 +146,9 @@ const Calendar = ({
         {captionLayout === 'dropdown' ? (
           <select
             aria-label="Month and year"
-            className="cn-calendar-dropdown-root cn-calendar-caption-label rounded-md border bg-background px-2 py-1 font-medium text-sm"
-            data-slot="calendar-caption"
+            className="rounded-md border bg-background px-2 py-1 font-medium text-sm"
+            data-scope="calendar"
+            data-slot="caption"
             onChange={(event) => setVisibleMonth(new Date(event.currentTarget.value))}
             value={visibleMonth.toISOString()}
           >
@@ -157,7 +159,7 @@ const Calendar = ({
             ))}
           </select>
         ) : (
-          <div className="cn-calendar-caption font-medium text-sm" data-slot="calendar-caption">
+          <div className="font-medium text-sm" data-scope="calendar" data-slot="caption">
             {monthFormatter.format(visibleMonth)}
           </div>
         )}
@@ -169,7 +171,7 @@ const Calendar = ({
         >
           <svg
             aria-hidden="true"
-            className="cn-rtl-flip size-4"
+            className="size-4"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -188,13 +190,15 @@ const Calendar = ({
           return (
             <div
               className="grid grid-cols-7 gap-1 text-center"
-              data-slot="calendar-grid"
+              data-scope="calendar"
+              data-slot="grid"
               key={visibleMonthItem.toISOString()}
             >
               {weekdayLabels.map((weekday) => (
                 <div
                   className="h-8 content-center text-muted-foreground text-xs"
-                  data-slot="calendar-weekday"
+                  data-scope="calendar"
+                  data-slot="weekday"
                   key={weekday}
                 >
                   {weekday}
@@ -207,18 +211,20 @@ const Calendar = ({
                   <Button
                     aria-label={dayFormatter.format(date)}
                     className={cn(
-                      'cn-calendar-day-button size-8 p-0 font-normal tabular-nums',
+                      'size-8 p-0 font-normal tabular-nums',
                       day.outside && 'text-muted-foreground opacity-50',
                       day.rangeMiddle && 'bg-accent text-accent-foreground',
                       day.selected && 'bg-primary text-primary-foreground hover:bg-primary/90'
                     )}
                     data-outside={day.outside}
+                    data-scope="calendar"
                     data-selected={day.selected}
+                    data-slot="day-button"
                     disabled={day.disabled}
                     key={date.toISOString()}
                     onClick={() => onSelect?.(mode === 'range' ? { from: date, to: day.selectedRange?.to } : date)}
                     size="icon-sm"
-                    variant={day.selected ? 'default' : 'ghost'}
+                    variant={day.selected ? 'primary' : 'ghost'}
                   >
                     {date.getDate()}
                   </Button>

@@ -10,7 +10,8 @@ describe('DatePicker', () => {
     render(<DatePicker value={new Date(2026, 5, 27)} />)
 
     expect(screen.getByRole('button', { name: /june 27, 2026/i })).toBeInTheDocument()
-    expect(screen.getByText('MM/DD/YYYY')).toHaveAttribute('data-slot', 'date-picker-supporting-text')
+    expect(screen.getByText('MM/DD/YYYY')).toHaveAttribute('data-scope', 'date-picker')
+    expect(screen.getByText('MM/DD/YYYY')).toHaveAttribute('data-slot', 'supporting-text')
   })
 
   test('commits a draft date only after confirmation', () => {

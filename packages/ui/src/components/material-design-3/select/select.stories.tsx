@@ -117,8 +117,10 @@ Default.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('combobox'))
 
-  await expect(await page.findByText('Theme')).toHaveAttribute('data-slot', 'select-label')
-  await expect(await page.findByRole('option', { name: 'System' })).toHaveAttribute('data-slot', 'select-item')
+  await expect(await page.findByText('Theme')).toHaveAttribute('data-scope', 'select')
+  await expect(await page.findByText('Theme')).toHaveAttribute('data-slot', 'label')
+  await expect(await page.findByRole('option', { name: 'System' })).toHaveAttribute('data-scope', 'select')
+  await expect(await page.findByRole('option', { name: 'System' })).toHaveAttribute('data-slot', 'item')
 
   await userEvent.click(page.getByRole('option', { name: 'Light' }))
 
@@ -137,7 +139,10 @@ export const WithField: Story = {
   render: () => (
     <Field className="max-w-sm">
       <FieldLabel htmlFor="select-department">Department</FieldLabel>
-      <Select defaultValue="engineering" items={['engineering', 'design', 'marketing']}>
+      <Select
+        defaultValue="engineering"
+        items={['engineering', 'design', 'marketing'].map((value) => ({ label: value, value }))}
+      >
         <SelectTrigger id="select-department">
           <SelectValue />
         </SelectTrigger>
@@ -160,7 +165,8 @@ WithField.play = async ({ canvasElement }) => {
   await expect(canvas.getByLabelText('Department')).toHaveTextContent('engineering')
   await userEvent.click(canvas.getByLabelText('Department'))
 
-  await expect(await page.findByRole('option', { name: 'Design' })).toHaveAttribute('data-slot', 'select-item')
+  await expect(await page.findByRole('option', { name: 'Design' })).toHaveAttribute('data-scope', 'select')
+  await expect(await page.findByRole('option', { name: 'Design' })).toHaveAttribute('data-slot', 'item')
   await expect(canvas.getByText('Select your department or area of work.')).toBeVisible()
 }
 
@@ -174,7 +180,7 @@ export const Disabled: Story = {
     }
   },
   render: () => (
-    <Select defaultValue="system" items={['light', 'dark', 'system']}>
+    <Select defaultValue="system" items={['light', 'dark', 'system'].map((value) => ({ label: value, value }))}>
       <SelectTrigger className="w-[180px]" disabled>
         <SelectValue />
       </SelectTrigger>
@@ -207,7 +213,7 @@ export const Invalid: Story = {
   render: () => (
     <Field className="max-w-sm" data-invalid>
       <FieldLabel htmlFor="select-invalid">Theme</FieldLabel>
-      <Select items={['light', 'dark', 'system']}>
+      <Select items={['light', 'dark', 'system'].map((value) => ({ label: value, value }))}>
         <SelectTrigger aria-invalid id="select-invalid">
           <SelectValue placeholder="Select theme" />
         </SelectTrigger>
@@ -265,9 +271,7 @@ Scrollable.play = async ({ canvasElement }) => {
 
   await userEvent.click(canvas.getByRole('combobox'))
 
-  await expect(await page.findByText('Australia & Pacific')).toHaveAttribute('data-slot', 'select-label')
-  await expect(await page.findByRole('option', { name: 'Japan Standard Time' })).toHaveAttribute(
-    'data-slot',
-    'select-item'
-  )
+  await expect(await page.findByText('Australia & Pacific')).toHaveAttribute('data-scope', 'select')
+  await expect(await page.findByText('Australia & Pacific')).toHaveAttribute('data-slot', 'label')
+  await expect(await page.findByRole('option', { name: 'Japan Standard Time' })).toHaveAttribute('data-slot', 'item')
 }

@@ -33,7 +33,7 @@ describe('Toast', () => {
 
     expect(await screen.findByText('Second toast')).toBeInTheDocument()
     expect(screen.getByTestId('toast-viewport-top-right')).toHaveClass('h-[calc(var(--toast-frontmost-height)_+_2rem)]')
-    expect(screen.getByText('Second toast').closest('[data-slot="toast"]')).toHaveClass(
+    expect(screen.getByText('Second toast').closest('[data-scope="toast"][data-slot="root"]')).toHaveClass(
       'min-h-12',
       'rounded-[4px]',
       'bg-foreground',

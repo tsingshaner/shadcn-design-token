@@ -34,10 +34,11 @@ const ChartContainer = ({ className, config = {}, style, ...props }: ChartContai
   return (
     <div
       className={cn(
-        'cn-chart flex aspect-video w-full flex-col gap-3 rounded-md border bg-card p-4 text-card-foreground',
+        'flex aspect-video w-full flex-col gap-3 rounded-md border bg-card p-4 text-card-foreground',
         className
       )}
-      data-slot="chart"
+      data-scope="chart"
+      data-slot="root"
       style={{ ...variables, ...style }}
       {...props}
     />
@@ -52,7 +53,8 @@ const ChartBarSeries = ({ className, data, ...props }: ChartBarSeriesProps) => {
     <svg
       aria-label="Bar chart"
       className={cn('min-h-0 flex-1 overflow-visible', className)}
-      data-slot="chart-bar-series"
+      data-scope="chart"
+      data-slot="bar-series"
       role="img"
       viewBox="0 0 100 100"
       {...props}
@@ -66,7 +68,8 @@ const ChartBarSeries = ({ className, data, ...props }: ChartBarSeriesProps) => {
           <rect
             aria-label={`${item.label}: ${item.value}`}
             className="fill-primary"
-            data-slot="chart-bar"
+            data-scope="chart"
+            data-slot="bar"
             fill={item.color}
             height={height}
             key={item.label}
@@ -95,14 +98,16 @@ const ChartLineSeries = ({ className, data, ...props }: ChartLineSeriesProps) =>
     <svg
       aria-label="Line chart"
       className={cn('min-h-0 flex-1 overflow-visible', className)}
-      data-slot="chart-line-series"
+      data-scope="chart"
+      data-slot="line-series"
       role="img"
       viewBox="0 0 100 100"
       {...props}
     >
       <polyline
         className="fill-none stroke-primary"
-        data-slot="chart-line"
+        data-scope="chart"
+        data-slot="line"
         points={points}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -118,7 +123,8 @@ const ChartLineSeries = ({ className, data, ...props }: ChartLineSeriesProps) =>
             className="fill-background stroke-primary"
             cx={x}
             cy={y}
-            data-slot="chart-point"
+            data-scope="chart"
+            data-slot="point"
             key={item.label}
             r="2.5"
           />
@@ -130,22 +136,26 @@ const ChartLineSeries = ({ className, data, ...props }: ChartLineSeriesProps) =>
 
 const ChartTooltip = ({ className, ...props }: ChartTooltipProps) => (
   <div
-    className={cn(
-      'cn-chart-tooltip rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md',
-      className
-    )}
-    data-slot="chart-tooltip"
+    className={cn('rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md', className)}
+    data-scope="chart"
+    data-slot="tooltip"
     {...props}
   />
 )
 
 const ChartLegend = ({ className, config, ...props }: ChartLegendProps) => (
-  <div className={cn('flex flex-wrap items-center gap-3 text-sm', className)} data-slot="chart-legend" {...props}>
+  <div
+    className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
+    data-scope="chart"
+    data-slot="legend"
+    {...props}
+  >
     {Object.entries(config).map(([key, item]) => (
-      <div className="flex items-center gap-1.5" data-slot="chart-legend-item" key={key}>
+      <div className="flex items-center gap-1.5" data-scope="chart" data-slot="legend-item" key={key}>
         <span
           className="size-2.5 rounded-sm"
-          data-slot="chart-legend-swatch"
+          data-scope="chart"
+          data-slot="legend-swatch"
           style={{ backgroundColor: item.color ?? `var(--color-${key})` }}
         />
         <span>{item.label ?? key}</span>
