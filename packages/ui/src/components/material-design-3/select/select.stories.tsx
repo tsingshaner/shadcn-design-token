@@ -118,7 +118,7 @@ Default.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByRole('combobox'))
 
   await expect(await page.findByText('Theme')).toHaveAttribute('data-slot', 'select-label')
-  await expect(page.getByRole('option', { name: 'System' })).toHaveAttribute('data-slot', 'select-item')
+  await expect(await page.findByRole('option', { name: 'System' })).toHaveAttribute('data-slot', 'select-item')
 
   await userEvent.click(page.getByRole('option', { name: 'Light' }))
 
@@ -266,5 +266,8 @@ Scrollable.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByRole('combobox'))
 
   await expect(await page.findByText('Australia & Pacific')).toHaveAttribute('data-slot', 'select-label')
-  await expect(page.getByRole('option', { name: 'Japan Standard Time' })).toHaveAttribute('data-slot', 'select-item')
+  await expect(await page.findByRole('option', { name: 'Japan Standard Time' })).toHaveAttribute(
+    'data-slot',
+    'select-item'
+  )
 }
