@@ -1,8 +1,7 @@
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle'
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group'
+import { cn } from 'cn'
 import { type CSSProperties, createContext, useContext } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { type ToggleProps, toggleVariants } from '../toggle'
 

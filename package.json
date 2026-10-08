@@ -1,18 +1,19 @@
 {
   "devDependencies": {
-    "@biomejs/biome": "^2.5.1",
-    "@qingshaner/eslint-config": "^2.0.0",
-    "@types/node": "^25.9.4",
-    "knip": "^6.23.0",
+    "@biomejs/biome": "^2.5.15",
+    "@qingshaner/devtools": "^0.0.3",
+    "@types/node": "^25.9.9",
+    "knip": "^6.40.0",
     "nano-staged": "^1.0.2",
-    "simple-git-hooks": "^2.13.1",
-    "typescript": "7.0.1-rc",
-    "vite": "^8.1.0",
-    "vitest": "^4.1.9"
+    "shadcn": "^4.21.3",
+    "simple-git-hooks": "^2.14.0",
+    "typescript": "7.0.2",
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3"
   },
   "engines": {
     "node": ">=24.0.0",
-    "pnpm": ">=11.0.4"
+    "pnpm": ">=12.6.0"
   },
   "keywords": [],
   "license": "ISC",
@@ -20,14 +21,16 @@
   "nano-staged": {
     "*.{vue,svg,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome check --write"
   },
+  "packageManager": "pnpm@12.10.1",
   "private": true,
   "scripts": {
+    "build": "pnpm --filter=ui build && pnpm build:registry",
+    "build:registry": "pnpm registry:generate && shadcn build registry.json --output packages/ui/storybook-static/r",
     "check": "pnpm biome check . --fix",
     "format": "biome format . --write",
     "lint": "biome lint . --write",
     "prepare": "simple-git-hooks",
-    "registry:build": "pnpm registry:generate && npm exec --yes shadcn@latest -- build registry.json --output public/r",
-    "registry:build:pages": "pnpm registry:generate && npm exec --yes shadcn@latest -- build registry.json --output packages/ui/storybook-static/r",
+    "registry:build": "pnpm registry:generate && shadcn -- build registry.json --output public/r",
     "registry:generate": "node scripts/generate-shadcn-registry.mjs && pnpm biome format registry.json --write",
     "test": "pnpm --filter=ui test"
   },

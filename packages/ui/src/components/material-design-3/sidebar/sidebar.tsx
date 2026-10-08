@@ -1,6 +1,5 @@
+import { cn } from 'cn'
 import { type ComponentProps, createContext, useCallback, useContext, useMemo, useState } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Skeleton } from '../../ui/skeleton'
 import { Button, type ButtonProps } from '../button'

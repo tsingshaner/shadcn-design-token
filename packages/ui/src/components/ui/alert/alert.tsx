@@ -1,24 +1,26 @@
-import { tv, type VariantProps } from 'tailwind-variants'
+import { type ClassValue, cn } from 'cn'
 
 import type { ComponentProps } from 'react'
 
-import { cn } from '@/lib/utils'
+type AlertVariantsProps = {
+  variant?: 'default' | 'destructive' | null
+}
 
-const alertVariants = tv({
-  base: 'cn-alert group/alert relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5',
-  defaultVariants: {
-    variant: 'default'
-  },
-  variants: {
-    variant: {
-      default: 'cn-alert-variant-default bg-card text-card-foreground',
-      destructive:
-        'cn-alert-variant-destructive border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-current'
-    }
-  }
-})
+const alertVariants = ({
+  variant = 'default',
+  class: classValue,
+  className
+}: AlertVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-alert group/alert relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5',
+    variant === 'default' && 'cn-alert-variant-default bg-card text-card-foreground',
+    variant === 'destructive' &&
+      'cn-alert-variant-destructive border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-current',
+    classValue,
+    className
+  )
 
-type AlertProps = ComponentProps<'div'> & VariantProps<typeof alertVariants>
+type AlertProps = ComponentProps<'div'> & AlertVariantsProps
 type AlertTitleProps = ComponentProps<'div'>
 type AlertDescriptionProps = ComponentProps<'div'>
 type AlertActionProps = ComponentProps<'div'>

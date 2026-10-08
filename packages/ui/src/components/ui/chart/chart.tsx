@@ -1,6 +1,6 @@
-import type { ComponentProps, CSSProperties, ReactNode } from 'react'
+import { cn } from 'cn'
 
-import { cn } from '@/lib/utils'
+import type { ComponentProps, CSSProperties, ReactNode } from 'react'
 
 type ChartConfig = Record<string, { color?: string; label?: ReactNode }>
 type ChartDatum = {

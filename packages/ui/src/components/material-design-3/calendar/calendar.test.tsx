@@ -1,12 +1,12 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { Calendar } from './calendar'
 
 afterEach(cleanup)
 
 describe('Calendar', () => {
-  it('renders the month grid and selects a date', () => {
+  test('renders the month grid and selects a date', () => {
     const onSelect = vi.fn()
 
     render(<Calendar defaultMonth={new Date(2026, 5, 1)} onSelect={onSelect} selected={new Date(2026, 5, 27)} />)
@@ -17,5 +17,11 @@ describe('Calendar', () => {
     fireEvent.click(screen.getByLabelText('June 15, 2026'))
 
     expect(onSelect).toHaveBeenCalledWith(new Date(2026, 5, 15))
+  })
+
+  test('renders six weeks when fixedWeeks is enabled', () => {
+    const { container } = render(<Calendar defaultMonth={new Date(2026, 5, 1)} fixedWeeks />)
+
+    expect(container.querySelector('[data-slot="calendar-grid"]')?.children).toHaveLength(49)
   })
 })

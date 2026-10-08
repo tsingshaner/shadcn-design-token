@@ -1,10 +1,10 @@
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox'
+import { cn } from 'cn'
 import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
 import { useRef } from 'react'
 
 import { Button } from '@/components/material-design-3/button'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group'
-import { cn } from '@/lib/utils'
 
 import { Ripple } from '../ripple'
 

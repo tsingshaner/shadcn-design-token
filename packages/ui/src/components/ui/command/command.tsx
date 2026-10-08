@@ -1,9 +1,8 @@
 import { Command as CommandPrimitive } from 'cmdk'
+import { cn } from 'cn'
 import { CheckIcon, SearchIcon } from 'lucide-react'
 
 import type { ComponentProps, ReactNode } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../dialog'
 import { InputGroup, InputGroupAddon } from '../input-group'

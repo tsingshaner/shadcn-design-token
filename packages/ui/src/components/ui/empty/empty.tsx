@@ -1,8 +1,6 @@
-import { tv, type VariantProps } from 'tailwind-variants'
+import { type ClassValue, cn } from 'cn'
 
 import type { ComponentProps } from 'react'
-
-import { cn } from '@/lib/utils'
 
 type EmptyProps = ComponentProps<'div'>
 type EmptyHeaderProps = ComponentProps<'div'>
@@ -10,20 +8,25 @@ type EmptyTitleProps = ComponentProps<'div'>
 type EmptyDescriptionProps = ComponentProps<'p'>
 type EmptyContentProps = ComponentProps<'div'>
 
-const emptyMediaVariants = tv({
-  base: 'cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0',
-  defaultVariants: {
-    variant: 'default'
-  },
-  variants: {
-    variant: {
-      default: 'cn-empty-media-default size-12 rounded-full bg-muted text-muted-foreground',
-      icon: 'cn-empty-media-icon size-10 rounded-md bg-transparent text-muted-foreground [&_svg:not([class*=size-])]:size-6'
-    }
-  }
-})
+type EmptyMediaVariantsProps = {
+  variant?: 'default' | 'icon' | null
+}
 
-type EmptyMediaProps = ComponentProps<'div'> & VariantProps<typeof emptyMediaVariants>
+const emptyMediaVariants = ({
+  variant = 'default',
+  class: classValue,
+  className
+}: EmptyMediaVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-empty-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0',
+    variant === 'default' && 'cn-empty-media-default size-12 rounded-full bg-muted text-muted-foreground',
+    variant === 'icon' &&
+      'cn-empty-media-icon size-10 rounded-md bg-transparent text-muted-foreground [&_svg:not([class*=size-])]:size-6',
+    classValue,
+    className
+  )
+
+type EmptyMediaProps = ComponentProps<'div'> & EmptyMediaVariantsProps
 
 const Empty = ({ className, ...props }: EmptyProps) => (
   <div

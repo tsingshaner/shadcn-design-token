@@ -8,27 +8,13 @@ import { defineConfig } from 'vite'
 import { configDefaults } from 'vitest/config'
 
 export default defineConfig({
-  build: {
-    cssCodeSplit: false,
-    lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      fileName: 'index',
-      formats: ['es']
-    },
-    rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
-      output: {
-        assetFileNames: 'styles.css'
-      }
-    }
-  },
   define: {
     global: 'globalThis'
   },
-  plugins: [react(), tailwindcss()],
+  plugins: [react({ compiler: true }), tailwindcss()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
+      '@': resolve(import.meta.dirname, 'src')
     }
   },
   test: {
@@ -47,7 +33,7 @@ export default defineConfig({
         extends: true,
         plugins: [
           storybookTest({
-            configDir: resolve(__dirname, '.storybook'),
+            configDir: resolve(import.meta.dirname, '.storybook'),
             storybookScript: 'pnpm storybook --ci'
           })
         ],

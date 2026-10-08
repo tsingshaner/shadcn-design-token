@@ -1,7 +1,6 @@
 import { Progress as ProgressPrimitive } from '@base-ui/react/progress'
+import { cn } from 'cn'
 import { useLayoutEffect, useRef, useState } from 'react'
-
-import { cn } from '@/lib/utils'
 
 type ProgressProps = ProgressPrimitive.Root.Props & {
   shape?: 'flat' | 'wave'

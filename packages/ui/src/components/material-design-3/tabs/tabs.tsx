@@ -1,27 +1,29 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs'
-import { tv, type VariantProps } from 'tailwind-variants'
-
-import { cn } from '@/lib/utils'
+import { type ClassValue, cn } from 'cn'
 
 import { Ripple } from '../ripple'
 
 type TabsProps = TabsPrimitive.Root.Props
-type TabsListProps = TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>
+type TabsListProps = TabsPrimitive.List.Props & TabsListVariantsProps
 type TabsTriggerProps = TabsPrimitive.Tab.Props
 type TabsContentProps = TabsPrimitive.Panel.Props
 
-const tabsListVariants = tv({
-  base: 'cn-tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-horizontal/tabs:min-h-12 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col',
-  defaultVariants: {
-    variant: 'default'
-  },
-  variants: {
-    variant: {
-      default: 'cn-tabs-list-variant-default bg-transparent',
-      line: 'cn-tabs-list-variant-line gap-1 bg-transparent'
-    }
-  }
-})
+type TabsListVariantsProps = {
+  variant?: 'default' | 'line' | null
+}
+
+const tabsListVariants = ({
+  variant = 'default',
+  class: classValue,
+  className
+}: TabsListVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-horizontal/tabs:min-h-12 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col',
+    variant === 'default' && 'cn-tabs-list-variant-default bg-transparent',
+    variant === 'line' && 'cn-tabs-list-variant-line gap-1 bg-transparent',
+    classValue,
+    className
+  )
 
 const Tabs = ({ className, orientation = 'horizontal', ...props }: TabsProps) => (
   <TabsPrimitive.Root

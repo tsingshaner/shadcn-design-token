@@ -3,7 +3,7 @@
   "homepage": "https://github.com/tsingshaner/shadcn-design-token",
   "items": [
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/accordion/accordion.tsx",
@@ -15,7 +15,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["tailwind-variants"],
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/alert/alert.tsx",
@@ -27,7 +27,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/alert-dialog/alert-dialog.tsx",
@@ -40,6 +40,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/aspect-ratio/aspect-ratio.tsx",
@@ -51,7 +52,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/attachment/attachment.tsx",
@@ -64,7 +65,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/avatar/avatar.tsx",
@@ -76,7 +77,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/badge/badge.tsx",
@@ -88,7 +89,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/breadcrumb/breadcrumb.tsx",
@@ -100,7 +101,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/bubble/bubble.tsx",
@@ -112,7 +113,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/button/button.tsx",
@@ -124,7 +125,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/button-group/button-group.tsx",
@@ -137,6 +138,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/calendar/calendar.tsx",
@@ -149,6 +151,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/card/card.tsx",
@@ -160,6 +163,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/carousel/carousel.tsx",
@@ -172,6 +176,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/chart/chart.tsx",
@@ -183,7 +188,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/checkbox/checkbox.tsx",
@@ -207,7 +212,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/combobox/combobox.tsx",
@@ -220,7 +225,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["cmdk", "lucide-react"],
+      "dependencies": ["cmdk", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/command/command.tsx",
@@ -246,7 +251,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/context-menu/context-menu.tsx",
@@ -270,6 +275,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/date-picker/date-picker.tsx",
@@ -282,7 +288,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/dialog/dialog.tsx",
@@ -307,7 +313,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/drawer/drawer.tsx",
@@ -319,7 +325,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/dropdown-menu/dropdown-menu.tsx",
@@ -331,7 +337,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["tailwind-variants"],
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/empty/empty.tsx",
@@ -343,7 +349,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["tailwind-variants"],
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/field/field.tsx",
@@ -356,7 +362,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/hover-card/hover-card.tsx",
@@ -368,7 +374,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/input/input.tsx",
@@ -380,6 +386,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/input-group/input-group.tsx",
@@ -391,7 +398,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/input-otp/input-otp.tsx",
@@ -403,6 +410,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/item/item.tsx",
@@ -415,6 +423,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/kbd/kbd.tsx",
@@ -426,6 +435,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/label/label.tsx",
@@ -437,7 +447,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/marker/marker.tsx",
@@ -449,7 +459,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/alert-dialog/alert-dialog.tsx",
@@ -462,7 +472,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/badge/badge.tsx",
@@ -474,7 +484,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/button/button.tsx",
@@ -487,6 +497,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/calendar/calendar.tsx",
@@ -499,6 +510,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/card/card.tsx",
@@ -510,6 +522,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/carousel/carousel.tsx",
@@ -522,7 +535,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/checkbox/checkbox.tsx",
@@ -535,7 +548,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/combobox/combobox.tsx",
@@ -565,6 +578,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/date-picker/date-picker.tsx",
@@ -581,7 +595,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/dialog/dialog.tsx",
@@ -594,7 +608,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/drawer/drawer.tsx",
@@ -606,7 +620,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/dropdown-menu/dropdown-menu.tsx",
@@ -619,7 +633,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/input/input.tsx",
@@ -631,6 +645,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/item/item.tsx",
@@ -643,7 +658,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/loading-indicator/loading-indicator.tsx",
@@ -655,7 +670,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/popover/popover.tsx",
@@ -667,7 +682,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/progress/progress.tsx",
@@ -679,7 +694,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/radio-group/radio-group.tsx",
@@ -692,6 +707,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/ripple/ripple.tsx",
@@ -703,7 +719,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/select/select.tsx",
@@ -716,7 +732,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/separator/separator.tsx",
@@ -728,7 +744,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/sheet/sheet.tsx",
@@ -741,6 +757,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/sidebar/sidebar.tsx",
@@ -758,7 +775,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/slider/slider.tsx",
@@ -767,10 +784,10 @@
         }
       ],
       "name": "material-design-3-slider",
-      "registryDependencies": ["@material-design-3/ripple"],
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/spinner/spinner.tsx",
@@ -782,7 +799,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/switch/switch.tsx",
@@ -794,7 +811,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/tabs/tabs.tsx",
@@ -807,6 +824,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/textarea/textarea.tsx",
@@ -818,7 +836,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toast/toast.tsx",
@@ -830,7 +848,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toggle/toggle.tsx",
@@ -843,7 +861,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toggle-group/toggle-group.tsx",
@@ -856,7 +874,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/tooltip/tooltip.tsx",
@@ -868,7 +886,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/menubar/menubar.tsx",
@@ -881,6 +899,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/message/message.tsx",
@@ -892,7 +911,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@shadcn/react", "lucide-react"],
+      "dependencies": ["@shadcn/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/message-scroller/message-scroller.tsx",
@@ -905,7 +924,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["lucide-react"],
+      "dependencies": ["cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/native-select/native-select.tsx",
@@ -917,7 +936,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/navigation-menu/navigation-menu.tsx",
@@ -929,7 +948,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["lucide-react"],
+      "dependencies": ["cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/pagination/pagination.tsx",
@@ -942,7 +961,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/popover/popover.tsx",
@@ -954,7 +973,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/progress/progress.tsx",
@@ -966,7 +985,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/radio-group/radio-group.tsx",
@@ -978,6 +997,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/resizable/resizable.tsx",
@@ -989,7 +1009,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/scroll-area/scroll-area.tsx",
@@ -1001,7 +1021,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/select/select.tsx",
@@ -1013,7 +1033,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/separator/separator.tsx",
@@ -1025,7 +1045,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "cn", "lucide-react"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/sheet/sheet.tsx",
@@ -1038,6 +1058,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/sidebar/sidebar.tsx",
@@ -1050,6 +1071,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/skeleton/skeleton.tsx",
@@ -1061,7 +1083,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/slider/slider.tsx",
@@ -1085,6 +1107,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/spinner/spinner.tsx",
@@ -1096,7 +1119,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/switch/switch.tsx",
@@ -1108,6 +1131,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/table/table.tsx",
@@ -1119,7 +1143,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/tabs/tabs.tsx",
@@ -1131,6 +1155,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/textarea/textarea.tsx",
@@ -1142,7 +1167,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/toast/toast.tsx",
@@ -1154,7 +1179,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react", "tailwind-variants"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/toggle/toggle.tsx",
@@ -1166,7 +1191,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/toggle-group/toggle-group.tsx",
@@ -1179,7 +1204,7 @@
       "type": "registry:ui"
     },
     {
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/tooltip/tooltip.tsx",
@@ -1191,6 +1216,7 @@
       "type": "registry:ui"
     },
     {
+      "dependencies": ["cn"],
       "files": [
         {
           "path": "packages/ui/src/components/ui/typography/typography.tsx",

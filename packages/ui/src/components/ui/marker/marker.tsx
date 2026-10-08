@@ -1,21 +1,26 @@
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { type ClassValue, cn } from 'cn'
 
-import { cn } from '@/lib/utils'
+type MarkerVariantsProps = {
+  variant?: 'border' | 'default' | 'separator' | null
+}
 
-const markerVariants = tv({
-  base: 'cn-marker group/marker relative flex w-full items-center',
-  variants: {
-    variant: {
-      border: 'cn-marker-variant-border',
-      default: 'cn-marker-variant-default',
-      separator: 'cn-marker-variant-separator'
-    }
-  }
-})
+const markerVariants = ({
+  variant = undefined,
+  class: classValue,
+  className
+}: MarkerVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-marker group/marker relative flex w-full items-center',
+    variant === 'border' && 'cn-marker-variant-border',
+    variant === 'default' && 'cn-marker-variant-default',
+    variant === 'separator' && 'cn-marker-variant-separator',
+    classValue,
+    className
+  )
 
-type MarkerProps = useRender.ComponentProps<'div'> & VariantProps<typeof markerVariants>
+type MarkerProps = useRender.ComponentProps<'div'> & MarkerVariantsProps
 type MarkerIconProps = React.ComponentProps<'span'>
 type MarkerContentProps = React.ComponentProps<'span'>
 

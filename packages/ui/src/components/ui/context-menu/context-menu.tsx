@@ -1,9 +1,8 @@
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu'
+import { cn } from 'cn'
 import { CheckIcon, ChevronRightIcon, CircleIcon } from 'lucide-react'
 
 import type { ComponentProps } from 'react'
-
-import { cn } from '@/lib/utils'
 
 type ContextMenuProps = ContextMenuPrimitive.Root.Props
 type ContextMenuTriggerProps = ContextMenuPrimitive.Trigger.Props

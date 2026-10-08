@@ -1,9 +1,8 @@
 import { Menu as DropdownMenuPrimitive } from '@base-ui/react/menu'
+import { cn } from 'cn'
 import { CheckIcon, ChevronRightIcon, CircleIcon } from 'lucide-react'
 
 import type { ComponentProps } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Ripple } from '../ripple'
 

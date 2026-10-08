@@ -1,5 +1,7 @@
 import './styles/globals.css'
 
+export { cn } from 'cn'
+
 export {
   Accordion,
   AccordionContent,
@@ -367,7 +369,6 @@ export {
   TypographyP,
   TypographySmall
 } from './components/ui/typography'
-export { cn } from './lib/utils'
 
 export type {
   AccordionContentProps,

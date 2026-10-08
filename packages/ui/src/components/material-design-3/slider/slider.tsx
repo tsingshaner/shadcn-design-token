@@ -1,9 +1,7 @@
 import { Slider as SliderPrimitive } from '@base-ui/react/slider'
-import { tv } from 'tailwind-variants'
+import { cn } from 'cn'
 
 import type { CSSProperties, ReactNode } from 'react'
-
-import { cn } from '@/lib/utils'
 
 type SliderValue = number | readonly number[]
 type SliderSize = 'lg' | 'md' | 'sm' | 'xl' | 'xs'
@@ -17,49 +15,35 @@ type SliderProps = SliderPrimitive.Root.Props<SliderValue> & {
   variant?: SliderVariant
 }
 
-const sliderVariants = tv({
-  defaultVariants: {
-    size: 'xs'
-  },
-  slots: {
-    control: 'cn-slider relative flex size-full touch-none select-none items-center data-vertical:flex-col',
-    indicator:
-      'cn-slider-range absolute select-none rounded-[2px] bg-primary data-horizontal:h-full data-vertical:w-full data-disabled:bg-foreground/[0.38]',
-    root: 'group/slider relative shrink-0 [--slider-track-gap:8px] data-dragging:[--slider-track-gap:7px] data-horizontal:w-full data-vertical:h-full data-vertical:min-h-40',
-    thumb:
-      'cn-slider-thumb group/thumb relative z-10 block shrink-0 select-none rounded-[2px] border-0 bg-primary text-primary-foreground shadow-[0_0_0_6px_var(--background)] outline-none transition-[width,height] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-primary-foreground after:opacity-0 hover:after:opacity-[0.08] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring data-dragging:after:opacity-[0.1] data-dragging:data-horizontal:w-0.5 data-dragging:data-vertical:h-0.5 data-disabled:pointer-events-none data-disabled:bg-foreground/[0.38] data-disabled:text-background data-disabled:after:hidden data-horizontal:w-1 data-vertical:h-1',
-    track:
-      'cn-slider-track relative grow select-none bg-secondary data-horizontal:w-full data-vertical:h-full data-disabled:bg-foreground/[0.1]'
-  },
-  variants: {
-    size: {
-      lg: {
-        root: '[--slider-track-radius:16px] data-horizontal:h-[68px] data-vertical:w-[68px]',
-        thumb: 'data-horizontal:h-[68px] data-vertical:w-[68px]',
-        track: 'rounded-2xl data-horizontal:h-14 data-vertical:w-14'
-      },
-      md: {
-        root: '[--slider-track-radius:12px] data-horizontal:h-[52px] data-vertical:w-[52px]',
-        thumb: 'data-horizontal:h-[52px] data-vertical:w-[52px]',
-        track: 'rounded-xl data-horizontal:h-10 data-vertical:w-10'
-      },
-      sm: {
-        root: '[--slider-track-radius:8px] data-horizontal:h-11 data-vertical:w-11',
-        thumb: 'data-horizontal:h-11 data-vertical:w-11',
-        track: 'rounded-lg data-horizontal:h-6 data-vertical:w-6'
-      },
-      xl: {
-        root: '[--slider-track-radius:28px] data-horizontal:h-[108px] data-vertical:w-[108px]',
-        thumb: 'data-horizontal:h-[108px] data-vertical:w-[108px]',
-        track: 'rounded-[28px] data-horizontal:h-24 data-vertical:w-24'
-      },
-      xs: {
-        root: '[--slider-track-radius:8px] data-horizontal:h-11 data-vertical:w-11',
-        thumb: 'data-horizontal:h-11 data-vertical:w-11',
-        track: 'rounded-2xl data-horizontal:h-4 data-vertical:w-4'
-      }
-    }
-  }
+const sliderVariants = ({ size = 'xs' }: { size?: SliderSize } = {}) => ({
+  control: cn('cn-slider relative flex size-full touch-none select-none items-center data-vertical:flex-col'),
+  indicator: cn(
+    'cn-slider-range absolute select-none rounded-[2px] bg-primary data-horizontal:h-full data-vertical:w-full data-disabled:bg-foreground/[0.38]'
+  ),
+  root: cn(
+    'group/slider relative shrink-0 [--slider-track-gap:8px] data-dragging:[--slider-track-gap:7px] data-horizontal:w-full data-vertical:h-full data-vertical:min-h-40',
+    size === 'lg' && '[--slider-track-radius:16px] data-horizontal:h-[68px] data-vertical:w-[68px]',
+    size === 'md' && '[--slider-track-radius:12px] data-horizontal:h-[52px] data-vertical:w-[52px]',
+    size === 'sm' && '[--slider-track-radius:8px] data-horizontal:h-11 data-vertical:w-11',
+    size === 'xl' && '[--slider-track-radius:28px] data-horizontal:h-[108px] data-vertical:w-[108px]',
+    size === 'xs' && '[--slider-track-radius:8px] data-horizontal:h-11 data-vertical:w-11'
+  ),
+  thumb: cn(
+    'cn-slider-thumb group/thumb relative z-10 block shrink-0 select-none rounded-[2px] border-0 bg-primary text-primary-foreground shadow-[0_0_0_6px_var(--background)] outline-none transition-[width,height] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-primary-foreground after:opacity-0 hover:after:opacity-[0.08] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring data-dragging:after:opacity-[0.1] data-dragging:data-horizontal:w-0.5 data-dragging:data-vertical:h-0.5 data-disabled:pointer-events-none data-disabled:bg-foreground/[0.38] data-disabled:text-background data-disabled:after:hidden data-horizontal:w-1 data-vertical:h-1',
+    size === 'lg' && 'data-horizontal:h-[68px] data-vertical:w-[68px]',
+    size === 'md' && 'data-horizontal:h-[52px] data-vertical:w-[52px]',
+    size === 'sm' && 'data-horizontal:h-11 data-vertical:w-11',
+    size === 'xl' && 'data-horizontal:h-[108px] data-vertical:w-[108px]',
+    size === 'xs' && 'data-horizontal:h-11 data-vertical:w-11'
+  ),
+  track: cn(
+    'cn-slider-track relative grow select-none bg-secondary data-horizontal:w-full data-vertical:h-full data-disabled:bg-foreground/[0.1]',
+    size === 'lg' && 'rounded-2xl data-horizontal:h-14 data-vertical:w-14',
+    size === 'md' && 'rounded-xl data-horizontal:h-10 data-vertical:w-10',
+    size === 'sm' && 'rounded-lg data-horizontal:h-6 data-vertical:w-6',
+    size === 'xl' && 'rounded-[28px] data-horizontal:h-24 data-vertical:w-24',
+    size === 'xs' && 'rounded-2xl data-horizontal:h-4 data-vertical:w-4'
+  )
 })
 
 const getSliderValues = (
@@ -243,7 +227,7 @@ const SliderThumb = ({ index, showValueIndicator, styles }: SliderThumbProps) =>
   <SliderPrimitive.Thumb
     className={(state) =>
       cn(
-        styles.thumb(),
+        styles.thumb,
         state.values.length === 2 &&
           state.values[0] === state.values[1] &&
           (index === 0
@@ -292,7 +276,7 @@ const Slider = ({
     <SliderPrimitive.Root
       {...props}
       className={
-        typeof className === 'function' ? (state) => cn(styles.root(), className(state)) : cn(styles.root(), className)
+        typeof className === 'function' ? (state) => cn(styles.root, className(state)) : cn(styles.root, className)
       }
       data-size={size}
       data-slot="slider"
@@ -304,10 +288,10 @@ const Slider = ({
       thumbAlignment="edge"
       value={value}
     >
-      <SliderPrimitive.Control className={styles.control()} data-slot="slider-control">
-        <SliderPrimitive.Track className={styles.track()} data-slot="slider-track">
+      <SliderPrimitive.Control className={styles.control} data-slot="slider-control">
+        <SliderPrimitive.Track className={styles.track} data-slot="slider-track">
           <SliderPrimitive.Indicator
-            className={styles.indicator()}
+            className={styles.indicator}
             data-slot="slider-range"
             render={(indicatorProps, state) => (
               <div

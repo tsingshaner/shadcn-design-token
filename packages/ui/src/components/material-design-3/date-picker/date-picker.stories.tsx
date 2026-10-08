@@ -42,8 +42,10 @@ export const Basic: Story = {
     }
   },
   render: () => (
-    <Field className="mx-auto w-44">
-      <FieldLabel htmlFor="date-picker-simple">Date</FieldLabel>
+    <Field className="mx-auto w-fit">
+      <FieldLabel className="sr-only" htmlFor="date-picker-simple">
+        Date
+      </FieldLabel>
       <DatePicker defaultValue={date} id="date-picker-simple" />
     </Field>
   )
@@ -51,12 +53,23 @@ export const Basic: Story = {
 Basic.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
   const page = within(canvasElement.ownerDocument.body)
+  const trigger = canvas.getByLabelText('Date')
 
-  await expect(canvas.getByLabelText('Date')).toHaveTextContent('January 20, 2026')
-  await userEvent.click(canvas.getByLabelText('Date'))
+  await expect(trigger).toHaveTextContent('January 20, 2026')
+  await expect(trigger).toHaveClass('h-14', 'w-[312px]', 'rounded-[4px]')
+  await userEvent.click(trigger)
 
-  await expect(await page.findByText('January 2026')).toHaveAttribute('data-slot', 'calendar-caption')
+  await expect(await page.findByLabelText('Month and year')).toHaveValue('0')
+  await expect(page.getByLabelText('Year')).toHaveValue('2026')
   await expect(page.getByRole('button', { name: 'January 20, 2026' })).toHaveAttribute('data-selected', 'true')
+  await expect(canvasElement.ownerDocument.body.querySelector('[data-slot="date-picker-content"]')).toHaveClass(
+    'rounded-[16px]',
+    'bg-surface-container-high'
+  )
+  await expect(canvasElement.ownerDocument.body.querySelector('[data-slot="calendar-grid"]')).toHaveClass(
+    'grid-cols-[repeat(7,48px)]',
+    'auto-rows-[48px]'
+  )
 }
 
 export const RangePicker: Story = {

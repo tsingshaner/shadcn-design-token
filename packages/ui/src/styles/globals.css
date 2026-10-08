@@ -18,6 +18,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-surface-container-high: var(--surface-container-high);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
@@ -61,6 +62,7 @@
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
+  --surface-container-high: oklch(0.97 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -96,6 +98,7 @@
   --secondary-foreground: #1d192b;
   --muted: #f3edf7;
   --muted-foreground: #49454f;
+  --surface-container-high: #ece6f0;
   --accent: #ffd8e4;
   --accent-foreground: #31111d;
   --destructive: #b3261e;
@@ -126,6 +129,7 @@
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
+  --surface-container-high: oklch(0.269 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -160,6 +164,7 @@
   --secondary-foreground: #e8def8;
   --muted: #49454f;
   --muted-foreground: #cac4d0;
+  --surface-container-high: #2b2930;
   --accent: #633b48;
   --accent-foreground: #ffd8e4;
   --destructive: #f2b8b5;
@@ -175,6 +180,10 @@
   --sidebar-accent-foreground: #e8def8;
   --sidebar-border: #49454f;
   --sidebar-ring: #d0bcff;
+}
+
+:root.dark .docs-story {
+  background-color: var(--background);
 }
 
 @layer base {

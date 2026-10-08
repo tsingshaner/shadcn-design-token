@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from 'cn'
 
 type MessageGroupProps = React.ComponentProps<'div'>
 type MessageProps = React.ComponentProps<'div'> & {

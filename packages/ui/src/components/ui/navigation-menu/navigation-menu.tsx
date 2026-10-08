@@ -1,7 +1,6 @@
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui/react/navigation-menu'
+import { cn } from 'cn'
 import { ChevronDownIcon } from 'lucide-react'
-
-import { cn } from '@/lib/utils'
 
 type NavigationMenuProps<Value = string> = NavigationMenuPrimitive.Root.Props<Value> &
   Pick<NavigationMenuPrimitive.Positioner.Props, 'align'>

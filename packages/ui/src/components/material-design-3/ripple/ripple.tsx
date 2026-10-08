@@ -1,6 +1,5 @@
+import { cn } from 'cn'
 import { type ComponentProps, useEffect, useRef } from 'react'
-
-import { cn } from '@/lib/utils'
 
 const MINIMUM_PRESS_MS = 225
 const PRESS_GROW_MS = 450

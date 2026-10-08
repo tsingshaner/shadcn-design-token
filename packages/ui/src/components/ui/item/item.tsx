@@ -1,6 +1,5 @@
+import { cn } from 'cn'
 import { type ComponentProps, cloneElement, isValidElement, type ReactElement } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Separator, type SeparatorProps } from '../separator'
 

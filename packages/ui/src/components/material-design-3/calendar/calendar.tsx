@@ -1,6 +1,6 @@
+import { cn } from 'cn'
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { type ComponentProps, useMemo, useState } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Button } from '../button'
 
@@ -23,6 +23,7 @@ type CalendarProps = Omit<ComponentProps<'div'>, 'onSelect'> & {
 
 const weekdayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 const monthFormatter = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' })
+const monthNameFormatter = new Intl.DateTimeFormat('en', { month: 'short' })
 const dayFormatter = new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' })
 
 const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1)
@@ -54,12 +55,14 @@ const isDisabled = (date: Date, disabled: CalendarProps['disabled']) => {
   return disabled?.(date) ?? false
 }
 
-const getCalendarDays = (month: Date) => {
+const getCalendarDays = (month: Date, fixedWeeks: boolean) => {
   const firstDay = startOfMonth(month)
   const gridStart = new Date(firstDay)
   gridStart.setDate(firstDay.getDate() - firstDay.getDay())
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate()
+  const dayCount = fixedWeeks ? 42 : Math.ceil((firstDay.getDay() + daysInMonth) / 7) * 7
 
-  return Array.from({ length: 42 }, (_, index) => {
+  return Array.from({ length: dayCount }, (_, index) => {
     const date = new Date(gridStart)
     date.setDate(gridStart.getDate() + index)
     return date
@@ -84,7 +87,8 @@ const getDayState = (
     rangeEndpoint,
     rangeMiddle: isInRange(date, selectedRange),
     selected: selectedDay || rangeEndpoint,
-    selectedRange
+    selectedRange,
+    today: isSameDay(date, new Date())
   }
 }
 
@@ -93,6 +97,7 @@ const Calendar = ({
   className,
   defaultMonth,
   disabled,
+  fixedWeeks = false,
   mode = 'single',
   month,
   numberOfMonths = 1,
@@ -108,6 +113,10 @@ const Calendar = ({
     () => Array.from({ length: numberOfMonths }, (_, index) => addMonths(visibleMonth, index)),
     [numberOfMonths, visibleMonth]
   )
+  const yearOptions = useMemo(
+    () => Array.from({ length: 201 }, (_, index) => visibleMonth.getFullYear() - 100 + index),
+    [visibleMonth]
+  )
 
   const setVisibleMonth = (nextMonth: Date) => {
     setInternalMonth(nextMonth)
@@ -116,85 +125,136 @@ const Calendar = ({
 
   return (
     <div
-      className={cn('cn-calendar w-fit rounded-[28px] border-0 bg-muted p-4 text-foreground shadow-xl', className)}
+      className={cn(
+        'cn-calendar w-fit rounded-[16px] border-0 bg-surface-container-high text-foreground shadow-none',
+        className
+      )}
       data-slot="calendar"
       {...props}
     >
-      <div className="mb-3 flex items-center justify-between gap-2" data-slot="calendar-header">
-        <Button
-          aria-label="Previous month"
-          onClick={() => setVisibleMonth(addMonths(visibleMonth, -1))}
-          size="icon-sm"
-          variant="ghost"
-        >
-          <svg
-            aria-hidden="true"
-            className="cn-rtl-flip size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
-        </Button>
+      <div className="flex h-16 items-center justify-between px-3" data-slot="calendar-header">
         {captionLayout === 'dropdown' ? (
-          <select
-            aria-label="Month and year"
-            className="cn-calendar-dropdown-root cn-calendar-caption-label rounded-[4px] border border-muted-foreground bg-transparent px-3 py-2 font-medium text-sm"
-            data-slot="calendar-caption"
-            onChange={(event) => setVisibleMonth(new Date(event.currentTarget.value))}
-            value={visibleMonth.toISOString()}
-          >
-            {Array.from({ length: 12 }, (_, index) => new Date(visibleMonth.getFullYear(), index, 1)).map((date) => (
-              <option key={date.toISOString()} value={date.toISOString()}>
-                {monthFormatter.format(date)}
-              </option>
-            ))}
-          </select>
+          <>
+            <div className="flex items-center">
+              <Button
+                aria-label="Previous month"
+                className="size-12 text-muted-foreground"
+                onClick={() => setVisibleMonth(addMonths(visibleMonth, -1))}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronLeftIcon className="cn-rtl-flip size-6" />
+              </Button>
+              <label className="relative flex h-10 items-center rounded-full font-medium text-muted-foreground text-sm">
+                <select
+                  aria-label="Month and year"
+                  className="cn-calendar-dropdown-root cn-calendar-caption-label appearance-none bg-transparent py-2 pr-7 pl-2 outline-none"
+                  data-slot="calendar-caption"
+                  onChange={(event) =>
+                    setVisibleMonth(new Date(visibleMonth.getFullYear(), Number(event.currentTarget.value), 1))
+                  }
+                  value={visibleMonth.getMonth()}
+                >
+                  {Array.from({ length: 12 }, (_, index) => {
+                    const monthName = monthNameFormatter.format(new Date(2000, index, 1))
+
+                    return (
+                      <option key={monthName} value={index}>
+                        {monthName}
+                      </option>
+                    )
+                  })}
+                </select>
+                <ChevronDownIcon aria-hidden="true" className="pointer-events-none absolute right-1 size-[18px]" />
+              </label>
+              <Button
+                aria-label="Next month"
+                className="size-12 text-muted-foreground"
+                onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronRightIcon className="cn-rtl-flip size-6" />
+              </Button>
+            </div>
+            <div className="flex items-center">
+              <Button
+                aria-label="Previous year"
+                className="size-12 text-muted-foreground"
+                onClick={() => setVisibleMonth(addMonths(visibleMonth, -12))}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronLeftIcon className="cn-rtl-flip size-6" />
+              </Button>
+              <label className="relative flex h-10 items-center rounded-full font-medium text-muted-foreground text-sm">
+                <select
+                  aria-label="Year"
+                  className="appearance-none bg-transparent py-2 pr-7 pl-2 outline-none"
+                  onChange={(event) =>
+                    setVisibleMonth(new Date(Number(event.currentTarget.value), visibleMonth.getMonth(), 1))
+                  }
+                  value={visibleMonth.getFullYear()}
+                >
+                  {yearOptions.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDownIcon aria-hidden="true" className="pointer-events-none absolute right-1 size-[18px]" />
+              </label>
+              <Button
+                aria-label="Next year"
+                className="size-12 text-muted-foreground"
+                onClick={() => setVisibleMonth(addMonths(visibleMonth, 12))}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronRightIcon className="cn-rtl-flip size-6" />
+              </Button>
+            </div>
+          </>
         ) : (
-          <div className="cn-calendar-caption font-medium text-sm" data-slot="calendar-caption">
-            {monthFormatter.format(visibleMonth)}
-          </div>
+          <>
+            <div className="cn-calendar-caption px-3 font-medium text-sm" data-slot="calendar-caption">
+              {monthFormatter.format(visibleMonth)}
+            </div>
+            <div className="flex items-center">
+              <Button
+                aria-label="Previous month"
+                className="size-12 text-muted-foreground"
+                onClick={() => setVisibleMonth(addMonths(visibleMonth, -1))}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronLeftIcon className="cn-rtl-flip size-6" />
+              </Button>
+              <Button
+                aria-label="Next month"
+                className="size-12 text-muted-foreground"
+                onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
+                size="icon"
+                variant="ghost"
+              >
+                <ChevronRightIcon className="cn-rtl-flip size-6" />
+              </Button>
+            </div>
+          </>
         )}
-        <Button
-          aria-label="Next month"
-          onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
-          size="icon-sm"
-          variant="ghost"
-        >
-          <svg
-            aria-hidden="true"
-            className="cn-rtl-flip size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </Button>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 px-3 pb-1">
         {months.map((visibleMonthItem) => {
-          const days = getCalendarDays(visibleMonthItem)
+          const days = getCalendarDays(visibleMonthItem, fixedWeeks)
 
           return (
             <div
-              className="grid grid-cols-7 gap-0 text-center"
+              className="grid auto-rows-[48px] grid-cols-[repeat(7,48px)] text-center"
               data-slot="calendar-grid"
               key={visibleMonthItem.toISOString()}
             >
               {weekdayLabels.map((weekday) => (
-                <div
-                  className="h-10 content-center text-muted-foreground text-xs"
-                  data-slot="calendar-weekday"
-                  key={weekday}
-                >
+                <div className="size-12 content-center text-base" data-slot="calendar-weekday" key={weekday}>
                   {weekday}
                 </div>
               ))}
@@ -205,17 +265,21 @@ const Calendar = ({
                   <Button
                     aria-label={dayFormatter.format(date)}
                     className={cn(
-                      'cn-calendar-day-button size-10 p-0 font-normal tabular-nums',
+                      'cn-calendar-day-button size-10 place-self-center p-0 font-normal text-base tabular-nums',
                       day.outside && 'text-muted-foreground opacity-[0.38]',
-                      day.rangeMiddle && 'rounded-none bg-primary/10 text-foreground',
-                      day.selected && 'bg-primary text-primary-foreground'
+                      day.today && !day.selected && 'border-primary text-primary',
+                      day.rangeMiddle &&
+                        !day.rangeEndpoint &&
+                        'size-12 rounded-none bg-secondary text-secondary-foreground',
+                      day.selected && 'border-transparent bg-primary text-primary-foreground'
                     )}
                     data-outside={day.outside}
                     data-selected={day.selected}
+                    data-today={day.today}
                     disabled={day.disabled}
                     key={date.toISOString()}
                     onClick={() => onSelect?.(mode === 'range' ? { from: date, to: day.selectedRange?.to } : date)}
-                    size="icon-sm"
+                    size="icon"
                     variant={day.selected ? 'default' : 'ghost'}
                   >
                     {date.getDate()}

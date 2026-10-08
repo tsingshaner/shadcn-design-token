@@ -1,6 +1,6 @@
-import type { ComponentProps } from 'react'
+import { cn } from 'cn'
 
-import { cn } from '@/lib/utils'
+import type { ComponentProps } from 'react'
 
 type KbdProps = ComponentProps<'kbd'>
 type KbdGroupProps = ComponentProps<'div'>

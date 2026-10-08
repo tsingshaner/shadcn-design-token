@@ -1,6 +1,5 @@
+import { cn } from 'cn'
 import { type ComponentProps, useMemo, useState } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Button } from '../button'
 
@@ -54,12 +53,14 @@ const isDisabled = (date: Date, disabled: CalendarProps['disabled']) => {
   return disabled?.(date) ?? false
 }
 
-const getCalendarDays = (month: Date) => {
+const getCalendarDays = (month: Date, fixedWeeks: boolean) => {
   const firstDay = startOfMonth(month)
   const gridStart = new Date(firstDay)
   gridStart.setDate(firstDay.getDate() - firstDay.getDay())
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate()
+  const dayCount = fixedWeeks ? 42 : Math.ceil((firstDay.getDay() + daysInMonth) / 7) * 7
 
-  return Array.from({ length: 42 }, (_, index) => {
+  return Array.from({ length: dayCount }, (_, index) => {
     const date = new Date(gridStart)
     date.setDate(gridStart.getDate() + index)
     return date
@@ -93,6 +94,7 @@ const Calendar = ({
   className,
   defaultMonth,
   disabled,
+  fixedWeeks = false,
   mode = 'single',
   month,
   numberOfMonths = 1,
@@ -181,7 +183,7 @@ const Calendar = ({
       </div>
       <div className="flex gap-4">
         {months.map((visibleMonthItem) => {
-          const days = getCalendarDays(visibleMonthItem)
+          const days = getCalendarDays(visibleMonthItem, fixedWeeks)
 
           return (
             <div

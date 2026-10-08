@@ -1,48 +1,53 @@
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { type ClassValue, cn } from 'cn'
 
-import { cn } from '@/lib/utils'
+type BubbleVariantsProps = {
+  variant?: 'default' | 'destructive' | 'ghost' | 'muted' | 'outline' | 'secondary' | 'tinted' | null
+}
 
-const bubbleVariants = tv({
-  base: 'cn-bubble group/bubble relative flex w-fit min-w-0 flex-col',
-  defaultVariants: {
-    variant: 'default'
-  },
-  variants: {
-    variant: {
-      default: 'cn-bubble-variant-default',
-      destructive: 'cn-bubble-variant-destructive',
-      ghost: 'cn-bubble-variant-ghost',
-      muted: 'cn-bubble-variant-muted',
-      outline: 'cn-bubble-variant-outline',
-      secondary: 'cn-bubble-variant-secondary',
-      tinted: 'cn-bubble-variant-tinted'
-    }
-  }
-})
+const bubbleVariants = ({
+  variant = 'default',
+  class: classValue,
+  className
+}: BubbleVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-bubble group/bubble relative flex w-fit min-w-0 flex-col',
+    variant === 'default' && 'cn-bubble-variant-default',
+    variant === 'destructive' && 'cn-bubble-variant-destructive',
+    variant === 'ghost' && 'cn-bubble-variant-ghost',
+    variant === 'muted' && 'cn-bubble-variant-muted',
+    variant === 'outline' && 'cn-bubble-variant-outline',
+    variant === 'secondary' && 'cn-bubble-variant-secondary',
+    variant === 'tinted' && 'cn-bubble-variant-tinted',
+    classValue,
+    className
+  )
 
-const bubbleReactionsVariants = tv({
-  base: 'cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center',
-  defaultVariants: {
-    align: 'end',
-    side: 'bottom'
-  },
-  variants: {
-    align: {
-      end: 'cn-bubble-reactions-align-end',
-      start: 'cn-bubble-reactions-align-start'
-    },
-    side: {
-      bottom: 'cn-bubble-reactions-side-bottom',
-      top: 'cn-bubble-reactions-side-top'
-    }
-  }
-})
+type BubbleReactionsVariantsProps = {
+  align?: 'end' | 'start' | null
+  side?: 'bottom' | 'top' | null
+}
+
+const bubbleReactionsVariants = ({
+  align = 'end',
+  side = 'bottom',
+  class: classValue,
+  className
+}: BubbleReactionsVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center',
+    align === 'end' && 'cn-bubble-reactions-align-end',
+    align === 'start' && 'cn-bubble-reactions-align-start',
+    side === 'bottom' && 'cn-bubble-reactions-side-bottom',
+    side === 'top' && 'cn-bubble-reactions-side-top',
+    classValue,
+    className
+  )
 
 type BubbleGroupProps = React.ComponentProps<'div'>
 type BubbleProps = React.ComponentProps<'div'> &
-  VariantProps<typeof bubbleVariants> & {
+  BubbleVariantsProps & {
     align?: 'end' | 'start'
   }
 type BubbleContentProps = useRender.ComponentProps<'div'>

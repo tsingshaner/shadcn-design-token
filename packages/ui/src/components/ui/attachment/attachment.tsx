@@ -1,44 +1,54 @@
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
-import { tv, type VariantProps } from 'tailwind-variants'
-
-import { cn } from '@/lib/utils'
+import { type ClassValue, cn } from 'cn'
 
 import { Button } from '../button'
 
-const attachmentVariants = tv({
-  base: 'cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed',
-  variants: {
-    orientation: {
-      horizontal: 'cn-attachment-orientation-horizontal items-center',
-      vertical: 'cn-attachment-orientation-vertical flex-col'
-    },
-    size: {
-      default: 'cn-attachment-size-default',
-      sm: 'cn-attachment-size-sm',
-      xs: 'cn-attachment-size-xs'
-    }
-  }
-})
+type AttachmentVariantsProps = {
+  orientation?: 'horizontal' | 'vertical' | null
+  size?: 'default' | 'sm' | 'xs' | null
+}
 
-const attachmentMediaVariants = tv({
-  base: 'cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none',
-  defaultVariants: {
-    variant: 'icon'
-  },
-  variants: {
-    variant: {
-      icon: 'cn-attachment-media-variant-icon',
-      image: 'cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover'
-    }
-  }
-})
+const attachmentVariants = ({
+  orientation,
+  size,
+  class: classValue,
+  className
+}: AttachmentVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed',
+    orientation === 'horizontal' && 'cn-attachment-orientation-horizontal items-center',
+    orientation === 'vertical' && 'cn-attachment-orientation-vertical flex-col',
+    size === 'default' && 'cn-attachment-size-default',
+    size === 'sm' && 'cn-attachment-size-sm',
+    size === 'xs' && 'cn-attachment-size-xs',
+    classValue,
+    className
+  )
+
+type AttachmentMediaVariantsProps = {
+  variant?: 'icon' | 'image' | null
+}
+
+const attachmentMediaVariants = ({
+  variant = 'icon',
+  class: classValue,
+  className
+}: AttachmentMediaVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg]:pointer-events-none',
+    variant === 'icon' && 'cn-attachment-media-variant-icon',
+    variant === 'image' &&
+      'cn-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover',
+    classValue,
+    className
+  )
 
 type AttachmentProps = React.ComponentProps<'div'> &
-  VariantProps<typeof attachmentVariants> & {
+  AttachmentVariantsProps & {
     state?: 'done' | 'error' | 'idle' | 'processing' | 'uploading'
   }
-type AttachmentMediaProps = React.ComponentProps<'div'> & VariantProps<typeof attachmentMediaVariants>
+type AttachmentMediaProps = React.ComponentProps<'div'> & AttachmentMediaVariantsProps
 type AttachmentContentProps = React.ComponentProps<'div'>
 type AttachmentTitleProps = React.ComponentProps<'span'>
 type AttachmentDescriptionProps = React.ComponentProps<'span'>

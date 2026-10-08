@@ -1,8 +1,7 @@
+import { cn } from 'cn'
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react'
 
 import type { ComponentProps } from 'react'
-
-import { cn } from '@/lib/utils'
 
 import { Button } from '../button'
 

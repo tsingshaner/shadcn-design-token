@@ -33,7 +33,7 @@ jobs:
           version: 11
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
@@ -47,14 +47,8 @@ jobs:
       - name: Test UI package
         run: pnpm --filter @packages/ui test
 
-      - name: Build UI package
-        run: pnpm --filter @packages/ui build
-
-      - name: Build Storybook
-        run: pnpm --filter @packages/ui build-storybook
-
-      - name: Build shadcn registry
-        run: pnpm registry:build:pages
+      - name: Build storybook page
+        run: pnpm build
 
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

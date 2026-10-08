@@ -1,28 +1,30 @@
+import { type ClassValue, cn } from 'cn'
 import { type ComponentProps, type ReactNode, useMemo } from 'react'
-import { tv, type VariantProps } from 'tailwind-variants'
-
-import { cn } from '@/lib/utils'
 
 import { Label, type LabelProps } from '../label'
 import { Separator } from '../separator'
 
-const fieldVariants = tv({
-  base: 'cn-field group/field flex w-full',
-  defaultVariants: {
-    orientation: 'vertical'
-  },
-  variants: {
-    orientation: {
-      horizontal:
-        'cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-      responsive:
-        'cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-      vertical: 'cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto'
-    }
-  }
-})
+type FieldVariantsProps = {
+  orientation?: 'horizontal' | 'responsive' | 'vertical' | null
+}
 
-type FieldProps = ComponentProps<'div'> & VariantProps<typeof fieldVariants>
+const fieldVariants = ({
+  orientation = 'vertical',
+  class: classValue,
+  className
+}: FieldVariantsProps & { class?: ClassValue; className?: ClassValue } = {}) =>
+  cn(
+    'cn-field group/field flex w-full',
+    orientation === 'horizontal' &&
+      'cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+    orientation === 'responsive' &&
+      'cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+    orientation === 'vertical' && 'cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto',
+    classValue,
+    className
+  )
+
+type FieldProps = ComponentProps<'div'> & FieldVariantsProps
 type FieldLabelProps = LabelProps
 type FieldDescriptionProps = ComponentProps<'p'>
 type FieldErrorProps = ComponentProps<'div'> & {
