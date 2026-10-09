@@ -1,6 +1,5 @@
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
-import { cn } from 'cn'
 
 import { cva, type VariantProps } from '@/lib/cva'
 

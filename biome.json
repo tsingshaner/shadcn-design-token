@@ -11,7 +11,8 @@
   "linter": {
     "rules": {
       "nursery": {
-        "noUndeclaredClasses": "off"
+        "noUndeclaredClasses": "off",
+        "noUnusedClasses": "off"
       },
       "style": {
         "useComponentExportOnlyModules": "off"

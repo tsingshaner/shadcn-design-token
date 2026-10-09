@@ -1,5 +1,4 @@
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle'
-import { cn } from 'cn'
 
 import { cva, type VariantProps } from '@/lib/cva'
 
