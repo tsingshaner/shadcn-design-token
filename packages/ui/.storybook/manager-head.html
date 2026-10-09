@@ -1,0 +1,77 @@
+<style>
+.sign-zh-qing-shan {
+  --color-sign: #5e81ac;
+
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  & > path {
+    stroke: var(--color-sign);
+    stroke-dasharray: var(--total-length) var(--total-length);
+    stroke-dashoffset: var(--total-length);
+
+    &:nth-child(1) {
+      --total-length: 51;
+      animation: sign-zh 275.1ms linear 0ms forwards;
+    }
+
+    &:nth-child(2) {
+      --total-length: 186;
+      animation: sign-zh 1030.5ms linear 275.1ms forwards;
+    }
+
+    &:nth-child(3) {
+      --total-length: 37;
+      animation: sign-zh 197.5ms linear 1305.6ms forwards;
+    }
+
+    &:nth-child(4) {
+      --total-length: 48;
+      animation: sign-zh 260.2ms linear 1503.1ms forwards;
+    }
+
+    &:nth-child(5) {
+      --total-length: 67;
+      animation: sign-zh 369.1ms linear 1763.3ms forwards;
+    }
+
+    &:nth-child(6) {
+      --total-length: 50;
+      animation: sign-zh 274.1ms linear 2132.4ms forwards;
+    }
+
+    &:nth-child(7) {
+      --total-length: 19;
+      animation: sign-zh 100.4ms linear 2406.6ms forwards;
+    }
+
+    &:nth-child(8) {
+      --total-length: 65;
+      animation: sign-zh 354.3ms linear 2507ms forwards;
+    }
+
+    &:nth-child(9) {
+      --total-length: 39;
+      animation: sign-zh 211.1ms linear 2861.3ms forwards;
+    }
+
+    &:nth-child(10) {
+      --total-length: 29;
+      animation: sign-zh 157.3ms linear 3072.4ms forwards;
+    }
+
+    &:nth-child(11) {
+      --color-sign: #8fbcbb;
+      --total-length: 134;
+      animation: sign-zh 737.8ms linear 3229.6ms forwards;
+    }
+  }
+}
+
+@keyframes sign-zh {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+</style>

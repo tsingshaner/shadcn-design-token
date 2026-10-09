@@ -3,13 +3,12 @@
     "@biomejs/biome": "^2.5.15",
     "@qingshaner/devtools": "^0.0.3",
     "@types/node": "^25.9.9",
+    "cspell": "^10.3.6",
     "knip": "^6.40.0",
     "nano-staged": "^1.0.2",
     "shadcn": "^4.21.3",
     "simple-git-hooks": "^2.14.0",
-    "typescript": "7.0.2",
-    "vite": "^8.3.3",
-    "vitest": "^5.0.3"
+    "typescript": "7.0.2"
   },
   "engines": {
     "node": ">=24.0.0",
@@ -19,24 +18,26 @@
   "license": "ISC",
   "name": "shadcn-design-token",
   "nano-staged": {
-    "*.{vue,svg,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome check --write"
+    "*": "pnpm cspell --no-summary --no-progress --no-must-find-files --file-list",
+    "*.{json,jsonc,js,jsx,cjs,mjs,ts,tsx,cts,mts,html,svg,css,vue}": "pnpm biome check --fix --files-ignore-unknown=true --no-errors-on-unmatched"
   },
   "packageManager": "pnpm@12.10.1",
   "private": true,
   "scripts": {
     "build": "pnpm --filter=ui build && pnpm build:registry",
-    "build:registry": "pnpm registry:generate && shadcn build registry.json --output packages/ui/storybook-static/r",
-    "check": "pnpm biome check . --fix",
+    "build:registry": "node scripts/generate-shadcn-registry.ts && shadcn build registry.json --output packages/ui/storybook-static/r",
+    "check": "biome check . --write",
+    "check:cspell": "cspell . --no-summary --no-progress --gitignore",
+    "check:knip": "knip",
+    "check:type": "tsc --noEmit -p .config/tsconfig.node.json && tsc --noEmit -p packages/ui/tsconfig.json",
     "format": "biome format . --write",
     "lint": "biome lint . --write",
     "prepare": "simple-git-hooks",
-    "registry:build": "pnpm registry:generate && shadcn -- build registry.json --output public/r",
-    "registry:generate": "node scripts/generate-shadcn-registry.mjs && pnpm biome format registry.json --write",
     "test": "pnpm --filter=ui test"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm nano-staged",
-    "pre-push": "pnpm test"
+    "pre-push": "pnpm run '/^(test|check.*)$/'"
   },
   "type": "module",
   "version": "1.0.0"

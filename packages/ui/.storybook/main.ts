@@ -15,6 +15,12 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {}
   },
+  managerHead: (head) => `
+    ${head}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/storybook-manager.css" />
+  `,
+  staticDirs: ['../public'],
   stories: ['../src/**/*.stories.@(ts|tsx)'],
   viteFinal: (config) => {
     config.plugins ??= []

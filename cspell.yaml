@@ -1,9 +1,46 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
 
-import:
-  - '@qingshaner/eslint-config/devtools'
+import: '@qingshaner/devtools/cspell'
+
+dictionaries:
+  - html
+  - lorem-ipsum
+
+words:
+  - affordances
+  - autoscrolling
+  - cmdk
+  - collapsibles
+  - frontmost
+  - scroller
+  - shadcn
+
+# cspell:disable
+overrides:
+  - filename: '**/*.stories.tsx'
+    words:
+      - acst
+      - aest
+      - akst
+      - awst
+      - Binni
+      - Byrom
+      - confirmdialog
+      - evilrabbit
+      - fieldgroup
+      - Malyavko
+      - maxleiter
+      - nzst
+      - Ornella
+      - pranathip
+      - Priya
+      - إرسال
+      - التحميل
+      - جاري
+    ignoreRegExpList:
+      - /\bdoesn(?=&apos;t\b)/g
+# cspell:enable
 
 ignorePaths:
   - .gitignore
   - pnpm-lock.yaml
-

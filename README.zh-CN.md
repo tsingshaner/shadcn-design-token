@@ -25,7 +25,7 @@ pnpm install
 pnpm --filter=ui dev
 ```
 
-Storybook 默认运行在 <http://localhost:6006>。
+Storybook 默认运行在 [http://localhost:6006](http://localhost:6006)。
 
 ## 常用命令
 
@@ -113,8 +113,8 @@ export function Example() {
 ```json
 {
   "registries": {
-    "@ui": "https://<your-domain>/r/{name}.json",
-    "@material-design-3": "https://<your-domain>/r/material-design-3-{name}.json"
+    "@material-design-3": "https://tsingshaner.github.io/shadcn-design-token/r/material-design-3-{name}.json",
+    "@ui": "https://tsingshaner.github.io/shadcn-design-token/r/{name}.json"
   }
 }
 ```

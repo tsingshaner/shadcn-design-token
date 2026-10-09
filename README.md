@@ -25,7 +25,7 @@ pnpm install
 pnpm --filter=ui dev
 ```
 
-Storybook runs at <http://localhost:6006> by default.
+Storybook runs at [http://localhost:6006](http://localhost:6006) by default.
 
 ## Scripts
 
@@ -113,8 +113,8 @@ Consumers can configure a namespace for each component family:
 ```json
 {
   "registries": {
-    "@ui": "https://<your-domain>/r/{name}.json",
-    "@material-design-3": "https://<your-domain>/r/material-design-3-{name}.json"
+    "@material-design-3": "https://tsingshaner.github.io/shadcn-design-token/r/material-design-3-{name}.json",
+    "@ui": "https://tsingshaner.github.io/shadcn-design-token/r/{name}.json"
   }
 }
 ```

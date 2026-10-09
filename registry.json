@@ -528,7 +528,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/alert-dialog/alert-dialog.tsx",
-          "target": "@components/material-design-3/alert-dialog/index.tsx",
+          "target": "@ui/material-design-3/alert-dialog/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -546,7 +546,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/badge/badge.tsx",
-          "target": "@components/material-design-3/badge/index.tsx",
+          "target": "@ui/material-design-3/badge/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -563,7 +563,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/button/button.tsx",
-          "target": "@components/material-design-3/button/index.tsx",
+          "target": "@ui/material-design-3/button/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -581,7 +581,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/calendar/calendar.tsx",
-          "target": "@components/material-design-3/calendar/index.tsx",
+          "target": "@ui/material-design-3/calendar/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -594,7 +594,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/card/card.tsx",
-          "target": "@components/material-design-3/card/index.tsx",
+          "target": "@ui/material-design-3/card/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -606,7 +606,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/carousel/carousel.tsx",
-          "target": "@components/material-design-3/carousel/index.tsx",
+          "target": "@ui/material-design-3/carousel/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -619,7 +619,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/checkbox/checkbox.tsx",
-          "target": "@components/material-design-3/checkbox/index.tsx",
+          "target": "@ui/material-design-3/checkbox/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -632,7 +632,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/combobox/combobox.tsx",
-          "target": "@components/material-design-3/combobox/index.tsx",
+          "target": "@ui/material-design-3/combobox/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -649,7 +649,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/confirm-dialog/confirm-dialog.tsx",
-          "target": "@components/material-design-3/confirm-dialog/index.tsx",
+          "target": "@ui/material-design-3/confirm-dialog/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -662,7 +662,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/date-picker/date-picker.tsx",
-          "target": "@components/material-design-3/date-picker/index.tsx",
+          "target": "@ui/material-design-3/date-picker/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -679,7 +679,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/dialog/dialog.tsx",
-          "target": "@components/material-design-3/dialog/index.tsx",
+          "target": "@ui/material-design-3/dialog/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -692,7 +692,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/drawer/drawer.tsx",
-          "target": "@components/material-design-3/drawer/index.tsx",
+          "target": "@ui/material-design-3/drawer/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -704,7 +704,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/dropdown-menu/dropdown-menu.tsx",
-          "target": "@components/material-design-3/dropdown-menu/index.tsx",
+          "target": "@ui/material-design-3/dropdown-menu/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -717,7 +717,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/input/input.tsx",
-          "target": "@components/material-design-3/input/index.tsx",
+          "target": "@ui/material-design-3/input/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -734,7 +734,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/item/item.tsx",
-          "target": "@components/material-design-3/item/index.tsx",
+          "target": "@ui/material-design-3/item/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -752,7 +752,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/loading-indicator/loading-indicator.tsx",
-          "target": "@components/material-design-3/loading-indicator/index.tsx",
+          "target": "@ui/material-design-3/loading-indicator/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -764,7 +764,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/popover/popover.tsx",
-          "target": "@components/material-design-3/popover/index.tsx",
+          "target": "@ui/material-design-3/popover/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -776,7 +776,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/progress/progress.tsx",
-          "target": "@components/material-design-3/progress/index.tsx",
+          "target": "@ui/material-design-3/progress/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -788,7 +788,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/radio-group/radio-group.tsx",
-          "target": "@components/material-design-3/radio-group/index.tsx",
+          "target": "@ui/material-design-3/radio-group/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -801,7 +801,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/ripple/ripple.tsx",
-          "target": "@components/material-design-3/ripple/index.tsx",
+          "target": "@ui/material-design-3/ripple/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -813,7 +813,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/select/select.tsx",
-          "target": "@components/material-design-3/select/index.tsx",
+          "target": "@ui/material-design-3/select/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -826,7 +826,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/separator/separator.tsx",
-          "target": "@components/material-design-3/separator/index.tsx",
+          "target": "@ui/material-design-3/separator/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -838,7 +838,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/sheet/sheet.tsx",
-          "target": "@components/material-design-3/sheet/index.tsx",
+          "target": "@ui/material-design-3/sheet/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -851,7 +851,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/sidebar/sidebar.tsx",
-          "target": "@components/material-design-3/sidebar/index.tsx",
+          "target": "@ui/material-design-3/sidebar/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -874,7 +874,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/slider/slider.tsx",
-          "target": "@components/material-design-3/slider/index.tsx",
+          "target": "@ui/material-design-3/slider/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -891,7 +891,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/spinner/spinner.tsx",
-          "target": "@components/material-design-3/spinner/index.tsx",
+          "target": "@ui/material-design-3/spinner/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -903,7 +903,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/switch/switch.tsx",
-          "target": "@components/material-design-3/switch/index.tsx",
+          "target": "@ui/material-design-3/switch/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -915,7 +915,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/tabs/tabs.tsx",
-          "target": "@components/material-design-3/tabs/index.tsx",
+          "target": "@ui/material-design-3/tabs/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -933,7 +933,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/textarea/textarea.tsx",
-          "target": "@components/material-design-3/textarea/index.tsx",
+          "target": "@ui/material-design-3/textarea/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -945,7 +945,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toast/toast.tsx",
-          "target": "@components/material-design-3/toast/index.tsx",
+          "target": "@ui/material-design-3/toast/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -957,7 +957,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toggle/toggle.tsx",
-          "target": "@components/material-design-3/toggle/index.tsx",
+          "target": "@ui/material-design-3/toggle/index.tsx",
           "type": "registry:ui"
         },
         {
@@ -975,7 +975,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/toggle-group/toggle-group.tsx",
-          "target": "@components/material-design-3/toggle-group/index.tsx",
+          "target": "@ui/material-design-3/toggle-group/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -988,7 +988,7 @@
       "files": [
         {
           "path": "packages/ui/src/components/material-design-3/tooltip/tooltip.tsx",
-          "target": "@components/material-design-3/tooltip/index.tsx",
+          "target": "@ui/material-design-3/tooltip/index.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1353,5 +1353,5 @@
       "type": "registry:ui"
     }
   ],
-  "name": "shadcn-design-token"
+  "name": "qingshaner-design"
 }

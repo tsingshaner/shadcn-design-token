@@ -6,3 +6,4 @@ public/r
 .DS_Store
 
 *.log
+*.tsbuildinfo

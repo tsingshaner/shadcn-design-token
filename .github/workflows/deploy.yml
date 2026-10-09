@@ -48,6 +48,14 @@ jobs:
       - name: Build storybook page
         run: pnpm build
 
+      - name: Check
+        run: pnpm run '/^check/'
+
+      - uses: autofix-ci/action@v1
+        with:
+          commit-message: 'style: fix lint errors'
+          comment: 'auto fix lint errors'
+
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v6.0.0

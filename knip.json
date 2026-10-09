@@ -1,5 +1,10 @@
 {
   "$schema": "node_modules/knip/schema.json",
-  "entry": ["packages/ui/src/index.ts", "packages/ui/src/components/**/*/index.ts"],
-  "tags": ["-lintignore"]
+  "tags": ["-lintignore"],
+  "workspaces": {
+    "packages/ui": {
+      "entry": ["src/index.ts", "src/components/*/*/index.ts"],
+      "ignoreDependencies": ["@iconify-json/lucide"]
+    }
+  }
 }

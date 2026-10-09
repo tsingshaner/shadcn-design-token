@@ -1,3 +1,4 @@
+import { execFile } from 'node:child_process'
 import { readdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -5,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 const rootDir = dirname(fileURLToPath(new URL('../package.json', import.meta.url)))
 const componentsDir = join(rootDir, 'packages/ui/src/components')
 const registryPath = join(rootDir, 'registry.json')
+const registryOutputDir = join(rootDir, 'packages/ui/storybook-static/r')
 
 const groups = [
   { directory: 'ui', namespace: '@ui', prefix: '', target: '@ui' },
@@ -12,12 +14,12 @@ const groups = [
     directory: 'material-design-3',
     namespace: '@material-design-3',
     prefix: 'material-design-3-',
-    target: '@components/material-design-3'
+    target: '@ui/material-design-3'
   }
 ]
 const importPattern = /from\s+['"]([^'"]+)['"]/g
 
-const toPosixPath = (path) => path.split('\\').join('/')
+const toPosixPath = (path: string) => path.split('\\').join('/')
 
 const getComponents = async () =>
   (
@@ -39,9 +41,9 @@ const getComponents = async () =>
     )
   )
     .flat()
-    .sort((a, b) => `${a.prefix}${a.componentName}`.localeCompare(`${b.prefix}${b.componentName}`))
+    .sort((a, b) => `${a?.prefix}${a?.componentName}`.localeCompare(`${b?.prefix}${b?.componentName}`))
 
-const getRegistryDependency = (specifier, filePath, componentNames) => {
+const getRegistryDependency = (specifier: string, filePath: string, componentNames: Set<string>) => {
   const aliasMatch = specifier.match(/^@\/components\/(ui|material-design-3)\/([^/]+)/)
   const parts = aliasMatch
     ? aliasMatch.slice(1)
@@ -54,7 +56,7 @@ const getRegistryDependency = (specifier, filePath, componentNames) => {
   return group && componentNames.has(`${directory}/${componentName}`) ? `${group.namespace}/${componentName}` : null
 }
 
-const getPackageName = (specifier) => {
+const getPackageName = (specifier: string) => {
   if (
     specifier.startsWith('.') ||
     specifier.startsWith('@/') ||
@@ -67,7 +69,7 @@ const getPackageName = (specifier) => {
   return specifier.startsWith('@') ? specifier.split('/').slice(0, 2).join('/') : specifier.split('/')[0]
 }
 
-const components = await getComponents()
+const components = (await getComponents()).filter((v) => v !== null)
 const componentNames = new Set(components.map(({ componentName, directory }) => `${directory}/${componentName}`))
 
 const items = await Promise.all(
@@ -77,10 +79,15 @@ const items = await Promise.all(
     const imports = [...source.matchAll(importPattern)].map((match) => match[1])
     const usesCva = imports.includes('@/lib/cva')
     const registryDependencies = [
-      ...new Set(imports.map((specifier) => getRegistryDependency(specifier, filePath, componentNames)).filter(Boolean))
+      ...new Set(
+        imports.map((specifier) => getRegistryDependency(specifier, filePath, componentNames)).filter((v) => v !== null)
+      )
     ].sort((a, b) => a.localeCompare(b))
     const dependencies = [
-      ...new Set([...imports.map(getPackageName).filter(Boolean), ...(usesCva ? ['cn', 'cva@1.0.0-beta.12'] : [])])
+      ...new Set([
+        ...imports.map(getPackageName).filter((v) => v !== null),
+        ...(usesCva ? ['cn', 'cva@1.0.0-beta.12'] : [])
+      ])
     ].sort((a, b) => a.localeCompare(b))
 
     return {
@@ -104,7 +111,12 @@ const registry = {
   $schema: 'https://ui.shadcn.com/schema/registry.json',
   homepage: 'https://github.com/tsingshaner/shadcn-design-token',
   items,
-  name: 'shadcn-design-token'
+  name: 'qingshaner-design'
 }
 
 await writeFile(registryPath, `${JSON.stringify(registry, null, 2)}\n`)
+
+await Promise.all([
+  execFile('pnpm', ['biome', 'format', '--write', registryPath], { cwd: rootDir }),
+  execFile('shadcn', ['build', registryPath, '--output', registryOutputDir], { cwd: rootDir })
+])
